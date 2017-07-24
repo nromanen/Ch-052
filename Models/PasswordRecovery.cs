@@ -11,7 +11,7 @@ namespace AD.Models
         [Key, ForeignKey("User")]
         public int UserId { get; set; }
 
-        public string AccesHash { get; set; }
+        public string AccessHash { get; set; }
 
         public DateTime Expires { get; set; }
 
