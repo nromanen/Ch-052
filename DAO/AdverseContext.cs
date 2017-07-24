@@ -15,6 +15,7 @@ namespace AD
         public DbSet<Resource> Resources { get; set; }
         public DbSet<AdvType> Types { get; set; }
         public DbSet<Advertisement> Advertisements { get; set; }
+        public DbSet<PasswordRecovery> PasswordRecoveries { get; set; }
 
 
         public AdverseContext ()

@@ -190,6 +190,7 @@
     <Compile Include="DAO\AdverseContext.cs" />
     <Compile Include="Models\Advertisement.cs" />
     <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\PasswordRecovery.cs" />
     <Compile Include="Models\Resource.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\AdvType.cs" />

@@ -29,5 +29,8 @@ namespace AD.Models
         public virtual Role Role { get; set; }
 
         public virtual List<Advertisement> Advertisements { get; set; }
+
+        public virtual PasswordRecovery PasswordRecovery { get; set; }
+
     }
 }
