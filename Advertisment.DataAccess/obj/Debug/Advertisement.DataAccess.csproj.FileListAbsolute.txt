@@ -1,0 +1,14 @@
+C:\Users\Vasyl\Desktop\MyProject\tryTo\Ch-052\Advertisment.DataAccess\bin\Debug\Advertisement.DataAccess.dll.config
+C:\Users\Vasyl\Desktop\MyProject\tryTo\Ch-052\Advertisment.DataAccess\bin\Debug\Advertisement.DataAccess.dll
+C:\Users\Vasyl\Desktop\MyProject\tryTo\Ch-052\Advertisment.DataAccess\bin\Debug\Advertisement.DataAccess.pdb
+C:\Users\Vasyl\Desktop\MyProject\tryTo\Ch-052\Advertisment.DataAccess\bin\Debug\EntityFramework.dll
+C:\Users\Vasyl\Desktop\MyProject\tryTo\Ch-052\Advertisment.DataAccess\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Vasyl\Desktop\MyProject\tryTo\Ch-052\Advertisment.DataAccess\bin\Debug\EntityFramework.xml
+C:\Users\Vasyl\Desktop\MyProject\tryTo\Ch-052\Advertisment.DataAccess\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Vasyl\Desktop\MyProject\tryTo\Ch-052\Advertisment.DataAccess\bin\Debug\ru\EntityFramework.resources.dll
+C:\Users\Vasyl\Desktop\MyProject\tryTo\Ch-052\Advertisment.DataAccess\bin\Debug\ru\EntityFramework.SqlServer.resources.dll
+C:\Users\Vasyl\Desktop\MyProject\tryTo\Ch-052\Advertisment.DataAccess\obj\Debug\Advertisement.DataAccess.csprojResolveAssemblyReference.cache
+C:\Users\Vasyl\Desktop\MyProject\tryTo\Ch-052\Advertisment.DataAccess\obj\Debug\Advertisement.DataAccess.dll
+C:\Users\Vasyl\Desktop\MyProject\tryTo\Ch-052\Advertisment.DataAccess\obj\Debug\Advertisement.DataAccess.pdb
+C:\Users\Vasyl\Desktop\MyProject\tryTo\Ch-052\Advertisment.DataAccess\obj\Debug\Advertisement.DataAccess.Migrations.Initial.resources
+C:\Users\Vasyl\Desktop\MyProject\tryTo\Ch-052\Advertisment.DataAccess\obj\Debug\Advertisement.DataAccess.csproj.GenerateResource.Cache
