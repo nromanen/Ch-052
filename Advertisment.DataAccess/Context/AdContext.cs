@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using Advertisement.DataAccess.Entities;
 namespace Advertisement.DataAccess.Context
 {
@@ -19,7 +20,18 @@ namespace Advertisement.DataAccess.Context
 
         public AdContext(): base("ConnectionDB")
         {
-            Database.CreateIfNotExists();
+            //todo later move connection string to web.config
+            //Database.CreateIfNotExists();
         }
     }
+
+    //internal sealed class DataContextConfiguration : DbMigrationsConfiguration<AdContext>
+    //{
+    //    public DataContextConfiguration()
+    //    {
+    //        AutomaticMigrationsEnabled = true;
+    //        //AutomaticMigrationDataLossAllowed = true;
+    //        //ContextKey = "DataContext";
+    //    }
+    //}
 }

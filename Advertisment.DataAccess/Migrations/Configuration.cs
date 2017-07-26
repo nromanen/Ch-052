@@ -9,7 +9,7 @@ namespace Advertisement.DataAccess.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationsEnabled = false;
         }
 
         protected override void Seed(Advertisement.DataAccess.Context.AdContext context)
