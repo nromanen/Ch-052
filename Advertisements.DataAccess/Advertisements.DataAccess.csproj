@@ -61,18 +61,33 @@
     <Compile Include="Entities\AdvertisementType.cs" />
     <Compile Include="Entities\Category.cs" />
     <Compile Include="Entities\Feedback.cs" />
+    <Compile Include="Entities\IEntity.cs" />
     <Compile Include="Entities\PasswordRecovery.cs" />
     <Compile Include="Entities\Resource.cs" />
     <Compile Include="Entities\Role.cs" />
     <Compile Include="Entities\User.cs" />
+    <Compile Include="Migrations\201707281438118_initialcreate.cs" />
+    <Compile Include="Migrations\201707281438118_initialcreate.Designer.cs">
+      <DependentUpon>201707281438118_initialcreate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Repositories\EFRepository.cs" />
+    <Compile Include="Repositories\EFUnitOfWork.cs" />
+    <Compile Include="Repositories\IRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\IUnitOfWork.cs" />
+    <Compile Include="Services\UOWFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201707281438118_initialcreate.resx">
+      <DependentUpon>201707281438118_initialcreate.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
