@@ -8,6 +8,6 @@ namespace Advertisements.Web.Models
     public class TempModel
     {
         public int id { get; set; }
-        public string name { get; set;  }
+        public string name { get; set; }
     }
 }
