@@ -4,16 +4,27 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
+using System.Web.Http.Results;
+using System.Web.Mvc;
+using Advertisements.Web.Models;
+using Newtonsoft.Json;
 
 namespace Advertisements.Web.Controllers
 {
-    [Authorize]
+    //[Authorize]
+
+    //[DisableCors]
+    [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
     public class ValuesController : ApiController
     {
         // GET api/values
-        public IEnumerable<string> Get()
+        public JsonResult<List<TempModel>> Get()
         {
-            return new string[] { "value1", "value2" };
+            List<TempModel> listForTesting = new List<TempModel>();
+            listForTesting.Add(new TempModel() {id = 1, name = "Test1"});
+            listForTesting.Add(new TempModel() {id = 2, name = "Test2"});
+            return Json(listForTesting);
         }
 
         // GET api/values/5
