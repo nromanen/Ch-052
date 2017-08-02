@@ -16,11 +16,13 @@ using Microsoft.Owin.Security.OAuth;
 using Advertisements.Web.Models;
 using Advertisements.Web.Providers;
 using Advertisements.Web.Results;
-
+using System.Web.Mvc;
+using System.Net.Mail;
+using System.Text;
 namespace Advertisements.Web.Controllers
 {
-    [Authorize]
-    [RoutePrefix("api/Account")]
+    [System.Web.Http.Authorize]
+    [System.Web.Http.RoutePrefix("api/Account")]
     public class AccountController : ApiController
     {
         private const string LocalLoginProvider = "Local";
@@ -48,12 +50,113 @@ namespace Advertisements.Web.Controllers
                 _userManager = value;
             }
         }
+        
+        private void Send(string messageBody, string eMailAddr)
+        {
+            const string pass = "07cd1997";
+            var fromAddr = new MailAddress("junglehunter2707@gmail.com", "Our service");
+            var toAddr = new MailAddress(eMailAddr, "User");
+
+            MailMessage mail = new MailMessage();
+            SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+
+            mail.From = fromAddr;
+            mail.To.Add(toAddr);
+            mail.Subject = "Test Mail";
+            mail.Body = messageBody;
+            SmtpServer.Port = 587;
+            SmtpServer.Credentials = new System.Net.NetworkCredential("junglehunter2707@gmail.com", pass);
+            SmtpServer.EnableSsl = true;
+
+            SmtpServer.Send(mail);
+        }
+
+        [System.Web.Http.AllowAnonymous]
+        [System.Web.Http.Route("Register")]
+        public async Task<IHttpActionResult> Register(RegisterViewModel model)
+        {
+            
+            var user = new ApplicationUser() { UserName = model.UserName };
+            user.Email = model.Email;
+            user.ConfirmedEmail = true;
+            user.EmailConfirmed = true;
+            var result = await UserManager.CreateAsync(user, model.Password);
+
+           
+            string token = Encrypt(model.Email + DateTime.Now, true);
+            string messageBody = string.Format("Для завершення реєстрації перейдіть по посиланню:" +
+                        "<a href=\"{0}\" title = \"Підтвердити реєстрацію\">{0}</a>",
+                        "https://localhost:44335/Home/TakeConfirmEmail?token=" + token + "&eMail=" + model.Email);
+            Send(messageBody, user.Email);
+            return Ok();
+              
+        }
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        [System.Web.Http.Route("Login")]
+        public async Task<IHttpActionResult> Login([FromBody]RegisterViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var user = UserManager.FindByEmail(model.Email);
+            
+            var authContext = HttpContext.Current.GetOwinContext().Authentication;
+            UserManager<IdentityUser> _manager = new UserManager<IdentityUser>(new UserStore<IdentityUser>(new ApplicationDbContext()));
+            var userFind = _manager.Find(model.Email, model.Password);
+            if (user != null)
+            {
+                if (!await UserManager.IsEmailConfirmedAsync(user.Id))
+                {
+                    string message = "Треба підтвердити електронну пошту";
+                    return BadRequest(message);
+                }
+            }
+            var signInManager = new SignInManager<ApplicationUser, string>(UserManager, HttpContext.Current.GetOwinContext().Authentication);
+            var result = await signInManager.PasswordSignInAsync(model.Email, model.Password, true, false);
+
+            switch (result)
+            {
+                case SignInStatus.Success:
+                    return Ok();
+                case SignInStatus.RequiresVerification:
+                    ModelState.AddModelError("Потрібна верифікація", new Exception());
+                    return BadRequest(ModelState);
+
+                default: ModelState.AddModelError("Не вдалося ввійтив систему", new Exception());
+                    return BadRequest(ModelState);
+            }
+
+        }
+
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.AllowAnonymous]
+        [System.Web.Http.Route("ConfirmEmail")]
+        public async Task<ActionResult> ConfirmEmail(string token, string eMail)
+        {
+            string userId = token;
+            ApplicationUser user = this.UserManager.FindById(userId);
+            if (user != null)
+            {
+                if (user.Email == eMail)
+                {
+                    user.ConfirmedEmail = true;
+                    await UserManager.UpdateAsync(user);
+                    await HttpContext.Current.GetOwinContext()
+                        .Get<SignInManager<ApplicationUser, string>>().SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                 
+                }
+            }
+            return null;
+        }
 
         public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
 
         // GET api/Account/UserInfo
         [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
-        [Route("UserInfo")]
+        [System.Web.Http.Route("UserInfo")]
         public UserInfoViewModel GetUserInfo()
         {
             ExternalLoginData externalLogin = ExternalLoginData.FromIdentity(User.Identity as ClaimsIdentity);
@@ -66,16 +169,20 @@ namespace Advertisements.Web.Controllers
             };
         }
 
+        
+        [System.Web.Http.HttpGet]
         // POST api/Account/Logout
-        [Route("Logout")]
+        [System.Web.Http.Route("Logout")]
         public IHttpActionResult Logout()
         {
-            Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationType);
-            return Ok();
+            this.Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationType);
+            return this.Ok(new { message = "Logout successful." });
         }
 
+
+
         // GET api/Account/ManageInfo?returnUrl=%2F&generateState=true
-        [Route("ManageInfo")]
+        [System.Web.Http.Route("ManageInfo")]
         public async Task<ManageInfoViewModel> GetManageInfo(string returnUrl, bool generateState = false)
         {
             IdentityUser user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
@@ -115,7 +222,7 @@ namespace Advertisements.Web.Controllers
         }
 
         // POST api/Account/ChangePassword
-        [Route("ChangePassword")]
+        [System.Web.Http.Route("ChangePassword")]
         public async Task<IHttpActionResult> ChangePassword(ChangePasswordBindingModel model)
         {
             if (!ModelState.IsValid)
@@ -135,7 +242,7 @@ namespace Advertisements.Web.Controllers
         }
 
         // POST api/Account/SetPassword
-        [Route("SetPassword")]
+        [System.Web.Http.Route("SetPassword")]
         public async Task<IHttpActionResult> SetPassword(SetPasswordBindingModel model)
         {
             if (!ModelState.IsValid)
@@ -154,7 +261,7 @@ namespace Advertisements.Web.Controllers
         }
 
         // POST api/Account/AddExternalLogin
-        [Route("AddExternalLogin")]
+        [System.Web.Http.Route("AddExternalLogin")]
         public async Task<IHttpActionResult> AddExternalLogin(AddExternalLoginBindingModel model)
         {
             if (!ModelState.IsValid)
@@ -192,7 +299,7 @@ namespace Advertisements.Web.Controllers
         }
 
         // POST api/Account/RemoveLogin
-        [Route("RemoveLogin")]
+        [System.Web.Http.Route("RemoveLogin")]
         public async Task<IHttpActionResult> RemoveLogin(RemoveLoginBindingModel model)
         {
             if (!ModelState.IsValid)
@@ -221,10 +328,10 @@ namespace Advertisements.Web.Controllers
         }
 
         // GET api/Account/ExternalLogin
-        [OverrideAuthentication]
+        [System.Web.Http.OverrideAuthentication]
         [HostAuthentication(DefaultAuthenticationTypes.ExternalCookie)]
-        [AllowAnonymous]
-        [Route("ExternalLogin", Name = "ExternalLogin")]
+        [System.Web.Http.AllowAnonymous]
+        [System.Web.Http.Route("ExternalLogin", Name = "ExternalLogin")]
         public async Task<IHttpActionResult> GetExternalLogin(string provider, string error = null)
         {
             if (error != null)
@@ -258,9 +365,9 @@ namespace Advertisements.Web.Controllers
             if (hasRegistered)
             {
                 Authentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
-                
-                 ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(UserManager,
-                    OAuthDefaults.AuthenticationType);
+
+                ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(UserManager,
+                   OAuthDefaults.AuthenticationType);
                 ClaimsIdentity cookieIdentity = await user.GenerateUserIdentityAsync(UserManager,
                     CookieAuthenticationDefaults.AuthenticationType);
 
@@ -278,8 +385,8 @@ namespace Advertisements.Web.Controllers
         }
 
         // GET api/Account/ExternalLogins?returnUrl=%2F&generateState=true
-        [AllowAnonymous]
-        [Route("ExternalLogins")]
+        [System.Web.Http.AllowAnonymous]
+        [System.Web.Http.Route("ExternalLogins")]
         public IEnumerable<ExternalLoginViewModel> GetExternalLogins(string returnUrl, bool generateState = false)
         {
             IEnumerable<AuthenticationDescription> descriptions = Authentication.GetExternalAuthenticationTypes();
@@ -319,8 +426,9 @@ namespace Advertisements.Web.Controllers
         }
 
         // POST api/Account/Register
-        [AllowAnonymous]
-        [Route("Register")]
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.AllowAnonymous]
+        [System.Web.Http.Route("RegisterBindModel")]
         public async Task<IHttpActionResult> Register(RegisterBindingModel model)
         {
             if (!ModelState.IsValid)
@@ -341,9 +449,9 @@ namespace Advertisements.Web.Controllers
         }
 
         // POST api/Account/RegisterExternal
-        [OverrideAuthentication]
+        [System.Web.Http.OverrideAuthentication]
         [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
-        [Route("RegisterExternal")]
+        [System.Web.Http.Route("RegisterExternal")]
         public async Task<IHttpActionResult> RegisterExternal(RegisterExternalBindingModel model)
         {
             if (!ModelState.IsValid)
@@ -358,7 +466,7 @@ namespace Advertisements.Web.Controllers
             }
 
             var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
-
+            user.ConfirmedEmail = true;
             IdentityResult result = await UserManager.CreateAsync(user);
             if (!result.Succeeded)
             {
@@ -382,6 +490,37 @@ namespace Advertisements.Web.Controllers
             }
 
             base.Dispose(disposing);
+        }
+        private string Encrypt(string strToEnc, bool useHash)
+        {
+            byte[] keyArr;
+            byte[] toEncryptBytes = Encoding.UTF8.GetBytes(strToEnc);
+
+            System.Configuration.AppSettingsReader settingsReader = new System.Configuration.AppSettingsReader();
+
+            string key = "myKey";
+
+            if (useHash)
+            {
+                MD5CryptoServiceProvider md5Provider = new MD5CryptoServiceProvider();
+                keyArr = md5Provider.ComputeHash(Encoding.UTF8.GetBytes(key));
+                md5Provider.Clear();
+            }
+            else
+                keyArr = Encoding.UTF8.GetBytes(key);
+
+            TripleDESCryptoServiceProvider cryptoProvider = new TripleDESCryptoServiceProvider();
+            cryptoProvider.Key = keyArr;
+            cryptoProvider.Mode = CipherMode.ECB;
+            cryptoProvider.Padding = PaddingMode.PKCS7;
+
+            ICryptoTransform cryptoTransform = cryptoProvider.CreateEncryptor();
+
+            byte[] resultBytes =
+                cryptoTransform.TransformFinalBlock(toEncryptBytes, 0, toEncryptBytes.Length);
+            cryptoProvider.Clear();
+
+            return Convert.ToBase64String(resultBytes, 0, resultBytes.Length);
         }
 
         #region Helpers

@@ -4,6 +4,9 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Advertisements.Web.Models;
+using System;
+using System.Linq;
+using System.Data.Entity;
 
 namespace Advertisements.Web
 {
@@ -42,4 +45,119 @@ namespace Advertisements.Web
             return manager;
         }
     }
+
+    
+    public class CustomUserStore : IUserStore<ApplicationUser>, IUserPasswordStore<ApplicationUser>, IUserSecurityStampStore<ApplicationUser>
+    {
+        UserStore<IdentityUser> userStore;
+        public CustomUserStore()
+        {
+            userStore = new UserStore<IdentityUser>(new ApplicationDbContext());
+        }
+        public Task CreateAsync(ApplicationUser user)
+        {
+            var context = userStore.Context as ApplicationDbContext;
+            context.Users.Add(user);
+            context.Configuration.ValidateOnSaveEnabled = false;
+            return context.SaveChangesAsync();
+        }
+        public Task DeleteAsync(ApplicationUser user)
+        {
+            var context = userStore.Context as ApplicationDbContext;
+            context.Users.Remove(user);
+            context.Configuration.ValidateOnSaveEnabled = false;
+            return context.SaveChangesAsync();
+        }
+        public Task<ApplicationUser> FindByIdAsync(string userId)
+        {
+            var context = userStore.Context as ApplicationDbContext;
+            return context.Users.Where(u => u.Id.ToLower() == userId.ToLower()).FirstOrDefaultAsync();
+        }
+        public Task<ApplicationUser> FindByNameAsync(string userName)
+        {
+            var context = userStore.Context as ApplicationDbContext;
+            return context.Users.Where(u => u.UserName.ToLower() == userName.ToLower()).FirstOrDefaultAsync();
+        }
+        public ApplicationUser FindByEmailAndPass(string eMail, string password)
+        {
+            var context = userStore.Context as ApplicationDbContext;
+            PasswordHasher hash = new PasswordHasher();
+            foreach (ApplicationUser u in context.Users)
+            {
+                if (u.Email == eMail && hash.VerifyHashedPassword(u.PasswordHash, password) == PasswordVerificationResult.Success)
+                {
+                    return u;
+                }
+            }
+            return null;
+        }
+
+        public Task UpdateAsync(ApplicationUser user)
+        {
+            var context = userStore.Context as ApplicationDbContext;
+            context.Users.Attach(user);
+            context.Entry(user).State = EntityState.Modified;
+            context.Configuration.ValidateOnSaveEnabled = false;
+            return context.SaveChangesAsync();
+        }
+        public void Dispose()
+        {
+            userStore.Dispose();
+        }
+
+        public Task<string> GetPasswordHashAsync(ApplicationUser user)
+        {
+            var identityUser = ToIdentityUser(user);
+            var task = userStore.GetPasswordHashAsync(identityUser);
+            SetApplicationUser(user, identityUser);
+            return task;
+        }
+        public Task<bool> HasPasswordAsync(ApplicationUser user)
+        {
+            var identityUser = ToIdentityUser(user);
+            var task = userStore.HasPasswordAsync(identityUser);
+            SetApplicationUser(user, identityUser);
+            return task;
+        }
+        public Task SetPasswordHashAsync(ApplicationUser user, string passwordHash)
+        {
+            var identityUser = ToIdentityUser(user);
+            var task = userStore.SetPasswordHashAsync(identityUser, passwordHash);
+            SetApplicationUser(user, identityUser);
+            return task;
+        }
+        public Task<string> GetSecurityStampAsync(ApplicationUser user)
+        {
+            var identityUser = ToIdentityUser(user);
+            var task = userStore.GetSecurityStampAsync(identityUser);
+            SetApplicationUser(user, identityUser);
+            return task;
+        }
+        public Task SetSecurityStampAsync(ApplicationUser user, string stamp)
+        {
+            var identityUser = ToIdentityUser(user);
+            var task = userStore.SetSecurityStampAsync(identityUser, stamp);
+            SetApplicationUser(user, identityUser);
+            return task;
+        }
+        private static void SetApplicationUser(ApplicationUser user, IdentityUser identityUser)
+        {
+            user.PasswordHash = identityUser.PasswordHash;
+            user.SecurityStamp = identityUser.SecurityStamp;
+            user.Id = identityUser.Id;
+            user.UserName = identityUser.UserName;
+        }
+        private IdentityUser ToIdentityUser(ApplicationUser user)
+        {
+            return new IdentityUser
+            {
+                Id = user.Id,
+                PasswordHash = user.PasswordHash,
+                SecurityStamp = user.SecurityStamp,
+                UserName = user.UserName
+            };
+        }
+    }  
+
+
 }

@@ -1,0 +1,21 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    @Html.AntiForgeryToken()
+
+    <ul class="nav navbar-nav navbar-right">
+        <li>
+            <p style="color:whitesmoke" id="logOut">@System.String.Format("Здоровенькі були, {0}!",User.Identity.GetUserName())</p>
+        </li>
+        <li>
+            <a href="~/api/Account/Logout">Вийти</a>
+        </li>
+    </ul>
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li><a href="/Home/Login">Вхід</a></li>
+        <li><a href="/Home/Registrate">Реєстрація</a></li>
+    </ul>
+}

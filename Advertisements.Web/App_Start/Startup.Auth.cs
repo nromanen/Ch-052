@@ -10,6 +10,7 @@ using Microsoft.Owin.Security.OAuth;
 using Owin;
 using Advertisements.Web.Providers;
 using Advertisements.Web.Models;
+using System.Threading.Tasks;
 
 namespace Advertisements.Web
 {
@@ -45,7 +46,7 @@ namespace Advertisements.Web
 
             // Enable the application to use bearer tokens to authenticate users
             app.UseOAuthBearerTokens(OAuthOptions);
-
+            
             // Uncomment the following lines to enable logging in with third party login providers
             //app.UseMicrosoftAccountAuthentication(
             //    clientId: "",
@@ -59,11 +60,26 @@ namespace Advertisements.Web
             //    appId: "",
             //    appSecret: "");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "104569730604-huu38b3iqodo0u8hhkmn33q1ckhh80dr.apps.googleusercontent.com",
+                ClientSecret = "toieYLP40WLub1dw2SwF_B3F"
+            });
+        }
+    }
+
+    public class BearerOnCookieAuthentication : OwinMiddleware
+    {
+        public BearerOnCookieAuthentication(OwinMiddleware next) : base(next)
+        {
+
+        }
+
+        public override Task Invoke(IOwinContext context)
+        {
+            var cookies = context.Request.Cookies;
+            // var cookie = cookies.FirstOrDefault(c => c.Key == ApplicationOAuthProvider)
+            throw new NotImplementedException();
         }
     }
 }
