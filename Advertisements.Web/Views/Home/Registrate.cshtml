@@ -1,4 +1,4 @@
-﻿@model Advertisements.DataAccess.Entities.User
+﻿@model Advertisements.Web.Models.RegisterViewModel
 @{
     ViewBag.Title = "Registrate";
 }
@@ -84,6 +84,7 @@
                         data: JSON.stringify(data),
                         success: function (data) { alert('Реєстрація пройдена'); window.location.replace('/Home/Index') },
                         fail: function (data) { alert('Реєстрація не пройдена') }
+                        
                     })
                 }
             })

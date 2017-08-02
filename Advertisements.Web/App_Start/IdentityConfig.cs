@@ -7,6 +7,8 @@ using Advertisements.Web.Models;
 using System;
 using System.Linq;
 using System.Data.Entity;
+using Advertisements.DataAccess.Entities;
+using Advertisements.DataAccess.Context;
 
 namespace Advertisements.Web
 {

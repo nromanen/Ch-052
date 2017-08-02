@@ -22,7 +22,7 @@ namespace Advertisements.DataAccess.Entities
         [ForeignKey("Advertisement")]
         public int AdvertisementId { get; set; }
 
-        public virtual User User { get; set; }
+        public virtual ApplicationUser ApplicationUser { get; set; }
 
         public virtual Advertisement Advertisement { get; set; }
     }

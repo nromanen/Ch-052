@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using Advertisements.Web.Models;
 namespace Advertisements.Web.Controllers
 {
     [RequireHttps]
@@ -33,7 +34,7 @@ namespace Advertisements.Web.Controllers
 
         public ActionResult Registrate()
         {
-            User u = new User();
+            RegisterViewModel u = new RegisterViewModel();
             return View(u);
         }
         public ActionResult Login()

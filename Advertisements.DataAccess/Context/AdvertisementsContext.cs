@@ -9,23 +9,23 @@ using Advertisements.DataAccess.Entities;
 
 namespace Advertisements.DataAccess.Context
 {
-    public class AdvertisementsContext: DbContext
-    {
-        public DbSet<Role> Roles { get; set; }
-        public DbSet<User> Users { get; set; }
-        public DbSet<Category> Categories { get; set; }
-        public DbSet<Resource> Resources { get; set; }
-        public DbSet<AdvertisementType> Types { get; set; }
-        public DbSet<Advertisement> Advertisements { get; set; }
-        public DbSet<PasswordRecovery> PasswordRecoveries { get; set; }
-        public DbSet<Feedback> Feedbacks { get; set; }
+    //public class AdvertisementsContext: DbContext
+    //{
+    //    public DbSet<Role> Roles { get; set; }
+    //    public DbSet<User> Users { get; set; }
+    //    public DbSet<Category> Categories { get; set; }
+    //    public DbSet<Resource> Resources { get; set; }
+    //    public DbSet<AdvertisementType> Types { get; set; }
+    //    public DbSet<Advertisement> Advertisements { get; set; }
+    //    public DbSet<PasswordRecovery> PasswordRecoveries { get; set; }
+    //    public DbSet<Feedback> Feedbacks { get; set; }
 
-        public AdvertisementsContext(): base("ConnectDB")
-        {
-            //todo later move connection string to web.config
-            Database.CreateIfNotExists();
-        }
-    }
+    //    public AdvertisementsContext(): base("ConnectDB")
+    //    {
+    //        //todo later move connection string to web.config
+    //        Database.CreateIfNotExists();
+    //    }
+    //}
 
     //internal sealed class DataContextConfiguration : DbMigrationsConfiguration<AdvertisementsContext>
     //{

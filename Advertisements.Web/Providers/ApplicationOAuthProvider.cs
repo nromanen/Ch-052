@@ -10,7 +10,7 @@ using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 using Advertisements.Web.Models;
-
+using Advertisements.DataAccess.Entities;
 namespace Advertisements.Web.Providers
 {
     public class ApplicationOAuthProvider : OAuthAuthorizationServerProvider

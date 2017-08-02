@@ -19,6 +19,8 @@ using Advertisements.Web.Results;
 using System.Web.Mvc;
 using System.Net.Mail;
 using System.Text;
+using Advertisements.DataAccess.Entities;
+using Advertisements.DataAccess.Context;
 namespace Advertisements.Web.Controllers
 {
     [System.Web.Http.Authorize]
@@ -78,7 +80,6 @@ namespace Advertisements.Web.Controllers
             
             var user = new ApplicationUser() { UserName = model.UserName };
             user.Email = model.Email;
-            user.ConfirmedEmail = true;
             user.EmailConfirmed = true;
             var result = await UserManager.CreateAsync(user, model.Password);
 
@@ -142,7 +143,7 @@ namespace Advertisements.Web.Controllers
             {
                 if (user.Email == eMail)
                 {
-                    user.ConfirmedEmail = true;
+                    user.EmailConfirmed = true;
                     await UserManager.UpdateAsync(user);
                     await HttpContext.Current.GetOwinContext()
                         .Get<SignInManager<ApplicationUser, string>>().SignInAsync(user, isPersistent: false, rememberBrowser: false);
@@ -466,7 +467,7 @@ namespace Advertisements.Web.Controllers
             }
 
             var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
-            user.ConfirmedEmail = true;
+            user.EmailConfirmed = true;
             IdentityResult result = await UserManager.CreateAsync(user);
             if (!result.Succeeded)
             {
