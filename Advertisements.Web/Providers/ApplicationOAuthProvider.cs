@@ -16,7 +16,7 @@ namespace Advertisements.Web.Providers
     public class ApplicationOAuthProvider : OAuthAuthorizationServerProvider
     {
         private readonly string _publicClientId;
-
+        internal static string TokenName { get; } = "Token";
         public ApplicationOAuthProvider(string publicClientId)
         {
             if (publicClientId == null)
@@ -36,7 +36,7 @@ namespace Advertisements.Web.Providers
             {
                 context.SetError("invalid_grant", "The user name or password is incorrect.");
                 return;
-            }
+            }            
 
             ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(userManager,
                OAuthDefaults.AuthenticationType);
@@ -47,6 +47,8 @@ namespace Advertisements.Web.Providers
             AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, properties);
             context.Validated(ticket);
             context.Request.Context.Authentication.SignIn(cookiesIdentity);
+            context.Response.Cookies.Append(TokenName, context.Options.AccessTokenFormat.Protect(ticket));
+            context.Validated(ticket);
         }
 
         public override Task TokenEndpoint(OAuthTokenEndpointContext context)

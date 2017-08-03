@@ -6,6 +6,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8">
+            <button id="bt1">qwert</button>
             <section id="content">
             @Html.AntiForgeryToken()
                 <form action="">
@@ -35,7 +36,9 @@
 @section scripts
 {
     <script type="text/javascript">
-        var tokenKey = "tokenInfo";
+        var tokenKey = "Token";
+        
+        
         $('#submitLogin').click(function (e) {
             e.preventDefault();
             var loginData = {
@@ -51,6 +54,7 @@
                 success: (function (data) {
                     // сохраняем в хранилище sessionStorage токен доступа
                     sessionStorage.setItem(tokenKey, data.access_token);
+                    //sessionStorage.removeItem(tokenKey);
                     console.log("token"+data.access_token);
                     window.location.replace('/Home/Index');
                 }),
@@ -62,19 +66,17 @@
                 })
 
             });
-            $('#logOut').click(function (e) {
-                e.preventDefault();
-                $.ajax({
-                    type: 'GET',
-                    url: 'api/Account/Logout',
-                    success: alert('success')
-                });
-            })
-            //$('#logOut').click(function (e) {
-            //    e.preventDefault();
-            //    sessionStorage.removeItem(tokenKey);
-            //});
-        });       
+            
+            
+            
+        });   
+        //$('#logOut2').click(function (e) {
+
+        //    //e.preventDefault();
+
+        //    sessionStorage.removeItem(tokenKey);
+        //    alert("!!!");
+        //});
     </script>
 }
 

@@ -1,1 +1,23 @@
 ﻿<h1>Index</h1>
+@section scripts
+{
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#logOut').click(function (e) {
+                alert('!!');
+                $.ajax({
+                    type: 'GET',
+                    url: 'api/Account/Logout',
+                    fail: alert('bad'),
+                    error: alert('very bad')
+                });
+                e.preventDefault();
+                sessionStorage.removeItem('Token');
+                alert('!!!!!');
+
+            });
+
+        });
+    </script>
+}

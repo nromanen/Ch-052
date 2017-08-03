@@ -176,7 +176,10 @@ namespace Advertisements.Web.Controllers
         [System.Web.Http.Route("Logout")]
         public IHttpActionResult Logout()
         {
-            this.Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationType);
+            this.Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationType, DefaultAuthenticationTypes.ApplicationCookie,DefaultAuthenticationTypes.TwoFactorCookie,
+                DefaultAuthenticationTypes.TwoFactorRememberBrowserCookie, DefaultAuthenticationTypes.ExternalCookie, DefaultAuthenticationTypes.ExternalBearer);
+            HttpContext.Current.Response.Cookies.Clear();
+            HttpContext.Current.Request.Cookies.Clear();
             return this.Ok(new { message = "Logout successful." });
         }
 

@@ -62,7 +62,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Context\AdvertisementsContext.cs" />
     <Compile Include="Context\ApplicationDbContext.cs" />
     <Compile Include="Entities\Advertisement.cs" />
     <Compile Include="Entities\AdvertisementType.cs" />
@@ -71,9 +70,9 @@
     <Compile Include="Entities\Feedback.cs" />
     <Compile Include="Entities\PasswordRecovery.cs" />
     <Compile Include="Entities\Resource.cs" />
-    <Compile Include="Migrations\201708021429164_UnityContext.cs" />
-    <Compile Include="Migrations\201708021429164_UnityContext.Designer.cs">
-      <DependentUpon>201708021429164_UnityContext.cs</DependentUpon>
+    <Compile Include="Migrations\201708030842247_FirstMigration.cs" />
+    <Compile Include="Migrations\201708030842247_FirstMigration.Designer.cs">
+      <DependentUpon>201708030842247_FirstMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -85,8 +84,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201708021429164_UnityContext.resx">
-      <DependentUpon>201708021429164_UnityContext.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201708030842247_FirstMigration.resx">
+      <DependentUpon>201708030842247_FirstMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

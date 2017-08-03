@@ -32,7 +32,7 @@ namespace Advertisements.Web
             // and to use a cookie to temporarily store information about a user logging in with a third party login provider
             app.UseCookieAuthentication(new CookieAuthenticationOptions());
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
-
+            app.Use<BearerOnCookieAuthentication>();
             // Configure the application for OAuth based flow
             PublicClientId = "self";
             OAuthOptions = new OAuthAuthorizationServerOptions
@@ -73,14 +73,22 @@ namespace Advertisements.Web
     {
         public BearerOnCookieAuthentication(OwinMiddleware next) : base(next)
         {
-
         }
 
-        public override Task Invoke(IOwinContext context)
+        public override async Task Invoke(IOwinContext context)
         {
             var cookies = context.Request.Cookies;
-            // var cookie = cookies.FirstOrDefault(c => c.Key == ApplicationOAuthProvider)
-            throw new NotImplementedException();
+            var cookie = cookies.FirstOrDefault(c => c.Key == ApplicationOAuthProvider.TokenName);
+            if (!context.Request.Headers.ContainsKey("Authorization"))
+            {
+                if (!cookie.Equals(default(KeyValuePair<string, string>)))
+                {
+                    var ticket = cookie.Value;
+                    context.Request.Headers.Add("Authorization", new[] { $"Bearer {ticket}" });
+                }
+            }
+            await Next.Invoke(context);
+            
         }
     }
 }

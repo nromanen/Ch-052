@@ -18,7 +18,7 @@ namespace Advertisements.DataAccess.Context
         public IDbSet<PasswordRecovery> PasswordRecoveries { get; set; }
         public IDbSet<Feedback> Feedbacks { get; set; }
         public ApplicationDbContext()
-            : base("ConnectDB", throwIfV1Schema: false)
+            : base("OurConnection", throwIfV1Schema: false)
         {
                
         }
