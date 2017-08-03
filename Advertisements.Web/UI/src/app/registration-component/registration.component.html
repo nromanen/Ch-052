@@ -1,0 +1,17 @@
+
+<section id = "content" style="margin : 50 0 0 0" ng-if="registerViewModel">
+    <form action="" >
+        <h1>Login Form</h1>
+        <div>
+            <input [(ngModel)] = "registerViewModel.Email" name="email" type="email" placeholder="Email" required="" id="useremail" />
+        </div>
+        <div>
+            <input [(ngModel)] = "registerViewModel.Password" name="password" type="password" placeholder="Password" required="" id="userpassword" />
+        </div>
+        <div>
+            <input type="submit" value="Log in" id="submitLogin" (click) = "goClick()"/>
+            <a href="~/Home/RestorePassword">Forgot password?</a>
+            <a href="~/Home/Registrate">Register</a>
+        </div>
+    </form>
+</section>
