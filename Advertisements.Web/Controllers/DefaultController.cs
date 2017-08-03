@@ -7,7 +7,6 @@ namespace Advertisements.Web.Controllers
         // GET: Default
         public ActionResult Index()
         {
-            ViewBag.data = new CategoryController().Get(2);
             return View();
         }
     }
