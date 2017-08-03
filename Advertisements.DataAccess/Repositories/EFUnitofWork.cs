@@ -2,17 +2,23 @@
 using System.Data;
 using System.Data.Entity;
 using Advertisements.DataAccess.Context;
+using Advertisements.DataAccess.Entities;
 
 namespace Advertisements.DataAccess.Repositories
 {
-    public class EFUnitOfWork : IUnitOfWork, IDisposable
+    public class EFUnitOfWork : IUnitOfWork
     {
-        DbContext context;
+        AdvertisementsContext context;
         DbContextTransaction transaction;
 
         public DbContext Context { get { return this.context; } }
 
         public EFUnitOfWork() { this.context = new AdvertisementsContext(); }
+
+        public IRepository<TEntity> GetRepo<TEntity>() where TEntity : class, IEntity
+        {
+            return new EFRepositoryBase<TEntity>(context);
+        }
 
         public void BeginTransaction(IsolationLevel isolationLevel = IsolationLevel.ReadCommitted)
         {

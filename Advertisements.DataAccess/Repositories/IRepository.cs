@@ -1,5 +1,6 @@
-﻿using System.Collections.Generic;
-using Advertisements.DataAccess.Entities;
+﻿using Advertisements.DataAccess.Entities;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Advertisements.DataAccess.Repositories
 {

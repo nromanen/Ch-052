@@ -1,10 +1,14 @@
-﻿using System.Data;
+﻿using Advertisements.DataAccess.Entities;
+using System;
+using System.Data;
 
 namespace Advertisements.DataAccess.Repositories
 {
-    public interface IUnitOfWork
+    public interface IUnitOfWork: IDisposable
     {
-        void BeginTransaction(IsolationLevel isolationLevel);
+        IRepository<TEntity> GetRepo<TEntity>() where TEntity : class, IEntity;
+
+        void BeginTransaction(IsolationLevel isolationLevel = IsolationLevel.ReadCommitted);
         void Commit();
         void Rollback();
     }
