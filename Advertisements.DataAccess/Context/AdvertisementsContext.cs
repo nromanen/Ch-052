@@ -22,8 +22,6 @@ namespace Advertisements.DataAccess.Context
 
         public AdvertisementsContext(): base("ConnectDB")
         {
-            //todo later move connection string to web.config
-            Database.CreateIfNotExists();
         }
     }
 
