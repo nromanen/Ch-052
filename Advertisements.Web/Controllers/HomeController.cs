@@ -9,6 +9,7 @@ using Advertisements.DataAccess.Context;
 using System.Globalization;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Web.Http.Cors;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -16,6 +17,7 @@ using Advertisements.Web.Models;
 namespace Advertisements.Web.Controllers
 {
     [RequireHttps]
+    //[EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
     public class HomeController : Controller
     {
         public ActionResult Index()

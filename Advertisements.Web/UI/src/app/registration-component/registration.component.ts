@@ -7,6 +7,7 @@ import { AdvertisementService } from '../services/advertisement.service';
 import { RegisterViewModel } from '../models/register.view.model';
 
 import 'rxjs/add/operator/switchMap';
+import { Login } from "../models/login";
 
 
 @Component({
@@ -26,7 +27,7 @@ constructor(
            
 
 @Input() registerViewModel: RegisterViewModel = new RegisterViewModel;
-
+login: Login;
 
   ngOnInit(): void {
     console.log(this);
@@ -36,8 +37,17 @@ constructor(
   }
 
   goClick(): void {
+    
+    this.registerViewModel.Username = this.registerViewModel.Email;
+    this.registerViewModel.grant_type = 'password';
+
+    
+
+
+    this.advertisementService.login(this.registerViewModel).then((gotData) => this.login = gotData);
       console.log(this.registerViewModel.Email);
       console.log(this.registerViewModel.Password);
+      console.log(this.login);
   }
 
 //   goBack(): void {
