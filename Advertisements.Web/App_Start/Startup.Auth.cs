@@ -10,6 +10,8 @@ using Microsoft.Owin.Security.OAuth;
 using Owin;
 using Advertisements.Web.Providers;
 using Advertisements.Web.Models;
+using System.Threading.Tasks;
+using Advertisements.DataAccess.Context;
 
 namespace Advertisements.Web
 {
@@ -26,11 +28,14 @@ namespace Advertisements.Web
             app.CreatePerOwinContext(ApplicationDbContext.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
 
+
             // Enable the application to use a cookie to store information for the signed in user
             // and to use a cookie to temporarily store information about a user logging in with a third party login provider
+
             app.UseCookieAuthentication(new CookieAuthenticationOptions());
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
-
+            app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
+            app.Use<BearerOnCookieAuthentication>();
             // Configure the application for OAuth based flow
             PublicClientId = "self";
             OAuthOptions = new OAuthAuthorizationServerOptions
@@ -39,12 +44,14 @@ namespace Advertisements.Web
                 Provider = new ApplicationOAuthProvider(PublicClientId),
                 AuthorizeEndpointPath = new PathString("/api/Account/ExternalLogin"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromDays(14),
+
                 // In production mode set AllowInsecureHttp = false
                 AllowInsecureHttp = true
             };
 
             // Enable the application to use bearer tokens to authenticate users
             app.UseOAuthBearerTokens(OAuthOptions);
+
 
             // Uncomment the following lines to enable logging in with third party login providers
             //app.UseMicrosoftAccountAuthentication(
@@ -59,11 +66,33 @@ namespace Advertisements.Web
             //    appId: "",
             //    appSecret: "");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "104569730604-huu38b3iqodo0u8hhkmn33q1ckhh80dr.apps.googleusercontent.com",
+                ClientSecret = "toieYLP40WLub1dw2SwF_B3F"
+            });
+        }
+    }
+    public class BearerOnCookieAuthentication : OwinMiddleware
+    {
+        public BearerOnCookieAuthentication(OwinMiddleware next) : base(next)
+        {
+        }
+
+        public override async Task Invoke(IOwinContext context)
+        {
+            var cookies = context.Request.Cookies;
+            var cookie = cookies.FirstOrDefault(c => c.Key == ApplicationOAuthProvider.TokenName);
+            if (!context.Request.Headers.ContainsKey("Authorization"))
+            {
+                if (!cookie.Equals(default(KeyValuePair<string, string>)))
+                {
+                    var ticket = cookie.Value;
+                    context.Request.Headers.Add("Authorization", new[] { $"Bearer {ticket}" });
+                }
+            }
+            await Next.Invoke(context);
+
         }
     }
 }

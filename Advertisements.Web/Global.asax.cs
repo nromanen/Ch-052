@@ -30,8 +30,8 @@ namespace Advertisements.Web
             container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
 
             container.Register<IUOWFactory, UOWFactory>(Lifestyle.Singleton);
+            container.Register(typeof(IService<CategoryDTO>), typeof(CategoryService));
 
-            
 
             DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(container));
             GlobalConfiguration.Configuration.DependencyResolver = new SimpleInjectorWebApiDependencyResolver(container);

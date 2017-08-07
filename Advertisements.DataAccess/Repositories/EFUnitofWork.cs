@@ -8,12 +8,12 @@ namespace Advertisements.DataAccess.Repositories
 {
     public class EFUnitOfWork : IUnitOfWork
     {
-        AdvertisementsContext context;
+        ApplicationDbContext context;
         DbContextTransaction transaction;
 
         public DbContext Context { get { return this.context; } }
 
-        public EFUnitOfWork() { this.context = new AdvertisementsContext(); }
+        public EFUnitOfWork() { this.context = new ApplicationDbContext(); }
 
         public IRepository<TEntity> GetRepo<TEntity>() where TEntity : class, IEntity
         {
