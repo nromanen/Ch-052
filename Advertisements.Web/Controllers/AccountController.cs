@@ -32,14 +32,7 @@ namespace Advertisements.Web.Controllers
         private const string LocalLoginProvider = "Local";
         private ApplicationUserManager _userManager;
 
-        public AccountController() { }
-
-        //public AccountController(ApplicationUserManager userManager,
-        //    ISecureDataFormat<AuthenticationTicket> accessTokenFormat)
-        //{
-        //    UserManager = userManager;
-        //    AccessTokenFormat = accessTokenFormat;
-        //}
+        public AccountController() { }     
 
         public ApplicationUserManager UserManager
         {
