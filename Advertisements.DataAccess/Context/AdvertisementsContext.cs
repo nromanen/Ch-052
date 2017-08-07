@@ -20,7 +20,7 @@ namespace Advertisements.DataAccess.Context
         public DbSet<PasswordRecovery> PasswordRecoveries { get; set; }
         public DbSet<Feedback> Feedbacks { get; set; }
 
-        public AdvertisementsContext(): base("ConnectDB")
+        public AdvertisementsContext(): base("myDB")
         {
         }
     }

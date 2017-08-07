@@ -3,6 +3,7 @@ using System.Data;
 using System.Data.Entity;
 using Advertisements.DataAccess.Context;
 using Advertisements.DataAccess.Entities;
+using System.Data.Entity.Infrastructure;
 
 namespace Advertisements.DataAccess.Repositories
 {
@@ -37,6 +38,11 @@ namespace Advertisements.DataAccess.Repositories
             {
                 this.context.SaveChanges();
                 this.transaction.Commit();
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                this.transaction.Rollback();
+                throw ex;
             }
             catch
             {

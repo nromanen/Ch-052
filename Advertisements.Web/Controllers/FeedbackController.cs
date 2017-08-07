@@ -9,23 +9,14 @@ using System.Web.Http;
 namespace Advertisements.Web.Controllers
 {
     [AllowAnonymous]
-    [RoutePrefix("api/Category")]
-    public class CategoryController : ApiController
+    [RoutePrefix("api/Feedback")]
+    public class FeedbackController : ApiController
     {
-        IService<CategoryDTO> service = new CategoryService(new UOWFactory());  //changes
-
-        //public CategoryController(){}
-
-        //public CategoryController(IService<CategoryDTO>  s)
-        //{
-        //    service = s;
-        //}
-
-
+        IService<FeedbackDTO> service = new FeedbackService(new UOWFactory());  
 
         [HttpGet]
         [Route("get")]
-        public IEnumerable<CategoryDTO> Get()
+        public IEnumerable<FeedbackDTO> Get()
         {
             return service.GetAll();
         }
@@ -33,21 +24,21 @@ namespace Advertisements.Web.Controllers
         [AllowAnonymous]
         [HttpGet]
         [Route("get/{id}")]
-        public CategoryDTO Get(int id)
+        public FeedbackDTO Get(int id)
         {
             return service.Get(id);
         }
 
         [HttpPost]
         [Route("add")]
-        public CategoryDTO Add(CategoryDTO dto)
+        public FeedbackDTO Add(FeedbackDTO dto)
         {
             return service.Create(dto);
         }
 
         [HttpPut]
         [Route("edit")]
-        public void Update(CategoryDTO dto)
+        public void Update(FeedbackDTO dto)
         {
             service.Update(dto);
         }

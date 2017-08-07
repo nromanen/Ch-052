@@ -11,6 +11,8 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Autofac.Integration.WebApi;
+
 
 namespace Advertisements.Web
 {
@@ -31,9 +33,11 @@ namespace Advertisements.Web
 
             container.Register<IUOWFactory, UOWFactory>(Lifestyle.Singleton);
 
-            
 
-            DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(container));
+            container.RegisterWebApiControllers(GlobalConfiguration.Configuration);
+            //container.Register<IService<CategoryDTO>, CategoryService > (Lifestyle.Singleton);
+
+
             GlobalConfiguration.Configuration.DependencyResolver = new SimpleInjectorWebApiDependencyResolver(container);
         }
     }
