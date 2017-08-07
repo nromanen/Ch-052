@@ -1,9 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Advertisements.DataAccess.Entities
 {
-    public class Advertisement : IEntity
+    public class Advertisement
     {
         public int Id { get; set; }
 
@@ -17,10 +22,9 @@ namespace Advertisements.DataAccess.Entities
 
         public virtual List<Resource> Resources { get; set; }
 
-        [ForeignKey("User")]
-        public int UserId { get; set; }
-
-        public virtual User User { get; set; }
+        [ForeignKey("ApplicationUser")]
+        public string ApplicationUserId { get; set; }
+        public virtual ApplicationUser ApplicationUser { get; set; }
 
         [ForeignKey("Category")]
         public int CategoryId { get; set; }

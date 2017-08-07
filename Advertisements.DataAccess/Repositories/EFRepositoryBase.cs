@@ -7,9 +7,9 @@ namespace Advertisements.DataAccess.Repositories
 {
     public class EFRepositoryBase<TEntity> : IRepository<TEntity> where TEntity : class, IEntity
     {
-        AdvertisementsContext _context;
+        ApplicationDbContext _context;
 
-        public EFRepositoryBase(AdvertisementsContext context)
+        public EFRepositoryBase(ApplicationDbContext context)
         {
             _context = context;
         }
