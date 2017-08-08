@@ -5,7 +5,7 @@ import { RegistrationComponent }   from './registration-component/registration.c
 import { StartComponent } from './start-component/start.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/start', pathMatch: 'full' },
+  { path: '', redirectTo: '/registration', pathMatch: 'full' },
   { path: 'start', component: StartComponent },
   { path: 'registration',  component: RegistrationComponent }
 ];

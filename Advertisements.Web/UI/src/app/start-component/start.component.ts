@@ -13,19 +13,19 @@ export class StartComponent implements OnInit {
   constructor(private router:Router, private advertisementService: AdvertisementService) { }
   title: string ='Advertisements';
   
-  Advertisements:Advertisement[];
+  advertisements:string[];
   selectedAdvertisement:Advertisement;
 
   getAdvertisements():void {
    this.advertisementService.getAdvertisements().then(advertisements =>
-     this.Advertisements = advertisements);
+     {this.advertisements = advertisements; console.log(this.advertisements) });
 }
 
   ngOnInit(): void {  
     this.getAdvertisements();
   }
 
-  goRegister():void{
-    this.router.navigate(['/registration']);
-  }
+  // goRegister():void{
+  //   this.router.navigate(['/registration']);
+  // }
 }

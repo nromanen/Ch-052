@@ -9,6 +9,7 @@ import { RegistrationComponent } from './registration-component/registration.com
 import { StartComponent } from './start-component/start.component';
 
 import { AdvertisementService } from './services/advertisement.service';
+import { LoginService } from './services/login.service';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,7 @@ import { AdvertisementService } from './services/advertisement.service';
     AppRoutingModule, 
     FormsModule
   ],
-  providers: [AdvertisementService],
+  providers: [AdvertisementService, LoginService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

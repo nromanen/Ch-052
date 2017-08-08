@@ -8,11 +8,10 @@ using System.Web.Http.Cors;
 
 namespace Advertisements.Web.Controllers
 {
-    //[Authorize]
-    //[EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
+    [Authorize]
     public class ValuesController : ApiController
     {
-        // GET api/values
+        // GET api/values/get
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };
