@@ -7,13 +7,13 @@ namespace Advertisements.DataAccess.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class Migr : IMigrationMetadata
+    public sealed partial class intialcreate : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Migr));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(intialcreate));
         
         string IMigrationMetadata.Id
         {
-            get { return "201708062117383_Migr"; }
+            get { return "201708081235506_intialcreate"; }
         }
         
         string IMigrationMetadata.Source

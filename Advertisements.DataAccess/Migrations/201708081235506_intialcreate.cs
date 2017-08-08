@@ -3,7 +3,7 @@ namespace Advertisements.DataAccess.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class UnityContext : DbMigration
+    public partial class intialcreate : DbMigration
     {
         public override void Up()
         {
@@ -79,6 +79,7 @@ namespace Advertisements.DataAccess.Migrations
                 c => new
                     {
                         ApplicationUserId = c.String(nullable: false, maxLength: 128),
+                        Id = c.Int(nullable: false),
                         AccessHash = c.String(),
                         Expires = c.DateTime(nullable: false),
                     })
