@@ -50,7 +50,7 @@ namespace Advertisements.Web
         }
     }
 
-    
+
     public class CustomUserStore : IUserStore<ApplicationUser>, IUserPasswordStore<ApplicationUser>, IUserSecurityStampStore<ApplicationUser>
     {
         UserStore<IdentityUser> userStore;
@@ -161,7 +161,7 @@ namespace Advertisements.Web
                 UserName = user.UserName
             };
         }
-    }  
+    }
 
 
 }

@@ -68,20 +68,34 @@
     <Compile Include="Entities\ApplicationUser.cs" />
     <Compile Include="Entities\Category.cs" />
     <Compile Include="Entities\Feedback.cs" />
+    <Compile Include="Entities\IEntity.cs" />
     <Compile Include="Entities\PasswordRecovery.cs" />
     <Compile Include="Entities\Resource.cs" />
-    <Compile Include="Migrations\201708030842247_FirstMigration.cs" />
-    <Compile Include="Migrations\201708030842247_FirstMigration.Designer.cs">
-      <DependentUpon>201708030842247_FirstMigration.cs</DependentUpon>
+    <Compile Include="Migrations\201708062117383_Migr.cs" />
+    <Compile Include="Migrations\201708062117383_Migr.Designer.cs">
+      <DependentUpon>201708062117383_Migr.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Repositories\EFRepositoryBase.cs" />
+    <Compile Include="Repositories\EFUnitOfWork.cs" />
+    <Compile Include="Repositories\IRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\IUnitOfWork.cs" />
+    <Compile Include="Repositories\IUOWFactory.cs" />
+    <Compile Include="Repositories\UOWFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201708062117383_Migr.resx">
+      <DependentUpon>201708062117383_Migr.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201708030842247_FirstMigration.resx">

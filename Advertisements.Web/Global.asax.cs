@@ -1,7 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using Advertisements.BusinessLogic.Services;
+using Advertisements.DataAccess.Entities;
+using Advertisements.DataAccess.Repositories;
+using Advertisements.DataAccess.Services;
+using Advertisements.DTO.Models;
+using SimpleInjector;
+using SimpleInjector.Integration.Web.Mvc;
+using SimpleInjector.Integration.WebApi;
+using SimpleInjector.Lifestyles;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
@@ -15,19 +20,22 @@ namespace Advertisements.Web
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
+
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            //Role userRole = new Role();
-            //userRole.Id = 1;
-            //userRole.Name = "userRole";
-            //using (AdvertisementsContext context = new AdvertisementsContext())
-            //{
-            //    context.Roles.Add(userRole);
-            //    context.SaveChanges();
-            //}
+
+            Container container = new Container();
+            container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
+
+            container.Register<IUOWFactory, UOWFactory>(Lifestyle.Singleton);
+            container.Register(typeof(IService<CategoryDTO>), typeof(CategoryService));
+
+
+            DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(container));
+            GlobalConfiguration.Configuration.DependencyResolver = new SimpleInjectorWebApiDependencyResolver(container);
         }
     }
 }

@@ -6,11 +6,11 @@
 
     <ul class="nav navbar-nav navbar-right">
         <li>
-            <p style="color:whitesmoke">@System.String.Format("Здоровенькі були, {0}!",User.Identity.GetUserName())</p>
+            <a style="color:white"hidden>@System.String.Format("Welcome, {0}!", User.Identity.GetUserName())</a>
         </li>
         <li>
-            <button id="logOut" @*href="~/api/Account/Logout"*@>Вийти</button>
-            
+            <a role="button" href="#" id="logOut">Вийти</a>
+
         </li>
     </ul>
 }
@@ -21,3 +21,5 @@ else
         <li><a href="/Home/Registrate">Реєстрація</a></li>
     </ul>
 }
+
+    

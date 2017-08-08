@@ -30,8 +30,10 @@ namespace Advertisements.Web
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             // Enable the application to use a cookie to store information for the signed in user
             // and to use a cookie to temporarily store information about a user logging in with a third party login provider
+
             app.UseCookieAuthentication(new CookieAuthenticationOptions());
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
+            app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
             app.Use<BearerOnCookieAuthentication>();
             // Configure the application for OAuth based flow
             PublicClientId = "self";
@@ -41,6 +43,7 @@ namespace Advertisements.Web
                 Provider = new ApplicationOAuthProvider(PublicClientId),
                 AuthorizeEndpointPath = new PathString("/api/Account/ExternalLogin"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromDays(14),
+
                 // In production mode set AllowInsecureHttp = false
                 AllowInsecureHttp = true
             };
@@ -68,7 +71,6 @@ namespace Advertisements.Web
             });
         }
     }
-
     public class BearerOnCookieAuthentication : OwinMiddleware
     {
         public BearerOnCookieAuthentication(OwinMiddleware next) : base(next)
@@ -88,7 +90,7 @@ namespace Advertisements.Web
                 }
             }
             await Next.Invoke(context);
-            
+
         }
     }
 }

@@ -9,69 +9,71 @@
 
 <div class="container" role="form">
     <div class="row">
-             <form class="cmxform" id="signupForm" autocomplete="off">
-                <h2>Реєстрація</h2>
-                <div class="form-group">
-                    <label for="Name" class="col-sm-3 control-label">Повне ім'я</label>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control" placeholder="Ім'я'" id="firstName" name="firstName" required />
-                    </div>
-                    <div class="col-sm-5">
-                        <input type="text" class="form-control" placeholder="Прізвище" id="surName" name="surName" required />
-                    </div>
+        <form class="cmxform" id="signupForm" autocomplete="off">
+            <h2>Реєстрація</h2>
+            <div class="form-group required">
+                <label for="Name" class="col-sm-3 control-label">Повне ім'я</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" placeholder="Ім'я'" id="firstName" name="firstName" required />
                 </div>
-                <div class="form-group">
-                    <label for="email" class="col-sm-3 control-label">Ел. пошта</label>
-                    <div class="col-sm-9">
-                        <input type="email" class="form-control" placeholder="Ел. пошта" id="eMail" name="eMail" required />
-                    </div>
+                <div class="col-sm-5">
+                    <input type="text" class="form-control" placeholder="Прізвище" id="surName" name="surName" required />
                 </div>
-                <div class="form-group">
-                    <label for="password" class="col-sm-3 control-label">Пароль</label>
-                    <div class="col-sm-9">
-                        <input type="password" class="form-control" placeholder="Введіть пароль" id="password" name="password" required />
-                    </div>
+            </div>
+            <div class="form-group required">
+                <label for="email" class="col-sm-3 control-label">Ел. пошта</label>
+                <div class="col-sm-9">
+                    <input type="email" class="form-control" placeholder="Ел. пошта" id="eMail" name="eMail" required />
                 </div>
-                <div class="form-group">
-                    <label for="password" class="col-sm-3 control-label">Повторіть пароль</label>
-                    <div class="col-sm-9">
-                        <input type="password" class="form-control" placeholder="Введіть ще раз пароль" id="passwordRepeat" name="passwordRepeat" required />
-                    </div>
+            </div>
+            <div class="form-group required">
+                <label for="password" class="col-sm-3 control-label">Пароль</label>
+                <div class="col-sm-9">
+                    <input type="password" class="form-control" placeholder="Введіть пароль" id="password" name="password" required />
                 </div>
-
-                <div class="form-group">
+            </div>
+            <div class="form-group required">
+                <label for="password" class="col-sm-3 control-label">Повторіть пароль</label>
+                <div class="col-sm-9">
+                    <input type="password" class="form-control" placeholder="Введіть ще раз пароль" id="passwordRepeat" name="passwordRepeat" required />
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group required">
                     <div class="col-sm-6"></div>
                     <div class="col-sm-4">
-                        <input type="submit" class="btn btn-lg btn-success" value="Реєстрація" id="submit" />
+                        <div class="input-group">
+                            <input type="submit" class="btn btn-lg btn-success" value="Реєстрація" id="submit" />
+                        </div>
                     </div>
                     <div class="col-sm-2"></div>
                 </div>
-            </form>
-        
-       
-    </div>
-        
+            </div>
+        </form>
 
-          
-        
-    
-    
+
+    </div>
+
+
+
+
+
+
 </div>
 
 @section scripts
 {
-<script type="text/javascript" src="~/Scripts/jquery.validate.js"></script>
-<script src="~/Scripts/jquery.validate.min.js"></script>
-<script type="text/javascript" src="~/Scripts/signup-form.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/signup-form.js"></script>
     <script type="text/javascript">
-       
+
         $(function () {
             $('#submit').click(function (e) {
-                if ($('#signupForm').valid())
-                {
+                if ($('#signupForm').valid()) {
                     e.preventDefault();
                     var data = {
-                        UserName: $('#firstName').val() +' '+ $('#surName').val(),
+                        UserName: $('#firstName').val() + ' ' + $('#surName').val(),
                         Email: $('#eMail').val(),
                         Password: $('#password').val(),
                         ConfirmPassword: $('#passwordRepeat').val()
@@ -84,11 +86,11 @@
                         data: JSON.stringify(data),
                         success: function (data) { alert('Реєстрація пройдена'); window.location.replace('/Home/Index') },
                         fail: function (data) { alert('Реєстрація не пройдена') }
-                        
+
                     })
                 }
             })
-        
+
         })
     </script>
 

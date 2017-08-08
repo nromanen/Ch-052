@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Advertisements.Web", "Adver
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Advertisements.DataAccess", "Advertisements.DataAccess\Advertisements.DataAccess.csproj", "{B552738C-2217-4DD4-A0A6-CA6941D7E483}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Advertisements.DTO", "Advertisements.DTO\Advertisements.DTO.csproj", "{AEFF9584-88E0-4DA5-B70F-FDE1F9B40198}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Advertisements.BusinessLogic", "Advertisements.BusinessLogic\Advertisements.BusinessLogic.csproj", "{F0D9FB03-71B3-4056-A85E-A9F094D5980B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{B552738C-2217-4DD4-A0A6-CA6941D7E483}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B552738C-2217-4DD4-A0A6-CA6941D7E483}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B552738C-2217-4DD4-A0A6-CA6941D7E483}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AEFF9584-88E0-4DA5-B70F-FDE1F9B40198}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEFF9584-88E0-4DA5-B70F-FDE1F9B40198}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEFF9584-88E0-4DA5-B70F-FDE1F9B40198}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEFF9584-88E0-4DA5-B70F-FDE1F9B40198}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F0D9FB03-71B3-4056-A85E-A9F094D5980B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0D9FB03-71B3-4056-A85E-A9F094D5980B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F0D9FB03-71B3-4056-A85E-A9F094D5980B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F0D9FB03-71B3-4056-A85E-A9F094D5980B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

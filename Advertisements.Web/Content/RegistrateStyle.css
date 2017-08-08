@@ -14,7 +14,11 @@
         margin-left: 5em;
         margin-bottom: 1em;
     }
-    .error {
-        color:red;
-        
-    }
+
+.error {
+    color: red;
+}
+.form-group.required .control-label:after {
+    content: "*";
+    color: red;
+}

@@ -23,7 +23,7 @@ namespace Advertisements.DataAccess.Entities
         public virtual List<Resource> Resources { get; set; }
 
         [ForeignKey("ApplicationUser")]
-        public string ApplicationUserId { get; set; }       
+        public string ApplicationUserId { get; set; }
         public virtual ApplicationUser ApplicationUser { get; set; }
 
         [ForeignKey("Category")]

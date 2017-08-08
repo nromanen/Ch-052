@@ -21,6 +21,8 @@ using System.Net.Mail;
 using System.Text;
 using Advertisements.DataAccess.Entities;
 using Advertisements.DataAccess.Context;
+using System.Threading;
+
 namespace Advertisements.Web.Controllers
 {
     [System.Web.Http.Authorize]
@@ -30,16 +32,7 @@ namespace Advertisements.Web.Controllers
         private const string LocalLoginProvider = "Local";
         private ApplicationUserManager _userManager;
 
-        public AccountController()
-        {
-        }
-
-        public AccountController(ApplicationUserManager userManager,
-            ISecureDataFormat<AuthenticationTicket> accessTokenFormat)
-        {
-            UserManager = userManager;
-            AccessTokenFormat = accessTokenFormat;
-        }
+        public AccountController() { }     
 
         public ApplicationUserManager UserManager
         {
@@ -52,7 +45,7 @@ namespace Advertisements.Web.Controllers
                 _userManager = value;
             }
         }
-        
+
         private void Send(string messageBody, string eMailAddr)
         {
             const string pass = "07cd1997";
@@ -75,22 +68,22 @@ namespace Advertisements.Web.Controllers
 
         [System.Web.Http.AllowAnonymous]
         [System.Web.Http.Route("Register")]
-        public async Task<IHttpActionResult> Register(RegisterViewModel model)
+        public async Task<IHttpActionResult> Register([FromBody]RegisterViewModel model)
         {
-            
+
             var user = new ApplicationUser() { UserName = model.UserName };
             user.Email = model.Email;
             user.EmailConfirmed = true;
             var result = await UserManager.CreateAsync(user, model.Password);
 
-           
+
             string token = Encrypt(model.Email + DateTime.Now, true);
             string messageBody = string.Format("Для завершення реєстрації перейдіть по посиланню:" +
                         "<a href=\"{0}\" title = \"Підтвердити реєстрацію\">{0}</a>",
                         "https://localhost:44335/Home/TakeConfirmEmail?token=" + token + "&eMail=" + model.Email);
             Send(messageBody, user.Email);
             return Ok();
-              
+
         }
         [System.Web.Http.HttpPost]
         [System.Web.Http.AllowAnonymous]
@@ -103,7 +96,7 @@ namespace Advertisements.Web.Controllers
                 return BadRequest(ModelState);
             }
             var user = UserManager.FindByEmail(model.Email);
-            
+
             var authContext = HttpContext.Current.GetOwinContext().Authentication;
             UserManager<IdentityUser> _manager = new UserManager<IdentityUser>(new UserStore<IdentityUser>(new ApplicationDbContext()));
             var userFind = _manager.Find(model.Email, model.Password);
@@ -126,7 +119,8 @@ namespace Advertisements.Web.Controllers
                     ModelState.AddModelError("Потрібна верифікація", new Exception());
                     return BadRequest(ModelState);
 
-                default: ModelState.AddModelError("Не вдалося ввійтив систему", new Exception());
+                default:
+                    ModelState.AddModelError("Не вдалося ввійтив систему", new Exception());
                     return BadRequest(ModelState);
             }
 
@@ -147,7 +141,7 @@ namespace Advertisements.Web.Controllers
                     await UserManager.UpdateAsync(user);
                     await HttpContext.Current.GetOwinContext()
                         .Get<SignInManager<ApplicationUser, string>>().SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                 
+
                 }
             }
             return null;
@@ -170,16 +164,28 @@ namespace Advertisements.Web.Controllers
             };
         }
 
-        
+
         [System.Web.Http.HttpGet]
         // POST api/Account/Logout
         [System.Web.Http.Route("Logout")]
         public IHttpActionResult Logout()
         {
-            this.Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationType, DefaultAuthenticationTypes.ApplicationCookie,DefaultAuthenticationTypes.TwoFactorCookie,
-                DefaultAuthenticationTypes.TwoFactorRememberBrowserCookie, DefaultAuthenticationTypes.ExternalCookie, DefaultAuthenticationTypes.ExternalBearer);
-            HttpContext.Current.Response.Cookies.Clear();
-            HttpContext.Current.Request.Cookies.Clear();
+            var autheticationManager = HttpContext.Current.GetOwinContext().Authentication;
+            this.Authentication.SignOut(this.Authentication.User.Identity.AuthenticationType, CookieAuthenticationDefaults.AuthenticationType);
+
+
+            HttpCookie currentUserCookie = HttpContext.Current.Request.Cookies[".AspNet.Cookies"];
+            HttpContext.Current.Response.Cookies.Remove(".AspNet.Cookies");
+            currentUserCookie.Expires = DateTime.Now.AddDays(-30);
+            currentUserCookie.Value = null;
+            HttpContext.Current.Response.SetCookie(currentUserCookie);
+            currentUserCookie = HttpContext.Current.Request.Cookies["Token"];
+            HttpContext.Current.Response.Cookies.Remove("Token");
+            currentUserCookie.Expires = DateTime.Now.AddDays(-30);
+            currentUserCookie.Value = null;
+            HttpContext.Current.Response.SetCookie(currentUserCookie);
+
+            bool flag = HttpContext.Current.Request.IsAuthenticated;
             return this.Ok(new { message = "Logout successful." });
         }
 
@@ -236,7 +242,7 @@ namespace Advertisements.Web.Controllers
 
             IdentityResult result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword,
                 model.NewPassword);
-            
+
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
@@ -480,7 +486,7 @@ namespace Advertisements.Web.Controllers
             result = await UserManager.AddLoginAsync(user.Id, info.Login);
             if (!result.Succeeded)
             {
-                return GetErrorResult(result); 
+                return GetErrorResult(result);
             }
             return Ok();
         }

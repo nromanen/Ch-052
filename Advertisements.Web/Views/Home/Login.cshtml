@@ -6,9 +6,8 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8">
-            <button id="bt1">qwert</button>
             <section id="content">
-            @Html.AntiForgeryToken()
+                @Html.AntiForgeryToken()
                 <form action="">
                     <h1>Login Form</h1>
                     <div>
@@ -37,8 +36,8 @@
 {
     <script type="text/javascript">
         var tokenKey = "Token";
-        
-        
+
+
         $('#submitLogin').click(function (e) {
             e.preventDefault();
             var loginData = {
@@ -46,7 +45,7 @@
                 Email: $('#useremail').val(),
                 Password: $('#userpassword').val(),
                 UserName: $('#useremail').val()
-            };            
+            };
             $.ajax({
                 type: 'POST',
                 url: '/Token',
@@ -54,8 +53,7 @@
                 success: (function (data) {
                     // сохраняем в хранилище sessionStorage токен доступа
                     sessionStorage.setItem(tokenKey, data.access_token);
-                    //sessionStorage.removeItem(tokenKey);
-                    console.log("token"+data.access_token);
+                    console.log("token" + data.access_token);
                     window.location.replace('/Home/Index');
                 }),
                 fail: (function (data) {
@@ -66,17 +64,10 @@
                 })
 
             });
-            
-            
-            
-        });   
-        //$('#logOut2').click(function (e) {
 
-        //    //e.preventDefault();
 
-        //    sessionStorage.removeItem(tokenKey);
-        //    alert("!!!");
-        //});
+
+        });
     </script>
 }
 

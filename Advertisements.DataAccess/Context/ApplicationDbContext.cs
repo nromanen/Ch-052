@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace Advertisements.DataAccess.Context
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
-    {       
+    {
         public IDbSet<Category> Categories { get; set; }
         public IDbSet<Resource> Resources { get; set; }
         public IDbSet<AdvertisementType> Types { get; set; }
@@ -18,11 +18,11 @@ namespace Advertisements.DataAccess.Context
         public IDbSet<PasswordRecovery> PasswordRecoveries { get; set; }
         public IDbSet<Feedback> Feedbacks { get; set; }
         public ApplicationDbContext()
-            : base("OurConnection", throwIfV1Schema: false)
+            : base("Connection", throwIfV1Schema: false)
         {
-               
+            
         }
-        
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
