@@ -36,7 +36,7 @@ namespace Advertisements.Web.Providers
             {
                 context.SetError("invalid_grant", "The user name or password is incorrect.");
                 return;
-            }
+            }            
 
             ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(userManager,
                OAuthDefaults.AuthenticationType);

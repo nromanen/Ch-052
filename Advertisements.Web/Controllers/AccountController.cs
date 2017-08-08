@@ -80,7 +80,7 @@ namespace Advertisements.Web.Controllers
             string token = Encrypt(model.Email + DateTime.Now, true);
             string messageBody = string.Format("Для завершення реєстрації перейдіть по посиланню:" +
                         "<a href=\"{0}\" title = \"Підтвердити реєстрацію\">{0}</a>",
-                        "https://localhost:44335/Home/TakeConfirmEmail?token=" + token + "&eMail=" + model.Email);
+                        "https://localhost:44384/Home/TakeConfirmEmail?token=" + token + "&eMail=" + model.Email);
             Send(messageBody, user.Email);
             return Ok();
 
