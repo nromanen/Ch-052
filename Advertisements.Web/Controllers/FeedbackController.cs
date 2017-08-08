@@ -12,7 +12,12 @@ namespace Advertisements.Web.Controllers
     [RoutePrefix("api/Feedback")]
     public class FeedbackController : ApiController
     {
-        IService<FeedbackDTO> service = new FeedbackService(new UOWFactory());  
+        IService<FeedbackDTO> service;
+
+        public FeedbackController(IService<FeedbackDTO> s)
+        {
+            service = s;
+        }
 
         [HttpGet]
         [Route("get")]

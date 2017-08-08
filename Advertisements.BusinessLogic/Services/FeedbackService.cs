@@ -64,7 +64,6 @@ namespace Advertisements.BusinessLogic.Services
 
                 feedbacks = repo.GetAll();
             }
-            //http://localhost:53929/api/Category/getfeedbacks
             IEnumerable<FeedbackDTO> dtos = FeedbackMapper.CreateListFeedbackDTO().Map(feedbacks).ToList();
 
             return dtos;

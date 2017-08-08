@@ -3,18 +3,17 @@ using System.Data;
 using System.Data.Entity;
 using Advertisements.DataAccess.Context;
 using Advertisements.DataAccess.Entities;
-using System.Data.Entity.Infrastructure;
 
 namespace Advertisements.DataAccess.Repositories
 {
     public class EFUnitOfWork : IUnitOfWork
     {
-        AdvertisementsContext context;
+        ApplicationDbContext context;
         DbContextTransaction transaction;
 
         public DbContext Context { get { return this.context; } }
 
-        public EFUnitOfWork() { this.context = new AdvertisementsContext(); }
+        public EFUnitOfWork() { this.context = new ApplicationDbContext(); }
 
         public IRepository<TEntity> GetRepo<TEntity>() where TEntity : class, IEntity
         {
@@ -38,11 +37,6 @@ namespace Advertisements.DataAccess.Repositories
             {
                 this.context.SaveChanges();
                 this.transaction.Commit();
-            }
-            catch (DbUpdateConcurrencyException ex)
-            {
-                this.transaction.Rollback();
-                throw ex;
             }
             catch
             {

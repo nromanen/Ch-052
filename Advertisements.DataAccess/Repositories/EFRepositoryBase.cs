@@ -2,15 +2,14 @@
 using Advertisements.DataAccess.Entities;
 using System.Collections.Generic;
 using System.Linq;
-using System.Data.Entity.Infrastructure;
 
 namespace Advertisements.DataAccess.Repositories
 {
     public class EFRepositoryBase<TEntity> : IRepository<TEntity> where TEntity : class, IEntity
     {
-        AdvertisementsContext _context;
+        ApplicationDbContext _context;
 
-        public EFRepositoryBase(AdvertisementsContext context)
+        public EFRepositoryBase(ApplicationDbContext context)
         {
             _context = context;
         }

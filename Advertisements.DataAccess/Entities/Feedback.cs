@@ -21,10 +21,7 @@ namespace Advertisements.DataAccess.Entities
         [ForeignKey("Advertisement")]
         public int AdvertisementId { get; set; }
 
-        [ForeignKey("User")]
-        public int UserId { get; set; }
-
-        public virtual User User { get; set; }
+        public virtual ApplicationUser ApplicationUser { get; set; }
 
         public virtual Advertisement Advertisement { get; set; }
 

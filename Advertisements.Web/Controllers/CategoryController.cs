@@ -12,17 +12,14 @@ namespace Advertisements.Web.Controllers
     [RoutePrefix("api/Category")]
     public class CategoryController : ApiController
     {
-        IService<CategoryDTO> service = new CategoryService(new UOWFactory());  //changes
+        IService<CategoryDTO> service;
 
-        //public CategoryController(){}
+        public CategoryController(IService<CategoryDTO>  s)
+        {
+            service = s;
+        }
 
-        //public CategoryController(IService<CategoryDTO>  s)
-        //{
-        //    service = s;
-        //}
-
-
-
+        
         [HttpGet]
         [Route("get")]
         public IEnumerable<CategoryDTO> Get()

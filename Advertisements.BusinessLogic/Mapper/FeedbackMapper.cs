@@ -13,9 +13,15 @@ namespace Advertisements.BusinessLogic.Mapper
         public static ObjectsMapper<FeedbackDTO, Feedback> CreateFeedback()
         {
             var mapper = ObjectMapperManager.DefaultInstance.GetMapper<FeedbackDTO, Feedback>(new DefaultMapConfig().
-                ConvertUsing((FeedbackDTO source) => new Feedback { Id = source.Id, Text = source.Text, AgreeCount = source.AgreeCount,
-                    DisagreeCount = source.DisagreeCount, CreationTime = source.CreationTime, AdvertisementId = source.AdvertisementId, UserId = source.UserId
-        }));
+                ConvertUsing((FeedbackDTO source) => new Feedback
+                {
+                    Id = source.Id,
+                    Text = source.Text,
+                    AgreeCount = source.AgreeCount,
+                    DisagreeCount = source.DisagreeCount,
+                    CreationTime = source.CreationTime,
+                    AdvertisementId = source.AdvertisementId,
+                }));
 
             return mapper;
         }
@@ -39,7 +45,6 @@ namespace Advertisements.BusinessLogic.Mapper
                     DisagreeCount = source.DisagreeCount,
                     CreationTime = source.CreationTime,
                     AdvertisementId = source.AdvertisementId,
-                    UserId = source.UserId,
                     RowVersion = source.RowVersion.Select(x => (int)x).ToArray()
                 }));
 
