@@ -42,21 +42,5 @@ namespace Advertisements.Web.Controllers
         {
             return View();
         }
-        public ActionResult TakeConfirmEmail(string token, string eMail)
-        {
-            ViewBag.token = token;
-            ViewBag.eMail = eMail;
-            return View();
-        }
-
-        public ActionResult Registrate()
-        {
-            RegisterViewModel u = new RegisterViewModel();
-            return View(u);
-        }
-        public ActionResult Login()
-        {
-            return View();
-        }
     }
 }
