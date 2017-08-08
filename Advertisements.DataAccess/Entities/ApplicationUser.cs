@@ -15,6 +15,7 @@ namespace Advertisements.DataAccess.Entities
         public bool IsActive { get; set; }
         public virtual List<Advertisement> Advertisements { get; set; }
         public virtual PasswordRecovery PasswordRecovery { get; set; }
+        public virtual List<Feedback> Feedbacks { get; set; }
         int IEntity.Id { get; set; }       
         
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager, string AuthenticationType)

@@ -32,6 +32,7 @@ namespace Advertisements.Web
 
             container.Register<IUOWFactory, UOWFactory>(Lifestyle.Singleton);
             container.Register(typeof(IService<CategoryDTO>), typeof(CategoryService));
+            container.Register(typeof(IService<FeedbackDTO>), typeof(FeedbackService));
 
 
             DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(container));
