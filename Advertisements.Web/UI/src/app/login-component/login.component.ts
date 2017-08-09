@@ -12,11 +12,11 @@ import { Token } from "../models/token";
 
 @Component({
   selector: 'advertisement-registration',
-  templateUrl: `./registration.component.html`,
-  styleUrls: [`./registration.component.css`]
+  templateUrl: `./login.component.html`,
+  styleUrls: [`./login.component.css`]
 })
 
-export class RegistrationComponent {
+export class LoginComponent {
 constructor(
                 private loginService: LoginService,
                 //private route: ActivatedRoute,

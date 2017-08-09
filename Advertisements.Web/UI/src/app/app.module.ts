@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { NgModule }             from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { RegistrationComponent } from './registration-component/registration.component';
+import { LoginComponent } from './login-component/login.component';
 import { StartComponent } from './start-component/start.component';
 
 import { AdvertisementService } from './services/advertisement.service';
@@ -14,7 +14,7 @@ import { LoginService } from './services/login.service';
 @NgModule({
   declarations: [
     AppComponent,
-    RegistrationComponent,
+    LoginComponent,
     StartComponent
   ],
   imports: [
