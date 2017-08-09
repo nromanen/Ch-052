@@ -20,9 +20,9 @@ export class AdvertisementService{
 constructor(private http: Http, private loginService: LoginService) { }
 
 
-    private advertisementsLoginUrl = 'https://localhost:44335/api/values/get';
+    private advertisementsLoginUrl = 'https://localhost:44335/api/Advertisement/get';
 
-    getAdvertisements(): Promise<string[]> { 
+    getAdvertisements(): Promise<Advertisement[]> { 
         
         console.log(this.loginService.getToken());
         let authToken = this.loginService.getToken().access_token;
@@ -31,7 +31,7 @@ constructor(private http: Http, private loginService: LoginService) { }
         headers.append('Authorization', `Bearer ${authToken}`);
 
         let options = new RequestOptions({ headers: headers });
-        return this.http.get(this.advertisementsLoginUrl, options).toPromise().then(response => response.json() as string []).catch(this.handleError);
+        return this.http.get(this.advertisementsLoginUrl, options).toPromise().then(response => response.json() as Advertisement []).catch(this.handleError);
     } 
 
     private handleError(error: any): Promise<any> {
