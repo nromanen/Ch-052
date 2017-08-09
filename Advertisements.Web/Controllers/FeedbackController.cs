@@ -36,9 +36,9 @@ namespace Advertisements.Web.Controllers
 
         [HttpPost]
         [Route("add")]
-        public FeedbackDTO Add(FeedbackDTO dto)
+        public void Add(FeedbackDTO dto)
         {
-            return service.Create(dto);
+            service.Create(dto);
         }
 
         [HttpPut]
