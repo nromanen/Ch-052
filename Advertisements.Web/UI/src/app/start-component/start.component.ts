@@ -25,7 +25,7 @@ export class StartComponent implements OnInit {
     this.getAdvertisements();
   }
 
-  // goRegister():void{
-  //   this.router.navigate(['/registration']);
-  // }
+  goLogin():void{
+    this.router.navigate(['/login']);
+  }
 }

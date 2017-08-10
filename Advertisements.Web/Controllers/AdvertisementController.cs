@@ -10,55 +10,55 @@ using Advertisements.DTO.Models;
 namespace Advertisements.Web.Controllers
 {
 
-    [AllowAnonymous]
+    [Authorize]
     [RoutePrefix("api/Advertisement")]
     public class AdvertisementController : ApiController
     {
-        
-    
-            IService<AdvertisementDTO> service;
-
-            public AdvertisementController(IService<AdvertisementDTO> s)
-            {
-                service = s;
-            }
 
 
-            [HttpGet]
-            [Route("get")]
-            public IEnumerable<AdvertisementDTO> Get()
-            {
-                return service.GetAll();
-            }
+        IService<AdvertisementDTO> service;
 
-            [AllowAnonymous]
-            [HttpGet]
-            [Route("get/{id}")]
-            public AdvertisementDTO Get(int id)
-            {
-                return service.Get(id);
-            }
+        public AdvertisementController(IService<AdvertisementDTO> s)
+        {
+            service = s;
+        }
 
-            [HttpPost]
-            [Route("add")]
-            public void Add(AdvertisementDTO dto)
-            {
-                service.Create(dto);
-            }
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("get")]
+        public IEnumerable<AdvertisementDTO> Get()
+        {
+            return service.GetAll();
+        }
 
-            [HttpPut]
-            [Route("edit")]
-            public void Update(AdvertisementDTO dto)
-            {
-                service.Update(dto);
-            }
 
-            [HttpDelete]
-            [Route("delete/{id}")]
-            public void Delete(int id)
-            {
-                service.Delete(id);
-            }
-        
+        [HttpGet]
+        [Route("get/{id}")]
+        public AdvertisementDTO Get(int id)
+        {
+            return service.Get(id);
+        }
+
+        [HttpPost]
+        [Route("add")]
+        public void Add(AdvertisementDTO dto)
+        {
+            service.Create(dto);
+        }
+
+        [HttpPut]
+        [Route("edit")]
+        public void Update(AdvertisementDTO dto)
+        {
+            service.Update(dto);
+        }
+
+        [HttpDelete]
+        [Route("delete/{id}")]
+        public void Delete(int id)
+        {
+            service.Delete(id);
+        }
+
     }
 }
