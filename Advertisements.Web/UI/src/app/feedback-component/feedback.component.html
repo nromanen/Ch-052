@@ -1,0 +1,49 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <h2 class="page-header">Feedback</h2>
+            <section class="comment-list">
+                <div class=" row">
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" id="addText" placeholder="Leave your comment" name="fname">
+                    </div>
+                    <div class="col-md-2">
+                        <input type="submit" id="addFeedback" class="btn submit-btn shaddow" value="Send">
+                    </div>
+                </div>
+                <hr>
+                <br>
+                <!--Comment -->
+                <div *ngFor="let feedback of feedbacks">
+                <article class="row">
+                    <div class="col-md-2 col-sm-2 hidden-xs">
+                        <figure class="thumbnail">
+                            <img class="img-responsive" src="../../../assets/userIcon.jpg" />
+                            <figcaption class="text-center">ID: {{feedback.Id}} </figcaption>
+                        </figure>
+                    </div>
+                    <div class="col-md-10 col-sm-10">
+                        <div class="panel panel-default arrow left">
+                            <div class="panel-body">
+                                <header class="text-left">
+                                    <div class="comment-user">Username: Someone {{feedback.ApplicationUserId}}</div>
+                                    <time class="comment-date">CreationTime: {{feedback.CreationTime}}</time>
+                                    <hr>
+                                </header>
+                                <div class="comment-post">{{feedback.Text}}
+                                </div>
+                                <hr>
+                                   <img src="../../../assets/likeIcon.png" />
+                                    <span>{{feedback.AgreeCount}}</span>
+                                    &nbsp;
+                                    <img src="../../../assets/dislikeIcon.png" />
+                                    <span>{{feedback.DisagreeCount}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+               </div>
+            </section>
+        </div>
+    </div>
+</div>

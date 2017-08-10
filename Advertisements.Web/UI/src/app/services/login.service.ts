@@ -11,7 +11,7 @@ import { Token } from "../models/token";
 @Injectable()
 export class LoginService{
     constructor(private http: Http) { }
-    private advertisementsLoginUrl = 'https://localhost:44335/Token';
+    private advertisementsLoginUrl = 'https://localhost:44384/Token';
     token:Token;
     status:number;
     // getAdvertisements(): Promise<Advertisement[]> { 

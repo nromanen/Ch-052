@@ -7,15 +7,18 @@ import { NgModule }             from '@angular/core';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login-component/login.component';
 import { StartComponent } from './start-component/start.component';
+import { FeedbackComponent } from './feedback-component/feedback.component';
 
 import { AdvertisementService } from './services/advertisement.service';
 import { LoginService } from './services/login.service';
+import { FeedbackService } from './services/feedback.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    StartComponent
+    StartComponent,
+    FeedbackComponent
   ],
   imports: [
     BrowserModule,
@@ -23,7 +26,7 @@ import { LoginService } from './services/login.service';
     AppRoutingModule, 
     FormsModule
   ],
-  providers: [AdvertisementService, LoginService],
+  providers: [AdvertisementService, LoginService, FeedbackService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
