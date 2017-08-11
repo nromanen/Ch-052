@@ -38,10 +38,14 @@ namespace Advertisements.DataAccess.Repositories
                 this.context.SaveChanges();
                 this.transaction.Commit();
             }
-            catch
+            catch (System.Data.Entity.Infrastructure.DbUpdateConcurrencyException)
+            {
+
+            }
+            catch (Exception ex)
             {
                 this.transaction.Rollback();
-                throw new Exception();
+                throw ex;
             }
         }
 
