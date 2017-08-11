@@ -35,5 +35,7 @@ namespace Advertisements.DataAccess.Entities
         public int TypeId { get; set; }
 
         public virtual AdvertisementType Type { get; set; }
+
+        public virtual List<Feedback> Feedbacks { get; set; }
     }
 }
