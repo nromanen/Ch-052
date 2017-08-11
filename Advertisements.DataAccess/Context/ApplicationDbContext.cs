@@ -20,7 +20,6 @@ namespace Advertisements.DataAccess.Context
         public ApplicationDbContext()
             : base("Connection", throwIfV1Schema: false)
         {
-            
         }
 
         public static ApplicationDbContext Create()

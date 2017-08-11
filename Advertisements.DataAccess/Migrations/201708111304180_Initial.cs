@@ -3,7 +3,7 @@ namespace Advertisements.DataAccess.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class intialcreate : DbMigration
+    public partial class Initial : DbMigration
     {
         public override void Up()
         {
@@ -61,6 +61,25 @@ namespace Advertisements.DataAccess.Migrations
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId);
+            
+            CreateTable(
+                "dbo.Feedbacks",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Text = c.String(),
+                        AgreeCount = c.Int(nullable: false),
+                        DisagreeCount = c.Int(nullable: false),
+                        CreationTime = c.DateTime(nullable: false),
+                        AdvertisementId = c.Int(nullable: false),
+                        RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
+                        ApplicationUser_Id = c.String(maxLength: 128),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Advertisements", t => t.AdvertisementId, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUser_Id)
+                .Index(t => t.AdvertisementId)
+                .Index(t => t.ApplicationUser_Id);
             
             CreateTable(
                 "dbo.AspNetUserLogins",
@@ -131,24 +150,6 @@ namespace Advertisements.DataAccess.Migrations
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
-                "dbo.Feedbacks",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        Text = c.String(),
-                        AgreeCount = c.Int(nullable: false),
-                        DisagreeCount = c.Int(nullable: false),
-                        CreationTime = c.DateTime(nullable: false),
-                        AdvertisementId = c.Int(nullable: false),
-                        ApplicationUser_Id = c.String(maxLength: 128),
-                    })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Advertisements", t => t.AdvertisementId, cascadeDelete: true)
-                .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUser_Id)
-                .Index(t => t.AdvertisementId)
-                .Index(t => t.ApplicationUser_Id);
-            
-            CreateTable(
                 "dbo.AspNetRoles",
                 c => new
                     {
@@ -163,8 +164,6 @@ namespace Advertisements.DataAccess.Migrations
         public override void Down()
         {
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
-            DropForeignKey("dbo.Feedbacks", "ApplicationUser_Id", "dbo.AspNetUsers");
-            DropForeignKey("dbo.Feedbacks", "AdvertisementId", "dbo.Advertisements");
             DropForeignKey("dbo.Advertisements", "TypeId", "dbo.AdvertisementTypes");
             DropForeignKey("dbo.Resources", "AdvertisementId", "dbo.Advertisements");
             DropForeignKey("dbo.Advertisements", "CategoryId", "dbo.Categories");
@@ -172,28 +171,30 @@ namespace Advertisements.DataAccess.Migrations
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.PasswordRecoveries", "ApplicationUserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Feedbacks", "ApplicationUser_Id", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Feedbacks", "AdvertisementId", "dbo.Advertisements");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
-            DropIndex("dbo.Feedbacks", new[] { "ApplicationUser_Id" });
-            DropIndex("dbo.Feedbacks", new[] { "AdvertisementId" });
             DropIndex("dbo.Resources", new[] { "AdvertisementId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.PasswordRecoveries", new[] { "ApplicationUserId" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
+            DropIndex("dbo.Feedbacks", new[] { "ApplicationUser_Id" });
+            DropIndex("dbo.Feedbacks", new[] { "AdvertisementId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
             DropIndex("dbo.Advertisements", new[] { "TypeId" });
             DropIndex("dbo.Advertisements", new[] { "CategoryId" });
             DropIndex("dbo.Advertisements", new[] { "ApplicationUserId" });
             DropTable("dbo.AspNetRoles");
-            DropTable("dbo.Feedbacks");
             DropTable("dbo.AdvertisementTypes");
             DropTable("dbo.Resources");
             DropTable("dbo.Categories");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.PasswordRecoveries");
             DropTable("dbo.AspNetUserLogins");
+            DropTable("dbo.Feedbacks");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
             DropTable("dbo.Advertisements");
