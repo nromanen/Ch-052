@@ -1,0 +1,17 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center">
+  <h1>
+    Welcome to start!
+  </h1>
+  <ul class="advertisement-class">
+    <li *ngFor="let advertisement of Advertisements" 
+        [class.selected] = "advertisement === selectedAdvertisement">
+
+        <!-- (click)="onSelect(advertisement)" -->
+      <span class="badge">{{advertisement.Id}}</span> {{advertisement.Description}}
+      <!-- <button class="delete"  (click)="delete(advertisement); $event.stopPropagation()">x</button> -->
+    </li>
+  </ul>
+  <button (click)="goRegister()">Register</button>
+</div>
+
