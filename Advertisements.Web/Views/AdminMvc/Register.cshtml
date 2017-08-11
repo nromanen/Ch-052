@@ -1,13 +1,15 @@
-﻿@model Advertisements.Web.Models.RegisterViewModel
+﻿
 @{
-    ViewBag.Title = "Registrate";
+    ViewBag.Title = "Register";
 }
-<link rel="stylesheet" href="~/Content/RegistrateStyle.css" />
 
+<h2>Register admin</h2>
+
+<link rel="stylesheet" href="~/Content/RegistrateStyle.css" />
 <div class="container" role="form">
     <div class="row">
         <form class="cmxform" id="signupForm" autocomplete="off">
-            <h2>Реєстрація</h2>
+            <h2>Реєстрація адміна</h2>
             <div class="form-group required">
                 <label for="Name" class="col-sm-3 control-label">Повне ім'я</label>
                 <div class="col-sm-4">
@@ -78,10 +80,10 @@
 
                     $.ajax({
                         type: 'POST',
-                        url: '/api/Account/Register',
+                        url: '/api/Account/RegisterAdmin',
                         contentType: 'application/json; charset=utf-8',
                         data: JSON.stringify(data),
-                        success: function (data) { alert('Реєстрація пройдена'); window.location.replace('/Home/Index') },
+                        success: function (data) { alert('Реєстрація пройдена'); window.location.replace('/AdminMvc/Index') },
                         fail: function (data) { alert('Реєстрація не пройдена') }
 
                     })

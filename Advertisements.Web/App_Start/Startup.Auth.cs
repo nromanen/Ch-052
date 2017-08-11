@@ -34,8 +34,9 @@ namespace Advertisements.Web
 
             app.UseCookieAuthentication(new CookieAuthenticationOptions());
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
-            app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
+            
             app.Use<BearerOnCookieAuthentication>();
+            app.CreatePerOwinContext<ApplicationRoleManager>(ApplicationRoleManager.Create);
             // Configure the application for OAuth based flow
             PublicClientId = "self";
             OAuthOptions = new OAuthAuthorizationServerOptions
@@ -44,14 +45,14 @@ namespace Advertisements.Web
                 Provider = new ApplicationOAuthProvider(PublicClientId),
                 AuthorizeEndpointPath = new PathString("/api/Account/ExternalLogin"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromDays(14),
-
+                
                 // In production mode set AllowInsecureHttp = false
                 AllowInsecureHttp = true
             };
 
             // Enable the application to use bearer tokens to authenticate users
-            app.UseOAuthBearerTokens(OAuthOptions);
-
+            app.UseOAuthAuthorizationServer(OAuthOptions);
+            app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
 
             // Uncomment the following lines to enable logging in with third party login providers
             //app.UseMicrosoftAccountAuthentication(

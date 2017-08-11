@@ -20,12 +20,16 @@ namespace Advertisements.DataAccess.Context
         public ApplicationDbContext()
             : base("Connection", throwIfV1Schema: false)
         {
-            
+            foreach (IdentityRole role in this.Roles)
+            {
+                
+            }
         }
 
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
         }
+
     }
 }

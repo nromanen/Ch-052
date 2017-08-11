@@ -9,13 +9,12 @@ using System.Threading.Tasks;
 
 namespace Advertisements.DataAccess.Entities
 {
-    public class ApplicationUser : IdentityUser,IEntity
+    public class ApplicationUser : IdentityUser
     {
         public override string Email { get; set; }
         public bool IsActive { get; set; }
         public virtual List<Advertisement> Advertisements { get; set; }
-        public virtual PasswordRecovery PasswordRecovery { get; set; }
-        int IEntity.Id { get; set; }       
+        public virtual PasswordRecovery PasswordRecovery { get; set; }     
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager, string AuthenticationType)
         {

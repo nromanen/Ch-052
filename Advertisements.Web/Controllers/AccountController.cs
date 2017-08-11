@@ -22,24 +22,18 @@ using System.Text;
 using Advertisements.DataAccess.Entities;
 using Advertisements.DataAccess.Context;
 using System.Threading;
-
+using System.Linq;
+using Advertisements.Web.Filters;
 namespace Advertisements.Web.Controllers
 {
     [System.Web.Http.Authorize]
     [System.Web.Http.RoutePrefix("api/Account")]
-    public class AccountController : ApiController
+    public class AccountController : BaseApiController
     {
         private const string LocalLoginProvider = "Local";
         private ApplicationUserManager _userManager;
 
         public AccountController() { }
-
-        //public AccountController(ApplicationUserManager userManager,
-        //    ISecureDataFormat<AuthenticationTicket> accessTokenFormat)
-        //{
-        //    UserManager = userManager;
-        //    AccessTokenFormat = accessTokenFormat;
-        //}
 
         public ApplicationUserManager UserManager
         {
@@ -69,7 +63,7 @@ namespace Advertisements.Web.Controllers
             SmtpServer.Port = 587;
             SmtpServer.Credentials = new System.Net.NetworkCredential("junglehunter2707@gmail.com", pass);
             SmtpServer.EnableSsl = true;
-
+            
             SmtpServer.Send(mail);
         }
 
@@ -81,17 +75,55 @@ namespace Advertisements.Web.Controllers
             var user = new ApplicationUser() { UserName = model.UserName };
             user.Email = model.Email;
             user.EmailConfirmed = true;
+
+            
+
             var result = await UserManager.CreateAsync(user, model.Password);
 
+            if (result.Succeeded)
+            {
+                await UserManager.AddToRoleAsync(user.Id, "Customer");
+            }
+            else
+            {
+                return BadRequest("Помилка при створенні юзвєря");
+            }
 
             string token = Encrypt(model.Email + DateTime.Now, true);
             string messageBody = string.Format("Для завершення реєстрації перейдіть по посиланню:" +
                         "<a href=\"{0}\" title = \"Підтвердити реєстрацію\">{0}</a>",
                         "https://localhost:44335/Home/TakeConfirmEmail?token=" + token + "&eMail=" + model.Email);
             Send(messageBody, user.Email);
+
+            
             return Ok();
 
         }
+
+        [System.Web.Mvc.Authorize]
+        [MyMvcCustomAuthFilter("Admin")]
+        [System.Web.Http.Route("RegisterAdmin")]
+        public async Task<IHttpActionResult> RegisterAdmin(RegisterViewModel model)
+        {
+            var user = new ApplicationUser()
+            {
+                UserName = model.UserName,
+                Email = model.Email,
+                EmailConfirmed = true,  
+                
+            };
+            
+            var adminResult = await UserManager.CreateAsync(user, model.Password);
+            if (adminResult.Succeeded)
+            {
+                await UserManager.AddToRoleAsync(user.Id, "Admin");
+                return Ok();
+            }
+            else
+                return BadRequest("Не вдалося зареєструвати адміна");
+        }
+
+
         [System.Web.Http.HttpPost]
         [System.Web.Http.AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -538,6 +570,46 @@ namespace Advertisements.Web.Controllers
             cryptoProvider.Clear();
 
             return Convert.ToBase64String(resultBytes, 0, resultBytes.Length);
+        }
+        [System.Web.Http.Authorize(Roles ="Admin")]
+        [System.Web.Http.Route("user/{id:guid}/roles")]
+        [System.Web.Http.HttpPut]
+        public async Task<IHttpActionResult> AssignRolesToUser([FromUri] string id, [FromBody] string[] rolesToAssign)
+        {
+
+            var appUser = await this.UserManager.FindByIdAsync(id);
+
+            if (appUser == null)
+            {
+                return NotFound();
+            }
+
+            var currentRoles = await this.UserManager.GetRolesAsync(appUser.Id);
+            var rolesNotExist = rolesToAssign.Except(this.AppRoleManager.Roles.Select(x => x.Name)).ToArray();
+
+            if (rolesNotExist.Count() > 0)
+            {
+                ModelState.AddModelError("", string.Format("Roles '{0}' does not exixts in the system", string.Join(",", rolesNotExist)));
+                return BadRequest(ModelState);
+            }
+
+            IdentityResult removeResult = await this.UserManager.RemoveFromRolesAsync(appUser.Id, currentRoles.ToArray());
+
+            if (!removeResult.Succeeded)
+            {
+                ModelState.AddModelError("", "Не вдалось видалити ролі юзера");
+                return BadRequest(ModelState);
+            }
+
+            IdentityResult addResult = await this.UserManager.AddToRolesAsync(appUser.Id, rolesToAssign);
+
+            if (!addResult.Succeeded)
+            {
+                ModelState.AddModelError("", "Не вдалось додати ролі юзерові");
+                return BadRequest(ModelState);
+            }
+            return Ok();
+
         }
 
         #region Helpers
