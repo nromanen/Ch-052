@@ -39,5 +39,7 @@ namespace Advertisements.Web
             DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(container));
             GlobalConfiguration.Configuration.DependencyResolver = new SimpleInjectorWebApiDependencyResolver(container);
         }
+
+        
     }
 }
