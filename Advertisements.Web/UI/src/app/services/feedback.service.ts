@@ -24,6 +24,22 @@ constructor(private http: Http, private loginService: LoginService) { }
         return this.http.get(this.feedbacksUrl).toPromise().then(response => response.json() as string []).catch(this.handleError);
     } 
 
+    postFeedback(param: any): Promise<any> {
+    return this.http
+        .post('https://localhost:44384/api/feedback/add', param)
+        .toPromise()
+        .then()
+        .catch(this.handleError);
+    } 
+
+    updateFeedback(param: any): Promise<any> {
+    return this.http
+        .put('https://localhost:44384/api/feedback/edit', param)
+        .toPromise()
+        .then()
+        .catch(this.handleError);
+    } 
+
     private handleError(error: any): Promise<any> {
         console.error('An error occurred', error); 
         return Promise.reject(error.message || error);

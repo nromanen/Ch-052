@@ -4,7 +4,7 @@ export class Feedback{
   AgreeCount : number;
   DisagreeCount : number;
   CreationTime : string;
-  UserId : string;
+  ApplicationUserId : string;
   Advertisement : string;
   AdvertisementId : number;
   RowVersion : Int32Array;
