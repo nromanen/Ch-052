@@ -7,6 +7,7 @@ import { NgModule }             from '@angular/core';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login-component/login.component';
 import { StartComponent } from './start-component/start.component';
+import { UsersAdvComponent } from './usersAdv-component/usersAdv.component';
 
 import { AdvertisementService } from './services/advertisement.service';
 import { LoginService } from './services/login.service';
@@ -15,7 +16,8 @@ import { LoginService } from './services/login.service';
   declarations: [
     AppComponent,
     LoginComponent,
-    StartComponent
+    StartComponent,
+    UsersAdvComponent
   ],
   imports: [
     BrowserModule,

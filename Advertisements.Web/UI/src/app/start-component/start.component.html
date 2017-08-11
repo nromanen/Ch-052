@@ -5,7 +5,7 @@
   </h1>
   <ul class="advertisement-class">
     <li *ngFor="let advertisement of Advertisements" 
-        [class.selected] = "advertisement === selectedAdvertisement">
+         [class.selected] = "advertisement === selectedAdvertisement">
 
         <!-- (click)="onSelect(advertisement)" -->
       <span class="badge">{{advertisement.Id}}</span> {{advertisement.Description}}

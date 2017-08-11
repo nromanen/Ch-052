@@ -18,8 +18,8 @@ namespace Advertisements.BusinessLogic.Services
     //    void Update(CategoryDTO item);
     //}
 
-    //public interface IUserAwareService<T> : IService<T> where T : class
-    //{
-    //    IEnumerable<T> GetByUser(int userId);
-    //}
+    public interface IUserAwareService<T> : IService<T> where T : class
+    {
+        IEnumerable<T> GetByUser(string userId);
+    }
 }

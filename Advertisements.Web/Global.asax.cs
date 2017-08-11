@@ -11,7 +11,6 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using Advertisements.DataAccess.Entities;
 using Advertisements.DataAccess.Context;
 namespace Advertisements.Web
 {
@@ -33,7 +32,9 @@ namespace Advertisements.Web
             container.Register<IUOWFactory, UOWFactory>(Lifestyle.Singleton);
             container.Register(typeof(IService<CategoryDTO>), typeof(CategoryService));
             container.Register(typeof(IService<FeedbackDTO>), typeof(FeedbackService));
-
+            container.Register(typeof(IService<AspNetUsersDTO>), typeof(AspNetUsersService));
+            container.Register(typeof(IService<AdvertisementDTO>), typeof(AdvertisementService));
+            container.Register(typeof(IUserAwareService<AdvertisementDTO>), typeof(AdvertisementService));
 
             DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(container));
             GlobalConfiguration.Configuration.DependencyResolver = new SimpleInjectorWebApiDependencyResolver(container);

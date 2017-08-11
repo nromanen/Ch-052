@@ -11,18 +11,14 @@ import { Token } from "../models/token";
 import 'rxjs/add/operator/toPromise';
 import { RegisterViewModel } from "../models/register.view.model";
 
-
-// @Component({
-//       providers:[LoginService]
-// })
 @Injectable()
-export class AdvertisementService{
+export class AdvertisementCurrentService{
 constructor(private http: Http, private loginService: LoginService) { }
 
 
-    private advertisementsLoginUrl = 'https://localhost:44384/api/values/get';
+    private advertisementsCurrentUrl = 'https://localhost:44384/api/Adv/get/current';
 
-    getAdvertisements(): Promise<string[]> { 
+    getCurrentAdvertisements(): Promise<string[]> { 
         
         console.log(this.loginService.getToken());
         let authToken = this.loginService.getToken().access_token;
@@ -31,7 +27,7 @@ constructor(private http: Http, private loginService: LoginService) { }
         headers.append('Authorization', `Bearer ${authToken}`);
 
         let options = new RequestOptions({ headers: headers });
-        return this.http.get(this.advertisementsLoginUrl, options).toPromise().then(response => response.json() as string []).catch(this.handleError);
+        return this.http.get(this.advertisementsCurrentUrl, options).toPromise().then(response => response.json() as string []).catch(this.handleError);
     } 
 
     private handleError(error: any): Promise<any> {
