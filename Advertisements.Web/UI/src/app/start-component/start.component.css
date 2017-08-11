@@ -45,3 +45,44 @@
     margin-right: .8em;
     border-radius: 4px 0 0 4px;
   }
+  .container{ 
+
+    width: 60vw;  
+    
+    text-align: center;
+  }
+
+  .img-advert{
+    margin: 5px;
+    height: 15vw;    
+  }
+   .div-advertisement-image{
+    border: 1px solid lightgray;
+    border-radius:  5px;
+  } 
+
+  .tr-title{
+    font-size: 200%;
+    text-align: left;
+  }
+
+  .tr-description{
+    font-size: 120%;
+    font-style: italic;
+    text-align: left;
+  }
+
+  .td-adverttisement-texts{
+    position:relative;
+  }
+
+  .bottom-allignement{
+    vertical-align: bottom;
+  }
+
+  .price{
+    font-size: 150%;
+    position: absolute;
+   bottom:0;
+   right:15pt;
+  }
