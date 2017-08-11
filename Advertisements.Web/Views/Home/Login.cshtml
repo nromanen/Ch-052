@@ -1,0 +1,71 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+}
+<link rel="stylesheet" href="~/Content/LoginStyle.css" />
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <section id="content">
+                @Html.AntiForgeryToken()
+                <form action="">
+                    <h1>Login Form</h1>
+                    <div>
+                        <input type="email" placeholder="Email" required="" id="useremail" />
+                    </div>
+                    <div>
+                        <input type="password" placeholder="Password" required="" id="userpassword" />
+                    </div>
+                    <div>
+                        <input type="submit" value="Log in" id="submitLogin" />
+                        <a href="~/Home/RestorePassword">Lost your password?</a>
+                        <a href="~/Home/Registrate">Register</a>
+                    </div>
+                </form><!-- form -->
+
+            </section><!-- content -->
+        </div>
+        @*<div class="col-md-4">
+            <section id="socialLoginForm">
+                @Html.Partial("ExternalLoginsListPartial")
+            </section>
+        </div>*@
+    </div>
+</div><!-- container -->
+@section scripts
+{
+    <script type="text/javascript">
+        var tokenKey = "Token";
+
+
+        $('#submitLogin').click(function (e) {
+            e.preventDefault();
+            var loginData = {
+                grant_type: 'password',
+                Email: $('#useremail').val(),
+                Password: $('#userpassword').val(),
+                UserName: $('#useremail').val()
+            };
+            $.ajax({
+                type: 'POST',
+                url: '/Token',
+                data: loginData,
+                success: (function (data) {
+                    // сохраняем в хранилище sessionStorage токен доступа 
+                    sessionStorage.setItem(tokenKey, data.access_token);
+                    console.log("token" + data.access_token);
+                    window.location.replace('/Home/Index');
+                }),
+                fail: (function (data) {
+                    alert("fail при логіні");
+                }),
+                error: (function (data) {
+                    alert("error при логіні");
+                })
+
+            });
+
+        });
+    </script>
+}
+
