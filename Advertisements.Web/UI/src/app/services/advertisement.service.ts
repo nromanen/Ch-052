@@ -20,7 +20,7 @@ export class AdvertisementService{
 constructor(private http: Http, private loginService: LoginService) { }
 
 
-    private advertisementsLoginUrl = 'https://localhost:44335/api/Advertisement/get';
+    private advertisementsLoginUrl = 'https://localhost:44384/api/Advertisement/get';
 
     getAdvertisements(): Promise<Advertisement[]> { 
         
