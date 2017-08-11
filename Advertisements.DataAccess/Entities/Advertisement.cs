@@ -8,15 +8,13 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Advertisements.DataAccess.Entities
 {
-    public class Advertisement
+    public class Advertisement : IEntity
     {
         public int Id { get; set; }
 
         public string Title { get; set; }
 
         public string Description { get; set; }
-
-        public string Myfield { get; set; }
 
         public int Price { get; set; }
 
