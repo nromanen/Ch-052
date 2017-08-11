@@ -48,7 +48,6 @@ namespace Advertisements.Web.Providers
             context.Validated(ticket);
             context.Request.Context.Authentication.SignIn(cookiesIdentity);
             context.Response.Cookies.Append(TokenName, context.Options.AccessTokenFormat.Protect(ticket));
-            context.Validated(ticket);
         }
 
         public override Task TokenEndpoint(OAuthTokenEndpointContext context)

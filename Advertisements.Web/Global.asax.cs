@@ -10,9 +10,7 @@ using SimpleInjector.Lifestyles;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
-using System.Web.Routing;
-using Advertisements.DataAccess.Entities;
-using Advertisements.DataAccess.Context;
+using System.Web.Routing;       
 namespace Advertisements.Web
 {
     public class WebApiApplication : System.Web.HttpApplication
@@ -33,10 +31,13 @@ namespace Advertisements.Web
             container.Register<IUOWFactory, UOWFactory>(Lifestyle.Singleton);
             container.Register(typeof(IService<CategoryDTO>), typeof(CategoryService));
             container.Register(typeof(IService<FeedbackDTO>), typeof(FeedbackService));
+            container.Register(typeof(IService<AdvertisementDTO>), typeof(AdvertisementService));
 
 
             DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(container));
             GlobalConfiguration.Configuration.DependencyResolver = new SimpleInjectorWebApiDependencyResolver(container);
         }
+
+        
     }
 }

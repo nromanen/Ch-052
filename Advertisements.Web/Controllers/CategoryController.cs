@@ -37,9 +37,9 @@ namespace Advertisements.Web.Controllers
 
         [HttpPost]
         [Route("add")]
-        public CategoryDTO Add(CategoryDTO dto)
+        public void Add(CategoryDTO dto)
         {
-            return service.Create(dto);
+           service.Create(dto);
         }
 
         [HttpPut]

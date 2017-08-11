@@ -25,11 +25,11 @@
 
             </section><!-- content -->
         </div>
-        <div class="col-md-4">
+        @*<div class="col-md-4">
             <section id="socialLoginForm">
                 @Html.Partial("ExternalLoginsListPartial")
             </section>
-        </div>
+        </div>*@
     </div>
 </div><!-- container -->
 @section scripts
@@ -51,7 +51,7 @@
                 url: '/Token',
                 data: loginData,
                 success: (function (data) {
-                    // сохраняем в хранилище sessionStorage токен доступа
+                    // сохраняем в хранилище sessionStorage токен доступа 
                     sessionStorage.setItem(tokenKey, data.access_token);
                     console.log("token" + data.access_token);
                     window.location.replace('/Home/Index');
@@ -64,8 +64,6 @@
                 })
 
             });
-
-
 
         });
     </script>

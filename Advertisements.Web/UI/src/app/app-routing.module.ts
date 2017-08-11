@@ -6,7 +6,7 @@ import { StartComponent } from './start-component/start.component';
 import { FeedbackComponent } from './feedback-component/feedback.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '', redirectTo: '/start', pathMatch: 'full' },
   { path: 'start', component: StartComponent },
   { path: 'login',  component: LoginComponent },
   { path: 'feedback',  component: FeedbackComponent }

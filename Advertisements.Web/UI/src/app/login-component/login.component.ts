@@ -11,7 +11,7 @@ import 'rxjs/add/operator/switchMap';
 import { Token } from "../models/token";
 
 @Component({
-  selector: 'advertisement-registration',
+  selector: 'advertisement-login',
   templateUrl: `./login.component.html`,
   styleUrls: [`./login.component.css`]
 })

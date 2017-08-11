@@ -7,18 +7,18 @@ namespace Advertisements.DataAccess.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class intialcreate : IMigrationMetadata
+    public sealed partial class removedFieldMyFieldFromAdvertisement : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(intialcreate));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(removedFieldMyFieldFromAdvertisement));
         
         string IMigrationMetadata.Id
         {
-            get { return "201708081235506_intialcreate"; }
+            get { return "201708091418587_removedFieldMyFieldFromAdvertisement"; }
         }
         
         string IMigrationMetadata.Source
         {
-            get { return null; }
+            get { return Resources.GetString("Source"); }
         }
         
         string IMigrationMetadata.Target
