@@ -13,13 +13,13 @@ import { Token } from "../models/token";
 @Component({
   selector: 'advertisement-login',
   templateUrl: `./login.component.html`,
-  styleUrls: [`./login.component.css`]
+  styleUrls: [`./login.component.css`],
+  providers: [ LoginService]
 })
 
 export class LoginComponent {
 constructor(
                 private loginService: LoginService,
-                //private route: ActivatedRoute,
                 private location: Location,
                 private router: Router
             ) {}

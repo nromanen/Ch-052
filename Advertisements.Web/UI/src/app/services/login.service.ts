@@ -14,9 +14,6 @@ export class LoginService{
     private advertisementsLoginUrl = 'https://localhost:44384/Token';
     token:Token;
     status:number;
-    // getAdvertisements(): Promise<Advertisement[]> { 
-    //     return this.http.get(this.advertisementsLoginUrl).toPromise().then(response => response.json() as Advertisement []).catch(this.handleError);
-    // } 
 
     private handleError(error: any): Promise<any> {
         console.error('An error occurred', error); 
@@ -31,7 +28,9 @@ export class LoginService{
         urlSearchParams.append('grant_type', params.grant_type);
         let body = urlSearchParams.toString()
 
-        return this.http.post(this.advertisementsLoginUrl, body).toPromise().then(response => {this.token = response.json() as Token; this.status = response.status;}).catch(this.handleError);
+        return this.http.post(this.advertisementsLoginUrl, body).toPromise().then(response => {this.token = response.json() as Token; 
+                                                                                               console.log(this.token); 
+                                                                                               this.status = response.status;} ).catch(this.handleError);
     } 
 
     getToken():Token{

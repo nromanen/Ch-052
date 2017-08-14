@@ -83,15 +83,6 @@
     <Compile Include="Entities\IEntity.cs" />
     <Compile Include="Entities\PasswordRecovery.cs" />
     <Compile Include="Entities\Resource.cs" />
-    <Compile Include="Migrations\201708111304180_Initial.cs" />
-    <Compile Include="Migrations\201708111304180_Initial.Designer.cs">
-      <DependentUpon>201708111304180_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708091418587_removedFieldMyFieldFromAdvertisement.cs" />
-    <Compile Include="Migrations\201708091418587_removedFieldMyFieldFromAdvertisement.Designer.cs">
-      <DependentUpon>201708091418587_removedFieldMyFieldFromAdvertisement.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Repositories\EFRepositoryBase.cs" />
     <Compile Include="Repositories\EFUnitOfWork.cs" />
     <Compile Include="Repositories\IRepository.cs" />
@@ -107,14 +98,6 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201708111304180_Initial.resx">
-      <DependentUpon>201708111304180_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708091418587_removedFieldMyFieldFromAdvertisement.resx">
-      <DependentUpon>201708091418587_removedFieldMyFieldFromAdvertisement.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
