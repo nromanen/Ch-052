@@ -63,7 +63,7 @@ namespace Advertisements.BusinessLogic.Services
 
                 feedbacks = repo.GetAll();
             }
-            IEnumerable<FeedbackDTO> dtos = FeedbackMapper.CreateListFeedbackDTO().Map(feedbacks).ToList();
+            IEnumerable<FeedbackDTO> dtos = FeedbackMapper.CreateListFeedbackDTO().Map(feedbacks).ToList().Reverse<FeedbackDTO>();
 
             return dtos;
         }
