@@ -13,7 +13,7 @@ namespace Advertisements.DataAccess.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201708111304180_Initial"; }
+            get { return "201708111617267_Initial"; }
         }
         
         string IMigrationMetadata.Source

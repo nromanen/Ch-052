@@ -14,7 +14,6 @@ namespace Advertisements.DataAccess.Migrations
                         Id = c.Int(nullable: false, identity: true),
                         Title = c.String(),
                         Description = c.String(),
-                        Myfield = c.String(),
                         Price = c.Int(nullable: false),
                         ApplicationUserId = c.String(maxLength: 128),
                         CategoryId = c.Int(nullable: false),

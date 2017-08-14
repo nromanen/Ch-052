@@ -63,8 +63,7 @@ export class FeedbackComponent implements OnInit {
     this.newFeedback.CreationTime = '01.01.2000 0:00:00';
     this.feedbacksService
           .postFeedback(this.newFeedback)
-          .then(feedback =>
-          {this.feedbacks.splice(0, 0, feedback.json())})
+          .then(feedback => {this.getFeedbacks();})
           .catch(error => console.log(error));
 
   }

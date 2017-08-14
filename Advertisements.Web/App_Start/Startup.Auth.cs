@@ -33,7 +33,7 @@ namespace Advertisements.Web
 
             app.UseCookieAuthentication(new CookieAuthenticationOptions());
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
-            app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
+            
             app.Use<BearerOnCookieAuthentication>();
             // Configure the application for OAuth based flow
             PublicClientId = "self";
@@ -50,7 +50,8 @@ namespace Advertisements.Web
 
             // Enable the application to use bearer tokens to authenticate users
             app.UseOAuthAuthorizationServer(OAuthOptions);
-            
+            app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
+
             // Uncomment the following lines to enable logging in with third party login providers
             //app.UseMicrosoftAccountAuthentication(
             //    clientId: "",
