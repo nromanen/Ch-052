@@ -63,33 +63,4 @@
     <script type="text/javascript" src="~/Scripts/jquery.validate.js"></script>
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script type="text/javascript" src="~/Scripts/signup-form.js"></script>
-    @*<script type="text/javascript">
-
-        $(function () {
-            $('#submit').click(function (e) {
-                if ($('#signupForm').valid()) {
-                    e.preventDefault();
-                    var data = {
-                        UserName: $('#firstName').val() + ' ' + $('#surName').val(),
-                        Email: $('#eMail').val(),
-                        Password: $('#password').val(),
-                        ConfirmPassword: $('#passwordRepeat').val()
-                    };
-
-                    $.ajax({
-                        type: 'POST',
-                        url: '/api/Account/Register',
-                        contentType: 'application/json; charset=utf-8',
-                        data: JSON.stringify(data),
-                        success: function (data) { alert('Реєстрація пройдена'); window.location.replace('/Home/Index') },
-                        fail: function (data) { alert('Реєстрація не пройдена'); },
-                        error: function (data) { alert('Не вдалося відправити лист із підтвердженням') }
-                        
-                    })
-                }
-            })
-
-        })
-    </script>*@
-
 }
