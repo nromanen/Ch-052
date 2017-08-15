@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Component } from '@angular/core';
 
 import { Advertisement } from '../models/advertisement';
 import { Headers, Http, RequestOptions } from "@angular/http";
@@ -11,6 +11,10 @@ import { Token } from "../models/token";
 import 'rxjs/add/operator/toPromise';
 import { RegisterViewModel } from "../models/register.view.model";
 
+@Component({
+      providers:[LoginService]
+ })
+    
 @Injectable()
 export class AdvertisementCurrentService{
 constructor(private http: Http, private loginService: LoginService) { }
@@ -18,9 +22,8 @@ constructor(private http: Http, private loginService: LoginService) { }
 
     private advertisementsCurrentUrl = 'https://localhost:44384/api/Adv/get/current';
 
-    getCurrentAdvertisements(): Promise<string[]> { 
-        
-        console.log(this.loginService.getToken());
+    getCurrentAdvertisements(): Promise<string[]> 
+    { 
         let authToken = this.loginService.getToken().access_token;
         let headers = new Headers();
         

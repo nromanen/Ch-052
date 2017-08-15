@@ -25,7 +25,7 @@ import { LoginService } from './services/login.service';
     AppRoutingModule, 
     FormsModule
   ],
-  providers: [AdvertisementService, LoginService],
+  providers: [AdvertisementService, LoginService, UsersAdvComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

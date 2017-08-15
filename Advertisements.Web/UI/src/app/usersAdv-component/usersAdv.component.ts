@@ -7,15 +7,16 @@ import { AdvertisementCurrentService } from '../services/advertisementCurrent.se
 @Component({
   selector: 'usersAdv',
   templateUrl: './usersAdv.component.html',
-  styleUrls: ['./usersAdv.component.css']
+  styleUrls: ['./usersAdv.component.css'],
+  providers: [AdvertisementCurrentService]
 })
 
 export class UsersAdvComponent implements OnInit {
   constructor(private router:Router, private advertisementCurrentService: AdvertisementCurrentService) { }
+
   title: string ='Advertisements';
   
   advertisements:string[];
-  selectedAdvertisement:Advertisement;
 
   getCurrentAdvertisements():void {
    this.advertisementCurrentService.getCurrentAdvertisements().then(advertisements =>
@@ -25,5 +26,4 @@ export class UsersAdvComponent implements OnInit {
   ngOnInit(): void {  
     this.getCurrentAdvertisements();
   }
-
 }

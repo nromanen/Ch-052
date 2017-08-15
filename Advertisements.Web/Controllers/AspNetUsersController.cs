@@ -24,11 +24,12 @@ namespace Advertisements.Web.Controllers
             service = s;
         }
 
+        [Authorize]
         [HttpGet]
         [Route("get/current")]
         public string GetCurrentuserId()
         {
-            string UserId = Thread.CurrentPrincipal.Identity.GetUserId();
+            string UserId = System.Web.HttpContext.Current.User.Identity.GetUserId();
             return UserId;
         }
     }
