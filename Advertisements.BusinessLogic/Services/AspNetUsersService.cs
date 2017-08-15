@@ -16,17 +16,17 @@ namespace Advertisements.BusinessLogic.Services
             _uowfactory = uowfactory;
         }
 
-        public AspNetUsersDTO Create(AspNetUsersDTO item)
+        public void Create(AspNetUsersDTO item)
         {
-            ApplicationUser ApplicationUser = AspNetUsersMapper.CreateAspNetUsers().Map(item);
+            ApplicationUser ApplicationUser;
 
             using (var uow = _uowfactory.CreateUnitOfWork())
             {
                 var repo = uow.GetRepo<ApplicationUser>();
+
+                ApplicationUser = AspNetUsersMapper.CreateAspNetUsers().Map(item);
+
                 repo.Create(ApplicationUser);
-                uow.BeginTransaction();
-                uow.Commit();
-                return AspNetUsersMapper.CreateAspNetUsersDTO().Map(ApplicationUser);
             }
         }
 
