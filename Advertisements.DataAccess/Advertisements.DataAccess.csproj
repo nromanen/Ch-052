@@ -83,9 +83,9 @@
     <Compile Include="Entities\IEntity.cs" />
     <Compile Include="Entities\PasswordRecovery.cs" />
     <Compile Include="Entities\Resource.cs" />
-    <Compile Include="Migrations\201708111304180_Initial.cs" />
-    <Compile Include="Migrations\201708111304180_Initial.Designer.cs">
-      <DependentUpon>201708111304180_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201708151154516_mig.cs" />
+    <Compile Include="Migrations\201708151154516_mig.Designer.cs">
+      <DependentUpon>201708151154516_mig.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Repositories\EFRepositoryBase.cs" />
@@ -105,8 +105,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201708111304180_Initial.resx">
-      <DependentUpon>201708111304180_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201708151154516_mig.resx">
+      <DependentUpon>201708151154516_mig.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

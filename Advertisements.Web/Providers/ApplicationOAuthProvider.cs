@@ -11,6 +11,8 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 using Advertisements.Web.Models;
 using Advertisements.DataAccess.Entities;
+using System.Threading;
+
 namespace Advertisements.Web.Providers
 {
     public class ApplicationOAuthProvider : OAuthAuthorizationServerProvider
@@ -32,11 +34,12 @@ namespace Advertisements.Web.Providers
             var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
             CustomUserStore store = new CustomUserStore();
             ApplicationUser user = store.FindByEmailAndPass(context.UserName, context.Password);
+
             if (user == null)
             {
                 context.SetError("invalid_grant", "The user name or password is incorrect.");
                 return;
-            }            
+            }
 
             ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(userManager,
                OAuthDefaults.AuthenticationType);
@@ -47,7 +50,7 @@ namespace Advertisements.Web.Providers
             AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, properties);
             context.Validated(ticket);
             context.Request.Context.Authentication.SignIn(cookiesIdentity);
-            context.Response.Cookies.Append(TokenName, context.Options.AccessTokenFormat.Protect(ticket));
+
         }
 
         public override Task TokenEndpoint(OAuthTokenEndpointContext context)
