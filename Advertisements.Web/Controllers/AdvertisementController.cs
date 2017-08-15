@@ -1,21 +1,21 @@
-﻿using Advertisements.BusinessLogic.Services;
-using Advertisements.DataAccess.Repositories;
-using Advertisements.DataAccess.Services;
-using Advertisements.DTO.Models;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using SimpleInjector;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Net;
 using System.Net.Http;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Web.Http;
+using Advertisements.BusinessLogic.Services;
+using Advertisements.DTO.Models;
 
 namespace Advertisements.Web.Controllers
 {
-    [RoutePrefix("api/Adv")]
+
+    [Authorize]
+    [RoutePrefix("api/Advertisement")]
     public class AdvertisementController : ApiController
     {
+
+
         IService<AdvertisementDTO> service;
         IUserAwareService<AdvertisementDTO> userService;
 
@@ -25,6 +25,7 @@ namespace Advertisements.Web.Controllers
             userService = us;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         [Route("get")]
         public IEnumerable<AdvertisementDTO> Get()
@@ -32,15 +33,7 @@ namespace Advertisements.Web.Controllers
             return service.GetAll();
         }
 
-        [HttpGet]
-        [Route("get/current")]
-        public IEnumerable<AdvertisementDTO> GetCurrentUsersAdv()
-        {
-            string userId = Thread.CurrentPrincipal.Identity.GetUserId();
-            return userService.GetByUser(userId);
-        }
 
-        [AllowAnonymous]
         [HttpGet]
         [Route("get/{id}")]
         public AdvertisementDTO Get(int id)
@@ -50,9 +43,9 @@ namespace Advertisements.Web.Controllers
 
         [HttpPost]
         [Route("add")]
-        public AdvertisementDTO Add(AdvertisementDTO dto)
+        public void Add(AdvertisementDTO dto)
         {
-            return service.Create(dto);
+            service.Create(dto);
         }
 
         [HttpPut]
@@ -67,6 +60,14 @@ namespace Advertisements.Web.Controllers
         public void Delete(int id)
         {
             service.Delete(id);
+        }
+
+        [HttpGet]
+        [Route("get/current")]
+        public IEnumerable<AdvertisementDTO> GetCurrentUsersAdv()
+        {
+            string userId = Thread.CurrentPrincipal.Identity.GetUserId();
+            return userService.GetByUser(userId);
         }
     }
 }

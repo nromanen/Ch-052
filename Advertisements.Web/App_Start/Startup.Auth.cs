@@ -27,13 +27,13 @@ namespace Advertisements.Web
             // Configure the db context and user manager to use a single instance per request
             app.CreatePerOwinContext(ApplicationDbContext.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
-            app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
+            //app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);                //todo remove
             // Enable the application to use a cookie to store information for the signed in user
             // and to use a cookie to temporarily store information about a user logging in with a third party login provider
 
             app.UseCookieAuthentication(new CookieAuthenticationOptions());
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
-            app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
+            
             app.Use<BearerOnCookieAuthentication>();
             // Configure the application for OAuth based flow
             PublicClientId = "self";
@@ -50,7 +50,7 @@ namespace Advertisements.Web
 
             // Enable the application to use bearer tokens to authenticate users
             app.UseOAuthAuthorizationServer(OAuthOptions);
-            
+            app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
             // Uncomment the following lines to enable logging in with third party login providers
             //app.UseMicrosoftAccountAuthentication(
             //    clientId: "",

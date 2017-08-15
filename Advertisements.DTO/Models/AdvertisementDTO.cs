@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,14 +17,10 @@ namespace Advertisements.DTO.Models
 
         public int Price { get; set; }
 
-        public AdvertisementDTO() { }
+        public string ApplicationUserId { get; set; }
 
-        public AdvertisementDTO(int id, string title, string description, int price)
-        {
-            this.Id = id;
-            this.Title = title;
-            this.Description = description;
-            this.Price = price;
-        }
+        public int CategoryId { get; set; }
+
+        public int TypeId { get; set; }
     }
 }

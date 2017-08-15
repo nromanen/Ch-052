@@ -10,8 +10,7 @@ using SimpleInjector.Lifestyles;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
-using System.Web.Routing;
-using Advertisements.DataAccess.Context;
+using System.Web.Routing;       
 namespace Advertisements.Web
 {
     public class WebApiApplication : System.Web.HttpApplication

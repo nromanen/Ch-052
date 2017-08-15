@@ -7,7 +7,7 @@ namespace Advertisements.BusinessLogic.Services
     {
         IEnumerable<T> GetAll();
         T Get(int id);
-        T Create(T item);
+        void Create(T item);
         void Update(T item);
         void Delete(int id);
     }

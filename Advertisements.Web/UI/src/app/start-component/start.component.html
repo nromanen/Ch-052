@@ -1,17 +1,33 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
+<div style="text-align:center">  
   <h1>
-    Welcome to start!
+    Recent Advertisements!
   </h1>
-  <ul class="advertisement-class">
-    <li *ngFor="let advertisement of Advertisements" 
-         [class.selected] = "advertisement === selectedAdvertisement">
+  <div class="container">
+    <table class="table table-inverse">
+      <!-- *ngFor="let advertisement of advertisements" -->
+      <tr *ngFor="let advertisement of advertisements">
+        <td class="col-sm-3">
+          <div class="div-advertisement-image">
+            <img class="img-advert" src="../assets/images/noPhoto.png" alt="Mountain View">
+          </div>
+        </td>
+        <td class="col-sm-9 td-adverttisement-texts">
+          <table>
+            <tr>
+              <td class="tr-title">{{advertisement.Title}}</td>
+            </tr>
+            <tr>
+              <td class="tr-description">{{advertisement.Description}}</td>
+            </tr>
+          </table>
+          <div>
+            <p  class="price">Price: {{advertisement.Price}} ₴</p>
+          </div>
 
-        <!-- (click)="onSelect(advertisement)" -->
-      <span class="badge">{{advertisement.Id}}</span> {{advertisement.Description}}
-      <!-- <button class="delete"  (click)="delete(advertisement); $event.stopPropagation()">x</button> -->
-    </li>
-  </ul>
-  <button (click)="goRegister()">Register</button>
+
+        </td>
+      </tr>
+    </table>
+  </div>
 </div>
-

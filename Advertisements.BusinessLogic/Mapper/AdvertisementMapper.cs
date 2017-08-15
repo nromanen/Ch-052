@@ -1,15 +1,17 @@
-﻿using Advertisements.DataAccess.Entities;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Advertisements.DataAccess.Entities;
 using Advertisements.DTO.Models;
 using EmitMapper;
 using EmitMapper.MappingConfiguration;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Advertisements.BusinessLogic.Mapper
 {
-    public static class AdvertisementMapper
+    public class AdvertisementMapper
     {
-
         public static ObjectsMapper<AdvertisementDTO, Advertisement> CreateAdvertisement()
         {
             var mapper = ObjectMapperManager.DefaultInstance.GetMapper<AdvertisementDTO, Advertisement>(new DefaultMapConfig().
@@ -18,7 +20,10 @@ namespace Advertisements.BusinessLogic.Mapper
                     Id = source.Id,
                     Title = source.Title,
                     Description = source.Description,
-                    Price = source.Price
+                    Price = source.Price,
+                    ApplicationUserId = source.ApplicationUserId,
+                    TypeId = source.TypeId,
+                    CategoryId = source.CategoryId
                 }));
 
             return mapper;
@@ -40,7 +45,10 @@ namespace Advertisements.BusinessLogic.Mapper
                     Id = source.Id,
                     Title = source.Title,
                     Description = source.Description,
-                    Price = source.Price
+                    Price = source.Price,
+                    ApplicationUserId = source.ApplicationUserId,
+                    TypeId = source.TypeId,
+                    CategoryId = source.CategoryId
                 }));
 
             return mapper;

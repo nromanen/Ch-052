@@ -1,9 +1,13 @@
-﻿using System.Linq;
-using Advertisements.DTO.Models;
-using Advertisements.DataAccess.Repositories;
-using Advertisements.DataAccess.Entities;
-using Advertisements.BusinessLogic.Mapper;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Advertisements.BusinessLogic.Mapper;
+using Advertisements.BusinessLogic.Services;
+using Advertisements.DataAccess.Entities;
+using Advertisements.DataAccess.Repositories;
+using Advertisements.DTO.Models;
 
 namespace Advertisements.BusinessLogic.Services
 {
@@ -16,17 +20,63 @@ namespace Advertisements.BusinessLogic.Services
             _uowfactory = uowfactory;
         }
 
-        public AdvertisementDTO Create(AdvertisementDTO item)
+        public IEnumerable<AdvertisementDTO> GetAll()
         {
-            Advertisement Advertisement = AdvertisementMapper.CreateAdvertisement().Map(item);
+            IEnumerable<Advertisement> advertisements;
 
             using (var uow = _uowfactory.CreateUnitOfWork())
             {
                 var repo = uow.GetRepo<Advertisement>();
-                repo.Create(Advertisement);
-                uow.BeginTransaction();
-                uow.Commit();
-                return AdvertisementMapper.CreateAdvertisementDTO().Map(Advertisement);
+
+                advertisements = repo.GetAll();
+            }
+
+            IEnumerable<AdvertisementDTO> dtos = AdvertisementMapper.CreateListAdvertisementDTO().Map(advertisements).ToList();
+
+            return dtos;
+        }
+
+        public AdvertisementDTO Get(int id)
+        {
+            Advertisement advertisement;
+
+            using (var uow = _uowfactory.CreateUnitOfWork())
+            {
+                var repo = uow.GetRepo<Advertisement>();
+
+                advertisement = repo.Get(id);
+            }
+
+            AdvertisementDTO dto = AdvertisementMapper.CreateAdvertisementDTO().Map(advertisement);
+
+            return dto;
+        }
+
+        public void Create(AdvertisementDTO item)
+        {
+            Advertisement advertisement;
+
+            using (var uow = _uowfactory.CreateUnitOfWork())
+            {
+                var repo = uow.GetRepo<Advertisement>();
+
+                advertisement = AdvertisementMapper.CreateAdvertisement().Map(item);
+
+                repo.Create(advertisement);
+            }
+        }
+
+        public void Update(AdvertisementDTO item)
+        {
+            Advertisement advertisement;
+
+            using (var uow = _uowfactory.CreateUnitOfWork())
+            {
+                var repo = uow.GetRepo<Advertisement>();
+
+                advertisement = AdvertisementMapper.CreateAdvertisement().Map(item);
+
+                repo.Update(advertisement);
             }
         }
 
@@ -35,53 +85,10 @@ namespace Advertisements.BusinessLogic.Services
             using (var uow = _uowfactory.CreateUnitOfWork())
             {
                 var repo = uow.GetRepo<Advertisement>();
+
                 repo.Delete(id);
-                uow.BeginTransaction();
-                uow.Commit();
             }
         }
-
-        public AdvertisementDTO Get(int id)
-        {
-            Advertisement Advertisement;
-
-            using (var uow = _uowfactory.CreateUnitOfWork())
-            {
-                var repo = uow.GetRepo<Advertisement>();
-                Advertisement = repo.Get(id);
-            }
-            AdvertisementDTO dto = AdvertisementMapper.CreateAdvertisementDTO().Map(Advertisement);
-            return dto;
-        }
-
-        public IEnumerable<AdvertisementDTO> GetAll()
-        {
-            IEnumerable<Advertisement> categories;
-
-            using (var uow = _uowfactory.CreateUnitOfWork())
-            {
-                var repo = uow.GetRepo<Advertisement>();
-
-                categories = repo.GetAll();
-            }
-            IEnumerable<AdvertisementDTO> dtos = AdvertisementMapper.CreateListAdvertisementDTO().Map(categories).ToList();
-
-            return dtos;
-        }
-
-        public void Update(AdvertisementDTO item)
-        {
-            Advertisement Advertisement = AdvertisementMapper.CreateAdvertisement().Map(item);
-
-            using (var uow = _uowfactory.CreateUnitOfWork())
-            {
-                var repo = uow.GetRepo<Advertisement>();
-                repo.Update(Advertisement);
-                uow.BeginTransaction();
-                uow.Commit();
-            }
-        }
-
         public IEnumerable<AdvertisementDTO> GetByUser(string id)
         {
             IEnumerable<Advertisement> Advertisement;
@@ -96,4 +103,3 @@ namespace Advertisements.BusinessLogic.Services
         }
     }
 }
-

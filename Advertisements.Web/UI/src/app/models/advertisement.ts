@@ -1,12 +1,9 @@
 export class Advertisement{
   Id : number;
+  Title : string
   Description : string;
-  Myfield : string;
   Price : number;
-  User : string;
   UserId : number;
-  Category : string;
   CategoryId : number;
-  Type : string;
   TypeId :number;
 }
