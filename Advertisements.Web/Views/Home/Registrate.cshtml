@@ -6,12 +6,12 @@
 
 <div class="container" role="form">
     <div class="row">
-        <form class="form-horizontal" id="signupForm" autocomplete="off">
+        <form class="form-horizontal" id="signupForm" autocomplete="off" data-bind="submit: register">
             <h2>Реєстрація</h2>
             <div class="form-group required">
                 <label for="Name" class="col-sm-3 control-label">Повне ім'я</label>
                 <div class="col-sm-4">
-                    <input type="text" class="form-control" placeholder="Ім'я'" id="firstName" name="firstName" required />
+                    <input type="text" class="form-control" placeholder="Ім'я'" id="firstName" name="firstName" required  />
                 </div>
                 <div class="col-sm-5">
                     <input type="text" class="form-control" placeholder="Прізвище" id="surName" name="surName" required />
@@ -63,32 +63,4 @@
     <script type="text/javascript" src="~/Scripts/jquery.validate.js"></script>
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script type="text/javascript" src="~/Scripts/signup-form.js"></script>
-    <script type="text/javascript">
-
-        $(function () {
-            $('#submit').click(function (e) {
-                if ($('#signupForm').valid()) {
-                    e.preventDefault();
-                    var data = {
-                        UserName: $('#firstName').val() + ' ' + $('#surName').val(),
-                        Email: $('#eMail').val(),
-                        Password: $('#password').val(),
-                        ConfirmPassword: $('#passwordRepeat').val()
-                    };
-
-                    $.ajax({
-                        type: 'POST',
-                        url: '/api/Account/Register',
-                        contentType: 'application/json; charset=utf-8',
-                        data: JSON.stringify(data),
-                        success: function (data) { alert('Реєстрація пройдена'); window.location.replace('/Home/Index') },
-                        fail: function (data) { alert('Реєстрація не пройдена') }
-
-                    })
-                }
-            })
-
-        })
-    </script>
-
 }

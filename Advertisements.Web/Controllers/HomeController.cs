@@ -31,12 +31,12 @@ namespace Advertisements.Web.Controllers
         public ActionResult Index()
         {
             ViewBag.Title = "Home Page";
-
+            
             if (HttpContext.User.IsInRole("Admin"))
             {
                 return RedirectToAction("Index", "AdminMvc");
             }
-
+            
             return View();
         }
         public ActionResult TakeConfirmEmail(string token, string eMail)
@@ -48,6 +48,7 @@ namespace Advertisements.Web.Controllers
 
         public ActionResult Registrate()
         {
+            
             RegisterViewModel u = new RegisterViewModel();
             return View(u);
         }
