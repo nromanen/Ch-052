@@ -16,7 +16,7 @@ namespace Advertisements.BusinessLogic.Services
             _uowfactory = uowfactory;
         }
 
-        public FeedbackDTO Create(FeedbackDTO item)
+        public void Create(FeedbackDTO item)
         {
             Feedback feedback = FeedbackMapper.CreateFeedback().Map(item);
 
@@ -25,8 +25,7 @@ namespace Advertisements.BusinessLogic.Services
                 var repo = uow.GetRepo<Feedback>();
                 repo.Create(feedback);
                 uow.BeginTransaction();
-                uow.Commit();
-                return FeedbackMapper.CreateFeedbackDTO().Map(feedback);
+                uow.Commit();                     
             }
         }
 
@@ -64,7 +63,7 @@ namespace Advertisements.BusinessLogic.Services
 
                 feedbacks = repo.GetAll();
             }
-            IEnumerable<FeedbackDTO> dtos = FeedbackMapper.CreateListFeedbackDTO().Map(feedbacks).ToList();
+            IEnumerable<FeedbackDTO> dtos = FeedbackMapper.CreateListFeedbackDTO().Map(feedbacks).ToList().Reverse<FeedbackDTO>();
 
             return dtos;
         }

@@ -1,49 +1,54 @@
-﻿using Advertisements.BusinessLogic.Services;
-using Advertisements.DataAccess.Repositories;
-using Advertisements.DataAccess.Services;
-using Advertisements.DTO.Models;
-using SimpleInjector;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Web.Http;
+using Advertisements.BusinessLogic.Services;
+using Advertisements.DTO.Models;
 
 namespace Advertisements.Web.Controllers
 {
-    [AllowAnonymous]
-    [RoutePrefix("api/Feedback")]
-    public class FeedbackController : ApiController
-    {
-        IService<FeedbackDTO> service;
 
-        public FeedbackController(IService<FeedbackDTO> s)
+    [Authorize]
+    [RoutePrefix("api/Advertisement")]
+    public class AdvertisementController : ApiController
+    {
+
+
+        IService<AdvertisementDTO> service;
+
+        public AdvertisementController(IService<AdvertisementDTO> s)
         {
             service = s;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         [Route("get")]
-        public IEnumerable<FeedbackDTO> Get()
+        public IEnumerable<AdvertisementDTO> Get()
         {
             return service.GetAll();
         }
 
-        [AllowAnonymous]
+
         [HttpGet]
         [Route("get/{id}")]
-        public FeedbackDTO Get(int id)
+        public AdvertisementDTO Get(int id)
         {
             return service.Get(id);
         }
 
         [HttpPost]
         [Route("add")]
-        public void Add(FeedbackDTO dto)
+        public void Add(AdvertisementDTO dto)
         {
             service.Create(dto);
         }
 
         [HttpPut]
         [Route("edit")]
-        public void Update(FeedbackDTO dto)
+        public void Update(AdvertisementDTO dto)
         {
             service.Update(dto);
         }
@@ -54,5 +59,6 @@ namespace Advertisements.Web.Controllers
         {
             service.Delete(id);
         }
+
     }
 }

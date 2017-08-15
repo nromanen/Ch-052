@@ -8,6 +8,7 @@ using System.Web.Http.Cors;
 
 namespace Advertisements.Web.Controllers
 {
+    [Authorize]
     public class ValuesController : ApiController
     {
         // GET api/values
