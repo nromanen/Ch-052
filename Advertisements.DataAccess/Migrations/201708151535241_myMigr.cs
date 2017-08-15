@@ -3,16 +3,16 @@ namespace Advertisements.DataAccess.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class mig : DbMigration
+    public partial class myMigr : DbMigration
     {
         public override void Up()
         {
-            AddColumn("dbo.Feedbacks", "RowVersion", c => c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"));
+            DropColumn("dbo.Advertisements", "Myfield");
         }
         
         public override void Down()
         {
-            DropColumn("dbo.Feedbacks", "RowVersion");
+            AddColumn("dbo.Advertisements", "Myfield", c => c.String());
         }
     }
 }
