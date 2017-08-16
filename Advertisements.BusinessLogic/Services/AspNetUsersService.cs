@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace Advertisements.BusinessLogic.Services
 {
-    public class AspNetUsersService : IService<AspNetUsersDTO>
+    public class AspNetUsersService : IService<AspNetUsersDTO>, IUserAwareService<AspNetUsersDTO>
     {
         private readonly IUOWFactory _uowfactory;
 
@@ -80,6 +80,18 @@ namespace Advertisements.BusinessLogic.Services
                 uow.BeginTransaction();
                 uow.Commit();
             }
+        }
+        public IEnumerable<AspNetUsersDTO> GetByUser(string id)
+        {
+            IEnumerable<ApplicationUser> ApplicationUsers;
+
+            using (var uow = _uowfactory.CreateUnitOfWork())
+            {
+                var repo = uow.GetRepo<ApplicationUser>();
+                ApplicationUsers = repo.GetAll().Where(e => e.Id == id);
+            }
+            IEnumerable<AspNetUsersDTO> dtos = AspNetUsersMapper.CreateListAspNetUsersDTO().Map(ApplicationUsers).ToList();
+            return dtos;
         }
     }
 }

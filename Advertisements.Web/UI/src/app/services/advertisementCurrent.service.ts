@@ -20,11 +20,11 @@ export class AdvertisementCurrentService{
 constructor(private http: Http, private loginService: LoginService) { }
 
 
-    private advertisementsCurrentUrl = 'https://localhost:44384/api/Adv/get/current';
+    private advertisementsCurrentUrl = 'https://localhost:44384/api/Advertisement/get/current';
 
     getCurrentAdvertisements(): Promise<string[]> 
     { 
-        let authToken = this.loginService.getToken().access_token;
+        let authToken = localStorage.getItem("access_token");
         let headers = new Headers();
         
         headers.append('Authorization', `Bearer ${authToken}`);
