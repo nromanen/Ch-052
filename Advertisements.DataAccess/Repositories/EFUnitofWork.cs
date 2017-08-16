@@ -45,7 +45,7 @@ namespace Advertisements.DataAccess.Repositories
             catch (Exception ex)
             {
                 this.transaction.Rollback();
-                throw ex;
+               throw ex;
             }
         }
 
