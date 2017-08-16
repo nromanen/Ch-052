@@ -26,4 +26,13 @@ export class UsersAdvComponent implements OnInit {
   ngOnInit(): void {  
     this.getCurrentAdvertisements();
   }
+
+  remove(feed: Advertisement): void {
+     console.log(feed as any);
+
+    this.advertisementCurrentService
+          .deleteCurrentAdv(feed)
+          .then(feedback => {this.getCurrentAdvertisements();})
+          .catch(error => console.log(error));
+  }
 }

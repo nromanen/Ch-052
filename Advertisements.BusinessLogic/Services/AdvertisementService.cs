@@ -63,6 +63,8 @@ namespace Advertisements.BusinessLogic.Services
                 advertisement = AdvertisementMapper.CreateAdvertisement().Map(item);
 
                 repo.Create(advertisement);
+                uow.BeginTransaction();
+                uow.Commit();
             }
         }
 
@@ -77,6 +79,8 @@ namespace Advertisements.BusinessLogic.Services
                 advertisement = AdvertisementMapper.CreateAdvertisement().Map(item);
 
                 repo.Update(advertisement);
+                uow.BeginTransaction();
+                uow.Commit();
             }
         }
 
@@ -87,6 +91,8 @@ namespace Advertisements.BusinessLogic.Services
                 var repo = uow.GetRepo<Advertisement>();
 
                 repo.Delete(id);
+                uow.BeginTransaction();
+                uow.Commit();
             }
         }
         public IEnumerable<AdvertisementDTO> GetByUser(string id)

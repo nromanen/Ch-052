@@ -1,7 +1,6 @@
-
 <div style="text-align:center">
   <h3>{{title}}</h3>
- <div class="container">
+  <div class="container">
     <table class="table table-inverse">
       <tr *ngFor="let advertisement of advertisements">
         <td class="col-sm-3">
@@ -19,10 +18,11 @@
             </tr>
           </table>
           <div>
-            <p  class="price">Price: {{advertisement.Price}} ₴</p>
+            <p class="price">Price: {{advertisement.Price}} ₴</p>
           </div>
-
-
+        </td>
+        <td>
+          <a class="btn btn-default" (click) = remove(advertisement)><span class="glyphicon glyphicon-trash"></span> </a>
         </td>
       </tr>
     </table>
