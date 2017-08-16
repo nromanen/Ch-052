@@ -87,6 +87,10 @@
     <Compile Include="Migrations\201708111617267_Initial.Designer.cs">
       <DependentUpon>201708111617267_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708161247355_AvatarAndVotedUsers.cs" />
+    <Compile Include="Migrations\201708161247355_AvatarAndVotedUsers.Designer.cs">
+      <DependentUpon>201708161247355_AvatarAndVotedUsers.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Repositories\EFRepositoryBase.cs" />
     <Compile Include="Repositories\EFUnitOfWork.cs" />
@@ -107,6 +111,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201708111617267_Initial.resx">
       <DependentUpon>201708111617267_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708161247355_AvatarAndVotedUsers.resx">
+      <DependentUpon>201708161247355_AvatarAndVotedUsers.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

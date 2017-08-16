@@ -58,9 +58,9 @@ export class FeedbackComponent implements OnInit {
 
   }
 
+
   goClick(): void {
     this.newFeedback.AdvertisementId = 1;
-    this.newFeedback.CreationTime = '01.01.2000 0:00:00';
     this.feedbacksService
           .postFeedback(this.newFeedback)
           .then(feedback => {this.getFeedbacks();})

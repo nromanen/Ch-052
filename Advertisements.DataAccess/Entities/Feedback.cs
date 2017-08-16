@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
+using System.Collections.Generic;
 
 namespace Advertisements.DataAccess.Entities
 {
@@ -22,6 +24,8 @@ namespace Advertisements.DataAccess.Entities
         public int AdvertisementId { get; set; }
 
         public virtual ApplicationUser ApplicationUser { get; set; }
+
+        public virtual List<ApplicationUser> VotedUsers { get; set; }
 
         public virtual Advertisement Advertisement { get; set; }
 
