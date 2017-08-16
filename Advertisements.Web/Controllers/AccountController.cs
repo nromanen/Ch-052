@@ -24,6 +24,7 @@ using Advertisements.DataAccess.Context;
 using System.Threading;
 using System.Linq;
 using Advertisements.Web.Filters;
+using Advertisements.Web.App_LocalResources;
 namespace Advertisements.Web.Controllers
 {
     [System.Web.Http.Authorize]
@@ -46,25 +47,32 @@ namespace Advertisements.Web.Controllers
                 _userManager = value;
             }
         }
+        
 
-        private void Send(string messageBody, string eMailAddr)
-        {
-            const string pass = "07cd1997";
-            var fromAddr = new MailAddress("junglehunter2707@gmail.com", "Our service");
+        private bool Send(string messageBody, string eMailAddr)
+        {            
+            var fromAddr = new MailAddress(EmailData.Email, EmailData.Header);
             var toAddr = new MailAddress(eMailAddr, "User");
 
             MailMessage mail = new MailMessage();
-            SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
-
+            SmtpClient SmtpServer = new SmtpClient(EmailData.SmtpServer);
             mail.From = fromAddr;
             mail.To.Add(toAddr);
-            mail.Subject = "Test Mail";
+            mail.Subject = EmailData.Subject;
             mail.Body = messageBody;
             SmtpServer.Port = 587;
-            SmtpServer.Credentials = new System.Net.NetworkCredential("junglehunter2707@gmail.com", pass);
+            SmtpServer.Credentials = new System.Net.NetworkCredential("junglehunter2707@gmail.com", EmailData.Password);
             SmtpServer.EnableSsl = true;
-            
-            SmtpServer.Send(mail);
+            SmtpServer.Timeout = 5000;
+            try
+            {
+                SmtpServer.Send(mail);
+                return true;
+            }
+            catch(Exception exc)
+            {
+                return false;
+            }
         }
 
         [System.Web.Http.AllowAnonymous]
@@ -77,7 +85,6 @@ namespace Advertisements.Web.Controllers
             user.EmailConfirmed = true;
 
             
-
             var result = await UserManager.CreateAsync(user, model.Password);
 
             if (result.Succeeded)
@@ -86,21 +93,40 @@ namespace Advertisements.Web.Controllers
             }
             else
             {
-                return BadRequest("Помилка при створенні юзвєря");
+                string errors = "";
+                foreach (string err in result.Errors)
+                    errors += err;
+                return BadRequest("Occured some errors:" + errors); 
             }
-
-            string token = Encrypt(model.Email + DateTime.Now, true);
-            string messageBody = string.Format("Для завершення реєстрації перейдіть по посиланню:" +
-                        "<a href=\"{0}\" title = \"Підтвердити реєстрацію\">{0}</a>",
-                        "https://localhost:44335/Home/TakeConfirmEmail?token=" + token + "&eMail=" + model.Email);
-            Send(messageBody, user.Email);
-
             
+            string token = Encrypt(model.Email + DateTime.Now, true);
+
+            string currentUrl1 = HttpContext.Current.Request.Url.AbsoluteUri;
+            string leftUrl = currentUrl1.Substring(0, currentUrl1.IndexOf("api"));
+            string messageBody = string.Format("Для завершення реєстрації перейдіть по посиланню:" +                        
+                        "<a href=\"{0}\">Завершити реєстрацію</a>",
+                         leftUrl + "Home/TakeConfirmEmail?token=" + token + "&eMail=" + model.Email);
+
+            if (!Send(messageBody, user.Email))
+            {
+                ModelState.AddModelError("", "Не вздалося відправити лист на цю пошту");
+                return BadRequest(ModelState);
+            }          
             return Ok();
 
         }
+        [System.Web.Http.HttpGet]
+        [System.Web.Http.Route("GetCustomerInfo")]
+        public async Task<IHttpActionResult> GetCustomerInfo()
+        { 
+            CustomUserStore store = new CustomUserStore();
+            string iD = User.Identity.GetUserId();
+            ApplicationUser user = await store.FindByIdAsync(iD);
 
-        [System.Web.Mvc.Authorize]
+            return Ok(user);
+        }
+
+        [System.Web.Http.Authorize]
         [MyMvcCustomAuthFilter("Admin")]
         [System.Web.Http.Route("RegisterAdmin")]
         public async Task<IHttpActionResult> RegisterAdmin(RegisterViewModel model)
@@ -189,7 +215,7 @@ namespace Advertisements.Web.Controllers
         public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
 
         // GET api/Account/UserInfo
-        [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
+        //[HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
         [System.Web.Http.Route("UserInfo")]
         public UserInfoViewModel GetUserInfo()
         {
@@ -204,28 +230,13 @@ namespace Advertisements.Web.Controllers
         }
 
 
-        [System.Web.Http.HttpGet]
+       // [System.Web.Http.HttpGet]
         // POST api/Account/Logout
         [System.Web.Http.Route("Logout")]
         public IHttpActionResult Logout()
         {
-            var autheticationManager = HttpContext.Current.GetOwinContext().Authentication;
-            this.Authentication.SignOut(this.Authentication.User.Identity.AuthenticationType, CookieAuthenticationDefaults.AuthenticationType);
-
-
-            HttpCookie currentUserCookie = HttpContext.Current.Request.Cookies[".AspNet.Cookies"];
-            HttpContext.Current.Response.Cookies.Remove(".AspNet.Cookies");
-            currentUserCookie.Expires = DateTime.Now.AddDays(-30);
-            currentUserCookie.Value = null;
-            HttpContext.Current.Response.SetCookie(currentUserCookie);
-            currentUserCookie = HttpContext.Current.Request.Cookies["Token"];
-            HttpContext.Current.Response.Cookies.Remove("Token");
-            currentUserCookie.Expires = DateTime.Now.AddDays(-30);
-            currentUserCookie.Value = null;
-            HttpContext.Current.Response.SetCookie(currentUserCookie);
-
-            bool flag = HttpContext.Current.Request.IsAuthenticated;
-            return this.Ok(new { message = "Logout successful." });
+            Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationType);
+            return Ok();
         }
 
 

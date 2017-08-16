@@ -1,7 +1,10 @@
 ﻿using Advertisements.DataAccess.Context;
 using Advertisements.DataAccess.Entities;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace Advertisements.DataAccess.Repositories
 {
@@ -36,10 +39,35 @@ namespace Advertisements.DataAccess.Repositories
             return _context.Set<TEntity>().ToList();
         }
 
+        public IEnumerable<TEntity> GetAll(
+            params Expression<Func<TEntity, object>>[] includeExpressions)
+        {
+            return includeExpressions
+              .Aggregate<Expression<Func<TEntity, object>>, IQueryable<TEntity>>
+               (_context.Set<TEntity>(), (current, expression) => current.Include(expression)).ToList();
+        }
+
+        public TEntity Get(
+            int id,
+            params Expression<Func<TEntity, object>>[] includeExpressions)
+        {
+            if (includeExpressions.Any())
+            {
+                var set = includeExpressions
+                  .Aggregate<Expression<Func<TEntity, object>>, IQueryable<TEntity>>
+                    (_context.Set<TEntity>(), (current, expression) => current.Include(expression));
+
+                return set.SingleOrDefault(s => s.Id == id);
+            }
+
+            return _context.Set<TEntity>().Find(id);
+        }
+
         public void Update(TEntity item)
         {
             _context.Entry(item).State = System.Data.Entity.EntityState.Modified;
         }
+
 
         //public IEnumerable<TEntity> Where(Expression<Func<TEntity, bool>> filter)
         //{

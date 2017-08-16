@@ -4,6 +4,8 @@ using Advertisements.DataAccess.Services;
 using Advertisements.DTO.Models;
 using SimpleInjector;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Web.Http;
 
 namespace Advertisements.Web.Controllers

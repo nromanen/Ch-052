@@ -47,7 +47,7 @@ namespace Advertisements.BusinessLogic.Services
             using (var uow = _uowfactory.CreateUnitOfWork())
             {
                 var repo = uow.GetRepo<Feedback>();
-                feedback = repo.Get(id);
+                feedback = repo.Get(id, o => o.Advertisement, o => o.ApplicationUser, o => o.VotedUsers);
             }
             FeedbackDTO dto = FeedbackMapper.CreateFeedbackDTO().Map(feedback);
             return dto;
@@ -61,7 +61,7 @@ namespace Advertisements.BusinessLogic.Services
             {
                 var repo = uow.GetRepo<Feedback>();
 
-                feedbacks = repo.GetAll();
+                feedbacks = repo.GetAll(o => o.Advertisement, o => o.ApplicationUser, o => o.VotedUsers);
             }
             IEnumerable<FeedbackDTO> dtos = FeedbackMapper.CreateListFeedbackDTO().Map(feedbacks).ToList().Reverse<FeedbackDTO>();
 

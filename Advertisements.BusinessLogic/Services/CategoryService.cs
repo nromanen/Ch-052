@@ -61,9 +61,9 @@ namespace Advertisements.BusinessLogic.Services
             {
                 var repo = uow.GetRepo<Category>();
 
-                categories = repo.GetAll();
+                categories = repo.GetAll(o => o.Advertisements);
             }
-            //http://localhost:53929/api/Category/getcategories
+
             IEnumerable<CategoryDTO> dtos = CategoryMapper.CreateListAdvertisementDTO().Map(categories).ToList();
 
             return dtos;

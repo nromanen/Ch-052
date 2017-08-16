@@ -7,7 +7,6 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <script type="text/javascript" src="~/Scripts/jquery-3.1.1.js"></script>
-    <script type="text/javascript" src="~/Scripts/logOutScript.js"></script>
 </head>
 <body>
     <div class="container">
@@ -37,7 +36,7 @@
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
         </footer>
     </div>
-    <script type="text/javascript">
+    @*<script type="text/javascript">
         $(document).ready(function () {
             $('#logOut').click(function (e) {
                 $.ajax({
@@ -52,9 +51,12 @@
             });
 
         });
-    </script>
+    </script>*@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/knockout-3.4.2.debug.js"></script>
+    <script src="~/Scripts/knockout-3.4.2.js"></script>
+    <script type="text/javascript" src="~/Scripts/app.js"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>
