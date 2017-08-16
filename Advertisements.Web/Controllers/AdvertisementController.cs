@@ -6,6 +6,8 @@ using System.Net.Http;
 using System.Web.Http;
 using Advertisements.BusinessLogic.Services;
 using Advertisements.DTO.Models;
+using System.Threading;
+using Microsoft.AspNet.Identity;
 
 namespace Advertisements.Web.Controllers
 {
