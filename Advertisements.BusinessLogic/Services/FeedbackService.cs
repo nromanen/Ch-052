@@ -18,7 +18,9 @@ namespace Advertisements.BusinessLogic.Services
 
         public void Create(FeedbackDTO item)
         {
+
             Feedback feedback = FeedbackMapper.CreateFeedback().Map(item);
+            feedback.CreationTime = System.DateTime.Now;
 
             using (var uow = _uowfactory.CreateUnitOfWork())
             {

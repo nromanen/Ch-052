@@ -58,7 +58,6 @@ export class FeedbackComponent implements OnInit {
 
   }
 
-
   goClick(): void {
     this.newFeedback.AdvertisementId = 1;
     this.feedbacksService

@@ -19,7 +19,7 @@
                 <article class="row">
                     <div class="col-md-2 col-sm-2 hidden-xs">
                         <figure class="thumbnail">
-                            <img class="img-responsive" src="../../../assets/userIcon.jpg" />
+                            <img class="img-responsive" src="data:image/png;Base64,{{feedback.Avatar}}" />
                             <figcaption class="text-center">ID: {{feedback.Id}} </figcaption>
                         </figure>
                     </div>
@@ -28,7 +28,7 @@
                             <div class="panel-body">
                                 <header class="text-left">
                                     <div class="comment-user">Username: {{feedback.Username}}</div>
-                                    <time class="comment-date">CreationTime: {{feedback.CreationTime}}</time>
+                                    <time class="comment-date">CreationTime: {{feedback.CreationTime | date:'medium'}} </time>
                                     <hr>
                                 </header>
                                 <div class="comment-post">{{feedback.Text}}

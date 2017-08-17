@@ -3,6 +3,7 @@ using Advertisements.DataAccess.Repositories;
 using Advertisements.DataAccess.Services;
 using Advertisements.DTO.Models;
 using SimpleInjector;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -10,7 +11,7 @@ using System.Web.Http;
 
 namespace Advertisements.Web.Controllers
 {
-    [AllowAnonymous]
+
     [RoutePrefix("api/Feedback")]
     public class FeedbackController : ApiController
     {
@@ -21,6 +22,7 @@ namespace Advertisements.Web.Controllers
             service = s;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         [Route("get")]
         public IEnumerable<FeedbackDTO> Get()
@@ -36,6 +38,7 @@ namespace Advertisements.Web.Controllers
             return service.Get(id);
         }
 
+        [Authorize]
         [HttpPost]
         [Route("add")]
         public void Add(FeedbackDTO dto)
