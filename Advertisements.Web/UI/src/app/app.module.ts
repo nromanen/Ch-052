@@ -7,6 +7,7 @@ import { NgModule }             from '@angular/core';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login-component/login.component';
 import { StartComponent } from './start-component/start.component';
+import { UsersAdvComponent } from './usersAdv-component/usersAdv.component';
 import { FeedbackComponent } from './feedback-component/feedback.component';
 
 import { AdvertisementService } from './services/advertisement.service';
@@ -18,7 +19,8 @@ import { FeedbackService } from './services/feedback.service';
     AppComponent,
     LoginComponent,
     StartComponent,
-    FeedbackComponent
+    FeedbackComponent,
+    UsersAdvComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +28,7 @@ import { FeedbackService } from './services/feedback.service';
     AppRoutingModule, 
     FormsModule
   ],
-  providers: [AdvertisementService, LoginService, FeedbackService],
+  providers: [AdvertisementService, LoginService, UsersAdvComponent, FeedbackService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
