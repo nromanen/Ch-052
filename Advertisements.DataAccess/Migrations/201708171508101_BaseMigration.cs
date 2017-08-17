@@ -3,7 +3,7 @@ namespace Advertisements.DataAccess.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class AvatarAndVotedUsers : DbMigration
+    public partial class BaseMigration : DbMigration
     {
         public override void Up()
         {
