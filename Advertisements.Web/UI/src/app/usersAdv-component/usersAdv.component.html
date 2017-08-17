@@ -1,11 +1,7 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">  
-  <h1>
-    Recent Advertisements!
-  </h1>
+<div style="text-align:center">
+  <h3>{{title}}</h3>
   <div class="container">
     <table class="table table-inverse">
-      <!-- *ngFor="let advertisement of advertisements" -->
       <tr *ngFor="let advertisement of advertisements">
         <td class="col-sm-3">
           <div class="div-advertisement-image">
@@ -22,14 +18,13 @@
             </tr>
           </table>
           <div>
-            <p  class="price">Price: {{advertisement.Price}} ₴</p>
+            <p class="price">Price: {{advertisement.Price}} ₴</p>
           </div>
-
-
+        </td>
+        <td>
+          <a class="btn btn-default" (click) = remove(advertisement)><span class="glyphicon glyphicon-trash"></span> </a>
         </td>
       </tr>
     </table>
   </div>
-
-  
 </div>

@@ -11,7 +11,7 @@ using Advertisements.DTO.Models;
 
 namespace Advertisements.BusinessLogic.Services
 {
-    public class AdvertisementService : IService<AdvertisementDTO>
+    public class AdvertisementService : IService<AdvertisementDTO>, IUserAwareService<AdvertisementDTO>
     {
         private readonly IUOWFactory _uowfactory;
 
@@ -63,6 +63,8 @@ namespace Advertisements.BusinessLogic.Services
                 advertisement = AdvertisementMapper.CreateAdvertisement().Map(item);
 
                 repo.Create(advertisement);
+                uow.BeginTransaction();
+                uow.Commit();
             }
         }
 
@@ -77,6 +79,8 @@ namespace Advertisements.BusinessLogic.Services
                 advertisement = AdvertisementMapper.CreateAdvertisement().Map(item);
 
                 repo.Update(advertisement);
+                uow.BeginTransaction();
+                uow.Commit();
             }
         }
 
@@ -87,7 +91,21 @@ namespace Advertisements.BusinessLogic.Services
                 var repo = uow.GetRepo<Advertisement>();
 
                 repo.Delete(id);
+                uow.BeginTransaction();
+                uow.Commit();
             }
+        }
+        public IEnumerable<AdvertisementDTO> GetByUser(string id)
+        {
+            IEnumerable<Advertisement> Advertisement;
+
+            using (var uow = _uowfactory.CreateUnitOfWork())
+            {
+                var repo = uow.GetRepo<Advertisement>();
+                Advertisement = repo.GetAll().Where(e => e.ApplicationUserId == id);
+            }
+            IEnumerable<AdvertisementDTO> dtos = AdvertisementMapper.CreateListAdvertisementDTO().Map(Advertisement).ToList();
+            return dtos;
         }
     }
 }
