@@ -31,9 +31,12 @@ namespace Advertisements.Web
             container.Register<IUOWFactory, UOWFactory>(Lifestyle.Singleton);
             container.Register(typeof(IService<CategoryDTO>), typeof(CategoryService));
             container.Register(typeof(IService<FeedbackDTO>), typeof(FeedbackService));
-            container.Register(typeof(IService<AspNetUsersDTO>), typeof(AspNetUsersService));
+            container.Register(typeof(IUserService<AspNetUsersDTO>), typeof(AspNetUsersService));
             container.Register(typeof(IService<AdvertisementDTO>), typeof(AdvertisementService));
             container.Register(typeof(IUserAwareService<AdvertisementDTO>), typeof(AdvertisementService));
+            container.Register(typeof(IUserAwareService<FeedbackDTO>), typeof(FeedbackService));
+            container.Register(typeof(IService<PasswordRecoveryDTO>), typeof(PasswordRecoveryService));
+            container.Register(typeof(IService<ResourceDTO>), typeof(ResourceService));
 
             DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(container));
             GlobalConfiguration.Configuration.DependencyResolver = new SimpleInjectorWebApiDependencyResolver(container);

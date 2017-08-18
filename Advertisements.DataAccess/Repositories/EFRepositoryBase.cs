@@ -29,9 +29,21 @@ namespace Advertisements.DataAccess.Repositories
                 _context.Set<TEntity>().Remove(item);
         }
 
+        public void Delete(string id)
+        {
+            var item = _context.Set<TEntity>().Find(id);
+            if (item != null)
+                _context.Set<TEntity>().Remove(item);
+        }
+
         public TEntity Get(int id)
         {
            return _context.Set<TEntity>().Find(id);
+        }
+
+        public TEntity Get(string id)
+        {
+            return _context.Set<TEntity>().Find(id);
         }
 
         public IEnumerable<TEntity> GetAll()

@@ -18,7 +18,7 @@ namespace Advertisements.DTO.Models
 
         public string CreationTime { get; set; }
 
-        public int UserId { get; set; }
+        public string UserId { get; set; }
 
         public int AdvertisementId { get; set; }
 
@@ -28,7 +28,7 @@ namespace Advertisements.DTO.Models
 
         public FeedbackDTO() { }
 
-        public FeedbackDTO(int id, string text, int agreeCount, int disagreeCount, string creationTime, int advertisementId, int userId)
+        public FeedbackDTO(int id, string text, int agreeCount, int disagreeCount, string creationTime, int advertisementId, string userId)
         {
             this.Id = id;
             this.Text = text;

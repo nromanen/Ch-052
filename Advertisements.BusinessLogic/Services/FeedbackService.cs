@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace Advertisements.BusinessLogic.Services
 {
-    public class FeedbackService : IService<FeedbackDTO>
+    public class FeedbackService : IService<FeedbackDTO>, IUserAwareService<FeedbackDTO>
     {
         private readonly IUOWFactory _uowfactory;
 
@@ -81,6 +81,18 @@ namespace Advertisements.BusinessLogic.Services
                 uow.BeginTransaction();
                 uow.Commit();
             }
+        }
+        public IEnumerable<FeedbackDTO> GetByUser(string id)
+        {
+            IEnumerable<Feedback> Feedback;
+
+            using (var uow = _uowfactory.CreateUnitOfWork())
+            {
+                var repo = uow.GetRepo<Feedback>();
+                Feedback = repo.GetAll().Where(e => e.UserId == id);
+            }
+            IEnumerable<FeedbackDTO> dtos = FeedbackMapper.CreateListFeedbackDTO().Map(Feedback).ToList();
+            return dtos;
         }
     }
 }
