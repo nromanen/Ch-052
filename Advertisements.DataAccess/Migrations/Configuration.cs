@@ -1,3 +1,6 @@
+using Advertisements.DataAccess.Entities;
+using Microsoft.AspNet.Identity.EntityFramework;
+
 namespace Advertisements.DataAccess.Migrations
 {
     using System;

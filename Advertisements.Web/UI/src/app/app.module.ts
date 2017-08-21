@@ -28,7 +28,7 @@ import { FeedbackService } from './services/feedback.service';
     AppRoutingModule, 
     FormsModule
   ],
-  providers: [AdvertisementService, LoginService, UsersAdvComponent, FeedbackService],
+  providers: [AdvertisementService, LoginService, FeedbackService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

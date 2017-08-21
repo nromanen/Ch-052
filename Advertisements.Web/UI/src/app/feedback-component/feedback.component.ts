@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
 
 @Component({
+    moduleId: module.id,
   selector: 'feedback-root',
   templateUrl: './feedback.component.html',
   styleUrls: ['./feedback.component.css'],
