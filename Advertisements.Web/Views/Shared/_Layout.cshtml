@@ -6,6 +6,8 @@
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Content/ImageStyle.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.css" rel="stylesheet" />
     <script type="text/javascript" src="~/Scripts/jquery-3.1.1.js"></script>
 </head>
 <body>
@@ -36,22 +38,7 @@
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
         </footer>
     </div>
-    @*<script type="text/javascript">
-        $(document).ready(function () {
-            $('#logOut').click(function (e) {
-                $.ajax({
-                    type: 'GET',
-                    url: '/api/Account/Logout',
-                    success: function () { sessionStorage.removeItem('Token'); window.location.replace('/Home/Index') },
-                    fail: function () { alert('bad') },
-                    error: function () { alert('very bad') }
-                });
-
-
-            });
-
-        });
-    </script>*@
+    
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     <script src="~/Scripts/knockout-3.4.2.debug.js"></script>

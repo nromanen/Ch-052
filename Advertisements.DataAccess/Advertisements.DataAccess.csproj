@@ -83,9 +83,13 @@
     <Compile Include="Entities\IEntity.cs" />
     <Compile Include="Entities\PasswordRecovery.cs" />
     <Compile Include="Entities\Resource.cs" />
-    <Compile Include="Migrations\201708151535241_myMigr.cs" />
-    <Compile Include="Migrations\201708151535241_myMigr.Designer.cs">
-      <DependentUpon>201708151535241_myMigr.cs</DependentUpon>
+    <Compile Include="Migrations\201708161444103_avatarmigr.cs" />
+    <Compile Include="Migrations\201708161444103_avatarmigr.Designer.cs">
+      <DependentUpon>201708161444103_avatarmigr.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708171426445_EmailTokenMigr.cs" />
+    <Compile Include="Migrations\201708171426445_EmailTokenMigr.Designer.cs">
+      <DependentUpon>201708171426445_EmailTokenMigr.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Repositories\EFRepositoryBase.cs" />
@@ -105,8 +109,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201708151535241_myMigr.resx">
-      <DependentUpon>201708151535241_myMigr.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201708161444103_avatarmigr.resx">
+      <DependentUpon>201708161444103_avatarmigr.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708171426445_EmailTokenMigr.resx">
+      <DependentUpon>201708171426445_EmailTokenMigr.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

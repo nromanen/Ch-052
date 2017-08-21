@@ -25,9 +25,12 @@ using System.Threading;
 using System.Linq;
 using Advertisements.Web.Filters;
 using Advertisements.Web.App_LocalResources;
+using Advertisements.Web.Csharp;
+using System.Drawing;
+
 namespace Advertisements.Web.Controllers
 {
-    [System.Web.Http.Authorize]
+    
     [System.Web.Http.RoutePrefix("api/Account")]
     public class AccountController : BaseApiController
     {
@@ -82,9 +85,12 @@ namespace Advertisements.Web.Controllers
 
             var user = new ApplicationUser() { UserName = model.UserName };
             user.Email = model.Email;
-            user.EmailConfirmed = true;
-
             
+            string imgPath = HttpContext.Current.Server.MapPath("~/Content/Current_user_av.jpg");
+            Image img = Image.FromFile(imgPath);
+            img = Csharp.ImageConverter.SqueezeImg(img);
+            user.Avatar = Csharp.ImageConverter.BytesFromImg(img);
+
             var result = await UserManager.CreateAsync(user, model.Password);
 
             if (result.Succeeded)
@@ -95,23 +101,31 @@ namespace Advertisements.Web.Controllers
             {
                 string errors = "";
                 foreach (string err in result.Errors)
-                    errors += err;
+                    errors += err + " ";
                 return BadRequest("Occured some errors:" + errors); 
             }
-            
-            string token = Encrypt(model.Email + DateTime.Now, true);
 
+            string userEmailConfirmToken = UserManager.GenerateEmailConfirmationToken(user.Id);
             string currentUrl1 = HttpContext.Current.Request.Url.AbsoluteUri;
             string leftUrl = currentUrl1.Substring(0, currentUrl1.IndexOf("api"));
-            string messageBody = string.Format("Для завершення реєстрації перейдіть по посиланню:" +                        
-                        "<a href=\"{0}\">Завершити реєстрацію</a>",
-                         leftUrl + "Home/TakeConfirmEmail?token=" + token + "&eMail=" + model.Email);
 
+            string messageBody = string.Format("Hello, {0}! Please confirm your account by clicking this link:\n{1}",
+                user.UserName,leftUrl + "Home/TakeConfirmEmail?token=" + userEmailConfirmToken + "&Id=" + user.Id);
             if (!Send(messageBody, user.Email))
+                ModelState.AddModelError("", "Could not send email message");
+
+            if (!ModelState.IsValid)
             {
-                ModelState.AddModelError("", "Не вздалося відправити лист на цю пошту");
-                return BadRequest(ModelState);
-            }          
+                string errMessages = "";
+                foreach (var message in ModelState.Values)
+                {
+                    errMessages += message + " ";
+                }
+                return BadRequest(errMessages);
+            }
+            user.EmailToken = userEmailConfirmToken;
+            await UserManager.UpdateAsync(user);
+
             return Ok();
 
         }
@@ -146,7 +160,7 @@ namespace Advertisements.Web.Controllers
                 return Ok();
             }
             else
-                return BadRequest("Не вдалося зареєструвати адміна");
+                return BadRequest("Could not registrate an admin");
         }
 
 
@@ -156,6 +170,7 @@ namespace Advertisements.Web.Controllers
         [System.Web.Http.Route("Login")]
         public async Task<IHttpActionResult> Login([FromBody]RegisterViewModel model)
         {
+            
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -285,6 +300,7 @@ namespace Advertisements.Web.Controllers
         [System.Web.Http.Route("ChangePassword")]
         public async Task<IHttpActionResult> ChangePassword(ChangePasswordBindingModel model)
         {
+            
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -299,6 +315,63 @@ namespace Advertisements.Web.Controllers
             }
 
             return Ok();
+        }
+
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("RestorePasswordRequest")]
+        public async Task<IHttpActionResult> RestorePasswordRequest(RestorePasswordReqViewmodel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var user = await UserManager.FindByEmailAsync(model.eMail);
+            if (user == null)
+            {
+                return BadRequest("This email doesn't exist");
+            }
+
+            string token = UserManager.GeneratePasswordResetToken(user.Id);
+            string currentUrl1 = HttpContext.Current.Request.Url.AbsoluteUri;
+            string leftUrl = currentUrl1.Substring(0, currentUrl1.IndexOf("api"));
+            user.EmailToken = token;
+            await UserManager.UpdateAsync(user);
+
+            string messageBody = string.Format("Hello,{0} to restore your password go to this link:{1}Home/ConfirmPasswordRestoring?token={2}&email={3}",
+                user.UserName, leftUrl, token, model.eMail);
+            Send(messageBody, model.eMail);
+
+            return Ok("Check your email to restore your password!");
+        }
+
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("RestorePassword")]
+        public async Task<IHttpActionResult> RestorePassword(RestorePasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var user = await UserManager.FindByIdAsync(model.Id);
+
+            if (user == null)
+            {
+                return BadRequest("Error occured when password retore");
+            }
+
+            var result = await UserManager.ResetPasswordAsync(model.Id, user.EmailToken, model.NewPassword);
+            user.EmailToken = "";
+            await UserManager.UpdateAsync(user);
+            if (result.Errors.ToArray().Length > 0)
+            {
+                string errors = "";
+                foreach (string str in result.Errors)
+                    errors += str + " ";
+                return BadRequest(errors);
+            }
+
+            return Ok("Your password has successfully changed!");
         }
 
         // POST api/Account/SetPassword

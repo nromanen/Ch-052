@@ -7,13 +7,13 @@ namespace Advertisements.DataAccess.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class myMigr : IMigrationMetadata
+    public sealed partial class avatarmigr : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(myMigr));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(avatarmigr));
         
         string IMigrationMetadata.Id
         {
-            get { return "201708151535241_myMigr"; }
+            get { return "201708161444103_avatarmigr"; }
         }
         
         string IMigrationMetadata.Source

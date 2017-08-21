@@ -46,6 +46,19 @@ namespace Advertisements.Web
             }
             return manager;
         }
+        public async Task<IdentityResult> CustomCheckEmailTokenAsync(string userId, string emailToken)
+        {
+            ApplicationUser user = await this.FindByIdAsync(userId);
+            string tokenToCheck = user.EmailToken.Replace('+', ' ');
+            if (tokenToCheck != emailToken) 
+            {            
+                return new IdentityResult("Invalid email token!");
+            }
+            user.EmailConfirmed = true;
+            user.EmailToken = string.Empty;
+            await this.UpdateAsync(user);
+            return new IdentityResult();
+        }
     }
 
 
@@ -80,13 +93,13 @@ namespace Advertisements.Web
             var context = userStore.Context as ApplicationDbContext;
             return context.Users.Where(u => u.UserName.ToLower() == userName.ToLower()).FirstOrDefaultAsync();
         }
-        public ApplicationUser FindByEmailAndPass(string eMail, string password)
+        public async Task<ApplicationUser> FindByEmailAndPass(string eMail, string password)
         {
             var context = userStore.Context as ApplicationDbContext;
             PasswordHasher hash = new PasswordHasher();
-            foreach (ApplicationUser u in context.Users)
+            foreach (ApplicationUser u in await context.Users.Where(u=>u.Email == eMail).ToListAsync())
             {
-                if (u.Email == eMail && hash.VerifyHashedPassword(u.PasswordHash, password) == PasswordVerificationResult.Success)
+                if (hash.VerifyHashedPassword(u.PasswordHash, password) == PasswordVerificationResult.Success)
                 {
                     return u;
                 }
