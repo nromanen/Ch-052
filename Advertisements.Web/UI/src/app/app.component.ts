@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 
 
 @Component({
-  moduleId: module.id,
+    moduleId: module.id.toString(),
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
   constructor(private router: Router, private loginService: LoginService) { 
         this.access_token = localStorage.getItem('access_token');
     console.log('outside');
-    //console.log(this.access_token);
+    console.log(this.access_token);
     if (this.access_token !== null) {
       console.log('inside');
     }

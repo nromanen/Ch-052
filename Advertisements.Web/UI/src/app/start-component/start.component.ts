@@ -6,7 +6,7 @@ import { Token } from '../models/token';
 import { Router } from '@angular/router';
 
 @Component({
-  moduleId: module.id,
+    moduleId: module.id.toString(),
   selector: 'start-root',
   templateUrl: './start.component.html',
   styleUrls: ['./start.component.css'],

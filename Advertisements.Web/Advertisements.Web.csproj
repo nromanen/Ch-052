@@ -337,6 +337,13 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="UI\src\assets\dislikeIcon.png" />
+    <Content Include="UI\src\assets\images\icon.png" />
+    <Content Include="UI\src\assets\images\noPhoto.png" />
+    <Content Include="UI\src\assets\likeIcon.png" />
+    <Content Include="UI\src\assets\userIcon.jpg" />
+    <Content Include="webpack.config.js" />
+    <Content Include="webpack.dev.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
@@ -372,9 +379,6 @@
     <Content Include="assets\likeIcon.png" />
     <Content Include="assets\userIcon.jpg" />
     <Content Include="UI\src\favicon.ico" />
-    <Content Include="UI\src\index.html" />
-    <Content Include="UI\src\styles.css" />
-    <Content Include="UI\src\systemjs.config.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -400,11 +404,9 @@
     <Content Include="Views\AdminMvc\Index.cshtml" />
     <Content Include="Views\AdminMvc\Register.cshtml" />
     <Content Include="assets\.gitkeep" />
-    <Content Include="UI\src\tsconfig.app.json" />
-    <Content Include="UI\src\tsconfig.spec.json" />
     <Content Include="package.json" />
     <Content Include="tsconfig.json" />
-    <Content Include="typings.json" />
+    <Content Include="Views\Home\loader.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -441,7 +443,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="UI\src\app\app-routing.module.ts" />
-    <None Include="UI\src\app\app.component.spec.ts" />
     <None Include="UI\src\app\app.component.ts" />
     <None Include="UI\src\app\app.module.ts" />
     <None Include="UI\src\app\feedback-component\feedback.component.ts" />
@@ -456,11 +457,11 @@
     <None Include="UI\src\app\services\login.service.ts" />
     <None Include="UI\src\app\start-component\start.component.ts" />
     <None Include="UI\src\app\usersAdv-component\usersAdv.component.ts" />
+    <Content Include="UI\src\assets\.gitkeep" />
     <None Include="UI\src\environments\environment.prod.ts" />
     <None Include="UI\src\environments\environment.ts" />
     <None Include="UI\src\main.ts" />
     <None Include="UI\src\polyfills.ts" />
-    <None Include="UI\src\test.ts" />
     <None Include="UI\src\typings.d.ts" />
   </ItemGroup>
   <ItemGroup>
