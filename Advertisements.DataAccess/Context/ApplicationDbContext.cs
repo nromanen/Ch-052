@@ -17,6 +17,8 @@ namespace Advertisements.DataAccess.Context
         public IDbSet<Advertisement> Advertisements { get; set; }
         public IDbSet<PasswordRecovery> PasswordRecoveries { get; set; }
         public IDbSet<Feedback> Feedbacks { get; set; }
+        public IDbSet<Votes> VotedUsers { get; set; }
+
         public ApplicationDbContext()
             : base("Connection", throwIfV1Schema: false)
         {
