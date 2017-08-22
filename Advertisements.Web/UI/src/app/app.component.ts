@@ -25,8 +25,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
   token:Token;
   subscription: Subscription;
-   
-  //access_token: string;
 
   constructor(private router: Router, private loginService: LoginService, private comcomService: ComcomService) {
     this.subscription = this.comcomService.getToken().subscribe(token =>       
@@ -37,15 +35,6 @@ export class AppComponent implements OnInit, OnDestroy {
         else
           this.loginbuttontext = 'Log In';
       });
-
-
-    // this.access_token = localStorage.getItem('access_token');
-    // console.log('outside');
-    // console.log(this.access_token);
-    // if (this.access_token !== null) {
-    //   console.log('inside');
-    // }
-
   }
 
   ngOnInit(): void {

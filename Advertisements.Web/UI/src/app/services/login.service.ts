@@ -38,7 +38,7 @@ export class LoginService{
         urlSearchParams.append('Username', params.Username);
         urlSearchParams.append('Password', params.Password);
         urlSearchParams.append('grant_type', params.grant_type);
-        let body = urlSearchParams.toString()
+        let body = urlSearchParams.toString();
 
         return this.http.post(this.advertisementsLoginUrl, body).map(res => { return <Token> res.json();});
                                                                                             //    return this.http.post(this.advertisementsLoginUrl, body).toPromise().then(response => {this.token = response.json() as Token; 
