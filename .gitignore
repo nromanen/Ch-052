@@ -260,3 +260,4 @@ paket-files/
 __pycache__/
 *.pyc
 /Advertisements.Web/angularBundle
+/Advertisements.Web/Views/Home/assets
