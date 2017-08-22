@@ -19,11 +19,16 @@ export class FeedbackComponent implements OnInit {
   
   feedbacks: String[];
   selectedFeedback: Feedback;
+  accessDenied : boolean;
+  isButtonClicked : boolean;
+  errorMessage : string;
+  itemClicked : number;
+  
 
   getFeedbacks():void {
    this.feedbacksService.getFeedbacks()
           .then(feedbacks =>
-          {this.feedbacks = feedbacks; console.log(this.feedbacks) });
+          {this.feedbacks = feedbacks});
 }
 
   ngOnInit(): void {  
@@ -34,36 +39,63 @@ export class FeedbackComponent implements OnInit {
 
   likeClick(feed: Feedback): void {
 
-    ++feed.AgreeCount;
-
-    console.log(feed as any);
+    feed.Agree = true;
+    this.isButtonClicked = false;
+    this.itemClicked = feed.Id;
 
     this.feedbacksService
           .updateFeedback(feed)
           .then(feedback => {this.getFeedbacks();})
-          .catch(error => console.log(error));
+          .catch((res) => {this.showNotification(res.status, res._body) });
 
   }
 
     dislikeClick(feed: Feedback): void {
 
-    ++feed.DisagreeCount;
-
-    console.log(feed as any);
+    feed.Agree = false;
+    this.isButtonClicked = false;
+    this.itemClicked = feed.Id;
 
     this.feedbacksService
           .updateFeedback(feed)
           .then(feedback => {this.getFeedbacks();})
-          .catch(error => console.log(error));
+          .catch((res) => {this.showNotification(res.status, res._body) });
 
   }
 
   goClick(): void {
     this.newFeedback.AdvertisementId = 1;
+    this.isButtonClicked = true;
     this.feedbacksService
           .postFeedback(this.newFeedback)
-          .then(feedback => {this.getFeedbacks();})
-          .catch(error => console.log(error));
+          .then(feedback => {this.getFeedbacks(); this.newFeedback.Text = '';})
+          .catch((res) => {this.showNotification(res.status, res._body) });
 
   }
+
+  showNotification(statusCode : string, response : string) : void {
+
+      if (statusCode == "401")
+      {
+        this.accessDenied = true; 
+        this.errorMessage = "You need to authorize"; 
+      }  
+
+      if (statusCode == "400")
+      {
+        switch (response)
+        {
+          case "101": 
+            this.accessDenied = true;
+            this.errorMessage = "You already voted";
+          break;
+          case "201": 
+            this.accessDenied = true;
+            this.errorMessage = "You already left a comment";
+          break;
+        } 
+      }
+ 
+  }
+
 }

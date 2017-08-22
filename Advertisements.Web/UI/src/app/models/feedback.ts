@@ -4,6 +4,7 @@ export class Feedback{
   AgreeCount : number;
   DisagreeCount : number;
   CreationTime : Date;
+  Agree : boolean;
   ApplicationUserId : string;
   Advertisement : string;
   AdvertisementId : number;

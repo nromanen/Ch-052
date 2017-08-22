@@ -22,6 +22,7 @@ namespace Advertisements.BusinessLogic.Mapper
                     AgreeCount = source.AgreeCount,
                     DisagreeCount = source.DisagreeCount,
                     AdvertisementId = source.AdvertisementId,
+                    ApplicationUserId = source.UserId,
                     CreationTime = source.CreationTime
 
                 }));
@@ -48,9 +49,10 @@ namespace Advertisements.BusinessLogic.Mapper
                     DisagreeCount = source.DisagreeCount,
                     CreationTime = source.CreationTime,
                     AdvertisementId = source.AdvertisementId,
+                    UserId = source.ApplicationUserId,
                     Username = source.ApplicationUser.UserName,
                     RowVersion = source.RowVersion.Select(x => (int)x).ToArray(),
-                    Avatar = System.Convert.ToBase64String(source.ApplicationUser.Avatar)
+                    //Avatar = System.Convert.ToBase64String(source.ApplicationUser.Avatar)
                 }));
 
             return mapper;

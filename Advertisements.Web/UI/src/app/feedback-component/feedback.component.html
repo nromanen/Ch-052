@@ -1,49 +1,47 @@
 <div class="container">
-    <div class="row" >
+    <div class="row">
         <div class="col-md-8">
-            <h2 class="page-header">Feedback</h2>
+            <h2 class="page-header">Feedbacks</h2>
             <section class="comment-list">
                 <div class=" row" ng-if="newFeedback">
-                    <div class="col-md-4">
-                        <!-- <input type="text" class="form-control" id="addText" placeholder="Leave your comment" name="fname"> -->
-                        <input type="text" id="textValue" placeholder="Leave your comment" [(ngModel)] = "newFeedback.Text"/>
+                    <div class="col-md-10 col-sm-10">
+                        <textarea class="form-control" rows="5" id="comment" placeholder="Leave your comment" [(ngModel)]="newFeedback.Text" required></textarea>
                     </div>
-                    <div class="col-md-2">
-                        <input type="submit" id="addFeedback" class="btn submit-btn shaddow" value="Send" (click) = 'goClick()'>
+                    <div class="col-md-2 col-sm-2 hidden-xs">
+                        <input type="submit" [disabled]="!newFeedback.Text" id="addFeedback" class="btn submit-btn shaddow" value="Send" (click)='goClick()'>
                     </div>
                 </div>
                 <hr>
+                <div *ngIf="accessDenied && isButtonClicked" class="alert alert-danger">{{errorMessage}}</div>
                 <br>
-                <!--Comment -->
                 <div *ngFor="let feedback of feedbacks">
-                <article class="row">
-                    <div class="col-md-2 col-sm-2 hidden-xs">
-                        <figure class="thumbnail">
-                            <img class="img-responsive" src="data:image/png;Base64,{{feedback.Avatar}}" />
-                            <figcaption class="text-center">ID: {{feedback.Id}} </figcaption>
-                        </figure>
-                    </div>
-                    <div class="col-md-10 col-sm-10">
-                        <div class="panel panel-default arrow left">
-                            <div class="panel-body">
-                                <header class="text-left">
-                                    <div class="comment-user">Username: {{feedback.Username}}</div>
-                                    <time class="comment-date">CreationTime: {{feedback.CreationTime | date:'medium'}} </time>
+                    <article class="row">
+                        <div class="col-md-2 col-sm-2 hidden-xs">
+                            <figure class="thumbnail">
+                                <img class="img-responsive" src="../../../assets/userIcon.jpg" />
+                            </figure>
+                        </div>
+                        <div class="col-md-10 col-sm-10">
+                            <div class="panel panel-default arrow left">
+                                <div class="panel-body">
+                                    <header class="text-left">
+                                        <div class="comment-user">Username: {{feedback.Username}}</div>
+                                        <time class="comment-date">CreationTime: {{feedback.CreationTime | date:'medium'}} </time>
+                                        <hr>
+                                    </header>
+                                    <div class="comment-post">{{feedback.Text}}
+                                    </div>
                                     <hr>
-                                </header>
-                                <div class="comment-post">{{feedback.Text}}
-                                </div>
-                                <hr>
-                                   <img src="../../../assets/likeIcon.png"  (click) = 'likeClick(feedback)'  />
-                                    <span>{{feedback.AgreeCount}}</span>
-                                    &nbsp;
-                                    <img src="../../../assets/dislikeIcon.png" (click) = 'dislikeClick(feedback)' />
+                                    <img src="../../../assets/likeIcon.png" (click)='likeClick(feedback)' />
+                                    <span>{{feedback.AgreeCount}}</span> &nbsp;
+                                    <img src="../../../assets/dislikeIcon.png" (click)='dislikeClick(feedback)' />
                                     <span>{{feedback.DisagreeCount}}</span>
+                                </div>
+                                <div *ngIf="accessDenied && !isButtonClicked && feedback.Id == itemClicked" class="alert alert-danger">{{errorMessage}}</div>
                             </div>
                         </div>
-                    </div>
-                </article>
-               </div>
+                    </article>
+                </div>
             </section>
         </div>
     </div>

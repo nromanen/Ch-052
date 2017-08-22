@@ -1,5 +1,7 @@
 namespace Advertisements.DataAccess.Migrations
 {
+    using Advertisements.DataAccess.Entities;
+    using Microsoft.AspNet.Identity.EntityFramework;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
@@ -15,12 +17,12 @@ namespace Advertisements.DataAccess.Migrations
         protected override void Seed(Advertisements.DataAccess.Context.ApplicationDbContext context)
         {
             context.Types.AddOrUpdate(
-               x => x.Name,
-               new AdvertisementType { Name = "Sale" },
-               new AdvertisementType { Name = "Buy" },
-               new AdvertisementType { Name = "Exchange" },
-               new AdvertisementType { Name = "Present" }
-               );
+              x => x.Name,
+              new AdvertisementType { Name = "Sale" },
+              new AdvertisementType { Name = "Buy" },
+              new AdvertisementType { Name = "Exchange" },
+              new AdvertisementType { Name = "Present" }
+              );
 
             context.Categories.AddOrUpdate(
             x => x.Name,

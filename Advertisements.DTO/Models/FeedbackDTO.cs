@@ -3,6 +3,7 @@ using System.Linq;
 using Advertisements.DTO.Models;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Advertisements.DataAccess.Entities;
 
 namespace Advertisements.DTO.Models
 {
@@ -18,7 +19,7 @@ namespace Advertisements.DTO.Models
 
         public DateTime CreationTime { get; set; }
 
-        public int UserId { get; set; }
+        public string UserId { get; set; }
 
         public int AdvertisementId { get; set; }
 
@@ -28,9 +29,13 @@ namespace Advertisements.DTO.Models
 
         public string Avatar { get; set; }
 
+        public string VotedUserId { get; set; }
+
+        public bool Agree { get; set; }
+
         public FeedbackDTO() { }
 
-        public FeedbackDTO(int id, string text, int agreeCount, int disagreeCount, DateTime creationTime, int advertisementId, int userId)
+        public FeedbackDTO(int id, string text, int agreeCount, int disagreeCount, DateTime creationTime, int advertisementId, string userId)
         {
             this.Id = id;
             this.Text = text;

@@ -6,8 +6,6 @@ import { LoginService } from './services/login.service';
 import { Token } from './models/token';
 import { Router } from '@angular/router';
 
-
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
