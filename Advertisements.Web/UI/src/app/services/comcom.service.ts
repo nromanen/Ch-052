@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
+﻿import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Subject } from 'rxjs/Subject';
 
-import {Token} from '../models/token'
+import { Token } from '../models/token'
 
 @Injectable()
 export class ComcomService {
