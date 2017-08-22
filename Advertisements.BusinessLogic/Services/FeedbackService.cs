@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace Advertisements.BusinessLogic.Services
 {
-    public class FeedbackService : IService<FeedbackDTO>
+    public class FeedbackService : IService<FeedbackDTO>, IFeedbackAwareService<FeedbackDTO>
     {
         private readonly IUOWFactory _uowfactory;
 
@@ -78,6 +78,21 @@ namespace Advertisements.BusinessLogic.Services
             return dtos;
         }
 
+        public IEnumerable<FeedbackDTO> GetByAdvertisement(int advertisementId)
+        {
+            IEnumerable<Feedback> feedbacks;
+
+            using (var uow = _uowfactory.CreateUnitOfWork())
+            {
+                var repo = uow.GetRepo<Feedback>();
+
+                feedbacks = repo.GetAll(o => o.Advertisement, o => o.ApplicationUser, o => o.Votes).Where(x => x.AdvertisementId == advertisementId);
+            }
+            IEnumerable<FeedbackDTO> dtos = FeedbackMapper.CreateListFeedbackDTO().Map(feedbacks).ToList().Reverse<FeedbackDTO>();
+
+            return dtos;
+        }
+
         public void Update(FeedbackDTO item)
         {
             Feedback feedback = FeedbackMapper.CreateFeedback().Map(item);
@@ -95,7 +110,6 @@ namespace Advertisements.BusinessLogic.Services
                         ++feedback.AgreeCount;
                     else
                         ++feedback.DisagreeCount;
-
                     repo.Update(feedback);
                     feedback.Votes.Add(new Votes
                     {

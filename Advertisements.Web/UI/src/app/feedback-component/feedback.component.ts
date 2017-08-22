@@ -1,9 +1,10 @@
-import { Component, OnInit, Input, NgZone } from '@angular/core';
+﻿import { Component, OnInit, Input, NgZone } from '@angular/core';
 import { Feedback } from '../models/feedback';
 import { FeedbackService } from '../services/feedback.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import 'rxjs/add/operator/switchMap';
+import { Subscription } from "rxjs/Subscription";
 
 @Component({
   selector: 'feedback-root',
@@ -12,9 +13,11 @@ import 'rxjs/add/operator/switchMap';
   providers: [FeedbackService]
 })
 export class FeedbackComponent implements OnInit {
-  constructor(private router:Router, private feedbacksService: FeedbackService, private zone: NgZone) { }
+  constructor(private router:Router, private feedbacksService: FeedbackService, private zone: NgZone, private route : ActivatedRoute) { }
 
+  private id: number;
   title: string ='Feedbacks';
+  private route$ : Subscription; 
   
   
   feedbacks: String[];
@@ -25,14 +28,22 @@ export class FeedbackComponent implements OnInit {
   itemClicked : number;
   
 
-  getFeedbacks():void {
-   this.feedbacksService.getFeedbacks()
+  getFeedbacks(id):void {
+   this.feedbacksService.getFeedbacks(id)
           .then(feedbacks =>
           {this.feedbacks = feedbacks});
+  
+   this.accessDenied = false;
+   this.isButtonClicked = false;
 }
 
   ngOnInit(): void {  
-    this.getFeedbacks();
+    this.route$ = this.route.params.subscribe(
+     (params: Params) => {
+       this.id = +params["id"];
+     }
+   );
+    this.getFeedbacks(this.id);
   }
 
   @Input() newFeedback: Feedback = new Feedback;
@@ -45,7 +56,7 @@ export class FeedbackComponent implements OnInit {
 
     this.feedbacksService
           .updateFeedback(feed)
-          .then(feedback => {this.getFeedbacks();})
+          .then(feedback => {this.getFeedbacks(this.id);})
           .catch((res) => {this.showNotification(res.status, res._body) });
 
   }
@@ -58,7 +69,7 @@ export class FeedbackComponent implements OnInit {
 
     this.feedbacksService
           .updateFeedback(feed)
-          .then(feedback => {this.getFeedbacks();})
+          .then(feedback => {this.getFeedbacks(this.id);})
           .catch((res) => {this.showNotification(res.status, res._body) });
 
   }
@@ -68,10 +79,14 @@ export class FeedbackComponent implements OnInit {
     this.isButtonClicked = true;
     this.feedbacksService
           .postFeedback(this.newFeedback)
-          .then(feedback => {this.getFeedbacks(); this.newFeedback.Text = '';})
+          .then(feedback => {this.getFeedbacks(this.id); this.newFeedback.Text = '';})
           .catch((res) => {this.showNotification(res.status, res._body) });
 
   }
+
+  ngOnDestroy() {
+   if (this.route$) this.route$.unsubscribe();
+ }
 
   showNotification(statusCode : string, response : string) : void {
 

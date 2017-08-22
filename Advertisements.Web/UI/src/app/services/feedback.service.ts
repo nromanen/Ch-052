@@ -18,10 +18,10 @@ export class FeedbackService{
 constructor(private http: Http, private loginService: LoginService) { }
 
 
-    private feedbacksUrl = 'https://localhost:44384/api/feedback/get';
 
-    getFeedbacks() { 
-        return this.http.get(this.feedbacksUrl).toPromise().then(response => response.json() as string []).catch(this.handleError);
+    getFeedbacks(id : number) { 
+        let feedbacksUrl = 'https://localhost:44384/api/feedback/getByAdvertisement' + id;
+        return this.http.get(feedbacksUrl).toPromise().then(response => response.json() as string []).catch(this.handleError);
     } 
 
     postFeedback(param: any): Promise<any> {

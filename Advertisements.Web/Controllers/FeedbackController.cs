@@ -20,11 +20,13 @@ namespace Advertisements.Web.Controllers
     {
         IService<FeedbackDTO> service;
         IUserService<AspNetUsersDTO> userService;
+        IFeedbackAwareService<FeedbackDTO> feedbackService;
 
-        public FeedbackController(IService<FeedbackDTO> s, IUserService<AspNetUsersDTO> us)
+        public FeedbackController(IService<FeedbackDTO> s, IUserService<AspNetUsersDTO> us, IFeedbackAwareService<FeedbackDTO> fs)
         {
             service = s;
             userService = us;
+            feedbackService = fs;
         }
 
         [AllowAnonymous]
@@ -41,6 +43,14 @@ namespace Advertisements.Web.Controllers
         public FeedbackDTO Get(int id)
         {
             return service.Get(id);
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("getByAdvertisement/{id}")]
+        public IEnumerable<FeedbackDTO> GetByAdvertisement(int id)
+        {
+            return feedbackService.GetByAdvertisement(id);
         }
 
         [Authorize]

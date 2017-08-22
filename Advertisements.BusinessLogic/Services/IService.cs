@@ -23,6 +23,11 @@ namespace Advertisements.BusinessLogic.Services
         IEnumerable<T> GetByUser(string userId);
     }
 
+    public interface IFeedbackAwareService<T> : IService<T> where T : class
+    {
+        IEnumerable<T> GetByAdvertisement(int advertisementId);
+    }
+
     public interface IUserService<T>   where T : class
     {
         IEnumerable<T> GetAll();
