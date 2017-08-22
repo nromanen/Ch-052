@@ -7,6 +7,7 @@ import 'rxjs/add/operator/switchMap';
 import { Subscription } from "rxjs/Subscription";
 
 @Component({
+    moduleId: module.id.toString(),
   selector: 'feedback-root',
   templateUrl: './feedback.component.html',
   styleUrls: ['./feedback.component.css'],
