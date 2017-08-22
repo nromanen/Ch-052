@@ -18,14 +18,24 @@ namespace Advertisements.BusinessLogic.Services
 
         public void Create(FeedbackDTO item)
         {
+
             Feedback feedback = FeedbackMapper.CreateFeedback().Map(item);
+            feedback.CreationTime = System.DateTime.Now;
 
             using (var uow = _uowfactory.CreateUnitOfWork())
             {
                 var repo = uow.GetRepo<Feedback>();
-                repo.Create(feedback);
-                uow.BeginTransaction();
-                uow.Commit();                     
+
+                if (!AlreadyCommented(item.UserId))
+                {
+                    repo.Create(feedback);
+                    uow.BeginTransaction();
+                    uow.Commit();
+                }
+                else
+                {
+                    throw new PermissionDeniedException(201);
+                }
             }
         }
 
@@ -47,7 +57,7 @@ namespace Advertisements.BusinessLogic.Services
             using (var uow = _uowfactory.CreateUnitOfWork())
             {
                 var repo = uow.GetRepo<Feedback>();
-                feedback = repo.Get(id, o => o.Advertisement, o => o.ApplicationUser, o => o.VotedUsers);
+                feedback = repo.Get(id, o => o.Advertisement, o => o.ApplicationUser, o => o.Votes);
             }
             FeedbackDTO dto = FeedbackMapper.CreateFeedbackDTO().Map(feedback);
             return dto;
@@ -61,7 +71,7 @@ namespace Advertisements.BusinessLogic.Services
             {
                 var repo = uow.GetRepo<Feedback>();
 
-                feedbacks = repo.GetAll(o => o.Advertisement, o => o.ApplicationUser, o => o.VotedUsers);
+                feedbacks = repo.GetAll(o => o.Advertisement, o => o.ApplicationUser, o => o.Votes);
             }
             IEnumerable<FeedbackDTO> dtos = FeedbackMapper.CreateListFeedbackDTO().Map(feedbacks).ToList().Reverse<FeedbackDTO>();
 
@@ -76,11 +86,62 @@ namespace Advertisements.BusinessLogic.Services
             using (var uow = _uowfactory.CreateUnitOfWork())
             {
                 var repo = uow.GetRepo<Feedback>();
-                
-                repo.Update(feedback);
-                uow.BeginTransaction();
-                uow.Commit();
+
+                feedback.Votes = new List<Votes>();
+
+                if (!AlreadyVoted(item.VotedUserId, item.Id))
+                {
+                    if (item.Agree)
+                        ++feedback.AgreeCount;
+                    else
+                        ++feedback.DisagreeCount;
+
+                    repo.Update(feedback);
+                    feedback.Votes.Add(new Votes
+                    {
+                        ApplicationUserId = item.VotedUserId,
+                        FeedbackId = item.Id,
+                        Agree = item.Agree
+                    });
+
+                    uow.BeginTransaction();
+                    uow.Commit();
+                }
+                else
+                {
+                    throw new PermissionDeniedException(101);
+                }
             }
         }
+
+        public bool AlreadyVoted (string userId, int feedbackId)
+        {
+            using (var uow = _uowfactory.CreateUnitOfWork())
+            {
+                var repo = uow.GetRepo<Votes>();
+                return repo.GetAll().Where(x => x.ApplicationUserId == userId && x.FeedbackId == feedbackId).ToList().Count != 0;
+            }
+        }
+
+        public bool AlreadyCommented(string id)
+        {
+            using (var uow = _uowfactory.CreateUnitOfWork())
+            {
+                var repo = uow.GetRepo<Feedback>();
+                return repo.GetAll().Where(x => x.ApplicationUserId == id).ToList().Count != 0;
+            }
+        }
+
+        public class PermissionDeniedException : System.Exception
+        {
+            public int StatusCode;
+            public PermissionDeniedException () { }
+
+            public PermissionDeniedException(int statusCode)
+            {
+                this.StatusCode = statusCode;
+            }
+        }
+
     }
 }

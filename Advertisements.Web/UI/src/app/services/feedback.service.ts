@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { Feedback } from '../models/feedback';
-import {HttpModule, Http, Response, RequestOptions} from '@angular/http'; 
+import {Headers, HttpModule, Http, Response, RequestOptions} from '@angular/http'; 
 
 import { LoginService } from '../services/login.service';
 
@@ -25,19 +25,31 @@ constructor(private http: Http, private loginService: LoginService) { }
     } 
 
     postFeedback(param: any): Promise<any> {
+
+        let authToken = localStorage.getItem("access_token");
+        let headers = new Headers();
+        headers.append('Authorization', `Bearer ${authToken}`);
+        let options = new RequestOptions({ headers: headers });
+
     return this.http
-        .post('https://localhost:44384/api/feedback/add', param)
+        .post('https://localhost:44384/api/feedback/add', param, options)
         .toPromise()
         .then()
-        .catch(this.handleError);
+        .catch();
     } 
 
     updateFeedback(param: any): Promise<any> {
+
+        let authToken = localStorage.getItem("access_token");
+        let headers = new Headers();
+        headers.append('Authorization', `Bearer ${authToken}`);
+        let options = new RequestOptions({ headers: headers });
+
     return this.http
-        .put('https://localhost:44384/api/feedback/edit', param)
+        .put('https://localhost:44384/api/feedback/edit', param, options)
         .toPromise()
         .then()
-        .catch(this.handleError);
+        .catch();
     } 
 
     private handleError(error: any): Promise<any> {

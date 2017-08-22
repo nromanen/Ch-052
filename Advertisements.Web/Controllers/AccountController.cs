@@ -84,7 +84,8 @@ namespace Advertisements.Web.Controllers
             user.Email = model.Email;
             user.EmailConfirmed = true;
 
-            
+            //user.Avatar = System.IO.File.ReadAllBytes(System.Web.HttpContext.Current.Server.MapPath("~//likeIcon.png"));
+
             var result = await UserManager.CreateAsync(user, model.Password);
 
             if (result.Succeeded)
