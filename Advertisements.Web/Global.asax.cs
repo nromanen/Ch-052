@@ -31,6 +31,7 @@ namespace Advertisements.Web
             container.Register<IUOWFactory, UOWFactory>(Lifestyle.Singleton);
             container.Register(typeof(IService<CategoryDTO>), typeof(CategoryService));
             container.Register(typeof(IService<FeedbackDTO>), typeof(FeedbackService));
+            container.Register(typeof(IFeedbackAwareService<FeedbackDTO>), typeof(FeedbackService));
             container.Register(typeof(IUserService<AspNetUsersDTO>), typeof(AspNetUsersService));
             container.Register(typeof(IService<AdvertisementDTO>), typeof(AdvertisementService));
             container.Register(typeof(IUserAwareService<AdvertisementDTO>), typeof(AdvertisementService));

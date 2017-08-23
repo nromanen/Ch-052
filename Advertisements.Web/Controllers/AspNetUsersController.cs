@@ -28,8 +28,7 @@ namespace Advertisements.Web.Controllers
         [Route("get/current")]
         public string GetCurrentuserId()
         {
-            string UserId = System.Web.HttpContext.Current.User.Identity.GetUserId();
-            return UserId;
+            return System.Web.HttpContext.Current.User.Identity.GetUserId();
         }
 
         [AllowAnonymous]

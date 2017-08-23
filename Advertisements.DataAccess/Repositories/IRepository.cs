@@ -13,6 +13,7 @@ namespace Advertisements.DataAccess.Repositories
         T Get(int id);
         T Get(string id);
         T Get(int id, params Expression<Func<T, object>>[] includeExpressions);
+        T Get(string id);
         void Create(T item);
         void Update(T item);
         void Delete(int id);
