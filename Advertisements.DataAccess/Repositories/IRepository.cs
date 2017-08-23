@@ -11,7 +11,6 @@ namespace Advertisements.DataAccess.Repositories
         IEnumerable<T> GetAll();
         IEnumerable<T> GetAll(params Expression<Func<T, object>>[] includeExpressions);
         T Get(int id);
-        T Get(string id);
         T Get(int id, params Expression<Func<T, object>>[] includeExpressions);
         T Get(string id);
         void Create(T item);

@@ -35,7 +35,6 @@ namespace Advertisements.Web
             container.Register(typeof(IUserService<AspNetUsersDTO>), typeof(AspNetUsersService));
             container.Register(typeof(IService<AdvertisementDTO>), typeof(AdvertisementService));
             container.Register(typeof(IUserAwareService<AdvertisementDTO>), typeof(AdvertisementService));
-            container.Register(typeof(IUserAwareService<FeedbackDTO>), typeof(FeedbackService));
             container.Register(typeof(IService<PasswordRecoveryDTO>), typeof(PasswordRecoveryService));
             container.Register(typeof(IService<ResourceDTO>), typeof(ResourceService));
 

@@ -1,30 +1,34 @@
 <div style="text-align:center">
   <h3>{{title}}</h3>
-  <div class="container">
-    <table class="table table-inverse">
-      <tr *ngFor="let advertisement of advertisements">
-        <td class="col-sm-3">
-          <div class="div-advertisement-image">
-            <img class="img-advert" src="../assets/images/noPhoto.png" alt="Mountain View">
-          </div>
-        </td>
-        <td class="col-sm-9 td-adverttisement-texts">
-          <table>
-            <tr>
-              <td class="tr-title">{{advertisement.Title}}</td>
-            </tr>
-            <tr>
-              <td class="tr-description">{{advertisement.Description}}</td>
-            </tr>
-          </table>
-          <div>
-            <p class="price">Price: {{advertisement.Price}} ₴</p>
-          </div>
-        </td>
-        <td>
-          <a class="btn btn-default" (click) = remove(advertisement)><span class="glyphicon glyphicon-trash"></span> </a>
-        </td>
-      </tr>
-    </table>
-  </div>
+</div>
+<div class="container">
+  <table class="table table-inverse table-bordered">
+    <tr *ngFor="let advertisement of advertisements">
+      <td class="col-sm-3">
+        <div class="div-advertisement-image">
+          <img class="img-advert" src="../assets/images/noPhoto.png" alt="Mountain View">
+        </div>
+      </td>
+      <td class="col-sm-9 td-adverttisement-texts">
+        <table>
+          <tr>
+            <td class="tr-title">{{advertisement.Title}}</td>
+          </tr>
+          <tr>
+            <td class="tr-description">{{advertisement.Description}}</td>
+          </tr>
+        </table>
+        <div>
+          <p class="price">Price: {{advertisement.Price}} ₴</p>
+        </div>
+      </td>
+      <td>
+        <div class="btn-group">
+          <button type="button" class="btn btn-success"><span class="	glyphicon glyphicon-trash"></span></button>
+          <button type="button" class="btn btn-danger" ><span class="glyphcicon glyphicon-pencil"></span></button>
+          <button type="button" class="btn btn-info"><span class="glyphcicon glyphicon-info-sign"></span></button>
+        </div>
+      </td>
+    </tr>
+  </table>
 </div>

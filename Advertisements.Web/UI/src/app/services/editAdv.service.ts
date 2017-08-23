@@ -18,7 +18,7 @@ export class EditAdvService {
     constructor(private http: Http, private loginService: LoginService) { }
 
     getAdvertisement(param: any): Promise<Advertisement> {
-        let getAdvEdit = 'https://localhost:44384/api/Advertisement/get/' + param;
+        let getAdvEdit = 'api/Advertisement/get/' + param;
         let authToken = localStorage.getItem("access_token");
         let headers = new Headers();
 
@@ -30,7 +30,7 @@ export class EditAdvService {
     }
 
     editAdv(param: Advertisement): Promise<any> {
-        let advEditUrl = 'https://localhost:44384/api/Advertisement/edit/';
+        let advEditUrl = 'api/Advertisement/edit/';
         let authToken = localStorage.getItem("access_token");
         let headers = new Headers();
 

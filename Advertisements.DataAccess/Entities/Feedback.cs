@@ -20,9 +20,6 @@ namespace Advertisements.DataAccess.Entities
 
         public DateTime CreationTime { get; set; }
 
-        [ForeignKey("ApplicationUser")]
-        public string UserId { get; set; } 
-
         [ForeignKey("Advertisement")]
         public int AdvertisementId { get; set; }
 

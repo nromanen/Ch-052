@@ -24,13 +24,14 @@
     "@angular/platform-browser-dynamic": "^4.0.0",
     "@angular/router": "^4.0.0",
     "@jaspero/ng2-alerts": "0.0.7",
+    "angular-ui-bootstrap": "^2.5.0",
     "bootstrap": "^3.3.7",
-    "jquery": "^3.2.1",
     "core-js": "^2.4.1",
+    "jquery": "^3.2.1",
     "ngx-bootstrap": "^1.8.1",
+    "reflect-metadata": "^0.1.8",
     "rxjs": "^5.4.1",
     "systemjs": "0.19.39",
-    "reflect-metadata": "^0.1.8",
     "zone.js": "^0.8.14"
   },
   "devDependencies": {
