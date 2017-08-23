@@ -12,7 +12,7 @@
                     </div>
                 </div>
                 <hr>
-                <div *ngIf="accessDenied && isButtonClicked" class="alert alert-danger">{{errorMessage}}</div>
+                <div *ngIf="isButtonClicked && accessDenied " class="alert alert-danger">{{errorMessage}}</div>
                 <br>
                 <div *ngFor="let feedback of feedbacks">
                     <article class="row">
@@ -37,7 +37,7 @@
                                     <img src="../../../assets/dislikeIcon.png" (click)='dislikeClick(feedback)' />
                                     <span>{{feedback.DisagreeCount}}</span>
                                 </div>
-                                <div *ngIf="accessDenied && !isButtonClicked && feedback.Id == itemClicked" class="alert alert-danger">{{errorMessage}}</div>
+                                <div *ngIf="!isButtonClicked && feedback.Id == itemClicked && accessDenied " class="alert alert-danger">{{errorMessage}}</div>
                             </div>
                         </div>
                     </article>

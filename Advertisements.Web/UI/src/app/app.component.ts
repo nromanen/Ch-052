@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Http} from "@angular/http";
 import { Advertisement } from './models/advertisement';
 
 import { LoginService } from './services/login.service';

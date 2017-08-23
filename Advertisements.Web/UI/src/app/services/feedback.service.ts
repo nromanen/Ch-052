@@ -20,7 +20,7 @@ constructor(private http: Http, private loginService: LoginService) { }
 
 
     getFeedbacks(id : number) { 
-        let feedbacksUrl = 'https://localhost:44384/api/feedback/getByAdvertisement' + id;
+        let feedbacksUrl = 'feedback/getByAdvertisement' + "/" + "1";
         return this.http.get(feedbacksUrl).toPromise().then(response => response.json() as string []).catch(this.handleError);
     } 
 
@@ -32,7 +32,7 @@ constructor(private http: Http, private loginService: LoginService) { }
         let options = new RequestOptions({ headers: headers });
 
     return this.http
-        .post('https://localhost:44384/api/feedback/add', param, options)
+        .post('feedback/add', param, options)
         .toPromise()
         .then()
         .catch();
@@ -46,7 +46,7 @@ constructor(private http: Http, private loginService: LoginService) { }
         let options = new RequestOptions({ headers: headers });
 
     return this.http
-        .put('https://localhost:44384/api/feedback/edit', param, options)
+        .put('feedback/edit', param, options)
         .toPromise()
         .then()
         .catch();

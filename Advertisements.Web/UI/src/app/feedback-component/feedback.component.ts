@@ -29,12 +29,12 @@ export class FeedbackComponent implements OnInit {
   
 
   getFeedbacks(id):void {
+   this.accessDenied = false;
+   this.isButtonClicked = false;
+
    this.feedbacksService.getFeedbacks(id)
           .then(feedbacks =>
           {this.feedbacks = feedbacks});
-  
-   this.accessDenied = false;
-   this.isButtonClicked = false;
 }
 
   ngOnInit(): void {  
