@@ -5,6 +5,7 @@ import { Advertisement } from '../models/advertisement';
 import { AdvertisementCurrentService } from '../services/advertisementCurrent.service';
 
 @Component({
+    moduleId: module.id.toString(),
   selector: 'usersAdv',
   templateUrl: './usersAdv.component.html',
   styleUrls: ['./usersAdv.component.css'],
