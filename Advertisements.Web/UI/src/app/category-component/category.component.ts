@@ -22,15 +22,26 @@ export class CategoryComponent implements OnInit {
     categories: Category[];
     selectedCategory: Category;
 
+    @Input() category: Category = new Category();
+
     getCategories(): void {
         this.categoryService.getCategories()
             .then(categories =>
             { this.categories = categories; console.log("Component", this.categories) });
     }
 
-      ngOnInit(): void {  
-    this.getCategories();
-  }
+     getCategory(id: number): void {
+        this.categoryService.getCategory(id)
+            .then();
+    }
 
+    deleteCategory(category: Category): void {
+        this.categoryService.deleteCategory(category).
+        then();
+    }
+
+    ngOnInit(): void {
+        this.getCategories();
+    }
 
 }

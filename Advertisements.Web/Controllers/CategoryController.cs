@@ -36,14 +36,14 @@ namespace Advertisements.Web.Controllers
         }
 
         [HttpPost]
-        [Route("add")]
+        [Route("create")]
         public void Add(CategoryDTO dto)
         {
            service.Create(dto);
         }
 
         [HttpPut]
-        [Route("edit")]
+        [Route("update")]
         public void Update(CategoryDTO dto)
         {
             service.Update(dto);
