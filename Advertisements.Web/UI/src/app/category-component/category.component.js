@@ -14,9 +14,10 @@ const category_service_1 = require("../services/category.service");
 const router_1 = require("@angular/router");
 require("rxjs/add/operator/switchMap");
 let CategoryComponent = class CategoryComponent {
-    constructor(router, categoryService) {
+    constructor(router, categoryService, zone) {
         this.router = router;
         this.categoryService = categoryService;
+        this.zone = zone;
         this.title = "Categories";
     }
     getCategories() {
@@ -35,7 +36,7 @@ CategoryComponent = __decorate([
         styleUrls: ['./category.component.css'],
         providers: [category_service_1.CategoryService]
     }),
-    __metadata("design:paramtypes", [router_1.Router, category_service_1.CategoryService])
+    __metadata("design:paramtypes", [router_1.Router, category_service_1.CategoryService, core_1.NgZone])
 ], CategoryComponent);
 exports.CategoryComponent = CategoryComponent;
 //# sourceMappingURL=category.component.js.map

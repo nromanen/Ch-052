@@ -17,7 +17,7 @@ let CategoryService = class CategoryService {
     constructor(http, loginService) {
         this.http = http;
         this.loginService = loginService;
-        this.categoryUrl = "https://localhost:44384/api/Category";
+        this.categoryUrl = "https://localhost:44384/api/Category/";
     }
     getCategories() {
         return this.http.get(this.categoryUrl + "get").

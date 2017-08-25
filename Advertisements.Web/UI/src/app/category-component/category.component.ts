@@ -15,7 +15,7 @@ import 'rxjs/add/operator/switchMap';
     providers: [CategoryService]
 })
 export class CategoryComponent implements OnInit {
-    constructor(private router: Router, private categoryService: CategoryService) { }
+    constructor(private router: Router, private categoryService: CategoryService, private zone: NgZone) { }
 
     title: string = "Categories";
 
