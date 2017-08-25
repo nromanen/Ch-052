@@ -8,7 +8,7 @@ import { UsersAdvComponent } from './usersAdv-component/usersAdv.component';
 import { CategoryComponent } from './category-component/category.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/start', pathMatch: 'full' },
+  { path: '', redirectTo: '/category', pathMatch: 'full' },
   { path: 'start', component: StartComponent },
   { path: 'login',  component: LoginComponent },
   { path: 'myAdv', component: UsersAdvComponent },

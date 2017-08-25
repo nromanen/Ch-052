@@ -8,7 +8,7 @@ using System.Web.Http;
 
 namespace Advertisements.Web.Controllers
 {
-    [AllowAnonymous]
+    [Authorize(Roles = "Admin")]
     [RoutePrefix("api/Category")]
     public class CategoryController : ApiController
     {
@@ -36,14 +36,14 @@ namespace Advertisements.Web.Controllers
         }
 
         [HttpPost]
-        [Route("create")]
+        [Route("add")]
         public void Add(CategoryDTO dto)
         {
            service.Create(dto);
         }
 
         [HttpPut]
-        [Route("update")]
+        [Route("edit")]
         public void Update(CategoryDTO dto)
         {
             service.Update(dto);

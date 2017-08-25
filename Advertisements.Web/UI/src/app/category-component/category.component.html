@@ -1,23 +1,24 @@
- <h2>Categories</h2>
+<h1>Categories</h1>
+<!-- //style="width:20%"> -->
 
-<table style="width:20%">
+<table class="table table-bordered table-hover table-striped" style="width:20%"> 
     <tr>
         <th>Name</th>
         <th>Actions</th>
     </tr>
 
-    <tr *ngFor="let category of categories" [class.selected]="category === selectedCategory">
+    <tr *ngFor="let category of categories" [class.selected]="Category === selectedCategory">
         <td>{{category.Name}}</td>
         <td>
-            <button (click)="updateClick(category)" id="updateBtn">Update</button>
-            <button (click)="deleteClick(category)" id="deleteBtn">Delete</button>
+            <button (click)="updateClick(category)" id="updateBtn" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span></button>
+            <button (click)="deleteClick(category)" id="deleteBtn" class="btn btn-primary"><span class="glyphicon glyphicon-trash"></span></button>
             
         </td>
     </tr>
-
 </table>
- 
- <!-- <section id="content" style="margin : 50 0 0 0" ng-if="category">
+
+
+ <section id="content" style="margin : 50 0 0 0" ng-if="category">
     <form action="">
         <h1>Category Form</h1>
 
@@ -30,4 +31,4 @@
             <input type="submit" value="Save" id="submitCategory" (click)="saveClick()" />
         </div>
     </form>
-</section>    -->
+</section> 

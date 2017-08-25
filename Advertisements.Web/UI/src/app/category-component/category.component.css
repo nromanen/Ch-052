@@ -1,0 +1,14 @@
+  table {
+    width: 300px;
+    border: 1px solid green;
+    margin: auto;
+   }
+   td {
+    text-align: center;
+   }
+    th {
+    text-align: center;
+   }
+    h1 {
+    text-align: center;
+   }

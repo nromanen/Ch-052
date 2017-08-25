@@ -22,7 +22,7 @@ export class CategoryComponent implements OnInit {
     categories: Category[];
     selectedCategory: Category;
 
-    @Input() category: Category = new Category();
+    @Input() Category: Category = new Category();
 
     getCategories(): void {
         this.categoryService.getCategories()
@@ -30,18 +30,40 @@ export class CategoryComponent implements OnInit {
             { this.categories = categories; console.log("Component", this.categories) });
     }
 
-     getCategory(id: number): void {
+    getCategory(id: number): void {
         this.categoryService.getCategory(id)
             .then();
     }
 
     deleteCategory(category: Category): void {
         this.categoryService.deleteCategory(category).
-        then();
+            then();
     }
 
     ngOnInit(): void {
         this.getCategories();
+    }
+
+
+    updateClick(category: Category): void {
+        this.Category = category;
+    }
+
+    deleteClick(category): void {
+        this.Category = category;
+        this.categoryService.deleteCategory(this.Category).then(category => { this.getCategories(); console.log(this.Category) }).catch(error => console.log(error));
+        this.Category = new Category();
+    }
+
+    saveClick(): void {
+        console.log(this.Category);
+
+        if (this.Category.Id == 0)
+            this.categoryService.createCategory(this.Category).then(category => { this.getCategories() }).catch(error => console.log(error));
+        else
+            this.categoryService.updateCategory(this.Category).then(category => { this.getCategories() }).catch(error => console.log(error));
+
+        this.Category = new Category();
     }
 
 }

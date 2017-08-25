@@ -18,7 +18,16 @@ export class CategoryService {
     private categoryUrl = "https://localhost:44384/api/Category/";
 
     getCategories(): Promise<Category[]> {
-        return this.http.get(this.categoryUrl + "get").
+
+        let headers = new Headers();
+
+        var token = localStorage.getItem("access_token");
+      
+        headers.append('Authorization', `Bearer ${token}`);
+        
+        let options = new RequestOptions({ headers: headers });
+
+        return this.http.get(this.categoryUrl + "get", options).
             toPromise().
             then(response => { response.json() as Category[]; console.log("Service", response.json() as Category[]); return response.json() as Category[]; }).
             catch(this.handleError);
@@ -32,7 +41,7 @@ export class CategoryService {
     }
 
     deleteCategory(category: Category): Promise<Category[]> {
-        return this.http.delete(this.categoryUrl + "delete" + category.Id).
+        return this.http.delete(this.categoryUrl + "delete/" + category.Id).
             toPromise().
             then(response => { response.json() as Category[] }).
             catch(this.handleError);
