@@ -12,6 +12,8 @@ export class RegistrationService {
     private MyHttpClient: Http;
     private UrlToRegister: string;
     public RegisterModel: UserRegisterModel;
+
+    
     public constructor(http: Http) {
         this.MyHttpClient = http;
         this.UrlToRegister = "/api/Account/Register";

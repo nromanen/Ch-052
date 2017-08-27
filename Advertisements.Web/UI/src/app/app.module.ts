@@ -17,6 +17,10 @@ import { ComcomService } from './services/comcom.service';
 import {RegistrationComponent} from './registration-component/registration.component'
 import { EqualValidator  } from "./directives/equalvalidator.directive";
 import {RegistrationService} from './services/registration.service'
+import {TryRestorePasswordCompoent} from './tryrestorepassword-component/tryrestorepassword.component'
+import {RestorePasswordComponent  } from "./restorepassword-component/restorepassword.component"
+import {RestorePasswordService} from './services/restorepassword.service'
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +29,9 @@ import {RegistrationService} from './services/registration.service'
     FeedbackComponent,
     UsersAdvComponent,
     RegistrationComponent,
-    EqualValidator
+    EqualValidator,
+    TryRestorePasswordCompoent,
+    RestorePasswordComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +40,7 @@ import {RegistrationService} from './services/registration.service'
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [AdvertisementService, LoginService, FeedbackService, ComcomService, RegistrationService],
+  providers: [AdvertisementService, LoginService, FeedbackService, ComcomService, RegistrationService, TryRestorePasswordCompoent, RestorePasswordService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

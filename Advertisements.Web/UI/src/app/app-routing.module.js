@@ -13,13 +13,17 @@ const start_component_1 = require("./start-component/start.component");
 const feedback_component_1 = require("./feedback-component/feedback.component");
 const usersAdv_component_1 = require("./usersAdv-component/usersAdv.component");
 const registration_component_1 = require("./registration-component/registration.component");
+const tryrestorepassword_component_1 = require("./tryrestorepassword-component/tryrestorepassword.component");
+const restorepassword_component_1 = require("./restorepassword-component/restorepassword.component");
 const routes = [
     { path: '', redirectTo: '/start', pathMatch: 'full' },
     { path: 'start', component: start_component_1.StartComponent },
     { path: 'login', component: login_component_1.LoginComponent },
     { path: 'myAdv', component: usersAdv_component_1.UsersAdvComponent },
     { path: 'feedback', component: feedback_component_1.FeedbackComponent },
-    { path: 'register', component: registration_component_1.RegistrationComponent }
+    { path: 'register', component: registration_component_1.RegistrationComponent },
+    { path: 'tryrestorepassword', component: tryrestorepassword_component_1.TryRestorePasswordCompoent },
+    { path: 'restorepassword', component: restorepassword_component_1.RestorePasswordComponent }
 ];
 let AppRoutingModule = class AppRoutingModule {
 };

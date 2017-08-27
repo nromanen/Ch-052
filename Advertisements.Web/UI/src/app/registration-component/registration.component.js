@@ -21,7 +21,7 @@ let RegistrationComponent = class RegistrationComponent {
     CreateRequest() {
         this.registrService.RegisterModel = this.registerModel;
         let result = this.registrService.PostUser();
-        result.subscribe(function (response) { alert(response); }, function (error) { alert(error); });
+        result.subscribe(function (response) { alert(response); window.location.replace("/start"); }, function (error) { alert(error); });
     }
     ngOnInit() {
         this.registrGroup = new forms_1.FormGroup({

@@ -23,6 +23,9 @@ const comcom_service_1 = require("./services/comcom.service");
 const registration_component_1 = require("./registration-component/registration.component");
 const equalvalidator_directive_1 = require("./directives/equalvalidator.directive");
 const registration_service_1 = require("./services/registration.service");
+const tryrestorepassword_component_1 = require("./tryrestorepassword-component/tryrestorepassword.component");
+const restorepassword_component_1 = require("./restorepassword-component/restorepassword.component");
+const restorepassword_service_1 = require("./services/restorepassword.service");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -34,7 +37,9 @@ AppModule = __decorate([
             feedback_component_1.FeedbackComponent,
             usersAdv_component_1.UsersAdvComponent,
             registration_component_1.RegistrationComponent,
-            equalvalidator_directive_1.EqualValidator
+            equalvalidator_directive_1.EqualValidator,
+            tryrestorepassword_component_1.TryRestorePasswordCompoent,
+            restorepassword_component_1.RestorePasswordComponent
         ],
         imports: [
             platform_browser_1.BrowserModule,
@@ -43,7 +48,7 @@ AppModule = __decorate([
             forms_1.FormsModule,
             forms_1.ReactiveFormsModule
         ],
-        providers: [advertisement_service_1.AdvertisementService, login_service_1.LoginService, feedback_service_1.FeedbackService, comcom_service_1.ComcomService, registration_service_1.RegistrationService],
+        providers: [advertisement_service_1.AdvertisementService, login_service_1.LoginService, feedback_service_1.FeedbackService, comcom_service_1.ComcomService, registration_service_1.RegistrationService, tryrestorepassword_component_1.TryRestorePasswordCompoent, restorepassword_service_1.RestorePasswordService],
         bootstrap: [app_component_1.AppComponent]
     })
 ], AppModule);

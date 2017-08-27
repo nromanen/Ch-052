@@ -28,7 +28,7 @@ export class RegistrationComponent implements OnInit //implements OnInit
     this.registrService.RegisterModel = this.registerModel;
     let result = this.registrService.PostUser();
     result.subscribe(
-      function(response) { alert(response)},
+      function(response) { alert(response); window.location.replace("/start");},
       function(error) { alert(error)}
   );
   }

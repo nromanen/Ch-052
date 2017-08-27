@@ -29,7 +29,6 @@ using System.Drawing;
 
 namespace Advertisements.Web.Controllers
 {
-    [System.Web.Http.Authorize]
     [System.Web.Http.RoutePrefix("api/Account")]
     public class AccountController : BaseApiController
     {
@@ -88,7 +87,7 @@ namespace Advertisements.Web.Controllers
             Image img = Image.FromFile(imgPath);
             img = Csharp.ImageConverter.SqueezeImg(img);
             user.Avatar = Csharp.ImageConverter.BytesFromImg(img);
-
+            user.EmailConfirmed = true;
             var result = await UserManager.CreateAsync(user, model.Password);
 
             if (result.Succeeded)
@@ -128,6 +127,82 @@ namespace Advertisements.Web.Controllers
 
 
         }
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("RestorePasswordRequest")]
+        public async Task<IHttpActionResult> RestorePasswordRequest(RestorePasswordReqViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var user = await UserManager.FindByEmailAsync(model.Email);
+            if (user == null)
+            {
+                return Ok("This email doesn't exist");
+            }
+
+            string token = UserManager.GeneratePasswordResetToken(user.Id);
+            string currentUrl1 = HttpContext.Current.Request.Url.AbsoluteUri;
+            string leftUrl = currentUrl1.Substring(0, currentUrl1.IndexOf("api"));
+            user.EmailToken = token;
+            await UserManager.UpdateAsync(user);
+
+            string messageBody = string.Format("Hello,{0} to restore your password go to this link:{1}/restorepassword?token={2}&email={3}",
+                user.UserName, leftUrl, token, model.Email);
+            Send(messageBody, model.Email);
+
+            return Ok("Check your email to restore your password!");
+        }
+
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("CheckPassRestoreData")]
+        public async Task<IHttpActionResult> CheckPassRestoreData(CheckPassRestoreDataViewModel model)
+        {
+
+            var user = await UserManager.FindByEmailAsync(model.Email);
+
+            if (user == null)
+            {
+                return Ok("Invalid url");
+            }
+
+            if (user.EmailToken != model.Token)
+            {
+                return Ok("Invalid url");
+            }
+            return Ok("Ok");
+        }
+
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("RestorePassword")]
+        public async Task<IHttpActionResult> RestorePassword(RestorePasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var user = await UserManager.FindByEmailAsync(model.Email);
+
+            if (user == null)
+            {
+                return Ok("Error occured when password retore");
+            }
+
+            var result = await UserManager.ResetPasswordAsync(user.Id, user.EmailToken, model.NewPassword);
+            user.EmailToken = "";
+            await UserManager.UpdateAsync(user);
+            if (result.Errors.ToArray().Length > 0)
+            {
+                string errors = "";
+                foreach (string str in result.Errors)
+                    errors += str + " ";
+                return Ok(errors);
+            }
+
+            return Ok("Your password has successfully changed!");
+        }
+        [System.Web.Http.Authorize]
         [System.Web.Http.HttpGet]
         [System.Web.Http.Route("GetCustomerInfo")]
         public async Task<IHttpActionResult> GetCustomerInfo()
