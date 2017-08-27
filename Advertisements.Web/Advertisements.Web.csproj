@@ -283,6 +283,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Csharp\ImageConverter.cs" />
     <Compile Include="Filters\MyApiCustomAuthFilter.cs" />
     <Compile Include="Filters\MyMvcCustomAuthFilter.cs" />
     <Compile Include="Global.asax.cs">
@@ -305,6 +306,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
+    <Content Include="Content\Current_user_av.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\app.js" />
@@ -332,6 +334,10 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="UI\src\app\directives\equalvalidator.directive.js" />
+    <Content Include="UI\src\app\registration-component\registration.component.css" />
+    <Content Include="UI\src\app\registration-component\registration.component.html" />
+    <Content Include="UI\src\app\registration-component\registration.component.js" />
     <Content Include="webpack.config.js" />
     <Content Include="webpack.dev.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -418,12 +424,14 @@
     <None Include="UI\src\app\app-routing.module.ts" />
     <None Include="UI\src\app\app.component.ts" />
     <None Include="UI\src\app\app.module.ts" />
+    <Content Include="UI\src\app\directives\equalvalidator.directive.js.map" />
     <None Include="UI\src\app\feedback-component\feedback.component.ts" />
     <None Include="UI\src\app\login-component\login.component.ts" />
     <None Include="UI\src\app\models\advertisement.ts" />
     <None Include="UI\src\app\models\feedback.ts" />
     <None Include="UI\src\app\models\register.view.model.ts" />
     <None Include="UI\src\app\models\token.ts" />
+    <Content Include="UI\src\app\registration-component\registration.component.js.map" />
     <None Include="UI\src\app\services\advertisement.service.ts" />
     <None Include="UI\src\app\services\advertisementCurrent.service.ts" />
     <None Include="UI\src\app\services\feedback.service.ts" />
@@ -443,6 +451,8 @@
     <Content Include="Scripts\src\main.js" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="UI\src\app\directives\equalvalidator.directive.ts" />
+    <TypeScriptCompile Include="UI\src\app\registration-component\registration.component.ts" />
     <TypeScriptCompile Include="UI\src\app\services\comcom.service.ts" />
   </ItemGroup>
   <PropertyGroup>

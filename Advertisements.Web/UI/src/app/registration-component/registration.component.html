@@ -1,0 +1,92 @@
+<div class="container">
+    <div class="row">
+        <form class="form-horizontal" role="form" id="registerForm" [formGroup]="registrGroup" novalidate (ngSubmit)="OnSubmit(registrGroup.value, registrGroup.valid)">
+            <div class="form-group">
+                <h2>Registration</h2>
+            </div>
+            <div>
+                <div class="form-group required" [ngClass]="{ 'has-error':!registrGroup.controls['Name'].valid && registrGroup.controls['Name'].touched}">
+                    <label for="firstName" class="col-sm-3 control-label">Name</label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control" id="firstName" name="Name" required formControlName="Name" required minlength="4"
+                            maxlength="15" pattern="([A-Z][a-zA-Z]*)" />
+
+                        <div class="col-sm-12">
+                            <div *ngIf="registrGroup.controls['Name'].hasError('required') && registrGroup.controls['Name'].touched" class="alert alert-danger">This field is required</div>
+                            <div *ngIf="registrGroup.controls['Name'].hasError('minlength') && registrGroup.controls['Name'].touched" class="alert alert-danger">Name must contain at least 4 characters</div>
+                            <div *ngIf="registrGroup.controls['Name'].hasError('pattern') && registrGroup.controls['Name'].touched" class="alert alert-danger">First letter is uppercase and there should be no digits</div>                            
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group required" [ngClass]="{ 'has-error':!registrGroup.controls['Surname'].valid && registrGroup.controls['Surname'].touched}">
+                    <label for="surName" class="col-sm-3 control-label">Surname</label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control" id="surname" name="Surname" required formControlName="Surname" required minlength="3"
+                            maxlength="15" pattern="([A-Z][a-zA-Z]*)" />
+
+                        <div class="col-sm-12">
+                            <div *ngIf="registrGroup.controls['Surname'].hasError('required') && registrGroup.controls['Surname'].touched" class="alert alert-danger">This field is required</div>
+                            <div *ngIf="registrGroup.controls['Surname'].hasError('minlength') && registrGroup.controls['Surname'].touched" class="alert alert-danger">Surname must contain at least 3 characters</div>
+                            <div *ngIf="registrGroup.controls['Surname'].hasError('pattern') && registrGroup.controls['Surname'].touched" class="alert alert-danger">Surname must contain at least 3 characters</div>                            
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group required" [ngClass]="{ 'has-error':!registrGroup.controls['Email'].valid && registrGroup.controls['Email'].touched}">
+                    <label for="eMail" class="col-sm-3 control-label">Email</label>
+                    <div class="col-sm-9">
+                        <input type="email" class="form-control" id="eMail" name="eMail" required formControlName="Email" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+                        />
+
+                        <div class="col-sm-12">
+                            <div *ngIf="registrGroup.controls['Email'].hasError('required') && registrGroup.controls['Email'].touched" class="alert alert-danger">This field is required</div>
+                            <div *ngIf="registrGroup.controls['Email'].hasError('pattern') && registrGroup.controls['Email'].touched" class="alert alert-danger">Invalid format</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group required" [ngClass]="{ 'has-error':!registrGroup.controls['Password'].valid && registrGroup.controls['Password'].touched}">
+                    <label for="Password" class="col-sm-3 control-label">Password</label>
+                    <div class="col-sm-9">
+                        <input type="password" class="form-control" id="password" name="Password" formControlName="Password" required pattern="^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$"
+                            reverse="true" />
+
+                        <div class="col-sm-12">
+                            <div *ngIf="registrGroup.controls['Password'].hasError('required') && registrGroup.controls['Password'].touched" class="alert alert-danger">This field is required</div>
+                            <div *ngIf="registrGroup.controls['Password'].hasError('pattern') && registrGroup.controls['Password'].touched" class="alert alert-danger">Require lowercase, uppercase letter, digit and one symbol</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group required" [ngClass]="{ 'has-error':!registrGroup.controls['ConfirmPassword'].valid && registrGroup.controls['ConfirmPassword'].touched}">
+                    <label for="passwordRepeat" class="col-sm-3 control-label">Confirm password</label>
+                    <div class="col-sm-9">
+                        <input type="password" class="form-control" id="passwordRepeat" name="ConfirmPassword" formControlName="ConfirmPassword"
+                            required validateEqual="Password" />
+                        <div class="col-sm-12">
+                            <div *ngIf="registrGroup.controls['ConfirmPassword'].hasError('validateEqual') && registrGroup.controls['ConfirmPassword'].touched"
+                                class="alert alert-danger">Enter password as above</div>
+                            <div *ngIf="registrGroup.controls['ConfirmPassword'].hasError('required') && registrGroup.controls['ConfirmPassword'].touched"
+                                class="alert alert-danger">This field is required</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group required">
+                        <div class="col-sm-4"></div>
+                        <div class="col-sm-4">
+                            <div class="input-group">
+                                <input type="submit" class="btn btn-lg btn-success" value="Register" id="submit" />
+                            </div>
+                        </div>
+                        <div class="col-sm-2"></div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+
+
+
+
+
+</div>

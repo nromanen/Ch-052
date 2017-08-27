@@ -25,6 +25,8 @@ using System.Threading;
 using System.Linq;
 using Advertisements.Web.Filters;
 using Advertisements.Web.App_LocalResources;
+using System.Drawing;
+
 namespace Advertisements.Web.Controllers
 {
     [System.Web.Http.Authorize]
@@ -79,12 +81,13 @@ namespace Advertisements.Web.Controllers
         [System.Web.Http.Route("Register")]
         public async Task<IHttpActionResult> Register([FromBody]RegisterViewModel model)
         {
-
             var user = new ApplicationUser() { UserName = model.UserName };
             user.Email = model.Email;
-            user.EmailConfirmed = true;
 
-            //user.Avatar = System.IO.File.ReadAllBytes(System.Web.HttpContext.Current.Server.MapPath("~//likeIcon.png"));
+            string imgPath = HttpContext.Current.Server.MapPath("~/Content/Current_user_av.jpg");
+            Image img = Image.FromFile(imgPath);
+            img = Csharp.ImageConverter.SqueezeImg(img);
+            user.Avatar = Csharp.ImageConverter.BytesFromImg(img);
 
             var result = await UserManager.CreateAsync(user, model.Password);
 
@@ -96,24 +99,33 @@ namespace Advertisements.Web.Controllers
             {
                 string errors = "";
                 foreach (string err in result.Errors)
-                    errors += err;
-                return BadRequest("Occured some errors:" + errors); 
+                    errors += err + " ";
+                return Ok("Occured some errors:" + errors);
             }
-            
-            string token = Encrypt(model.Email + DateTime.Now, true);
 
+            string userEmailConfirmToken = UserManager.GenerateEmailConfirmationToken(user.Id);
             string currentUrl1 = HttpContext.Current.Request.Url.AbsoluteUri;
             string leftUrl = currentUrl1.Substring(0, currentUrl1.IndexOf("api"));
-            string messageBody = string.Format("Для завершення реєстрації перейдіть по посиланню:" +                        
-                        "<a href=\"{0}\">Завершити реєстрацію</a>",
-                         leftUrl + "Home/TakeConfirmEmail?token=" + token + "&eMail=" + model.Email);
 
+            string messageBody = string.Format("Hello, {0}! Please confirm your account by clicking this link:\n{1}",
+                user.UserName, leftUrl + "restorepassword?token=" + userEmailConfirmToken + "&email=" + user.Email);
             if (!Send(messageBody, user.Email))
+                ModelState.AddModelError("", "Could not send email message");
+
+            if (!ModelState.IsValid)
             {
-                ModelState.AddModelError("", "Не вздалося відправити лист на цю пошту");
-                return BadRequest(ModelState);
-            }          
-            return Ok();
+                string errMessages = "";
+                foreach (var message in ModelState.Values)
+                {
+                    errMessages += message + " ";
+                }
+                return Ok(errMessages);
+            }
+            user.EmailToken = userEmailConfirmToken;
+            await UserManager.UpdateAsync(user);
+
+            return Ok("Check your email to end the registration");
+
 
         }
         [System.Web.Http.HttpGet]

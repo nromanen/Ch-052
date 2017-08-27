@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
-import { FormsModule }   from '@angular/forms';
+import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { NgModule }             from '@angular/core';
 
@@ -14,22 +14,27 @@ import { AdvertisementService } from './services/advertisement.service';
 import { LoginService } from './services/login.service';
 import { FeedbackService } from './services/feedback.service';
 import { ComcomService } from './services/comcom.service';
-
+import {RegistrationComponent} from './registration-component/registration.component'
+import { EqualValidator  } from "./directives/equalvalidator.directive";
+import {RegistrationService} from './services/registration.service'
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     StartComponent,
     FeedbackComponent,
-    UsersAdvComponent
+    UsersAdvComponent,
+    RegistrationComponent,
+    EqualValidator
   ],
   imports: [
     BrowserModule,
     HttpModule,
     AppRoutingModule, 
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
-  providers: [AdvertisementService, LoginService, FeedbackService, ComcomService],
+  providers: [AdvertisementService, LoginService, FeedbackService, ComcomService, RegistrationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
