@@ -51,6 +51,7 @@ token:Token;
     this.loginService.getRole().then(res => {console.log(res);localStorage.setItem('role', res[0]);});
     
     this.comcomService.sendToken(token);
+    this.comcomService.sendObservableToken(token);   
 }
 
 }

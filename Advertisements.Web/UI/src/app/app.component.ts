@@ -2,21 +2,20 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Advertisement } from './models/advertisement';
 
 import { LoginService } from './services/login.service';
-import { ComcomService } from './services/comcom.service'    
+import { ComcomService } from './services/comcom.service';
 
 import { Token } from './models/token';
 import { Router } from '@angular/router';
 
 import { Subscription } from 'rxjs/Subscription';
+import { Notification } from "./models/notification";
+
 
 @Component({
   moduleId: module.id.toString(),
   selector: 'app-root',                       
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [],
-
-
 })
 export class AppComponent implements OnInit, OnDestroy {
  
@@ -27,36 +26,50 @@ export class AppComponent implements OnInit, OnDestroy {
 
   token:Token;
   subscription: Subscription;
+  errorSubscription: Subscription;
+  errorNotification : Notification = new Notification();
 
-  constructor(private router: Router, private loginService: LoginService, private comcomService: ComcomService) { 
-    if (localStorage.getItem('user_name') != null && (localStorage.getItem("access_token") != undefined || localStorage.getItem("access_token") != null))
-      {this.loginbuttontext = 'Welcome, ' + localStorage.getItem('user_name');
-      this.isLoggedIn = true;}
-    else
-      {this.loginbuttontext = 'Log In';
-      this.isLoggedIn = false;}
+  constructor(private router: Router, private loginService: LoginService, private comcomService: ComcomService) {
+    this.subscription = this.comcomService.getObservableToken().subscribe(token =>       
+      {
+        this.token = token; 
+        if (token !== null)
+          this.loginbuttontext = 'Welcome, ' + token.userName;
+        else
+          this.loginbuttontext = 'Log In';
+      });
+
+      this.errorSubscription = this.comcomService.getNotification().subscribe(error =>       
+        {
+          this.errorNotification = error; 
+          console.log(this.errorNotification);
+        });
+
   }
 
-  logout():void{
-    this.loginService.logout().subscribe();
+  logout(): void {
+      this.loginService.logout().subscribe();
   }
 
   ngOnInit(): void {
-    this.subscription = this.comcomService.getToken().subscribe(token =>       
-      {
-        this.token = token; 
-        console.log('inside app.component');
-        if (token != null || token != undefined)
-          {this.loginbuttontext = 'Welcome, ' + token.userName;
-          this.isLoggedIn = true;}
-        else
-          {this.loginbuttontext = 'Log In';
-          this.isLoggedIn = false;}
+      this.comcomService.loadTokenFromStorage();
+      this.subscription = this.comcomService.getToken().subscribe(token => {
+          this.token = token;
+          console.log('inside app.component');
+          if (token != null || token != undefined) {
+          this.loginbuttontext = 'Welcome, ' + token.userName;
+              this.isLoggedIn = true;
+          }
+          else {
+          this.loginbuttontext = 'Log In';
+              this.isLoggedIn = false;
+          }
       });
   }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+    this.errorSubscription.unsubscribe();
   }
 
 

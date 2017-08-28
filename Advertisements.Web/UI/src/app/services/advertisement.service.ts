@@ -21,28 +21,11 @@ constructor(private http: Http, private loginService: LoginService) { }
     private advertisements: Advertisement[];
 
     getAdvertisements(): Promise<Advertisement[]> { 
-        
-        //let authToken = this.loginService.getToken().access_token;
-        let headers = new Headers();        
-        //headers.append('Authorization', `Bearer ${authToken}`)
-        let options = new RequestOptions({ headers: headers });
 
-
-        //  let headers = new Headers();
-        //  let options = new RequestOptions({ headers: headers });
-        return this.http.get(this.advertisementsLoginUrl, options).toPromise().then(response => { 
-            
-            this.advertisements = response.json();// as Advertisement[];
-
-            for (let item of this.advertisements){
-                if (item.Resources.length == 0){
-                  item.Resources.push(new Resource(0,'../../../assets/images/noPhoto.png' ,0 ));
-                }
-            }
-
-            return this.advertisements; 
-        
-        }).catch(this.handleError);
+        return this.http.get(this.advertisementsLoginUrl)
+                        .toPromise()
+                        .then(response => response.json() as Advertisement [])
+                        .catch(this.handleError);
     } 
 
     private handleError(error: any): Promise<any> {

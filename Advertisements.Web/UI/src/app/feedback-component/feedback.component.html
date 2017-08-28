@@ -10,39 +10,42 @@
                     <div class="col-md-2 col-sm-2 hidden-xs">
                         <input type="submit" [disabled]="Comment.invalid" id="addFeedback" class="btn submit-btn shaddow" value="Send" (click)='goClick()'>
                     </div>
-                </div>              
-                <hr>              
-                <div *ngIf="accessDenied && isButtonClicked" class="alert alert-danger">{{errorMessage}}</div>
+                </div>
+                <hr>
+                <div *ngIf="isButtonClicked && accessDenied " class="alert alert-danger">{{errorMessage}}
+                        <a class="close" (click)="accessDenied = false" data-dismiss="alert" aria-label="close">&times;</a></div>
                 <br>
                 <div *ngFor="let feedback of feedbacks">
                     <article class="row">
                         <div class="col-md-2 col-sm-2 hidden-xs">
                             <figure class="thumbnail">
                                 <img class="img-responsive" src="../../../assets/userIcon.jpg" />
-                            </figure>     
-                        </div>                               
+                            </figure>
+                        </div>
                         <div class="col-md-10 col-sm-10">
-                            <div class="panel panel-default arrow left">                 
+                            <div class="panel panel-default arrow left">
                                 <div class="panel-body">
-                                    <header class="text-left">    
+                                    <header class="text-left">
                                         <div class="comment-user">Username: {{feedback.Username}}</div>
                                         <time class="comment-date">CreationTime: {{feedback.CreationTime | date:'medium'}} </time>
                                         <hr>
-                                    </header>         
+                                    </header>
                                     <div class="comment-post">{{feedback.Text}}
                                     </div>
-                                    <hr>                                  
+                                    <hr>
                                     <img src="../../../assets/likeIcon.png" (click)='likeClick(feedback)' />
                                     <span>{{feedback.AgreeCount}}</span> &nbsp;
                                     <img src="../../../assets/dislikeIcon.png" (click)='dislikeClick(feedback)' />
                                     <span>{{feedback.DisagreeCount}}</span>
                                 </div>
-                                <div *ngIf="accessDenied && !isButtonClicked && feedback.Id == itemClicked" class="alert alert-danger">{{errorMessage}}</div>
-                            </div>                                  
-                        </div>          
-                    </article>                                      
-                </div>                                                     
-            </section>                   
+                                <div *ngIf="!isButtonClicked && feedback.Id == itemClicked && accessDenied " class="alert alert-danger">{{errorMessage}}
+                                    <a class="close" (click)="accessDenied = false" data-dismiss="alert" aria-label="close">&times;</a>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </section>
         </div>
     </div>
 </div>
