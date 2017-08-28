@@ -15,6 +15,7 @@ import { httpFactory} from "./http.factory";
 import { AdvertisementService } from './services/advertisement.service';
 import { LoginService } from './services/login.service';
 import { FeedbackService } from './services/feedback.service';
+import { ComcomService } from './services/comcom.service';
 
 @NgModule({
   declarations: [
@@ -35,11 +36,11 @@ import { FeedbackService } from './services/feedback.service';
     LoginService, 
     UsersAdvComponent, 
     FeedbackService,
-  
+    ComcomService,
     {
             provide: Http,
             useFactory: httpFactory,
-            deps: [XHRBackend, RequestOptions]
+            deps: [XHRBackend, RequestOptions, ComcomService]
     }
   
   ],

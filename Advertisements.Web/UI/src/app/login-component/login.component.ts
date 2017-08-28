@@ -47,8 +47,9 @@ token:Token;
                                                                                   err => console.log('Something went wrong!')  );
   }
 
-  public sendToken(token: Token): void {   
+  public sendToken(token: Token): void {
     this.comcomService.sendToken(token);
+    this.comcomService.sendObservableToken(token);   
 }
 
 }
