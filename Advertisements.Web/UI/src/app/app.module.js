@@ -14,12 +14,19 @@ const core_1 = require("@angular/core");
 const app_component_1 = require("./app.component");
 const login_component_1 = require("./login-component/login.component");
 const start_component_1 = require("./start-component/start.component");
-const usersAdv_component_1 = require("./usersAdv-component/usersAdv.component");
 const feedback_component_1 = require("./feedback-component/feedback.component");
+const usersAdv_component_1 = require("./usersAdv-component/usersAdv.component");
+const editAdv_component_1 = require("./editAdv-component/editAdv.component");
+const createAdv_component_1 = require("./createAdv-component/createAdv.component");
+const advInfo_component_1 = require("./advInfo-component/advInfo.component");
 const advertisement_service_1 = require("./services/advertisement.service");
 const login_service_1 = require("./services/login.service");
 const feedback_service_1 = require("./services/feedback.service");
 const comcom_service_1 = require("./services/comcom.service");
+const advertisementCurrent_service_1 = require("./services/advertisementCurrent.service");
+const editAdv_service_1 = require("./services/editAdv.service");
+const createAdv_service_1 = require("./services/createAdv.service");
+const advInfo_service_1 = require("./services/advInfo.service");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -29,7 +36,10 @@ AppModule = __decorate([
             login_component_1.LoginComponent,
             start_component_1.StartComponent,
             feedback_component_1.FeedbackComponent,
-            usersAdv_component_1.UsersAdvComponent
+            usersAdv_component_1.UsersAdvComponent,
+            editAdv_component_1.EditAdvComponent,
+            createAdv_component_1.CreateAdvComponent,
+            advInfo_component_1.AdvInfoComponent
         ],
         imports: [
             platform_browser_1.BrowserModule,
@@ -37,7 +47,7 @@ AppModule = __decorate([
             app_routing_module_1.AppRoutingModule,
             forms_1.FormsModule
         ],
-        providers: [advertisement_service_1.AdvertisementService, login_service_1.LoginService, feedback_service_1.FeedbackService, comcom_service_1.ComcomService],
+        providers: [advertisement_service_1.AdvertisementService, login_service_1.LoginService, feedback_service_1.FeedbackService, comcom_service_1.ComcomService, advertisementCurrent_service_1.AdvertisementCurrentService, editAdv_service_1.EditAdvService, createAdv_service_1.CreateAdvService, advInfo_service_1.AdvInfoService],
         bootstrap: [app_component_1.AppComponent]
     })
 ], AppModule);

@@ -36,7 +36,7 @@ export class EditAdvService {
 
         headers.append('Authorization', `Bearer ${authToken}`);
 
-        let options = new RequestOptions({ headers: headers});
+        let options = new RequestOptions({ headers: headers });
 
         return this.http.put(advEditUrl, param, options).toPromise().then().catch(this.handleError);
     }
@@ -45,5 +45,18 @@ export class EditAdvService {
         console.error('An error occurred', error);
         return Promise.reject(error.message || error);
     }
-
+    getCategory(): Promise<any> {
+        return this.http
+            .get('api/Category/get')
+            .toPromise()
+            .then()
+            .catch();
+    }
+    getType(): Promise<any> {
+        return this.http
+            .get('api/AdvertisementType/get')
+            .toPromise()
+            .then()
+            .catch();
+    }
 }

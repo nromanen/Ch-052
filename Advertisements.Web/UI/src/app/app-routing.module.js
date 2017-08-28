@@ -12,12 +12,18 @@ const login_component_1 = require("./login-component/login.component");
 const start_component_1 = require("./start-component/start.component");
 const feedback_component_1 = require("./feedback-component/feedback.component");
 const usersAdv_component_1 = require("./usersAdv-component/usersAdv.component");
+const editAdv_component_1 = require("./editAdv-component/editAdv.component");
+const createAdv_component_1 = require("./createAdv-component/createAdv.component");
+const advInfo_component_1 = require("./advInfo-component/advInfo.component");
 const routes = [
     { path: '', redirectTo: '/start', pathMatch: 'full' },
     { path: 'start', component: start_component_1.StartComponent },
     { path: 'login', component: login_component_1.LoginComponent },
     { path: 'myAdv', component: usersAdv_component_1.UsersAdvComponent },
-    { path: 'feedback', component: feedback_component_1.FeedbackComponent }
+    { path: 'feedback', component: feedback_component_1.FeedbackComponent },
+    { path: 'info/:id', component: advInfo_component_1.AdvInfoComponent },
+    { path: 'edit/:id', component: editAdv_component_1.EditAdvComponent },
+    { path: 'create', component: createAdv_component_1.CreateAdvComponent }
 ];
 let AppRoutingModule = class AppRoutingModule {
 };

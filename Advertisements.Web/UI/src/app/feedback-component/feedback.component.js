@@ -54,7 +54,7 @@ let FeedbackComponent = class FeedbackComponent {
             .catch((res) => { this.showNotification(res.status, res._body); });
     }
     goClick() {
-        this.newFeedback.AdvertisementId = 1;
+        this.newFeedback.AdvertisementId = this.id;
         this.isButtonClicked = true;
         this.feedbacksService
             .postFeedback(this.newFeedback)

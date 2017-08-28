@@ -19,7 +19,7 @@ let AdvInfoService = class AdvInfoService {
         this.loginService = loginService;
     }
     getAdvertisement(param) {
-        let getAdvEdit = 'https://localhost:44384/api/Advertisement/get/' + param;
+        let getAdvEdit = 'api/Advertisement/get/' + param;
         return this.http.get(getAdvEdit).toPromise().then(response => response.json()).catch(this.handleError);
     }
     handleError(error) {

@@ -23,10 +23,10 @@
         </div>
       </td>
       <td>
-        <div class="btn-group">
-          <button type="button" class="btn btn-success"><span class="	glyphicon glyphicon-trash"></span></button>
-          <button type="button" class="btn btn-danger" ><span class="glyphcicon glyphicon-pencil"></span></button>
-          <button type="button" class="btn btn-info"><span class="glyphcicon glyphicon-info-sign"></span></button>
+        <div class="btn-group-vertical">
+          <button type="button" class="btn btn-danger" (click)=remove(advertisement)><span class="glyphicon glyphicon-trash"></span></button>
+          <button type="button" class="btn btn-success" [routerLink]="['/edit',advertisement.Id]"><span class="glyphicon glyphicon-pencil"></span></button>
+          <button type="button" class="btn btn-info" [routerLink]="['/info',advertisement.Id]"><span class="glyphicon glyphicon-info-sign"></span></button>
         </div>
       </td>
     </tr>

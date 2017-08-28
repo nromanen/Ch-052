@@ -11,13 +11,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@angular/core");
 const http_1 = require("@angular/http");
-const login_service_1 = require("../services/login.service");
 require("rxjs/add/operator/toPromise");
 require("rxjs/add/operator/toPromise");
 let CreateAdvService = class CreateAdvService {
-    constructor(http, loginService) {
+    constructor(http) {
         this.http = http;
-        this.loginService = loginService;
     }
     createAdv(param) {
         let authToken = localStorage.getItem("access_token");
@@ -25,7 +23,28 @@ let CreateAdvService = class CreateAdvService {
         headers.append('Authorization', `Bearer ${authToken}`);
         let options = new http_1.RequestOptions({ headers: headers });
         return this.http
-            .post('api/advertisement/add', param, options)
+            .get('api/AspNetUsers/get/current', options)
+            .toPromise()
+            .then(response => {
+            console.log('response: ', response);
+            param.ApplicationUserId = response.json();
+            this.http
+                .post('api/advertisement/add', param, options)
+                .toPromise()
+                .then()
+                .catch();
+        });
+    }
+    getCategory() {
+        return this.http
+            .get('api/Category/get')
+            .toPromise()
+            .then()
+            .catch();
+    }
+    getType() {
+        return this.http
+            .get('api/AdvertisementType/get')
             .toPromise()
             .then()
             .catch();
@@ -33,7 +52,7 @@ let CreateAdvService = class CreateAdvService {
 };
 CreateAdvService = __decorate([
     core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.Http, login_service_1.LoginService])
+    __metadata("design:paramtypes", [http_1.Http])
 ], CreateAdvService);
 exports.CreateAdvService = CreateAdvService;
 //# sourceMappingURL=createAdv.service.js.map

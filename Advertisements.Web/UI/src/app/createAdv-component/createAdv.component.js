@@ -21,9 +21,17 @@ let CreateAdvComponent = class CreateAdvComponent {
         this.advertisement = new advertisement_1.Advertisement();
     }
     ngOnInit() {
+        this.getCategories();
+        this.getTypes();
     }
     onSubmit(advertisement) {
         this.createAdvService.createAdv(advertisement);
+    }
+    getCategories() {
+        this.createAdvService.getCategory().then(category => this.categories = category.json());
+    }
+    getTypes() {
+        this.createAdvService.getType().then(type => this.types = type.json());
     }
 };
 CreateAdvComponent = __decorate([

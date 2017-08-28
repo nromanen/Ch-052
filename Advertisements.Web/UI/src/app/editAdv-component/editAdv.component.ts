@@ -27,7 +27,10 @@ export class EditAdvComponent implements OnInit, OnDestroy {
         this.id = +params["id"];
       }
     );
+    this.getCategories();
+    this.getTypes();
     this.getAdvertisement(this.id)
+
   }
 
   ngOnDestroy() {
@@ -38,8 +41,13 @@ export class EditAdvComponent implements OnInit, OnDestroy {
     this.editAdvService.getAdvertisement(id).then(advertisement => { this.advertisement = advertisement; console.log(this.advertisement) });
   }
 
-  onSubmit(advertisement):void
-  {
+  onSubmit(advertisement): void {
     this.editAdvService.editAdv(advertisement);
+  }
+  getCategories(): void {
+    this.editAdvService.getCategory().then(category => this.categories = category.json() as Category[]);
+  }
+  getTypes(): void {
+    this.editAdvService.getType().then(type => this.types = type.json() as Type[]);
   }
 }

@@ -10,19 +10,17 @@
             <div *ngIf="Title.errors.required">
                 Title is required.
             </div>
-            <div *ngIf="Title.errors.minlength || Title.errors.maxlenght">
+            <div *ngIf="Title.errors.minlength">
                 Title must be at least 4 characters lenght.
             </div>
         </div>
-
         <label for="prc">Price</label>
-        <input type="text" class="form-control" name="Price" required [(ngModel)]='advertisement.Price' id="prc" #Price="ngModel">
+        <input type="number" class="form-control" name="Price" required [(ngModel)]='advertisement.Price' id="prc" #Price="ngModel">
         <div *ngIf="Price.invalid && (Price.dirty || Price.touched)" class="alert alert-danger">
             <div *ngIf="Price.errors.required">
                 Price is required.
             </div>
         </div>
-
         <label for="desc">Description</label>
         <textarea class="form-control" name="Description" required maxlength="100" [(ngModel)]='advertisement.Description' rows=5
             id="desc" #Description="ngModel"></textarea>
@@ -31,11 +29,17 @@
                 Description is required.
             </div>
         </div>
-
+        <label for="category">Category</label>
+        <select class="form-control" id="category" name="Category" required [(ngModel)]='advertisement.CategoryId' #Category="ngModel">
+            <option *ngFor="let category of categories" value="{{category.Id}}">{{category.Name}}</option>
+        </select>
+        <label for="type">Type</label>
+        <select class="form-control" id="type" name="Type" required [(ngModel)]='advertisement.TypeId' #Type="ngModel">
+            <option *ngFor="let type of types" value="{{type.Id}}">{{type.Name}}</option>
+        </select>
     </div>
     <div class="btn-group">
-        <button type="submit" class="btn btn-success" (click)=onSubmit(advertisement) 
-            [disabled]="Title.invalid || Price.invalid || Description.invalid">Save changes</button>
+        <button type="submit" class="btn btn-success" (click)=onSubmit(advertisement) [disabled]="Title.invalid || Price.invalid || Description.invalid || Type.invalid || Category.invalid">Save changes</button>
         <button type="button" class="btn btn-danger" [routerLink]="['/myAdv']">Back</button>
     </div>
 </div>

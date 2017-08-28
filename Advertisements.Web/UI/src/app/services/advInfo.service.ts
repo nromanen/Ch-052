@@ -1,4 +1,4 @@
-import { Injectable, Component } from '@angular/core';
+import { Injectable, Component} from '@angular/core';
 
 import { Advertisement } from '../models/advertisement';
 import { Headers, Http, RequestOptions } from "@angular/http";
@@ -18,7 +18,7 @@ export class AdvInfoService {
     constructor(private http: Http, private loginService: LoginService) { }
 
     getAdvertisement(param: any): Promise<Advertisement> {
-        let getAdvEdit = 'https://localhost:44384/api/Advertisement/get/' + param;
+        let getAdvEdit = 'api/Advertisement/get/' + param;
 
         return this.http.get(getAdvEdit).toPromise().then(response => response.json() as Advertisement).catch(this.handleError);
     }

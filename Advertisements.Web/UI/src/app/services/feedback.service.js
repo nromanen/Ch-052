@@ -20,7 +20,7 @@ let FeedbackService = class FeedbackService {
         this.loginService = loginService;
     }
     getFeedbacks(id) {
-        let feedbacksUrl = 'https://localhost:44384/api/feedback/getByAdvertisement' + id;
+        let feedbacksUrl = 'https://localhost:44384/api/feedback/getByAdvertisement/' + id;
         return this.http.get(feedbacksUrl).toPromise().then(response => response.json()).catch(this.handleError);
     }
     postFeedback(param) {
