@@ -9,6 +9,9 @@ import { EditAdvComponent } from './editAdv-component/editAdv.component';
 import { CreateAdvComponent } from './createAdv-component/createAdv.component';
 import { AdvInfoComponent } from './advInfo-component/advInfo.component';
 
+import {RegistrationComponent} from './registration-component/registration.component'
+import {TryRestorePasswordCompoent} from './tryrestorepassword-component/tryrestorepassword.component'
+import {RestorePasswordComponent} from './restorepassword-component/restorepassword.component'
 const routes: Routes = [
   { path: '', redirectTo: '/start', pathMatch: 'full' },
   { path: 'start', component: StartComponent },
@@ -17,7 +20,10 @@ const routes: Routes = [
   { path: 'feedback',  component: FeedbackComponent },
   { path: 'info/:id', component: AdvInfoComponent },
   { path: 'edit/:id', component: EditAdvComponent },
-  { path: 'create', component: CreateAdvComponent }
+  { path: 'create', component: CreateAdvComponent },
+  { path: 'register', component: RegistrationComponent},
+  { path:'tryrestorepassword',component: TryRestorePasswordCompoent},
+  { path: 'restorepassword', component: RestorePasswordComponent}
 ];
 
 @NgModule({

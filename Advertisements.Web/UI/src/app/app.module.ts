@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
-import { FormsModule }   from '@angular/forms';
+import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { NgModule }             from '@angular/core';
 
@@ -21,6 +21,12 @@ import { AdvertisementCurrentService } from './services/advertisementCurrent.ser
 import { EditAdvService } from './services/editAdv.service';
 import { CreateAdvService } from './services/createAdv.service';
 import { AdvInfoService } from './services/advInfo.service';
+import { RegistrationComponent } from './registration-component/registration.component';
+import { EqualValidator  } from "./directives/equalvalidator.directive";
+import { RegistrationService } from './services/registration.service';
+import { TryRestorePasswordCompoent } from './tryrestorepassword-component/tryrestorepassword.component';
+import { RestorePasswordComponent } from "./restorepassword-component/restorepassword.component";
+import { RestorePasswordService } from './services/restorepassword.service';
 
 @NgModule({
   declarations: [
@@ -29,6 +35,10 @@ import { AdvInfoService } from './services/advInfo.service';
     StartComponent,
     FeedbackComponent,
     UsersAdvComponent,
+    RegistrationComponent,
+    EqualValidator,
+    TryRestorePasswordCompoent,
+    RestorePasswordComponent,
     EditAdvComponent,
     CreateAdvComponent,
     AdvInfoComponent
@@ -37,9 +47,10 @@ import { AdvInfoService } from './services/advInfo.service';
     BrowserModule,
     HttpModule,
     AppRoutingModule, 
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
-  providers: [AdvertisementService, LoginService, FeedbackService, ComcomService,AdvertisementCurrentService, EditAdvService, CreateAdvService, AdvInfoService],
+  providers: [AdvertisementService, LoginService, FeedbackService, ComcomService,AdvertisementCurrentService, EditAdvService, CreateAdvService, AdvInfoService RegistrationService, TryRestorePasswordCompoent, RestorePasswordService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

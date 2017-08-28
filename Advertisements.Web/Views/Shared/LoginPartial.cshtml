@@ -5,20 +5,28 @@
     @Html.AntiForgeryToken()
 
     <ul class="nav navbar-nav navbar-right">
-        <li>
-            <a style="color:white"hidden>@System.String.Format("Welcome, {0}!", User.Identity.GetUserName())</a>
-        </li>
-        <li>
-            <a role="button" href="#" id="logOut" data-bind="click: logout">Вийти</a>
-
-        </li>
+        <li class="dropdown">
+            <a style="color:white"hidden class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">                
+                @System.String.Format("Welcome, {0}!", User.Identity.GetUserName())    
+                <img src="@Url.Action("GetImage", "Home")" id="avatar" />
+                <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li >
+                    <a role="button" href="#" id="logOut" data-bind="click: logout">Logout</a>
+                </li>
+                <li>
+                    <a role="button" href="#">Personal office</a>
+                </li>
+            </ul>
+        </li>       
     </ul>
 }
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        <li><a href="/Home/Login">Вхід</a></li>
-        <li><a href="/Home/Registrate">Реєстрація</a></li>
+        <li><a href="/Home/Login">Login</a></li>
+        <li><a href="/Home/Registrate">Registration</a></li>
     </ul>
 }
 

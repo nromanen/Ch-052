@@ -57,25 +57,41 @@
         }).fail(showError);
     }
 
-    self.register = function () {
+	self.register = function () {
+
+		var form = $('#signupForm');
+		if (!form.valid())
+			return;
+
         self.result('');
         self.errors.removeAll();
 
-        var data = {
+        var queryData = {
 			UserName: $('#firstName').val() + ' ' + $('#surName').val(),
 			Email: $('#eMail').val(),
 			Password: $('#password').val(),
 			ConfirmPassword: $('#passwordRepeat').val()
         };
 
-        $.ajax({
-            type: 'POST',
-            url: '/api/Account/Register',
-            contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(data)
-        }).done(function (data) {
-            self.result("Done!");
-        }).fail(showError);
+		$.ajax({
+			type: 'POST',
+			url: '/api/Account/Register',
+			contentType: 'application/json; charset=utf-8',
+			data: JSON.stringify(queryData),
+			success: function () {
+				
+				self.result("Done!");
+				alert('Registration success, check your email to confirm your account ');
+				window.location.replace('/Home/Index');
+			},
+			fail: function (data) {
+				alert('Registration failed:' + data.responseJSON.Message);
+			},
+			error: function (data) {
+				alert('Registration failed:' + data.responseJSON.Message);
+			}			
+		});
+		
     }
 
     self.login = function () {
@@ -99,11 +115,45 @@
 				sessionStorage.setItem(tokenKey, data.access_token);
 				window.location.replace('/Home/Index');
 			},
-			fail: function (data) { alert('Не вдалося автентифікуватися'); },
-			error: function (data) { alert('Помилка при автентифікації') }
+			fail: function (data) { alert(data.responseJSON.Message); },
+			error: function (data) { alert(data.responseJSON.Message); }
 		});
-    }
+	}
 
+	self.restorePassByEmail = function ()
+	{
+		var form = $('#emailForm');
+		if (!form.valid())
+			return;
+
+		var restoreData = {
+			eMail: $('#emailInput').val()
+		};
+		$.ajax({
+			type: 'POST',
+			url: '/api/Account/RestorePasswordRequest',
+			data: restoreData,
+			success: function (data, state) { alert(data) },
+			fail: function (data, state) { alert(data.responseJSON.Message); },
+			error: function (data, state) { alert(data.responseJSON.Message); }
+		});
+	}
+	self.confirmPassword = function () {
+		$('#confirmPasswordRestore').click(function () {
+			var model = {
+				NewPassword: $('#passwordForRestore').val(),
+				Id: $('#modelId').val()
+			}
+			$.ajax({
+				type: 'POST',
+				url: '/api/Account/RestorePassword',
+				data: model,
+				success: function (data, state) { alert(data); },
+				error: function (data, state) { alert(data); },
+				fail: function (data, state) { alert(data); }
+			})
+		});
+	}
     self.logout = function () {
         // Log out from the cookie based logon.
         var token = sessionStorage.getItem(tokenKey);
@@ -118,12 +168,13 @@
             headers: headers
         }).done(function (data) {
             // Successfully logged out. Delete the token.
-            self.user('');
-			sessionStorage.removeItem(tokenKey);
+			self.user('');
+			sessionStorage.removeItem(tokenKey); 
 			window.location.replace('/Home/Index');
         }).fail(showError);
-    }
-}
+	}
 
+	
+}
 var app = new ViewModel();
 ko.applyBindings(app);
