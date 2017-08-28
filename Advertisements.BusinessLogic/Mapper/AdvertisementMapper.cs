@@ -21,6 +21,7 @@ namespace Advertisements.BusinessLogic.Mapper
                     Title = source.Title,
                     Description = source.Description,
                     Price = source.Price,
+                    Resources = ResourceMapper.CreateListResource().Map(source.Resources).ToList(),
                     ApplicationUserId = source.ApplicationUserId,
                     TypeId = source.TypeId,
                     CategoryId = source.CategoryId
@@ -46,6 +47,7 @@ namespace Advertisements.BusinessLogic.Mapper
                     Title = source.Title,
                     Description = source.Description,
                     Price = source.Price,
+                    Resources = ResourceMapper.CreateListResourceDTO().Map(source.Resources).ToList(),
                     ApplicationUserId = source.ApplicationUserId,
                     TypeId = source.TypeId,
                     CategoryId = source.CategoryId

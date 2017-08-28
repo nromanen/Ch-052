@@ -14,25 +14,21 @@ import 'rxjs/add/operator/toPromise';
 import { RegisterViewModel } from "../models/register.view.model";
 import { Token } from "../models/token";
 
+import {ComcomService} from './comcom.service';
+
 @Injectable()
-export class LoginService{
-    constructor(private http: Http) { }
+export class LoginService {
+    constructor(private http: Http, private comcomService:ComcomService) { }
     private advertisementsLoginUrl = '/Token';
-    token:Token;
-    status:number;
+    token: Token;
+    status: number;
 
     private handleError(error: any): Promise<any> {
-        console.error('An error occurred', error); 
+        console.error('An error occurred', error);
         return Promise.reject(error.message || error);
     }
 
-    logout() {
-        localStorage.removeItem("access_token");
-        localStorage.removeItem("expires_in");
-        localStorage.removeItem("user_name");
-    }
-
-    login(params:RegisterViewModel): Observable<Token> { 
+    login(params: RegisterViewModel): Observable<Token> {
 
         let urlSearchParams = new URLSearchParams();
         urlSearchParams.append('Username', params.Username);
@@ -40,31 +36,52 @@ export class LoginService{
         urlSearchParams.append('grant_type', params.grant_type);
         let body = urlSearchParams.toString();
 
-        return this.http.post(this.advertisementsLoginUrl, body).map(res => { return <Token> res.json();});
-                                                                                            //    return this.http.post(this.advertisementsLoginUrl, body).toPromise().then(response => {this.token = response.json() as Token; 
-                                                                                            //    localStorage.setItem('access_token', this.token.access_token);    
-                                                                                            //    localStorage.setItem('expires_in', this.token.expires_in.toString());  
-                                                                                            //    localStorage.setItem('user_name', this.token.userName);  
-                                                                                            //    this.status = response.status;} ).catch(this.handleError);
+        return this.http.post(this.advertisementsLoginUrl, body).map(res => { return <Token>res.json(); });
+        //    return this.http.post(this.advertisementsLoginUrl, body).toPromise().then(response => {this.token = response.json() as Token; 
+        //    localStorage.setItem('access_token', this.token.access_token);    
+        //    localStorage.setItem('expires_in', this.token.expires_in.toString());  
+        //    localStorage.setItem('user_name', this.token.userName);  
+        //    this.status = response.status;} ).catch(this.handleError);
 
-    } 
+    }
 
-    isLoggedin() {
+    logout(): Observable<any> {
+        
+        let authToken = localStorage.getItem("access_token");
+        let headers = new Headers();
+        headers.append('Authorization', `Bearer ${authToken}`)
+        let options = new RequestOptions({ headers: headers });
+        this.comcomService.clearToken();
+        
+        
+        return this.http.post('/api/account/logout', null, options)
+            .map(res => {
+                localStorage.removeItem("access_token");
+                localStorage.removeItem("expires_in");
+                localStorage.removeItem("user_name");
+            });
+    }
+
+    getRole():Promise<string[]>{
+        let headers = new Headers();        
+        headers.append('Authorization', `Bearer ${localStorage.getItem("access_token")}`)
+        let options = new RequestOptions({ headers: headers });
+
+        return this.http.get('/api/account/roles', options).toPromise().then(res => {return <string[]> res.json();}).catch(this.handleError);
+    }
+
+    isLoggedin(): void {
         // if (tokenNotExpired())
         //     return true;
         // else
         //     return false;
     }
 
-    getToken():Token{
+    getToken(): Token {
         return this.token;
     }
 
-    getStatus():number{
+    getStatus(): number {
         return this.status;
     }
-
-
-
 }
-

@@ -91,6 +91,7 @@
     <Compile Include="Mapper\AspNetUsersMapper.cs" />
     <Compile Include="Mapper\CategoryMapper.cs" />
     <Compile Include="Mapper\FeedbackMapper.cs" />
+    <Compile Include="Mapper\ResourceMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AdvertisementService.cs" />
     <Compile Include="Services\AspNetUsersService.cs" />

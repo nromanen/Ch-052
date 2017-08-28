@@ -15,13 +15,20 @@ import { LoginService } from './services/login.service';
 import { FeedbackService } from './services/feedback.service';
 import { ComcomService } from './services/comcom.service';
 
+import { HighlightDirective } from './directives/highlight.directive';
+import { IsLoggedInDirective } from './directives/isloggedin.directive';
+import { AdminDirective } from './directives/admin.directive';
+
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     StartComponent,
     FeedbackComponent,
-    UsersAdvComponent
+    UsersAdvComponent,
+    HighlightDirective,
+    IsLoggedInDirective,
+    AdminDirective
   ],
   imports: [
     BrowserModule,

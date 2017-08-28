@@ -47,7 +47,13 @@ namespace Advertisements.Web.Controllers
                 _userManager = value;
             }
         }
-        
+
+        [System.Web.Http.Route("Roles")]
+        public async Task<string[]> GetCurrentUserRoles()
+        {
+            var roles = await this.UserManager.GetRolesAsync(User.Identity.GetUserId());
+            return roles.ToArray();
+        }        
 
         private bool Send(string messageBody, string eMailAddr)
         {            

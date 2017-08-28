@@ -34,7 +34,7 @@ namespace Advertisements.BusinessLogic.Mapper
             return mapper;
         }
 
-        public static ObjectsMapper<IEnumerable<Category>, IEnumerable<CategoryDTO>> CreateListAdvertisementDTO()
+        public static ObjectsMapper<IEnumerable<Category>, IEnumerable<CategoryDTO>> CreateListCategoryDTO()
         {
             var mapper = ObjectMapperManager.DefaultInstance.GetMapper<IEnumerable<Category>, IEnumerable<CategoryDTO>>(new DefaultMapConfig().
                 ConvertUsing<IEnumerable<Category>, IEnumerable<CategoryDTO>>(a=>a.Select(CreateCategoryDTO().Map)));
