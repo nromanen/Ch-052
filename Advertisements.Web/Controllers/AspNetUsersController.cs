@@ -18,7 +18,7 @@ namespace Advertisements.Web.Controllers
     public class AspNetUsersController : ApiController
     {
         IService<AspNetUsersDTO> service;
-        
+
         public AspNetUsersController(IService<AspNetUsersDTO> s)
         {
             service = s;
