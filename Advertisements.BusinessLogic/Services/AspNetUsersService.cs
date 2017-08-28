@@ -1,4 +1,4 @@
-using System.Linq;
+﻿using System.Linq;
 using Advertisements.DTO.Models;
 using Advertisements.DataAccess.Repositories;
 using Advertisements.DataAccess.Entities;
@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace Advertisements.BusinessLogic.Services
 {
-    public class AspNetUsersService : IService<AspNetUsersDTO>
+    public class AspNetUsersService : IUserService<AspNetUsersDTO>
     {
         private readonly IUOWFactory _uowfactory;
 
@@ -30,7 +30,7 @@ namespace Advertisements.BusinessLogic.Services
             }
         }
 
-        public void Delete(int id)
+        public void Delete(string id)
         {
             using (var uow = _uowfactory.CreateUnitOfWork())
             {
@@ -41,7 +41,7 @@ namespace Advertisements.BusinessLogic.Services
             }
         }
 
-        public AspNetUsersDTO Get(int id)
+        public AspNetUsersDTO Get(string id)
         {
             ApplicationUser ApplicationUser;
 

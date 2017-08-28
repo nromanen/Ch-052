@@ -5,6 +5,8 @@ using EmitMapper;
 using EmitMapper.MappingConfiguration;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Advertisements.BusinessLogic.Mapper
 {
@@ -19,8 +21,10 @@ namespace Advertisements.BusinessLogic.Mapper
                     Text = source.Text,
                     AgreeCount = source.AgreeCount,
                     DisagreeCount = source.DisagreeCount,
-                    CreationTime = source.CreationTime,
                     AdvertisementId = source.AdvertisementId,
+                    ApplicationUserId = source.UserId,
+                    CreationTime = source.CreationTime
+
                 }));
 
             return mapper;
@@ -45,7 +49,10 @@ namespace Advertisements.BusinessLogic.Mapper
                     DisagreeCount = source.DisagreeCount,
                     CreationTime = source.CreationTime,
                     AdvertisementId = source.AdvertisementId,
-                    RowVersion = source.RowVersion.Select(x => (int)x).ToArray()
+                    UserId = source.ApplicationUserId,
+                    Username = source.ApplicationUser.UserName,
+                    RowVersion = source.RowVersion.Select(x => (int)x).ToArray(),
+                    //Avatar = System.Convert.ToBase64String(source.ApplicationUser.Avatar)
                 }));
 
             return mapper;

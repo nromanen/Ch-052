@@ -3,8 +3,6 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
-using Advertisements.Web.Models;
-using System;
 using System.Linq;
 using System.Data.Entity;
 using Advertisements.DataAccess.Entities;

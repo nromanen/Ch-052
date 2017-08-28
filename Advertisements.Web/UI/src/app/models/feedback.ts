@@ -3,9 +3,12 @@ export class Feedback{
   Text : string;
   AgreeCount : number;
   DisagreeCount : number;
-  CreationTime : string;
+  CreationTime : Date;
+  Agree : boolean;
   ApplicationUserId : string;
   Advertisement : string;
   AdvertisementId : number;
+  Username : string;
   RowVersion : Int32Array;
+  Avatar : string;
 }

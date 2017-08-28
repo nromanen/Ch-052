@@ -36,15 +36,14 @@ namespace Advertisements.Web.Providers
         {
             var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
             CustomUserStore store = new CustomUserStore();
-            ApplicationUser user = await store.FindByEmailAndPass(context.UserName, context.Password);
-            
-            
+            ApplicationUser user = store.FindByEmailAndPass(context.UserName, context.Password);
+
             if (user == null)
             {
                 context.SetError("invalid_grant", "The user name or password is incorrect.");
                 return;
             }
-            ValidateUserImg(user);
+
             ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(userManager,
                OAuthDefaults.AuthenticationType);
             ClaimsIdentity cookiesIdentity = await user.GenerateUserIdentityAsync(userManager,
