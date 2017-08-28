@@ -20,7 +20,7 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort>44384</IISExpressSSLPort>
+    <IISExpressSSLPort>44335</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
     <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode />
@@ -46,6 +46,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework6.Npgsql, Version=3.1.1.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
@@ -345,10 +346,12 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="UI\src\app\directives\equalvalidator.directive.js" />
     <Content Include="UI\src\app\registration-component\registration.component.css" />
     <Content Include="UI\src\app\registration-component\registration.component.html" />
-    <Content Include="UI\src\app\registration-component\registration.component.js" />
+    <Content Include="UI\src\app\restorepassword-component\restorepassword.component.css" />
+    <Content Include="UI\src\app\restorepassword-component\restorepassword.component.html" />
+    <Content Include="UI\src\app\tryrestorepassword-component\tryrestorepassword.component.css" />
+    <Content Include="UI\src\app\tryrestorepassword-component\tryrestorepassword.component.html" />
     <Content Include="webpack.config.js" />
     <Content Include="webpack.dev.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -437,14 +440,12 @@
     <None Include="UI\src\app\app-routing.module.ts" />
     <None Include="UI\src\app\app.component.ts" />
     <None Include="UI\src\app\app.module.ts" />
-    <Content Include="UI\src\app\directives\equalvalidator.directive.js.map" />
     <None Include="UI\src\app\feedback-component\feedback.component.ts" />
     <None Include="UI\src\app\login-component\login.component.ts" />
     <None Include="UI\src\app\models\advertisement.ts" />
     <None Include="UI\src\app\models\feedback.ts" />
     <None Include="UI\src\app\models\register.view.model.ts" />
     <None Include="UI\src\app\models\token.ts" />
-    <Content Include="UI\src\app\registration-component\registration.component.js.map" />
     <None Include="UI\src\app\services\advertisement.service.ts" />
     <None Include="UI\src\app\services\advertisementCurrent.service.ts" />
     <None Include="UI\src\app\services\feedback.service.ts" />
@@ -465,8 +466,14 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="UI\src\app\directives\equalvalidator.directive.ts" />
+    <TypeScriptCompile Include="UI\src\app\models\RestorePasswordViewModel.ts" />
+    <TypeScriptCompile Include="UI\src\app\models\UserRegisterModel.ts" />
     <TypeScriptCompile Include="UI\src\app\registration-component\registration.component.ts" />
+    <TypeScriptCompile Include="UI\src\app\restorepassword-component\restorepassword.component.ts" />
     <TypeScriptCompile Include="UI\src\app\services\comcom.service.ts" />
+    <TypeScriptCompile Include="UI\src\app\services\registration.service.ts" />
+    <TypeScriptCompile Include="UI\src\app\services\restorepassword.service.ts" />
+    <TypeScriptCompile Include="UI\src\app\tryrestorepassword-component\tryrestorepassword.component.ts" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
