@@ -24,7 +24,15 @@ constructor(private http: Http, private loginService: LoginService) { }
 
         return this.http.get(this.advertisementsLoginUrl)
                         .toPromise()
-                        .then(response => response.json() as Advertisement [])
+                        .then(response => {
+                            this.advertisements = response.json() as Advertisement []; 
+
+                            this.advertisements.forEach(element => {
+                                if (element.Resources.length == 0)
+                                    element.Resources.push (new Resource(0, '../../../assets/images/noPhoto.png', 0 ));
+                            });
+
+                            return this.advertisements; })
                         .catch(this.handleError);
     } 
 

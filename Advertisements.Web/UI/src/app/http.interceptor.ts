@@ -76,10 +76,8 @@ export class InterceptedHttp extends Http {
         let headers = new Headers();
         headers.append('Authorization', `Bearer ${token}`);
         options = new RequestOptions({ headers: headers })
-        console.log(options);
 
-        return options;
-        
+        return options;        
     }
 
     private notify (error: Response)  {

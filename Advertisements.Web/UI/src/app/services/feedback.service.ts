@@ -18,7 +18,7 @@ constructor(private http: Http, private loginService: LoginService) { }
     getFeedbacks(id : number) { 
 
         return this.http
-            .get('api/feedback/getByAdvertisement' + "/" + "2")
+            .get('api/feedback/getByAdvertisement' + "/" + "4")
             .toPromise()
             .then(response => response.json() as string [])
             .catch(this.handleError);

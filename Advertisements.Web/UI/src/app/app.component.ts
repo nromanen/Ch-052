@@ -16,6 +16,7 @@ import { Notification } from "./models/notification";
   selector: 'app-root',                       
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
+  providers: []
 })
 export class AppComponent implements OnInit, OnDestroy {
  
@@ -33,10 +34,14 @@ export class AppComponent implements OnInit, OnDestroy {
     this.subscription = this.comcomService.getObservableToken().subscribe(token =>       
       {
         this.token = token; 
-        if (token !== null)
+        if (token != null || token != undefined) {
           this.loginbuttontext = 'Welcome, ' + token.userName;
-        else
+              this.isLoggedIn = true;
+          }
+          else {
           this.loginbuttontext = 'Log In';
+              this.isLoggedIn = false;
+          }
       });
 
       this.errorSubscription = this.comcomService.getNotification().subscribe(error =>       
@@ -53,7 +58,8 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
       this.comcomService.loadTokenFromStorage();
-      this.subscription = this.comcomService.getToken().subscribe(token => {
+
+      this.subscription = this.comcomService.getObservableToken().subscribe(token => {
           this.token = token;
           console.log('inside app.component');
           if (token != null || token != undefined) {

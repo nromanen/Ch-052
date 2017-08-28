@@ -47,14 +47,10 @@ export class LoginService {
 
     logout(): Observable<any> {
         
-        let authToken = localStorage.getItem("access_token");
-        let headers = new Headers();
-        headers.append('Authorization', `Bearer ${authToken}`)
-        let options = new RequestOptions({ headers: headers });
-        this.comcomService.clearToken();
+        this.comcomService.clearObservableToken();
         
         
-        return this.http.post('/api/account/logout', null, options)
+        return this.http.post('/api/account/logout',null)
             .map(res => {
                 localStorage.removeItem("access_token");
                 localStorage.removeItem("expires_in");
@@ -63,11 +59,7 @@ export class LoginService {
     }
 
     getRole():Promise<string[]>{
-        let headers = new Headers();        
-        headers.append('Authorization', `Bearer ${localStorage.getItem("access_token")}`)
-        let options = new RequestOptions({ headers: headers });
-
-        return this.http.get('/api/account/roles', options).toPromise().then(res => {return <string[]> res.json();}).catch(this.handleError);
+        return this.http.get('/api/account/roles').toPromise().then(res => {return <string[]> res.json(); }).catch(this.handleError);
     }
 
     isLoggedin(): void {
