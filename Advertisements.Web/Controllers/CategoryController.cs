@@ -2,6 +2,7 @@
 using Advertisements.DataAccess.Repositories;
 using Advertisements.DataAccess.Services;
 using Advertisements.DTO.Models;
+using Advertisements.Web.Filters;
 using SimpleInjector;
 using System.Collections.Generic;
 using System.Web.Http;
@@ -19,7 +20,7 @@ namespace Advertisements.Web.Controllers
             service = s;
         }
 
-        
+        [AllowAnonymous]
         [HttpGet]
         [Route("get")]
         public IEnumerable<CategoryDTO> Get()

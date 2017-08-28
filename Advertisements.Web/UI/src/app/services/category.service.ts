@@ -22,9 +22,7 @@ export class CategoryService {
         let headers = new Headers();
 
         var token = localStorage.getItem("access_token");
-      
         headers.append('Authorization', `Bearer ${token}`);
-        
         let options = new RequestOptions({ headers: headers });
 
         return this.http.get(this.categoryUrl + "get", options).
@@ -34,28 +32,52 @@ export class CategoryService {
     }
 
     getCategory(id: number): Promise<Category> {
-        return this.http.get(this.categoryUrl + "get/" + id).
+        let headers = new Headers();
+
+        var token = localStorage.getItem("access_token");
+        headers.append('Authorization', `Bearer ${token}`);
+        let options = new RequestOptions({ headers: headers });
+
+        return this.http.get(this.categoryUrl + "get/" + id, options).
             toPromise().
             then(response => response.json() as Category).
             catch(this.handleError);
     }
 
     deleteCategory(category: Category): Promise<Category[]> {
-        return this.http.delete(this.categoryUrl + "delete/" + category.Id).
+        let headers = new Headers();
+
+        var token = localStorage.getItem("access_token");
+        headers.append('Authorization', `Bearer ${token}`);
+        let options = new RequestOptions({ headers: headers });
+
+        return this.http.delete(this.categoryUrl + "delete/" + category.Id, options).
             toPromise().
             then(response => { response.json() as Category[] }).
             catch(this.handleError);
     }
 
     updateCategory(category: Category): Promise<Category[]> {
-        return this.http.put(this.categoryUrl + "edit", category).
+        let headers = new Headers();
+
+        var token = localStorage.getItem("access_token");
+        headers.append('Authorization', `Bearer ${token}`);
+        let options = new RequestOptions({ headers: headers });
+
+        return this.http.put(this.categoryUrl + "edit", category, options).
             toPromise().
             then(response => { response.json() as Category[] }).
             catch(this.handleError);
     }
 
     createCategory(category: Category): Promise<Category[]> {
-        return this.http.post(this.categoryUrl + "add", category).
+        let headers = new Headers();
+
+        var token = localStorage.getItem("access_token");
+        headers.append('Authorization', `Bearer ${token}`);
+        let options = new RequestOptions({ headers: headers });
+
+        return this.http.post(this.categoryUrl + "add", category, options).
             toPromise().
             then(response => { response.json() as Category[] }).
             catch(this.handleError);
