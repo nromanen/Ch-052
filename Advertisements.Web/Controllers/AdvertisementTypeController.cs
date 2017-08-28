@@ -9,41 +9,42 @@ using System.Web.Http;
 namespace Advertisements.Web.Controllers
 {
     [AllowAnonymous]
-    [RoutePrefix("api/Category")]
-    public class CategoryController : ApiController
+    [RoutePrefix("api/AdvertisementType")]
+    public class AdvertisementTypeController : ApiController
     {
-        IService<CategoryDTO> service;
 
-        public CategoryController(IService<CategoryDTO>  s)
+        IService<AdvertisementTypeDTO> service;
+
+        public AdvertisementTypeController(IService<AdvertisementTypeDTO> s)
         {
             service = s;
         }
-        
+
         [HttpGet]
         [Route("get")]
-        public IEnumerable<CategoryDTO> Get()
+        public IEnumerable<AdvertisementTypeDTO> Get()
         {
             return service.GetAll();
         }
 
-        [AllowAnonymous]
+
         [HttpGet]
         [Route("get/{id}")]
-        public CategoryDTO Get(int id)
+        public AdvertisementTypeDTO Get(int id)
         {
             return service.Get(id);
         }
 
         [HttpPost]
         [Route("add")]
-        public void Add(CategoryDTO dto)
+        public void Add(AdvertisementTypeDTO dto)
         {
-           service.Create(dto);
+            service.Create(dto);
         }
 
         [HttpPut]
         [Route("edit")]
-        public void Update(CategoryDTO dto)
+        public void Update(AdvertisementTypeDTO dto)
         {
             service.Update(dto);
         }

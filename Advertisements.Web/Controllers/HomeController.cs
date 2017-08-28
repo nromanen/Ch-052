@@ -33,9 +33,9 @@ namespace Advertisements.Web.Controllers
     [RequireHttps]
     public class HomeController : Controller
     {
-        IService<AspNetUsersDTO> service;
+        IUserService<AspNetUsersDTO> service;
 
-        public HomeController(IService<AspNetUsersDTO> service)
+        public HomeController(IUserService<AspNetUsersDTO> service)
         {
             this.service = service;
         }
