@@ -38,6 +38,20 @@ let EditAdvService = class EditAdvService {
         console.error('An error occurred', error);
         return Promise.reject(error.message || error);
     }
+    getCategory() {
+        return this.http
+            .get('api/Category/get')
+            .toPromise()
+            .then()
+            .catch();
+    }
+    getType() {
+        return this.http
+            .get('api/AdvertisementType/get')
+            .toPromise()
+            .then()
+            .catch();
+    }
 };
 EditAdvService = __decorate([
     core_1.Component({

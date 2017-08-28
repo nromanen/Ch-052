@@ -4,6 +4,8 @@ import { Location } from '@angular/common';
 import { Advertisement } from '../models/advertisement';
 import { EditAdvService } from '../services/editAdv.service';
 import { Subscription } from "rxjs/Subscription";
+import { Category } from '../models/category';
+import { Type } from '../models/type';
 
 @Component({
   selector: 'editAdv',
@@ -18,6 +20,8 @@ export class EditAdvComponent implements OnInit, OnDestroy {
   private id: number;
   private route$: Subscription;
   title: string = 'Edit';
+  categories: Category[];
+  types: Type[];
 
   advertisement: Advertisement = new Advertisement();
 

@@ -84,3 +84,12 @@
    bottom:0;
    right:15pt;
   }
+
+  
+        /*My*/
+.container.adv-container {
+    text-align: left;
+}
+.container.adv-container .adv-header {
+    text-align: center;
+}

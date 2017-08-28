@@ -25,6 +25,8 @@ let EditAdvComponent = class EditAdvComponent {
         this.route$ = this.route.params.subscribe((params) => {
             this.id = +params["id"];
         });
+        this.getCategories();
+        this.getTypes();
         this.getAdvertisement(this.id);
     }
     ngOnDestroy() {
@@ -36,6 +38,12 @@ let EditAdvComponent = class EditAdvComponent {
     }
     onSubmit(advertisement) {
         this.editAdvService.editAdv(advertisement);
+    }
+    getCategories() {
+        this.editAdvService.getCategory().then(category => this.categories = category.json());
+    }
+    getTypes() {
+        this.editAdvService.getType().then(type => this.types = type.json());
     }
 };
 EditAdvComponent = __decorate([
