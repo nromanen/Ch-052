@@ -7,13 +7,13 @@ namespace Advertisements.DataAccess.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class BaseMgr : IMigrationMetadata
+    public sealed partial class _base : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(BaseMgr));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(_base));
         
         string IMigrationMetadata.Id
         {
-            get { return "201708211048183_BaseMgr"; }
+            get { return "201708281527225_base"; }
         }
         
         string IMigrationMetadata.Source

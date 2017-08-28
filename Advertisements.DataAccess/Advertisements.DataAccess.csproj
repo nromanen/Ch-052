@@ -92,9 +92,9 @@
     <Compile Include="Migrations\201708171426445_EmailTokenMigr.Designer.cs">
       <DependentUpon>201708171426445_EmailTokenMigr.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201708211048183_BaseMgr.cs" />
-    <Compile Include="Migrations\201708211048183_BaseMgr.designer.cs">
-      <DependentUpon>201708211048183_BaseMgr.cs</DependentUpon>
+    <Compile Include="Migrations\201708281527225_base.cs" />
+    <Compile Include="Migrations\201708281527225_base.Designer.cs">
+      <DependentUpon>201708281527225_base.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Repositories\EFRepositoryBase.cs" />
@@ -120,8 +120,8 @@
     <EmbeddedResource Include="Migrations\201708171426445_EmailTokenMigr.resx">
       <DependentUpon>201708171426445_EmailTokenMigr.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708211048183_BaseMgr.resx">
-      <DependentUpon>201708211048183_BaseMgr.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201708281527225_base.resx">
+      <DependentUpon>201708281527225_base.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
