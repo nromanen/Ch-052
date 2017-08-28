@@ -34,7 +34,7 @@ namespace Advertisements.Web
             container.Register(typeof(IFeedbackAwareService<FeedbackDTO>), typeof(FeedbackService));
             container.Register(typeof(IUserService<AspNetUsersDTO>), typeof(AspNetUsersService));
             container.Register(typeof(IService<AdvertisementDTO>), typeof(AdvertisementService));
-            container.Register(typeof(IUserAwareService<AdvertisementDTO>), typeof(AdvertisementService));
+            container.Register(typeof(IService<AspNetUsersDTO>), typeof(AspNetUsersService));
 
             DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(container));
             GlobalConfiguration.Configuration.DependencyResolver = new SimpleInjectorWebApiDependencyResolver(container);

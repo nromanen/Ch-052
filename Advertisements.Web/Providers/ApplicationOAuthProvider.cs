@@ -12,7 +12,10 @@ using Microsoft.Owin.Security.OAuth;
 using Advertisements.Web.Models;
 using Advertisements.DataAccess.Entities;
 using System.Threading;
-
+using System.Drawing;
+using Advertisements.Web.Csharp;
+using System.IO;
+using System.Web;
 namespace Advertisements.Web.Providers
 {
     public class ApplicationOAuthProvider : OAuthAuthorizationServerProvider
@@ -33,7 +36,7 @@ namespace Advertisements.Web.Providers
         {
             var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
             CustomUserStore store = new CustomUserStore();
-            ApplicationUser user = store.FindByEmailAndPass(context.UserName, context.Password);
+            ApplicationUser user = await store.FindByEmailAndPass(context.UserName, context.Password);
 
             if (user == null)
             {
@@ -51,6 +54,17 @@ namespace Advertisements.Web.Providers
             context.Validated(ticket);
             context.Request.Context.Authentication.SignIn(cookiesIdentity);
 
+        }
+
+        private void ValidateUserImg(ApplicationUser user)
+        {
+            Image image = Csharp.ImageConverter.ImgFromBytes(user.Avatar);
+            if (image.Height > 64 || image.Width > 64)
+            {
+                image = Csharp.ImageConverter.SqueezeImg(image);
+                user.Avatar = Csharp.ImageConverter.BytesFromImg(image);
+            }
+                
         }
 
         public override Task TokenEndpoint(OAuthTokenEndpointContext context)

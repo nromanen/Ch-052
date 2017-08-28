@@ -1,4 +1,4 @@
-﻿using Advertisements.DataAccess.Entities;
+using Advertisements.DataAccess.Entities;
 using Advertisements.DTO.Models;
 using EmitMapper;
 using EmitMapper.MappingConfiguration;
@@ -27,7 +27,8 @@ namespace Advertisements.BusinessLogic.Mapper
                     LockoutEndDateUtc = source.LockoutEndDateUtc,
                     LockoutEnabled = source.LockoutEnabled,
                     AccessFailedCount = source.AccessFailedCount,
-                    UserName = source.UserName
+                    UserName = source.UserName,
+                    Avatar = source.Avatar
                 }));
 
             return mapper;
@@ -57,7 +58,8 @@ namespace Advertisements.BusinessLogic.Mapper
                     TwoFactorEnabled = source.TwoFactorEnabled,
                     LockoutEnabled = source.LockoutEnabled,
                     AccessFailedCount = source.AccessFailedCount,
-                    UserName = source.UserName
+                    UserName = source.UserName,
+                    Avatar = source.Avatar
                 }));
 
             return mapper;
