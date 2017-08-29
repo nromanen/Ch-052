@@ -51,8 +51,7 @@ namespace Advertisements.DataAccess.Repositories
             return _context.Set<TEntity>().ToList();
         }
 
-        public IEnumerable<TEntity> GetAll(
-            params Expression<Func<TEntity, object>>[] includeExpressions)
+        public IEnumerable<TEntity> GetAll(params Expression<Func<TEntity, object>>[] includeExpressions)
         {
             return includeExpressions
               .Aggregate<Expression<Func<TEntity, object>>, IQueryable<TEntity>>

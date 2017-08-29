@@ -7,7 +7,6 @@ import 'rxjs/add/operator/switchMap';
 import { Subscription } from "rxjs/Subscription";
 
 @Component({
-    moduleId: module.id.toString(),
   selector: 'feedback-root',
   templateUrl: './feedback.component.html',
   styleUrls: ['./feedback.component.css'],
@@ -30,12 +29,12 @@ export class FeedbackComponent implements OnInit {
   
 
   getFeedbacks(id):void {
+   this.accessDenied = false;
+   this.isButtonClicked = false;
+
    this.feedbacksService.getFeedbacks(id)
           .then(feedbacks =>
           {this.feedbacks = feedbacks});
-  
-   this.accessDenied = false;
-   this.isButtonClicked = false;
 }
 
   ngOnInit(): void {  

@@ -6,6 +6,7 @@ import { Headers, Http, RequestOptions } from "@angular/http";
 import { LoginService } from '../services/login.service';
 
 import { Token } from "../models/token";
+import { Resource } from "../models/resource";
 
 
 import 'rxjs/add/operator/toPromise';
@@ -17,18 +18,22 @@ constructor(private http: Http, private loginService: LoginService) { }
 
 
     private advertisementsLoginUrl = '/api/Advertisement/get';
+    private advertisements: Advertisement[];
 
     getAdvertisements(): Promise<Advertisement[]> { 
-        
-        //let authToken = this.loginService.getToken().access_token;
-        let headers = new Headers();        
-        //headers.append('Authorization', `Bearer ${authToken}`)
-        let options = new RequestOptions({ headers: headers });
 
+        return this.http.get(this.advertisementsLoginUrl)
+                        .toPromise()
+                        .then(response => {
+                            this.advertisements = response.json() as Advertisement []; 
 
-        //  let headers = new Headers();
-        //  let options = new RequestOptions({ headers: headers });
-        return this.http.get(this.advertisementsLoginUrl, options).toPromise().then(response => response.json() as Advertisement []).catch(this.handleError);
+                            this.advertisements.forEach(element => {
+                                if (element.Resources.length == 0)
+                                    element.Resources.push (new Resource(0, '../../../assets/images/noPhoto.png', 0 ));
+                            });
+
+                            return this.advertisements; })
+                        .catch(this.handleError);
     } 
 
     private handleError(error: any): Promise<any> {
