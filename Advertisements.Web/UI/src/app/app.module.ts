@@ -50,7 +50,7 @@ import { RestorePasswordService } from './services/restorepassword.service';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [AdvertisementService, LoginService, FeedbackService, ComcomService,AdvertisementCurrentService, EditAdvService, CreateAdvService, AdvInfoService RegistrationService, TryRestorePasswordCompoent, RestorePasswordService],
+  providers: [AdvertisementService, LoginService, FeedbackService, ComcomService,AdvertisementCurrentService, EditAdvService, CreateAdvService, AdvInfoService, RegistrationService, TryRestorePasswordCompoent, RestorePasswordService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
