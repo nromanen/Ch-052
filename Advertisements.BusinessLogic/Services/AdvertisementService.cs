@@ -45,7 +45,7 @@ namespace Advertisements.BusinessLogic.Services
             {
                 var repo = uow.GetRepo<Advertisement>();
 
-                advertisement = repo.Get(id);
+                advertisement = repo.Get(id, o => o.Resources);
             }
 
             AdvertisementDTO dto = AdvertisementMapper.CreateAdvertisementDTO().Map(advertisement);
@@ -103,7 +103,7 @@ namespace Advertisements.BusinessLogic.Services
             using (var uow = _uowfactory.CreateUnitOfWork())
             {
                 var repo = uow.GetRepo<Advertisement>();
-                Advertisement = repo.GetAll().Where(e => e.ApplicationUserId == id);
+                Advertisement = repo.GetAll(o => o.Resources).Where(e => e.ApplicationUserId == id);
             }
             IEnumerable<AdvertisementDTO> dtos = AdvertisementMapper.CreateListAdvertisementDTO().Map(Advertisement).ToList();
             return dtos;

@@ -6,7 +6,7 @@
     <tr *ngFor="let advertisement of advertisements">
       <td class="col-sm-3">
         <div class="div-advertisement-image">
-          <img class="img-advert" src="../assets/images/noPhoto.png" alt="Mountain View">
+          <img class="img-advert" src="{{advertisement.Resources[0].Url}} ">
         </div>
       </td>
       <td class="col-sm-9 td-adverttisement-texts">

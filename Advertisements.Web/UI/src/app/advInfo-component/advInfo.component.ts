@@ -35,7 +35,7 @@ export class AdvInfoComponent implements OnInit, OnDestroy {
     if (this.route$) this.route$.unsubscribe();
   }
   getAdvertisement(id): void {
-    this.infoAdvService.getAdvertisement(id).then(advertisement => { this.advertisement = advertisement; console.log(this.advertisement) });
+    this.infoAdvService.getAdvertisement(id).then(advertisement => { this.advertisement = advertisement;  });
   }
 
 }

@@ -22,7 +22,7 @@ export class InterceptedHttp extends Http {
         url = this.updateUrl(url);
 
         var response = super.get(url, this.getRequestOptionArgs(options));
-        response.subscribe(b=>b, error => {
+        response.catch(error => {
            this.notify(error);
            return new Observable<Response>(error);
            }); 
