@@ -15,9 +15,6 @@ import { RegisterViewModel } from "../models/register.view.model";
 export class FeedbackService {
     constructor(private http: Http, private loginService: LoginService) { }
 
-    getFeedbacks(id : number) { 
-
-
     getFeedbacks(id: number) {
         let feedbacksUrl = 'https://localhost:44384/api/feedback/getByAdvertisement/' + id;
         return this.http.get(feedbacksUrl).toPromise().then(response => response.json() as string[]).catch(this.handleError);

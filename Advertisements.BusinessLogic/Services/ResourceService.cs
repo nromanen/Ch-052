@@ -64,7 +64,7 @@ namespace Advertisements.BusinessLogic.Services
                 categories = repo.GetAll();
             }
 
-            IEnumerable<ResourceDTO> dtos = ResourceMapper.CreateListAdvertisementDTO().Map(categories).ToList();
+            IEnumerable<ResourceDTO> dtos = ResourceMapper.CreateListResourceDTO().Map(categories).ToList();
 
             return dtos;
         }

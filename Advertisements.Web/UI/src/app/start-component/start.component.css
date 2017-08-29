@@ -80,7 +80,7 @@
 
   .price{
     font-size: 150%;
-    position: relative;
+    position: absolute;
    bottom:0;
    right:15pt;
   }

@@ -65,7 +65,13 @@ import { AdminDirective } from './directives/admin.directive';
      
     FeedbackService,
       ComcomService,
-      AdvertisementCurrentService, EditAdvService, CreateAdvService, AdvInfoService, RegistrationService, TryRestorePasswordCompoent, RestorePasswordService
+      AdvertisementCurrentService, 
+      EditAdvService, 
+      CreateAdvService, 
+      AdvInfoService, 
+      RegistrationService, 
+      TryRestorePasswordCompoent, 
+      RestorePasswordService,
     {
             provide: Http,
             useFactory: httpFactory,
