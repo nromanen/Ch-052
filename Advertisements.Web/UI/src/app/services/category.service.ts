@@ -15,7 +15,7 @@ import { RegisterViewModel } from "../models/register.view.model";
 export class CategoryService {
     constructor(private http: Http, private loginService: LoginService) { }
 
-    private categoryUrl = "https://localhost:44384/api/Category/";
+    private categoryUrl = "https://localhost:44384/api/category/";
 
     getCategories(): Promise<Category[]> {
 

@@ -1,16 +1,12 @@
 ﻿using Advertisements.BusinessLogic.Services;
 using Advertisements.DTO.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace Advertisements.Web.Controllers
 {
     [Authorize(Roles = "Admin")]
-    [RoutePrefix("api/Type")]
+    [RoutePrefix("api/type")]
     public class TypeController : ApiController
     {
         IService<TypeDTO> service;

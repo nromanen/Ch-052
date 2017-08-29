@@ -13,7 +13,7 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class TypeService {
     constructor(private http: Http, private loginService: LoginService) { }
-    private typeUrl = "https://localhost:44384/api/Type/";
+    private typeUrl = "https://localhost:44384/api/type/";
 
     getTypes(): Promise<Type[]> {
         let headers = new Headers();
@@ -27,7 +27,7 @@ export class TypeService {
             catch(this.handleError);
     }
 
-    getType(id: number): Promise<Type> {
+    getType(id): Promise<Type> {
         let headers = new Headers();
         var token = localStorage.getItem("access_token");
         headers.append("Authorization", `Bearer ${token}`);

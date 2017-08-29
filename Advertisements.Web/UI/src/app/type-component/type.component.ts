@@ -29,9 +29,10 @@ export class TypeComponent implements OnInit {
             { this.types = types; console.log("Component", this.types) });
     }
 
-    getType(id: number): void {
+    getType(id): void {
         this.typeService.getType(id)
-            .then();
+            .then(type =>
+            { this.selectedType = type; console.log(this.selectedType)});
     }
 
     deleteType(type: Type): void {
