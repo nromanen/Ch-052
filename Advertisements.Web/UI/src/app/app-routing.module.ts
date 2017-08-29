@@ -6,14 +6,17 @@ import { StartComponent } from './start-component/start.component';
 import { FeedbackComponent } from './feedback-component/feedback.component';
 import { UsersAdvComponent } from './usersAdv-component/usersAdv.component';
 import { CategoryComponent } from './category-component/category.component';
+import { TypeComponent } from './type-component/type.component';
+
 
 const routes: Routes = [
-  { path: '', redirectTo: '/category', pathMatch: 'full' },
+  { path: '', redirectTo: '/type', pathMatch: 'full' },
   { path: 'start', component: StartComponent },
   { path: 'login',  component: LoginComponent },
   { path: 'myAdv', component: UsersAdvComponent },
   { path: 'feedback',  component: FeedbackComponent },
-  { path: 'category',  component: CategoryComponent }  
+  { path: 'category',  component: CategoryComponent },
+  { path: 'type',  component: TypeComponent }
 ];
 
 @NgModule({

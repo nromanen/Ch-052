@@ -10,12 +10,15 @@ import { StartComponent } from './start-component/start.component';
 import { UsersAdvComponent } from './usersAdv-component/usersAdv.component';
 import { FeedbackComponent } from './feedback-component/feedback.component';
 import { CategoryComponent } from './category-component/category.component';
+import { TypeComponent } from './type-component/type.component';
 
 import { AdvertisementService } from './services/advertisement.service';
 import { LoginService } from './services/login.service';
 import { FeedbackService } from './services/feedback.service';
 import { CategoryService } from './services/category.service';
 import { ComcomService } from './services/comcom.service';
+import { TypeService } from './services/type.service';
+
 
 @NgModule({
   declarations: [
@@ -24,7 +27,8 @@ import { ComcomService } from './services/comcom.service';
     StartComponent,
     FeedbackComponent,
     UsersAdvComponent,
-    CategoryComponent    
+    CategoryComponent,
+    TypeComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +36,7 @@ import { ComcomService } from './services/comcom.service';
     AppRoutingModule, 
     FormsModule
   ],
-  providers: [AdvertisementService, LoginService, FeedbackService, ComcomService, CategoryService],
+  providers: [AdvertisementService, LoginService, FeedbackService, ComcomService, CategoryService, TypeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

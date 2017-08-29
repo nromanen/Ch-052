@@ -69,6 +69,7 @@
     <Compile Include="Models\AspNetUsersDTO.cs" />
     <Compile Include="Models\CategoryDTO.cs" />
     <Compile Include="Models\FeedbackDTO.cs" />
+    <Compile Include="Models\TypeDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

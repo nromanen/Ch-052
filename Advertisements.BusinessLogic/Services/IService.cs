@@ -12,12 +12,6 @@ namespace Advertisements.BusinessLogic.Services
         void Delete(int id);
     }
 
-    //public interface ICategoryService : IService<CategoryDTO>
-    //{
-    //    void Create(CategoryDTO item);
-    //    void Update(CategoryDTO item);
-    //}
-
     public interface IUserAwareService<T> : IService<T> where T : class
     {
         IEnumerable<T> GetByUser(string userId);
