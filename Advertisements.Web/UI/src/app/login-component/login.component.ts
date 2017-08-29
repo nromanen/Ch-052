@@ -44,7 +44,7 @@ token:Token;
                                                                                   this.sendToken(this.token);                                                                                  
                                                                                   this.router.navigate(['/start']);
                                                                                   }, 
-                                                                                  err => console.log('Something went wrong!')  );
+                                                                                  err => console.log('Something went wrong')  );
   }
 
   public sendToken(token: Token): void { 

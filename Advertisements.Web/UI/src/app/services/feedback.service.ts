@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { Feedback } from '../models/feedback';
-import {Headers, HttpModule, Http, Response, RequestOptions} from '@angular/http'; 
+import { Headers, HttpModule, Http, Response, RequestOptions } from '@angular/http';
 
 import { LoginService } from '../services/login.service';
 
@@ -12,17 +12,16 @@ import 'rxjs/add/operator/toPromise';
 import { RegisterViewModel } from "../models/register.view.model";
 
 @Injectable()
-export class FeedbackService{
-constructor(private http: Http, private loginService: LoginService) { }
+export class FeedbackService {
+    constructor(private http: Http, private loginService: LoginService) { }
 
     getFeedbacks(id : number) { 
 
-        return this.http
-            .get('api/feedback/getByAdvertisement' + "/" + "4")
-            .toPromise()
-            .then(response => response.json() as string [])
-            .catch(this.handleError);
-    } 
+
+    getFeedbacks(id: number) {
+        let feedbacksUrl = 'https://localhost:44384/api/feedback/getByAdvertisement/' + id;
+        return this.http.get(feedbacksUrl).toPromise().then(response => response.json() as string[]).catch(this.handleError);
+    }
 
     postFeedback(param: any): Promise<any> {
 
@@ -43,7 +42,7 @@ constructor(private http: Http, private loginService: LoginService) { }
     } 
 
     private handleError(error: any): Promise<any> {
-        console.error('An error occurred', error); 
+        console.error('An error occurred', error);
         return Promise.reject(error.message || error);
-    }    
+    }
 }

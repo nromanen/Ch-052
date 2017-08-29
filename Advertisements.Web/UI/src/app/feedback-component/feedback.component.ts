@@ -75,7 +75,7 @@ export class FeedbackComponent implements OnInit {
   }
 
   goClick(): void {
-    this.newFeedback.AdvertisementId = 4;
+    this.newFeedback.AdvertisementId = this.id;
     this.isButtonClicked = true;
     this.feedbacksService
           .postFeedback(this.newFeedback)

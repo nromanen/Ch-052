@@ -12,7 +12,6 @@ using Microsoft.AspNet.Identity;
 namespace Advertisements.Web.Controllers
 {
 
-    [Authorize]
     [RoutePrefix("api/Advertisement")]
     public class AdvertisementController : ApiController
     {
@@ -35,7 +34,7 @@ namespace Advertisements.Web.Controllers
             return service.GetAll();
         }
 
-
+        [AllowAnonymous]
         [HttpGet]
         [Route("get/{id}")]
         public AdvertisementDTO Get(int id)
@@ -43,6 +42,7 @@ namespace Advertisements.Web.Controllers
             return service.Get(id);
         }
 
+        [Authorize]
         [HttpPost]
         [Route("add")]
         public void Add(AdvertisementDTO dto)
@@ -50,6 +50,7 @@ namespace Advertisements.Web.Controllers
             service.Create(dto);
         }
 
+        [Authorize]
         [HttpPut]
         [Route("edit")]
         public void Update(AdvertisementDTO dto)
@@ -57,6 +58,7 @@ namespace Advertisements.Web.Controllers
             service.Update(dto);
         }
 
+        [Authorize]
         [HttpDelete]
         [Route("delete/{id}")]
         public void Delete(int id)
@@ -64,6 +66,7 @@ namespace Advertisements.Web.Controllers
             service.Delete(id);
         }
 
+        [Authorize]
         [HttpGet]
         [Route("get/current")]
         public IEnumerable<AdvertisementDTO> GetCurrentUsersAdv()

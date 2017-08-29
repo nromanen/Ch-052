@@ -18,7 +18,6 @@ namespace Advertisements.Web.Controllers
         {
             service = s;
         }
-
         
         [HttpGet]
         [Route("get")]

@@ -29,7 +29,7 @@ module.exports = {
             }, 'angular2-template-loader']
         }, {
             test: /\.(png|jpg|gif|woff|woff2|ttf|svg|eot)$/,
-            loader: 'file-loader?name=assets/[name]-[hash:6].[ext]'
+            loader: 'file-loader?name=assets/[name].[ext]'
         }, {
             test: /favicon.ico$/,
             loader: 'file-loader?name=/[name].[ext]'

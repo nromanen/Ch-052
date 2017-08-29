@@ -24,6 +24,7 @@ export class AppComponent implements OnInit, OnDestroy {
   loginbuttontext: string = 'Log In';
   isLoggedIn:boolean;
   admin:string = 'Admin';
+  registerbuttontext: string = 'Register';
 
   token:Token;
   subscription: Subscription;

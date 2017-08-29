@@ -80,10 +80,19 @@
 
   .price{
     font-size: 150%;
-    position: absolute;
+    position: relative;
    bottom:0;
    right:15pt;
   }
+
+  
+        /*My*/
+.container.adv-container {
+    text-align: left;
+}
+.container.adv-container .adv-header {
+    text-align: center;
+}
   .title-header{
     text-align: center;
   }

@@ -88,16 +88,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Mapper\AdvertisementMapper.cs" />
+    <Compile Include="Mapper\AdvertisementTypesMapper.cs" />
     <Compile Include="Mapper\AspNetUsersMapper.cs" />
     <Compile Include="Mapper\CategoryMapper.cs" />
     <Compile Include="Mapper\FeedbackMapper.cs" />
+    <Compile Include="Mapper\PasswordRecoveryMapper.cs" />
     <Compile Include="Mapper\ResourceMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AdvertisementService.cs" />
+    <Compile Include="Services\AdvertisementTypeService.cs" />
     <Compile Include="Services\AspNetUsersService.cs" />
     <Compile Include="Services\CategoryService.cs" />
     <Compile Include="Services\FeedbackService.cs" />
     <Compile Include="Services\IService.cs" />
+    <Compile Include="Services\PasswordRecoveryService.cs" />
+    <Compile Include="Services\ResourceService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Advertisements.DataAccess\Advertisements.DataAccess.csproj">
