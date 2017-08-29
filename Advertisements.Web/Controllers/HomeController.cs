@@ -23,22 +23,66 @@ using Advertisements.DataAccess.Entities;
 using Advertisements.DataAccess.Context;
 using System.Threading;
 using System.Linq;
+using Advertisements.BusinessLogic.Services;
+using Advertisements.DTO.Models;
+using System.Drawing;
+using System.IO;
+
 namespace Advertisements.Web.Controllers
 {
     [RequireHttps]
     public class HomeController : Controller
     {
+        IUserService<AspNetUsersDTO> service;
+
+        public HomeController(IUserService<AspNetUsersDTO> service)
+        {
+            this.service = service;
+        }
+
         public ActionResult Index()
         {
             ViewBag.Title = "Home Page";
 
             return View();
         }
-        public ActionResult TakeConfirmEmail(string token, string eMail)
+        public async Task<ActionResult> TakeConfirmEmail(string token, string Id)
         {
-            ViewBag.token = token;
-            ViewBag.eMail = eMail;
+            var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            var result = await userManager.CustomCheckEmailTokenAsync(Id, token);
+            if (!result.Succeeded && result.Errors.ToArray().Length != 0) 
+            {
+                string error = "";
+                foreach (string msg in result.Errors)
+                    error += msg + " ";
+                return View(error);
+            }
+            string message = "You have succesfully confirmed your email";
+            return View((object)message);
+        }
+
+        public ActionResult RestorePassword()
+        {
             return View();
+        }
+
+        public ActionResult ConfirmPasswordRestoring(string token,string email)
+        {
+            var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            var user = userManager.FindByEmail(email);
+            
+            if (user == null)
+            {
+                ViewBag.message = "Invalid url for password restoring";
+                return View((object)"0");
+            }
+            string tokenToCheck = user.EmailToken.Replace('+', ' ');
+            if (token != tokenToCheck)
+            {
+                ViewBag.message = "Invalid token!";
+                return View((object)"0");
+            }
+            return View((object)user.Id);
         }
 
         public ActionResult Registrate()
@@ -70,5 +114,15 @@ namespace Advertisements.Web.Controllers
                 }
             }
         }
+
+        public ActionResult GetImage()
+        {
+            string userId = User.Identity.GetUserId();
+            var manager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            ApplicationUser user = manager.FindById(userId);
+
+            return File(user.Avatar, "image/jpg");
+        }
+        
     }
 }

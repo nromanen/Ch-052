@@ -40,14 +40,14 @@ module.exports = {
             test: /\.scss$/,
             exclude: /node_modules/,
             loaders: ['style-loader', 'css-loader', 'sass-loader']
-        }, {
+        }, {                                     
             test: /\.html$/,
             loader: 'raw-loader'
         }],
         exprContextCritical: false
     },
     plugins: [
-        new webpack.optimize.CommonsChunkPlugin({
+        new webpack.optimize.CommonsChunkPlugin({         
             name: ['app', 'polyfills', /*'vendor'*/]
         }),
         new CleanWebpackPlugin(
@@ -56,6 +56,11 @@ module.exports = {
             template: "./Views/Home/loader",
             filename: "./Index.cshtml",
             inject: false,
-        })
+        }),
+         new webpack.ProvidePlugin({
+             jQuery: 'jquery',
+             $: 'jquery',
+             jquery: 'jquery'  
+         })
     ]
 };

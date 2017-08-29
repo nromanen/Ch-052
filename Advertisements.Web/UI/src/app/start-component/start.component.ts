@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgSwitch } from '@angular/common';
 import { Advertisement } from '../models/advertisement';
 import { AdvertisementService } from '../services/advertisement.service';
 import { LoginService } from '../services/login.service';
@@ -15,18 +16,14 @@ import { Router } from '@angular/router';
 export class StartComponent implements OnInit {
   token:Token;   
   
-  constructor(private router:Router, private advertisementService: AdvertisementService, private loginService: LoginService) { 
-    //this.token = this.loginService.getToken();
-    //console.log(this.loginService.getToken());
-    
-  }
+  constructor(private router:Router, private advertisementService: AdvertisementService, private loginService: LoginService) { }
   title: string ='Advertisements';
   
   advertisements:Advertisement[];
   selectedAdvertisement:Advertisement;
 
   getAdvertisements():void {
-   this.advertisementService.getAdvertisements().then(result => {this.advertisements = result; });
+   this.advertisementService.getAdvertisements().then(result => {this.advertisements = result; });   
 }
 
   ngOnInit(): void {  

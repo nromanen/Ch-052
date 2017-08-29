@@ -411,10 +411,10 @@ window.Modernizr = (function( window, document, undefined ) {
         } else {
           props = (prop + ' ' + (domPrefixes).join(ucProp + ' ') + ucProp).split(' ');
           return testDOMProps(props, prefixed, elem);
-        }
-    }
+        }                                               
+    }         
     /*>>testallprops*/
-
+              
 
     /**
      * Tests

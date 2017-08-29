@@ -1,0 +1,56 @@
+<div class="container adv-container">
+    <div class="adv-header">
+        <h3>{{title}}</h3>
+    </div>
+    <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" class="form-control" name="Title" required minlength="4" [(ngModel)]="advertisement.Title" id="title"
+            #Title="ngModel">
+        <div *ngIf="Title.invalid && (Title.dirty || Title.touched)" class="alert alert-danger">
+            <div *ngIf="Title.errors.required">
+                Title is required.
+            </div>
+            <div *ngIf="Title.errors.minlength">
+                Title must be at least 4 characters lenght.
+            </div>
+        </div>
+        <label for="prc">Price</label>
+        <input type="number" class="form-control" name="Price" required [(ngModel)]='advertisement.Price' id="prc" #Price="ngModel">
+        <div *ngIf="Price.invalid && (Price.dirty || Price.touched)" class="alert alert-danger">
+            <div *ngIf="Price.errors.required">
+                Price is required.
+            </div>
+        </div>
+        <label for="desc">Description</label>
+        <textarea class="form-control" name="Description" required maxlength="100" [(ngModel)]='advertisement.Description' rows=5
+            id="desc" #Description="ngModel"></textarea>
+        <div *ngIf="Description.invalid && (Description.dirty || Description.touched)" class="alert alert-danger">
+            <div *ngIf="Description.errors.required">
+                Description is required.
+            </div>
+        </div>
+        <label for="category">Category</label>
+        <select class="form-control" id="category" name="Category" required [(ngModel)]='advertisement.CategoryId' #Category="ngModel">
+            <option *ngFor="let category of categories" value="{{category.Id}}">{{category.Name}}</option>
+        </select>
+        <div *ngIf="Category.invalid && (Category.dirty || Category.touched)" class="alert alert-danger">
+            <div *ngIf="Category.errors.required">
+                Category is required.
+            </div>
+        </div>
+        <label for="type">Type</label>
+        <select class="form-control" id="type" name="Type" required [(ngModel)]='advertisement.TypeId' #Type="ngModel">
+            <option *ngFor="let type of types" value="{{type.Id}}">{{type.Name}}</option>
+        </select>
+        <div *ngIf="Type.invalid && (Type.dirty || Type.touched)" class="alert alert-danger">
+            <div *ngIf="Type.errors.required">
+                Type is required.
+            </div>
+        </div>
+    </div>
+    <div class="btn-group">
+        <button type="submit" class="btn btn-success" (click)=onSubmit(advertisement) [disabled]="Title.invalid || Price.invalid || Description.invalid || Type.invalid || Category.invalid">Create</button>
+        <button type="button" class="btn btn-danger" [routerLink]="['/myAdv']">Back</button>
+    </div>
+
+</div>

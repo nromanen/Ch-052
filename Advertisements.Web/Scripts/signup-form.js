@@ -1,13 +1,28 @@
 ﻿$(document).ready(function () {	
 	$.validator.addMethod("additionalReq", function (value, element, param) {
-		var reg = new RegExp(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/);
+		var reg = new RegExp(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,15}$/);
 		return reg.test(value);
-	}, "Потрібно мінімум одну букву верхнього регістру, цифру та один символ");
+	}, "Password must contain 1 lowercase, 1 uppercase, 1 digit and one symbol");
+	$.validator.addMethod("nameValidator", function (value, element, param) {
+		var reg = new RegExp(/^[a-z ,.'-]+$/i);
+		return reg.test(value);
+	}, "Enter valid name");
+	$.validator.addMethod("surnameValidator", function (value, element, param) {
+		var reg = new RegExp(/^[a-z ,.'-]+$/i);
+		return reg.test(value);
+	}, "Enter valid surname");
+
 
 	$('#signupForm').validate({
 		rules: {
-			firstName: 'required',
-			surName: 'required',
+			firstName: {
+				required: true,
+				nameValidator: true
+			},
+			surName: {
+				required: true,
+				surnameValidator: true
+			},
 			eMail: {
 				required: true,
 				email: true
@@ -26,21 +41,25 @@
 			}
 		},
 		messages: {
-			firstName: "Введіть своє ім'я",
-			surName: "Введіть своє прізвище",
+			firstName: {
+				required: "Required field"
+			},
+			surName: {
+				required: "Required field"
+			},
 			eMail: {
-				required: "Поле обов'язкове для заповнення"
+				required: "Required field"
 			},
 			password: {
-				required: "Поле обов'язкове для заповнення",
-				minlength: "Пароль повинен складати мінімум 6 символів",
-				maxlength: "Пароль повинен складати максимум 15 символів",
+				required: "Required field",
+				minlength: "Password must contain at least of 6 characters",
+				maxlength: "Password length must be less than 15 characters",
 			},
 			passwordRepeat: {
-				required: "Поле обов'язкове для заповнення",
-				minlength: "Пароль повинен складати мінімум 6 символів",
-				maxlength: "Пароль повинен складати максимум 15 символів",
-				equalTo: "Введіть такий самий пароль як вище"
+				required: "Required field",
+				minlength: "Password must contain at least of 6 characters",
+				maxlength: "Password length must be less than 15 characters",
+				equalTo: "Enter the same password as upper"
 			}
 		},
 		submitHandler: function (form) { form.submit(); }

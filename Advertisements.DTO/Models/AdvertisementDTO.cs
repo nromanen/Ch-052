@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Advertisements.DataAccess.Entities;
 
 namespace Advertisements.DTO.Models
 {
@@ -12,6 +13,8 @@ namespace Advertisements.DTO.Models
         public int Id { get; set; }
 
         public string Title { get; set; }
+
+        public List<ResourceDTO> Resources { get; set; }
 
         public string Description { get; set; }
 
