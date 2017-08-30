@@ -54,7 +54,7 @@ export class EditAdvService {
     }
     getType(): Promise<any> {
         return this.http
-            .get('api/AdvertisementType/get')
+            .get('api/Type/get')
             .toPromise()
             .then()
             .catch();
