@@ -1,5 +1,4 @@
-export class Type
-{
-    Id: number;
-    Name: string;
+export class Type{
+Id: number = 0;
+Name: string = "";
 }

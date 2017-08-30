@@ -14,10 +14,13 @@ import { EditAdvComponent } from './editAdv-component/editAdv.component';
 import { CreateAdvComponent } from './createAdv-component/createAdv.component';
 import { AdvInfoComponent } from './advInfo-component/advInfo.component';
 import { httpFactory} from "./http.factory";
+import { CategoryComponent } from './category-component/category.component';
+import { TypeComponent } from './type-component/type.component';
 
 import { AdvertisementService } from './services/advertisement.service';
 import { LoginService } from './services/login.service';
 import { FeedbackService } from './services/feedback.service';
+import { CategoryService } from './services/category.service';
 import { ComcomService } from './services/comcom.service';
 import { AdvertisementCurrentService } from './services/advertisementCurrent.service';
 import { EditAdvService } from './services/editAdv.service';
@@ -29,6 +32,7 @@ import { RegistrationService } from './services/registration.service';
 import { TryRestorePasswordCompoent } from './tryrestorepassword-component/tryrestorepassword.component';
 import { RestorePasswordComponent } from "./restorepassword-component/restorepassword.component";
 import { RestorePasswordService } from './services/restorepassword.service';
+import { TypeService } from './services/type.service';
 
 import { HighlightDirective } from './directives/highlight.directive';
 import { IsLoggedInDirective } from './directives/isloggedin.directive';
@@ -50,7 +54,9 @@ import { AdminDirective } from './directives/admin.directive';
     UsersAdvComponent,
     HighlightDirective,
     IsLoggedInDirective,
-    AdminDirective
+    AdminDirective,
+    CategoryComponent,
+    TypeComponent
   ],
   imports: [
     BrowserModule,
@@ -71,6 +77,8 @@ import { AdminDirective } from './directives/admin.directive';
       AdvInfoService, 
       RegistrationService, 
       TryRestorePasswordCompoent, 
+      CategoryService,
+      TypeService,
       RestorePasswordService,
     {
             provide: Http,
@@ -79,7 +87,7 @@ import { AdminDirective } from './directives/admin.directive';
     }
   
   ],
-  
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }
