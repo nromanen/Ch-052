@@ -15,7 +15,7 @@ import { Subscription } from "rxjs/Subscription";
 export class FeedbackComponent implements OnInit {
   constructor(private router:Router, private feedbacksService: FeedbackService, private zone: NgZone, private route : ActivatedRoute) { }
 
-  private id: number = 2;
+  private id: number;
   title: string ='Feedbacks';
   private route$ : Subscription; 
   
