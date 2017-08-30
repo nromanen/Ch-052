@@ -1,50 +1,47 @@
 ﻿using Advertisements.BusinessLogic.Services;
-using Advertisements.DataAccess.Repositories;
-using Advertisements.DataAccess.Services;
 using Advertisements.DTO.Models;
-using SimpleInjector;
 using System.Collections.Generic;
 using System.Web.Http;
 
 namespace Advertisements.Web.Controllers
 {
-    [AllowAnonymous]
-    [RoutePrefix("api/AdvertisementType")]
-    public class AdvertisementTypeController : ApiController
+    [Authorize(Roles = "Admin")]
+    [RoutePrefix("api/type")]
+    public class TypeController : ApiController
     {
+        IService<TypeDTO> service;
 
-        IService<AdvertisementTypeDTO> service;
-
-        public AdvertisementTypeController(IService<AdvertisementTypeDTO> s)
+        public TypeController(IService<TypeDTO> s)
         {
             service = s;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         [Route("get")]
-        public IEnumerable<AdvertisementTypeDTO> Get()
+        public IEnumerable<TypeDTO> Get()
         {
             return service.GetAll();
         }
 
-
+        [AllowAnonymous]
         [HttpGet]
         [Route("get/{id}")]
-        public AdvertisementTypeDTO Get(int id)
+        public TypeDTO Get(int id)
         {
             return service.Get(id);
         }
 
         [HttpPost]
         [Route("add")]
-        public void Add(AdvertisementTypeDTO dto)
+        public void Add(TypeDTO dto)
         {
             service.Create(dto);
         }
 
         [HttpPut]
         [Route("edit")]
-        public void Update(AdvertisementTypeDTO dto)
+        public void Update(TypeDTO dto)
         {
             service.Update(dto);
         }

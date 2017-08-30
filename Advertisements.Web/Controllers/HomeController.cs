@@ -43,12 +43,7 @@ namespace Advertisements.Web.Controllers
         public ActionResult Index()
         {
             ViewBag.Title = "Home Page";
-            
-            if (HttpContext.User.IsInRole("Admin"))
-            {
-                return RedirectToAction("Index", "AdminMvc");
-            }
-            
+
             return View();
         }
         public async Task<ActionResult> TakeConfirmEmail(string token, string Id)
