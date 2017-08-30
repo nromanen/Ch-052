@@ -1,17 +1,17 @@
-  table {
+  .category table {
     width: 50%;
     border: 1px solid green;
     margin: auto;
    }
-   td {
+   .category td {
     text-align: center;
    }
-    th {
+   .category  th {
     text-align: center;
    }
-  tr {
+   .category tr {
     background-color:#f5f5f5;
   }
-    h1 {
+  .category h1 {
     text-align: center;
   }

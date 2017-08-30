@@ -129,6 +129,8 @@ namespace Advertisements.Web.Controllers
             user.EmailToken = userEmailConfirmToken;
             await UserManager.UpdateAsync(user);
 
+            System.IO.Directory.CreateDirectory("../assets/images/" + user.Email);
+
             return Ok("Check your email to end the registration");
 
 
