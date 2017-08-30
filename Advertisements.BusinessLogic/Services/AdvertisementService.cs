@@ -28,7 +28,8 @@ namespace Advertisements.BusinessLogic.Services
             {
                 var repo = uow.GetRepo<Advertisement>();
 
-                advertisements = repo.GetAll();
+
+                advertisements = repo.GetAll(x => x.Resources);
             }
 
             IEnumerable<AdvertisementDTO> dtos = AdvertisementMapper.CreateListAdvertisementDTO().Map(advertisements).ToList();

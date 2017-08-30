@@ -13,14 +13,18 @@ import { Notification } from "./models/notification";
 
 @Component({
   moduleId: module.id.toString(),
-  selector: 'app-root',
+  selector: 'app-root',                       
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
+  providers: []
 })
 export class AppComponent implements OnInit, OnDestroy {
  
   title: string = 'Advertisements';
   loginbuttontext: string = 'Log In';
+  isLoggedIn:boolean;
+  admin:string = 'Admin';
+  registerbuttontext: string = 'Register';
 
   token:Token;
   subscription: Subscription;
@@ -31,10 +35,14 @@ export class AppComponent implements OnInit, OnDestroy {
     this.subscription = this.comcomService.getObservableToken().subscribe(token =>       
       {
         this.token = token; 
-        if (token !== null)
+        if (token != null || token != undefined) {
           this.loginbuttontext = 'Welcome, ' + token.userName;
-        else
+              this.isLoggedIn = true;
+          }
+          else {
           this.loginbuttontext = 'Log In';
+              this.isLoggedIn = false;
+          }
       });
 
       this.errorSubscription = this.comcomService.getNotification().subscribe(error =>       
@@ -45,8 +53,25 @@ export class AppComponent implements OnInit, OnDestroy {
 
   }
 
+  logout(): void {
+      this.loginService.logout().subscribe();
+  }
+
   ngOnInit(): void {
-    this.comcomService.loadTokenFromStorage();
+      this.comcomService.loadTokenFromStorage();
+
+      this.subscription = this.comcomService.getObservableToken().subscribe(token => {
+          this.token = token;
+          console.log('inside app.component');
+          if (token != null || token != undefined) {
+          this.loginbuttontext = 'Welcome, ' + token.userName;
+              this.isLoggedIn = true;
+          }
+          else {
+          this.loginbuttontext = 'Log In';
+              this.isLoggedIn = false;
+          }
+      });
   }
 
   ngOnDestroy(): void {

@@ -261,3 +261,4 @@ __pycache__/
 *.pyc
 /Advertisements.Web/angularBundle
 /Advertisements.Web/Views/Home/assets
+/Advertisements.Web/node_modules/

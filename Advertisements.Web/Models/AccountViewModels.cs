@@ -49,6 +49,25 @@ namespace Advertisements.Web.Models
 
         public string Password { get; set; }
 
-
     }
+
+    public class RestorePasswordReqViewModel
+    {
+        public string Email;
+    }
+
+    public class CheckPassRestoreDataViewModel
+    {
+        public string Email;
+        public string Token;
+    }
+
+
+    public class RestorePasswordViewModel
+    {
+        public string Email;
+        public string EmailToken;
+        public string NewPassword;
+    }
+    
 }

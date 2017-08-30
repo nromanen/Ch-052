@@ -1,19 +1,6 @@
-﻿
+﻿@model string
 @{
     ViewBag.Title = "TakeConfirmEmail";
 }
 
-<h2>TakeConfirmEmail</h2>
-<script type="text/javascript">
-        $(document).ready(function () {
-            alert("ddd");
-            $.ajax({
-                type: 'POST',
-                url: '/api/Account/ConfirmEmail',
-                contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify({ token:'@ViewBag.token', eMail:'@ViewBag.eMail'}),
-                success: alert('success'),
-                fail: alert('fail')
-            });
-        })
-</script>
+<h2>@Model</h2>

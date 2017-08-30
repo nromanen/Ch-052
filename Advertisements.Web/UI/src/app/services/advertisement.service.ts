@@ -6,6 +6,7 @@ import { Headers, Http, RequestOptions } from "@angular/http";
 import { LoginService } from '../services/login.service';
 
 import { Token } from "../models/token";
+import { Resource } from "../models/resource";
 
 
 import 'rxjs/add/operator/toPromise';
@@ -16,13 +17,22 @@ export class AdvertisementService{
 constructor(private http: Http, private loginService: LoginService) { }
 
 
-    private advertisementsLoginUrl = 'api/Advertisement/get';
+    private advertisementsLoginUrl = '/api/Advertisement/get';
+    private advertisements: Advertisement[];
 
     getAdvertisements(): Promise<Advertisement[]> { 
 
         return this.http.get(this.advertisementsLoginUrl)
                         .toPromise()
-                        .then(response => response.json() as Advertisement [])
+                        .then(response => {
+                            this.advertisements = response.json() as Advertisement []; 
+
+                            this.advertisements.forEach(element => {
+                                if (element.Resources.length == 0)
+                                    element.Resources.push (new Resource(0, '../../../assets/images/noPhoto.png', 0 ));
+                            });
+
+                            return this.advertisements; })
                         .catch(this.handleError);
     } 
 

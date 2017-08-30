@@ -1,12 +1,3 @@
-body {
-    /* background: #DCDDDF; url(https(https://cssdeck.com/uploads/media/items/7/7AF2Qzt.png) */
-    background: #DCDDDF; 
-    color: #000;
-    /*font: 14px Arial;
-    margin: 0 auto;
-    padding: 0;
-    position: relative;*/
-}
 /*.navbar-nav > li > a, .navbar-brand {
     padding-top: 4px !important;
     padding-bottom: 0 !important;
@@ -243,7 +234,7 @@ form:after {
     background-position: 10px -53px !important
 }
 
-#content form input[type="submit"] {
+#content form button[type="submit"] {
     background: rgb(254,231,154);
     background: -moz-linear-gradient(to bottom, rgba(254,231,154,1) 0%, rgba(254,193,81,1) 100%);
     background: -webkit-linear-gradient(to bottom, rgba(254,231,154,1) 0%,rgba(254,193,81,1) 100%);
@@ -273,7 +264,7 @@ form:after {
     width: 120px;
 }
 
-    #content form input[type="submit"]:hover {
+    #content form button[type="submit"]:hover {
         background: rgb(254,193,81);
         background: -moz-linear-gradient(to bottom, rgba(254,193,81,1) 0%, rgba(254,231,154,1) 100%);
         background: -webkit-linear-gradient(to bottom, rgba(254,193,81,1) 0%,rgba(254,231,154,1) 100%);
@@ -281,6 +272,18 @@ form:after {
         background: -ms-linear-gradient(to bottomtop, rgba(254,193,81,1) 0%,rgba(254,231,154,1) 100%);
         background: linear-gradient(to bottom, rgba(254,193,81,1) 0%,rgba(254,231,154,1) 100%);
         filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fec151', endColorstr='#fee79a',GradientType=0 );
+    }
+
+    #content form button[type="submit"]:disabled {
+        background: rgb(169, 169, 169);
+        background: -moz-linear-gradient(to bottom, rgb(169, 169, 169) 0%, rgb(125, 125, 125) 100%);
+        background: -webkit-linear-gradient(to bottom, rgb(169, 169, 169) 0%,rgb(125, 125, 125) 100%);
+        background: -o-linear-gradient(to bottom, rgb(169, 169, 169) 0%,rgb(125, 125, 125) 100%);
+        background: -ms-linear-gradient(to bottomtop, rgb(169, 169, 169) 0%,rgb(125, 125, 125) 100%);
+        background: linear-gradient(to bottom, rgb(169, 169, 169) 0%,rgb(125, 125, 125) 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fec151', endColorstr='#fee79a',GradientType=0 );
+        color: #FFFFFF;
+        border: 1px solid #FAFAFA;
     }
 
 #content form div a {

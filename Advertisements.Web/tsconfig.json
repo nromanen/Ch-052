@@ -6,7 +6,7 @@
     "declaration": false,
     "module": "commonjs",
     "moduleResolution": "node",
-
+    "allowJs": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "target": "es6",
@@ -16,9 +16,12 @@
       "node_modules/@types"
     ],
     "lib": ["es2016", "dom"],
-    "types": ["core-js"]
+    "types": [ "core-js" ],
+    "exclude": [
+        "node_modules"
+    ]
   },
   "awesomeTypescriptLoaderOptions": {
-  "useWebpackText": true
+    "useWebpackText": true
   }
 }

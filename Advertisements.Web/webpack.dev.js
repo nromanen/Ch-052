@@ -29,7 +29,7 @@ module.exports = {
             }, 'angular2-template-loader']
         }, {
             test: /\.(png|jpg|gif|woff|woff2|ttf|svg|eot)$/,
-            loader: 'file-loader?name=assets/[name]-[hash:6].[ext]'
+            loader: 'file-loader?name=assets/[name].[ext]'
         }, {
             test: /favicon.ico$/,
             loader: 'file-loader?name=/[name].[ext]'
@@ -40,14 +40,14 @@ module.exports = {
             test: /\.scss$/,
             exclude: /node_modules/,
             loaders: ['style-loader', 'css-loader', 'sass-loader']
-        }, {
+        }, {                                     
             test: /\.html$/,
             loader: 'raw-loader'
         }],
         exprContextCritical: false
     },
     plugins: [
-        new webpack.optimize.CommonsChunkPlugin({
+        new webpack.optimize.CommonsChunkPlugin({         
             name: ['app', 'polyfills', /*'vendor'*/]
         }),
         new CleanWebpackPlugin(
@@ -56,6 +56,11 @@ module.exports = {
             template: "./Views/Home/loader",
             filename: "./Index.cshtml",
             inject: false,
-        })
+        }),
+         new webpack.ProvidePlugin({
+             jQuery: 'jquery',
+             $: 'jquery',
+             jquery: 'jquery'  
+         })
     ]
 };

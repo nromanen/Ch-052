@@ -21,8 +21,7 @@ import { Token } from "../models/token";
 
 export class LoginComponent {
   
-constructor(
-            private loginService: LoginService,
+constructor(private loginService: LoginService,
             private comcomService: ComcomService,
             private location: Location,
             private router: Router
@@ -34,6 +33,7 @@ token:Token;
 
   goClick(): void {
     
+    
     this.registerViewModel.Username = this.registerViewModel.Email;
     this.registerViewModel.grant_type = 'password';
 
@@ -41,13 +41,15 @@ token:Token;
                                                                                   localStorage.setItem('access_token', this.token.access_token);    
                                                                                   localStorage.setItem('expires_in', this.token.expires_in.toString());  
                                                                                   localStorage.setItem('user_name', this.token.userName); 
-                                                                                  this.sendToken(this.token);
+                                                                                  this.sendToken(this.token);                                                                                  
                                                                                   this.router.navigate(['/start']);
                                                                                   }, 
-                                                                                  err => console.log('Something went wrong!')  );
+                                                                                  err => console.log('Something went wrong')  );
   }
 
-  public sendToken(token: Token): void {
+  public sendToken(token: Token): void { 
+    this.loginService.getRole().then(res => {console.log(res);localStorage.setItem('role', res[0]);});
+    
     this.comcomService.sendToken(token);
     this.comcomService.sendObservableToken(token);   
 }

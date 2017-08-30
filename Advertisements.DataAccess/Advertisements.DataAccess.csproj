@@ -60,8 +60,8 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Threading.Tasks.Extensions, Version=4.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.3.0\lib\portable-net45+win8+wp8+wpa81\System.Threading.Tasks.Extensions.dll</HintPath>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.1.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.4.0\lib\portable-net45+win8+wp8+wpa81\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Cors, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Cors.5.0.0\lib\net45\System.Web.Cors.dll</HintPath>
@@ -84,9 +84,9 @@
     <Compile Include="Entities\PasswordRecovery.cs" />
     <Compile Include="Entities\Resource.cs" />
     <Compile Include="Entities\Votes.cs" />
-    <Compile Include="Migrations\201708211048183_BaseMgr.cs" />
-    <Compile Include="Migrations\201708211048183_BaseMgr.Designer.cs">
-      <DependentUpon>201708211048183_BaseMgr.cs</DependentUpon>
+    <Compile Include="Migrations\201708291037284_idealFirstMigration.cs" />
+    <Compile Include="Migrations\201708291037284_idealFirstMigration.Designer.cs">
+      <DependentUpon>201708291037284_idealFirstMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Repositories\EFRepositoryBase.cs" />
@@ -106,8 +106,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201708211048183_BaseMgr.resx">
-      <DependentUpon>201708211048183_BaseMgr.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201708291037284_idealFirstMigration.resx">
+      <DependentUpon>201708291037284_idealFirstMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

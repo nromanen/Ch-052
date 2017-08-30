@@ -52,13 +52,13 @@
 
   .img-advert{
     margin: 5px;
-    height: 15vw;    
+    height: 10vw;       
   }
-   .div-advertisement-image{
+   .div-advertisement-image{             
     border: 1px solid lightgray;
-    border-radius:  5px;
+    border-radius:  5px;         
   } 
-
+                      
   .tr-title{
     font-size: 200%;
     text-align: left;
@@ -83,4 +83,20 @@
     position: absolute;
    bottom:0;
    right:15pt;
+  }
+
+  
+        /*My*/
+.container.adv-container {
+    text-align: left;
+}
+.container.adv-container .adv-header {
+    text-align: center;
+}
+  .title-header{
+    text-align: center;
+  }
+
+  table td[class*="col-"]{
+    position: relative;
   }

@@ -1,3 +1,7 @@
   .navbar-brand>img {
     display: inline-block;
 }  
+
+.cursor_pointer{
+  cursor: pointer;
+}

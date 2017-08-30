@@ -13,13 +13,12 @@ using System.Web.Http;
 
 namespace Advertisements.Web.Controllers
 {
-    [AllowAnonymous]
     [RoutePrefix("api/AspNetUsers")]
     public class AspNetUsersController : ApiController
     {
-        IService<AspNetUsersDTO> service;
+        IUserService<AspNetUsersDTO> service;
         
-        public AspNetUsersController(IService<AspNetUsersDTO> s)
+        public AspNetUsersController(IUserService<AspNetUsersDTO> s)
         {
             service = s;
         }
@@ -30,6 +29,14 @@ namespace Advertisements.Web.Controllers
         public string GetCurrentuserId()
         {
             return System.Web.HttpContext.Current.User.Identity.GetUserId();
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("get/{id}")]
+        public AspNetUsersDTO Get(string id)
+        {
+            return service.Get(id);
         }
     }
 }

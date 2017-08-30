@@ -1,15 +1,12 @@
 ﻿using Advertisements.BusinessLogic.Services;
-using Advertisements.DataAccess.Repositories;
-using Advertisements.DataAccess.Services;
 using Advertisements.DTO.Models;
-using SimpleInjector;
 using System.Collections.Generic;
 using System.Web.Http;
 
 namespace Advertisements.Web.Controllers
 {
-    [AllowAnonymous]
-    [RoutePrefix("api/Category")]
+    [Authorize(Roles = "Admin")]
+    [RoutePrefix("api/category")]
     public class CategoryController : ApiController
     {
         IService<CategoryDTO> service;
@@ -19,7 +16,7 @@ namespace Advertisements.Web.Controllers
             service = s;
         }
 
-        
+        [AllowAnonymous]
         [HttpGet]
         [Route("get")]
         public IEnumerable<CategoryDTO> Get()
