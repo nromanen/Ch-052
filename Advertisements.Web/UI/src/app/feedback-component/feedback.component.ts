@@ -15,7 +15,7 @@ import { Subscription } from "rxjs/Subscription";
 export class FeedbackComponent implements OnInit {
   constructor(private router:Router, private feedbacksService: FeedbackService, private zone: NgZone, private route : ActivatedRoute) { }
 
-  private id: number;
+  private id: number = 2;
   title: string ='Feedbacks';
   private route$ : Subscription; 
   
@@ -41,9 +41,10 @@ export class FeedbackComponent implements OnInit {
     this.route$ = this.route.params.subscribe(
      (params: Params) => {
        this.id = +params["id"];
+       this.getFeedbacks(this.id);
      }
    );
-    this.getFeedbacks(this.id);
+    
   }
 
   @Input() newFeedback: Feedback = new Feedback;

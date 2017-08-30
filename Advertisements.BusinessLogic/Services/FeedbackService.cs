@@ -110,7 +110,9 @@ namespace Advertisements.BusinessLogic.Services
                         ++feedback.AgreeCount;
                     else
                         ++feedback.DisagreeCount;
+
                     repo.Update(feedback);
+
                     feedback.Votes.Add(new Votes
                     {
                         ApplicationUserId = item.VotedUserId,
@@ -119,7 +121,15 @@ namespace Advertisements.BusinessLogic.Services
                     });
 
                     uow.BeginTransaction();
-                    uow.Commit();
+                    try
+                    {
+                        uow.Commit();
+                    }
+                    catch (System.Data.Entity.Infrastructure.DbUpdateConcurrencyException)
+                    {
+                        Update(UpdateData(item));
+                    }
+                    
                 }
                 else
                 {
@@ -144,6 +154,20 @@ namespace Advertisements.BusinessLogic.Services
                 var repo = uow.GetRepo<Feedback>();
                 return repo.GetAll().Where(x => x.ApplicationUserId == id).ToList().Count != 0;
             }
+        }
+
+        public FeedbackDTO UpdateData(FeedbackDTO item)
+        {
+            FeedbackDTO feedbackToUpdate = Get(item.Id);
+            feedbackToUpdate.Agree = item.Agree;
+
+            using (var uow = _uowfactory.CreateUnitOfWork())
+            {
+                var repo = uow.GetRepo<Feedback>();
+                feedbackToUpdate.RowVersion = repo.Get(feedbackToUpdate.Id).RowVersion.Select(x => (int)x).ToArray();
+            }
+
+            return feedbackToUpdate;
         }
 
         public class PermissionDeniedException : System.Exception

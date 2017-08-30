@@ -1,7 +1,7 @@
-import {Injectable, Component, Input} from "@angular/core";
-import { ConnectionBackend, RequestOptions, Request, RequestOptionsArgs, Response, Http, Headers} from "@angular/http";
-import {Observable} from "rxjs/Rx";
-import {environment} from "../environments/environment";
+import { Injectable, Component, Input } from "@angular/core";
+import { ConnectionBackend, RequestOptions, Request, RequestOptionsArgs, Response, Http, Headers } from "@angular/http";
+import { Observable } from "rxjs/Rx";
+import { environment } from "../environments/environment";
 import { Token } from "./models/token";
 import { Notification } from "./models/notification";
 import { ComcomService } from './services/comcom.service';
@@ -12,7 +12,7 @@ import 'rxjs/add/operator/toPromise';
 
 
 export class InterceptedHttp extends Http {
-    constructor(backend: ConnectionBackend, defaultOptions: RequestOptions, private comservice : ComcomService ) {
+    constructor(backend: ConnectionBackend, defaultOptions: RequestOptions, private comservice: ComcomService) {
         super(backend, defaultOptions);
     }
 
@@ -21,56 +21,51 @@ export class InterceptedHttp extends Http {
     get(url: string, options?: RequestOptionsArgs): Observable<Response> {
         url = this.updateUrl(url);
 
-        var response = super.get(url, this.getRequestOptionArgs(options));
-        response.subscribe(b=>b, error => {
-           this.notify(error);
-           return new Observable<Response>(error);
-           }); 
+        return super.get(url, this.getRequestOptionArgs(options))
+            .catch((err) => {
+                this.notify(err);
+                return Observable.throw(err);
+            });
 
-        return response;            
+
     }
 
     post(url: string, body: string, options?: RequestOptionsArgs): Observable<Response> {
         url = this.updateUrl(url);
-        
-        var response = super.post(url, body, this.getRequestOptionArgs(options));
-             response.subscribe(b=>b, error => {
-                this.notify(error);
-                return new Observable<Response>(error);
-                }); 
 
-        return response;
+        return super.post(url, body, this.getRequestOptionArgs(options))
+            .catch((err) => {
+                this.notify(err);
+                return Observable.throw(err);
+            });
+
     }
 
     put(url: string, body: string, options?: RequestOptionsArgs): Observable<Response> {
         url = this.updateUrl(url);
 
-        var response = super.put(url, body, this.getRequestOptionArgs(options));
-        response.subscribe(b=>b, error => {
-           this.notify(error);
-           return new Observable<Response>(error);
-           }); 
-
-        return response;
+        return super.put(url, body, this.getRequestOptionArgs(options))
+            .catch((err) => {
+                this.notify(err);
+                return Observable.throw(err);
+            });
     }
 
     delete(url: string, options?: RequestOptionsArgs): Observable<Response> {
         url = this.updateUrl(url);
 
-        var response = super.delete(url, this.getRequestOptionArgs(options));
-        response.subscribe(b=>b, error => {
-           this.notify(error);
-           return new Observable<Response>(error);
-           }); 
-
-        return response;
+        return super.delete(url, this.getRequestOptionArgs(options))
+            .catch((err) => {
+                this.notify(err);
+                return Observable.throw(err);
+            });
     }
-    
+
     private updateUrl(req: string) {
         return req;
     }
 
-    private getRequestOptionArgs(options?: RequestOptionsArgs) : RequestOptionsArgs {
+    private getRequestOptionArgs(options?: RequestOptionsArgs): RequestOptionsArgs {
 
         var token = localStorage.getItem('access_token');
         let headers = new Headers();
@@ -79,28 +74,26 @@ export class InterceptedHttp extends Http {
         console.log(options);
 
         return options;
-        
+
     }
 
-    private notify (error: Response)  {
+    private notify(error: Response) {
 
-        let note : Notification = new Notification();
+        let note: Notification = new Notification();
 
-            if (error.status === 401)
-                {
-                    note.errorMessage = "You need to authorize";
-                    note.accessDenied = true;
-    
-                    this.comservice.setNotification(note);
-                }
+        if (error.status === 401) {
+            note.errorMessage = "You need to authorize";
+            note.accessDenied = true;
 
-            if (error.status === 403)
-                {
-                    note.errorMessage = "Access denied";
-                    note.accessDenied = true;
-        
-                    this.comservice.setNotification(note);
-                }
+            this.comservice.setNotification(note);
+        }
+
+        if (error.status === 403) {
+            note.errorMessage = "Access denied";
+            note.accessDenied = true;
+
+            this.comservice.setNotification(note);
+        }
     }
-        
+
 }
