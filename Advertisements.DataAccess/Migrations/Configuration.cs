@@ -1,13 +1,8 @@
-using Advertisements.DataAccess.Entities;
-using Microsoft.AspNet.Identity.EntityFramework;
-
 namespace Advertisements.DataAccess.Migrations
 {
-    using System;
-    using System.Data.Entity;
     using System.Data.Entity.Migrations;
-    using System.Linq;
-
+    using Advertisements.DataAccess.Entities;
+    using Microsoft.AspNet.Identity.EntityFramework;
     internal sealed class Configuration : DbMigrationsConfiguration<Advertisements.DataAccess.Context.ApplicationDbContext>
     {
         public Configuration()

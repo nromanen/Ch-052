@@ -12,6 +12,7 @@ import { AdvInfoComponent } from './advInfo-component/advInfo.component';
 import {RegistrationComponent} from './registration-component/registration.component'
 import {TryRestorePasswordCompoent} from './tryrestorepassword-component/tryrestorepassword.component'
 import {RestorePasswordComponent} from './restorepassword-component/restorepassword.component'
+import {ConfirmEmailComponent} from './confirmemail-component/confirmemail.component'
 const routes: Routes = [
   { path: '', redirectTo: '/start', pathMatch: 'full' },
   { path: 'start', component: StartComponent },
@@ -23,7 +24,8 @@ const routes: Routes = [
   { path: 'create', component: CreateAdvComponent },
   { path: 'register', component: RegistrationComponent},
   { path:'tryrestorepassword',component: TryRestorePasswordCompoent},
-  { path: 'restorepassword', component: RestorePasswordComponent}
+  { path: 'restorepassword', component: RestorePasswordComponent},
+  {path: 'confirmemail', component: ConfirmEmailComponent}
 ];
 
 @NgModule({

@@ -40,7 +40,8 @@ namespace Advertisements.Web.Providers
 
             if (user == null)
             {
-                context.SetError("invalid_grant", "The user name or password is incorrect.");
+                context.SetError("invalid_grant", "305");
+                
                 return;
             }
 

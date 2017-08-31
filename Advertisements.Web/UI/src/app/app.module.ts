@@ -33,6 +33,8 @@ import { RestorePasswordService } from './services/restorepassword.service';
 import { HighlightDirective } from './directives/highlight.directive';
 import { IsLoggedInDirective } from './directives/isloggedin.directive';
 import { AdminDirective } from './directives/admin.directive';
+import { ConfirmEmailComponent } from "./confirmemail-component/confirmemail.component";
+import { ConfirmEmailService } from "./services/confirmemail.service";
 
 @NgModule({
   declarations: [
@@ -50,7 +52,8 @@ import { AdminDirective } from './directives/admin.directive';
     UsersAdvComponent,
     HighlightDirective,
     IsLoggedInDirective,
-    AdminDirective
+    AdminDirective,
+    ConfirmEmailComponent
   ],
   imports: [
     BrowserModule,
@@ -72,6 +75,7 @@ import { AdminDirective } from './directives/admin.directive';
       RegistrationService, 
       TryRestorePasswordCompoent, 
       RestorePasswordService,
+      ConfirmEmailService,
     {
             provide: Http,
             useFactory: httpFactory,

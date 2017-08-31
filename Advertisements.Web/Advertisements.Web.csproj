@@ -473,7 +473,6 @@
     <Content Include="Scripts\src\main.js" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="UI\src\app\directives\equalvalidator.directive.ts" />
     <TypeScriptCompile Include="UI\src\app\models\RestorePasswordViewModel.ts" />
     <TypeScriptCompile Include="UI\src\app\models\UserRegisterModel.ts" />
     <TypeScriptCompile Include="UI\src\app\registration-component\registration.component.ts" />

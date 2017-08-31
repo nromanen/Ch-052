@@ -33,13 +33,12 @@ export class InterceptedHttp extends Http {
     post(url: string, body: string, options?: RequestOptionsArgs): Observable<Response> {
         url = this.updateUrl(url);
         
-        var response = super.post(url, body, this.getRequestOptionArgs(options));
-             response.subscribe(b=>b, error => {
+        return  super.post(url, body, this.getRequestOptionArgs(options))
+             .catch(error => {
                 this.notify(error);
-                return new Observable<Response>(error);
+                return Observable.throw(error);
                 }); 
 
-        return response;
     }
 
     put(url: string, body: string, options?: RequestOptionsArgs): Observable<Response> {
@@ -97,6 +96,22 @@ export class InterceptedHttp extends Http {
                     note.errorMessage = "Access denied";
                     note.accessDenied = true;
         
+                    this.comservice.setNotification(note);
+                }
+            if(error.status === 400)
+                {
+                    switch (error.json().error_description)
+                    {
+                        case "305":
+                            note.errorMessage = "Email or password is incorrect";
+                            note.accessDenied = true;
+                            this.comservice.setNotification(note);
+                        break;
+                        default:
+                            note.errorMessage = error.json().Message;
+                            note.accessDenied = true;
+                            break;
+                    }
                     this.comservice.setNotification(note);
                 }
     }
