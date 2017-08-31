@@ -6,11 +6,11 @@
   <div class="container">
     <table class="table table-inverse ">
       <!-- *ngFor="let advertisement of advertisements" -->
-      <tr myHighlight *ngFor="let advertisement of advertisements td-adverttisement-texts">
+      <tr myHighlight *ngFor="let advertisement of advertisements td-adverttisement-texts" (click)="redirect(advertisement.Id)">
         <td class="col-sm-3 columnmaxwidth">
           <div class="div-advertisement-image">
             <!-- todo wrtie before release correct src path -->
-            <img class="img-advert" src={{advertisement.Resources[0].Url}} alt="Mountain View">
+            <img class="img-advert" src={{advertisement.Resources[0].Url}} alt="../../../assets/images/noPhoto">
           </div>
         </td>
         <td class="col-sm-9">
@@ -18,7 +18,6 @@
           <p class="tr-description">{{advertisement.Description}}</p>
           <p class="price">Price: {{advertisement.Price}} ₴</p>
         </td>
-      </tr>
     </table>
   </div> 
 

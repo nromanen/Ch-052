@@ -43,13 +43,11 @@ token:Token;
                                                                                   localStorage.setItem('user_name', this.token.userName); 
                                                                                   this.sendToken(this.token);                                                                                  
                                                                                   this.router.navigate(['/start']);
-                                                                                  }, 
-                                                                                  err => console.log('Something went wrong')  );
+                                                                                  } );
   }
 
   public sendToken(token: Token): void { 
     this.loginService.getRole().then(res => {
-      console.log(res);
       localStorage.setItem('role', res[0]);
       this.comcomService.sendObservableRole(res[0]);
     });

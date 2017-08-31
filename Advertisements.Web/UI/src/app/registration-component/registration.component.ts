@@ -57,7 +57,6 @@ export class RegistrationComponent implements OnInit //implements OnInit
       registerModel.Email, registerModel.Password, registerModel.ConfPassword);
 
     this.submitted = true;
-    console.log(this.registerModel.Name + " " + this.registerModel.Surname);
     this.CreateRequest();
   }
 

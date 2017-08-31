@@ -26,13 +26,13 @@ export class TypeComponent implements OnInit {
      getTypes(): void {
         this.typeService.getTypes()
             .then(types =>
-            { this.types = types; console.log("Component", this.types) });
+            { this.types = types; });
     }
 
     getType(id): void {
         this.typeService.getType(id)
             .then(type =>
-            { this.selectedType = type; console.log(this.selectedType)});
+            { this.selectedType = type; });
     }
 
     deleteType(type: Type): void {
@@ -51,12 +51,12 @@ export class TypeComponent implements OnInit {
 
     deleteClick(type): void {
         this.Type = type;
-        this.typeService.deleteType(this.Type).then(type => { this.getTypes(); console.log(this.Type) }).catch(error => console.log(error));
+        this.typeService.deleteType(this.Type).then(type => { this.getTypes(); }).catch(error => console.log(error));
         this.Type = new Type();
     }
 
     saveClick(): void {
-        console.log(this.Type);
+  
 
         if (this.Type.Id == 0)
             this.typeService.createType(this.Type).then(type => { this.getTypes() }).catch(error => console.log(error));

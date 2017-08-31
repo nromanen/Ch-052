@@ -10,27 +10,27 @@ import 'rxjs/add/operator/toPromise';
 
 import 'rxjs/add/operator/toPromise';
 import { RegisterViewModel } from "../models/register.view.model";
+import { Observable } from "rxjs/Observable";
+import { Resource } from "../models/resource";
 
 @Injectable()
 export class CreateAdvService {
     constructor(private http: Http) { }
 
-    createAdv(param: Advertisement): Promise<any> {
-
+    createAdv(param: Advertisement, resource: Resource): Observable<any> {
+        param.Resources = [];
+        console.log(resource);
+        console.log(param);
+        param.Resources.push(resource);
         return this.http
             .get('api/AspNetUsers/get/current')
-            .toPromise()
-            .then(response => {
-                console.log('response: ', response);
+            .map(response => {
                 param.ApplicationUserId = response.json() as string;
                 this.http
-            .post('api/advertisement/add', param)
-            .toPromise()
-            .then()
-            .catch();
+                    .post('api/advertisement/add', param).toPromise().then()
             });
 
-        
+
     }
     getCategory(): Promise<any> {
         return this.http

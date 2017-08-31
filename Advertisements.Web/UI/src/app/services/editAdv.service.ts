@@ -8,6 +8,7 @@ import { LoginService } from '../services/login.service';
 import { Token } from "../models/token";
 
 import 'rxjs/add/operator/toPromise';
+import { Observable } from "rxjs/Observable";
 
 @Component({
     providers: [LoginService]
@@ -29,7 +30,7 @@ export class EditAdvService {
         return this.http.get(getAdvEdit, options).toPromise().then(response => response.json() as Advertisement).catch(this.handleError);
     }
 
-    editAdv(param: Advertisement): Promise<any> {
+    editAdv(param: Advertisement): Observable<any> {
         let advEditUrl = 'api/Advertisement/edit/';
         let authToken = localStorage.getItem("access_token");
         let headers = new Headers();
@@ -38,7 +39,7 @@ export class EditAdvService {
 
         let options = new RequestOptions({ headers: headers });
 
-        return this.http.put(advEditUrl, param, options).toPromise().then().catch(this.handleError);
+        return this.http.put(advEditUrl, param, options).map(r => r).catch(this.handleError);
     }
 
     private handleError(error: any): Promise<any> {

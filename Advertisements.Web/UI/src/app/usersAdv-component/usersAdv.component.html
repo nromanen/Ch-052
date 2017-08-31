@@ -3,13 +3,13 @@
 </div>
 <div class="container">
   <table class="table table-inverse table-bordered">
-    <tr *ngFor="let advertisement of advertisements">
-      <td class="col-sm-3">
+    <tr myHighlight *ngFor="let advertisement of advertisements" >
+      <td class="col-sm-3" (click)="redirect(advertisement.Id)">
         <div class="div-advertisement-image">
           <img class="img-advert" src="{{advertisement.Resources[0].Url}} ">
         </div>
       </td>
-      <td class="col-sm-9 td-adverttisement-texts">
+      <td class="col-sm-9 td-adverttisement-texts" (click)="redirect(advertisement.Id)">
         <table>
           <tr>
             <td class="tr-title">{{advertisement.Title}}</td>
@@ -22,11 +22,10 @@
           <p class="price">Price: {{advertisement.Price}} ₴</p>
         </div>
       </td>
-      <td>
+      <td style="vertical-align: middle">
         <div class="btn-group-vertical">
           <button type="button" class="btn btn-danger" (click)=remove(advertisement)><span class="glyphicon glyphicon-trash"></span></button>
           <button type="button" class="btn btn-success" [routerLink]="['/edit',advertisement.Id]"><span class="glyphicon glyphicon-pencil"></span></button>
-          <button type="button" class="btn btn-info" [routerLink]="['/info',advertisement.Id]"><span class="glyphicon glyphicon-info-sign"></span></button>
         </div>
       </td>
     </tr>

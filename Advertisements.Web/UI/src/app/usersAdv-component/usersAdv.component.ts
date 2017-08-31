@@ -21,7 +21,7 @@ export class UsersAdvComponent implements OnInit {
 
   getCurrentAdvertisements():void {
    this.advertisementCurrentService.getCurrentAdvertisements().then(advertisements =>
-     {this.advertisements = advertisements; console.log(this.advertisements) });
+     {this.advertisements = advertisements;});
 }
 
   ngOnInit(): void {  
@@ -29,11 +29,13 @@ export class UsersAdvComponent implements OnInit {
   }
 
   remove(feed: Advertisement): void {
-     console.log(feed as any);
 
     this.advertisementCurrentService
           .deleteCurrentAdv(feed)
           .then(feedback => {this.getCurrentAdvertisements();})
           .catch(error => console.log(error));
+  }
+  redirect(Id: number): void{
+    this.router.navigate(['/info', Id]);
   }
 }
