@@ -98,7 +98,6 @@ namespace Advertisements.Web.Controllers
             Image img = Image.FromFile(imgPath);
             img = Csharp.ImageConverter.SqueezeImg(img);
             user.Avatar = Csharp.ImageConverter.BytesFromImg(img);
-            user.EmailConfirmed = true;
             var result = await UserManager.CreateAsync(user, model.Password);
 
             if (result.Succeeded)
@@ -110,24 +109,25 @@ namespace Advertisements.Web.Controllers
                 string errors = "";
                 foreach (string err in result.Errors)
                     errors += err + " ";
-                return Ok("Occured some errors:" + errors);
+                return BadRequest("Occured some errors:" + errors);
             }
 
-            string userEmailConfirmToken = UserManager.GenerateEmailConfirmationToken(user.Id);
+            string userEmailConfirmToken = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
             string currentUrl1 = HttpContext.Current.Request.Url.AbsoluteUri;
             string leftUrl = currentUrl1.Substring(0, currentUrl1.IndexOf("api"));
 
             string messageBody = string.Format("Hello, {0}! Please confirm your account by clicking this link:\n{1}",
-                user.UserName, leftUrl + "restorepassword?token=" + userEmailConfirmToken + "&email=" + user.Email);
+                user.UserName, leftUrl + "confirmemail?token=" + userEmailConfirmToken + "&email=" + user.Email);
             if (!Send(messageBody, user.Email))
                 ModelState.AddModelError("", "Could not send email message");
 
             if (!ModelState.IsValid)
             {
+                await UserManager.DeleteAsync(user);
                 string errMessages = "";
                 foreach (var message in ModelState.Values)
                 {
-                    errMessages += message + " ";
+                     errMessages += message + " ";
                 }
                 return Ok(errMessages);
             }
@@ -152,7 +152,7 @@ namespace Advertisements.Web.Controllers
             var user = await UserManager.FindByEmailAsync(model.Email);
             if (user == null)
             {
-                return Ok("This email doesn't exist");
+                return BadRequest("This email doesn't exist");
             }
 
             string token = UserManager.GeneratePasswordResetToken(user.Id);
@@ -166,6 +166,22 @@ namespace Advertisements.Web.Controllers
             Send(messageBody, model.Email);
 
             return Ok("Check your email to restore your password!");
+        }
+
+        [System.Web.Http.HttpPost]
+        [System.Web.Http.Route("ConfirmEmail")]
+        public async Task<IHttpActionResult> ConfirmEmail(CheckPassRestoreDataViewModel model)
+        {
+            var user = await UserManager.FindByEmailAsync(model.Email);
+            if (user == null || model.Token != user.EmailToken)
+            {
+                return BadRequest("Invalid url");
+            }
+            user.EmailConfirmed = true;
+            user.EmailToken = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+            await UserManager.UpdateAsync(user);
+
+            return Ok("You have successfully confirmed your email address");
         }
 
         [System.Web.Http.HttpPost]
@@ -291,28 +307,6 @@ namespace Advertisements.Web.Controllers
             }
 
         }
-
-        [System.Web.Http.HttpPost]
-        [System.Web.Http.AllowAnonymous]
-        [System.Web.Http.Route("ConfirmEmail")]
-        public async Task<ActionResult> ConfirmEmail(string token, string eMail)
-        {
-            string userId = token;
-            ApplicationUser user = this.UserManager.FindById(userId);
-            if (user != null)
-            {
-                if (user.Email == eMail)
-                {
-                    user.EmailConfirmed = true;
-                    await UserManager.UpdateAsync(user);
-                    await HttpContext.Current.GetOwinContext()
-                        .Get<SignInManager<ApplicationUser, string>>().SignInAsync(user, isPersistent: false, rememberBrowser: false);
-
-                }
-            }
-            return null;
-        }
-
         public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
 
         // GET api/Account/UserInfo

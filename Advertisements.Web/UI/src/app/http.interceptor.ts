@@ -93,12 +93,29 @@ export class InterceptedHttp extends Http {
             this.comservice.setNotification(note);
         }
 
-        if (error.status === 403) {
-            note.errorMessage = "Access denied";
-            note.accessDenied = true;
-
-            this.comservice.setNotification(note);
-        }
+            if (error.status === 403)
+                {
+                    note.errorMessage = "Access denied";
+                    note.accessDenied = true;
+        
+                    this.comservice.setNotification(note);
+                }
+            if(error.status === 400)
+                {
+                    switch (error.json().error_description)
+                    {
+                        case "305":
+                            note.errorMessage = "Email or password is incorrect";
+                            note.accessDenied = true;
+                            this.comservice.setNotification(note);
+                        break;
+                        default:
+                            note.errorMessage = error.json().Message;
+                            note.accessDenied = true;
+                            break;
+                    }
+                    this.comservice.setNotification(note);
+                }
     }
 
 }
