@@ -1,0 +1,17 @@
+  .category table {
+    width: 50%;
+    border: 1px solid green;
+    margin: auto;
+   }
+   .category td {
+    text-align: center;
+   }
+   .category  th {
+    text-align: center;
+   }
+   .category tr {
+    background-color:#f5f5f5;
+  }
+  .category h1 {
+    text-align: center;
+  }

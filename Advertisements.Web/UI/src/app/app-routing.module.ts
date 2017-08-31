@@ -8,6 +8,8 @@ import { UsersAdvComponent } from './usersAdv-component/usersAdv.component';
 import { EditAdvComponent } from './editAdv-component/editAdv.component';
 import { CreateAdvComponent } from './createAdv-component/createAdv.component';
 import { AdvInfoComponent } from './advInfo-component/advInfo.component';
+import { CategoryComponent } from './category-component/category.component';
+import { TypeComponent } from './type-component/type.component';
 
 import {RegistrationComponent} from './registration-component/registration.component'
 import {TryRestorePasswordCompoent} from './tryrestorepassword-component/tryrestorepassword.component'
@@ -25,7 +27,8 @@ const routes: Routes = [
   { path: 'register', component: RegistrationComponent},
   { path:'tryrestorepassword',component: TryRestorePasswordCompoent},
   { path: 'restorepassword', component: RestorePasswordComponent},
-  {path: 'confirmemail', component: ConfirmEmailComponent}
+  { path: 'category',  component: CategoryComponent },
+  { path: 'type',  component: TypeComponent }
 ];
 
 @NgModule({

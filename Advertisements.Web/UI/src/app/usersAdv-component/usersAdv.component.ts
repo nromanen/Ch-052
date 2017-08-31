@@ -17,7 +17,7 @@ export class UsersAdvComponent implements OnInit {
 
   title: string ='Advertisements';
   
-  advertisements:string[];
+  advertisements:Advertisement[];
 
   getCurrentAdvertisements():void {
    this.advertisementCurrentService.getCurrentAdvertisements().then(advertisements =>

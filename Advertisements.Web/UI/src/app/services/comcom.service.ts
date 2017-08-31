@@ -14,8 +14,14 @@ export class ComcomService {
 
     private errorNotification = new Subject<Notification>();
 
+    private afterLoginSubject = new Subject<string>();
+
     sendObservableToken(token: Token) {
         this.comcomSubject.next(token);
+    }
+
+    sendObservableRole(role: string) {
+        this.afterLoginSubject.next(role);
     }
 
     sendToken(token: Token) {
@@ -35,6 +41,10 @@ export class ComcomService {
 
         return this.comcomSubject.asObservable();
     }
+
+    getObservableRole(): Observable<string> {        
+                return this.afterLoginSubject.asObservable();
+            }
 
     loadTokenFromStorage() : void {
         let res : Token = new Token();

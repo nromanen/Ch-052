@@ -41,9 +41,10 @@ export class FeedbackComponent implements OnInit {
     this.route$ = this.route.params.subscribe(
      (params: Params) => {
        this.id = +params["id"];
+       this.getFeedbacks(this.id);
      }
    );
-    this.getFeedbacks(this.id);
+    
   }
 
   @Input() newFeedback: Feedback = new Feedback;

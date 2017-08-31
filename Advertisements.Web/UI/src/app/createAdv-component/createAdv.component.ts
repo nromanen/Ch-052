@@ -38,4 +38,9 @@ export class CreateAdvComponent implements OnInit {
   {
     this.createAdvService.getType().then(type => this.types = type.json() as Type[]);
   }
+
+  onChange(event) {
+    var files = event.srcElement.files;
+    console.log(files);
+  }
 }
