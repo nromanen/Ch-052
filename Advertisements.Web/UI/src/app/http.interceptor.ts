@@ -70,8 +70,13 @@ export class InterceptedHttp extends Http {
         var token = localStorage.getItem('access_token');
         let headers = new Headers();
         headers.append('Authorization', `Bearer ${token}`);
-        options = new RequestOptions({ headers: headers })
-        console.log(options);
+        if (options != null) {
+            options.headers = headers;
+        }
+
+        else
+            options = new RequestOptions({ headers: headers });
+
 
         return options;
 

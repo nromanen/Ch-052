@@ -17,19 +17,14 @@ export class CreateAdvService {
 
     createAdv(param: Advertisement): Promise<any> {
 
-        let authToken = localStorage.getItem("access_token");
-        let headers = new Headers();
-        headers.append('Authorization', `Bearer ${authToken}`);
-        let options = new RequestOptions({ headers: headers });
-
         return this.http
-            .get('api/AspNetUsers/get/current', options)
+            .get('api/AspNetUsers/get/current')
             .toPromise()
             .then(response => {
                 console.log('response: ', response);
                 param.ApplicationUserId = response.json() as string;
                 this.http
-            .post('api/advertisement/add', param, options)
+            .post('api/advertisement/add', param)
             .toPromise()
             .then()
             .catch();
@@ -46,7 +41,7 @@ export class CreateAdvService {
     }
     getType(): Promise<any> {
         return this.http
-            .get('api/AdvertisementType/get')
+            .get('api/Type/get')
             .toPromise()
             .then()
             .catch();

@@ -52,14 +52,15 @@ export class LoginService {
         
         return this.http.post('/api/account/logout',null)
             .map(res => {
-                localStorage.removeItem("access_token");
-                localStorage.removeItem("expires_in");
-                localStorage.removeItem("user_name");
+                localStorage.clear();
             });
     }
 
     getRole():Promise<string[]>{
-        return this.http.get('/api/account/roles').toPromise().then(res => {return <string[]> res.json(); }).catch(this.handleError);
+        return this.http.get('/api/account/roles').toPromise().then(res => {
+            
+            return <string[]> res.json(); 
+        }).catch(this.handleError);
     }
 
     isLoggedin(): void {

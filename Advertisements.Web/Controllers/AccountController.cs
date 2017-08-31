@@ -26,6 +26,7 @@ using System.Linq;
 using Advertisements.Web.Filters;
 using Advertisements.Web.App_LocalResources;
 using System.Drawing;
+using System.IO;
 
 namespace Advertisements.Web.Controllers
 {
@@ -82,10 +83,14 @@ namespace Advertisements.Web.Controllers
             }
         }
 
+        public static string FolderPath = AppDomain.CurrentDomain.BaseDirectory;
+
         [System.Web.Http.AllowAnonymous]
         [System.Web.Http.Route("Register")]
         public async Task<IHttpActionResult> Register([FromBody]RegisterViewModel model)
         {
+            Directory.CreateDirectory(FolderPath + @"\assets\images\" + model.Email);
+
             var user = new ApplicationUser() { UserName = model.UserName };
             user.Email = model.Email;
 
@@ -128,6 +133,8 @@ namespace Advertisements.Web.Controllers
             }
             user.EmailToken = userEmailConfirmToken;
             await UserManager.UpdateAsync(user);
+
+            
 
             return Ok("Check your email to end the registration");
 
