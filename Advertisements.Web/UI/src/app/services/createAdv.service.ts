@@ -18,9 +18,7 @@ export class CreateAdvService {
     constructor(private http: Http) { }
 
     createAdv(param: Advertisement, resource: Resource): Observable<any> {
-        param.Resources = [];
-        console.log(resource);
-        console.log(param);
+        param.Resources = []; 
         param.Resources.push(resource);
         return this.http
             .get('api/AspNetUsers/get/current')

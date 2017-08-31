@@ -14,6 +14,7 @@ import { TypeComponent } from './type-component/type.component';
 import {RegistrationComponent} from './registration-component/registration.component'
 import {TryRestorePasswordCompoent} from './tryrestorepassword-component/tryrestorepassword.component'
 import {RestorePasswordComponent} from './restorepassword-component/restorepassword.component'
+import {ConfirmEmailComponent} from './confirmemail-component/confirmemail.component'
 const routes: Routes = [
   { path: '', redirectTo: '/start', pathMatch: 'full' },
   { path: 'start', component: StartComponent },

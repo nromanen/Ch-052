@@ -38,6 +38,8 @@ import { TypeService } from './services/type.service';
 import { HighlightDirective } from './directives/highlight.directive';
 import { IsLoggedInDirective } from './directives/isloggedin.directive';
 import { AdminDirective } from './directives/admin.directive';
+import { ConfirmEmailComponent } from "./confirmemail-component/confirmemail.component";
+import { ConfirmEmailService } from "./services/confirmemail.service";
 
 @NgModule({
   declarations: [
@@ -56,6 +58,7 @@ import { AdminDirective } from './directives/admin.directive';
     HighlightDirective,
     IsLoggedInDirective,
     AdminDirective,
+    ConfirmEmailComponent,
     CategoryComponent,
     TypeComponent
   ],
@@ -81,6 +84,7 @@ import { AdminDirective } from './directives/admin.directive';
       CategoryService,
       TypeService,
       RestorePasswordService,
+      ConfirmEmailService,
     {
             provide: Http,
             useFactory: httpFactory,

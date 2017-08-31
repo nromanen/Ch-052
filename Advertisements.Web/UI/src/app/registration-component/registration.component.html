@@ -7,7 +7,7 @@
             <div>
                 <div class="form-group required" [ngClass]="{ 'has-error':!registrGroup.controls['Name'].valid && registrGroup.controls['Name'].touched}">
                     <label for="firstName" class="col-sm-3 control-label">Name</label>
-                    <div class="col-sm-5">
+                    <div class="col-sm-9">
                         <input type="text" class="form-control" id="firstName" name="Name" required formControlName="Name" required minlength="4"
                             maxlength="15" pattern="([A-Z][a-zA-Z]*)" />
 
@@ -20,7 +20,7 @@
                 </div>
                 <div class="form-group required" [ngClass]="{ 'has-error':!registrGroup.controls['Surname'].valid && registrGroup.controls['Surname'].touched}">
                     <label for="surName" class="col-sm-3 control-label">Surname</label>
-                    <div class="col-sm-5">
+                    <div class="col-sm-9">
                         <input type="text" class="form-control" id="surname" name="Surname" required formControlName="Surname" required minlength="3"
                             maxlength="15" pattern="([A-Z][a-zA-Z]*)" />
 

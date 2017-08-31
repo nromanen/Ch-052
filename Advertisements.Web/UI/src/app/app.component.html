@@ -45,7 +45,7 @@
       </div>
     </div>
   </nav>
-  <div class="alert alert-danger alert-dismissable" *ngIf="errorNotification != undefined && errorNotification.accessDenied">{{errorNotification.errorMessage}}
+  <div class="alert alert-danger alert-dismissable text-center" *ngIf="errorNotification != undefined && errorNotification.accessDenied">{{errorNotification.errorMessage}}
   <a class="close" (click)="errorNotification = null" data-dismiss="alert" aria-label="close">&times;</a></div>
   <router-outlet></router-outlet>
 </div>              

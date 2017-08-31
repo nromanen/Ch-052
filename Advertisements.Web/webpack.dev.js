@@ -13,8 +13,8 @@ module.exports = {
         "app": "./UI/src/main.ts"
     },
     output: {
-        path: path.resolve(__dirname, "./Views/Home" ),
-        filename: '../../angularBundle/[name].build.js'
+        path: path.resolve(__dirname, "./" ),
+        filename: 'angularBundle/[name].build.js'
     },
     resolve: {
         extensions: ['.ts', '.js', '.json', '.css', '.scss', '.html', '.cshtml'],
@@ -54,7 +54,7 @@ module.exports = {
             ['./AngularBundle', ]),
         new HtmlWebpackPlugin({
             template: "./Views/Home/loader",
-            filename: "./Index.cshtml",
+			filename: "./Views/Home/Index.cshtml",
             inject: false,
         }),
          new webpack.ProvidePlugin({
