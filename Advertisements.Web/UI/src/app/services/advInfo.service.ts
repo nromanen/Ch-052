@@ -1,4 +1,4 @@
-import { Injectable, Component} from '@angular/core';
+import { Injectable, Component } from '@angular/core';
 
 import { Advertisement } from '../models/advertisement';
 import { Headers, Http, RequestOptions } from "@angular/http";
@@ -21,13 +21,15 @@ export class AdvInfoService {
         let getAdvEdit = 'api/Advertisement/get/' + param;
 
         return this.http.get(getAdvEdit).toPromise().then(response => {
-            this.advertisement = response.json() as Advertisement; 
+            this.advertisement = response.json() as Advertisement;
+            if (this.advertisement.Resources[0].Url == null && this.advertisement.Resources.length > 0)
+                this.advertisement.Resources[0].Url = "../../../assets/images/noPhoto.png"
+            if (this.advertisement.Resources.length == 0)
+                this.advertisement.Resources.push(new Resource(0, '../../../assets/images/noPhoto.png', 0));
 
-                if (this.advertisement.Resources.length == 0)
-                    this.advertisement.Resources.push (new Resource(0,'../../../assets/images/noPhoto.png',0));
-       
 
-            return this.advertisement; }).catch(this.handleError);
+            return this.advertisement;
+        }).catch(this.handleError);
     }
 
     private handleError(error: any): Promise<any> {

@@ -452,6 +452,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="assets\images\" />
+    <Folder Include="assets\uploads\" />
     <Folder Include="UI\src\app\modules\" />
     <Folder Include="Views\Advertisement\" />
   </ItemGroup>
