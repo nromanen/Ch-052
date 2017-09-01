@@ -16,6 +16,7 @@ import { AdvInfoComponent } from './advInfo-component/advInfo.component';
 import { httpFactory} from "./http.factory";
 import { CategoryComponent } from './category-component/category.component';
 import { TypeComponent } from './type-component/type.component';
+import { UploadFileComponent } from './uploadFile-component/uploadFile.component'
 
 import { AdvertisementService } from './services/advertisement.service';
 import { LoginService } from './services/login.service';

@@ -49,8 +49,8 @@
         </div>
         <div>
             <h2>Upload Image</h2>
-            <input type="file" accept="image/*" (change)="onChange($event)" />
-      </div>
+            <input type="file" accept="image/*" (change)="upload($event)" #fileInput/>
+        </div>
     </div>
     <div class="btn-group">
         <button type="submit" class="btn btn-success" (click)=onSubmit(advertisement) [disabled]="Title.invalid || Price.invalid || Description.invalid || Type.invalid || Category.invalid">Create</button>

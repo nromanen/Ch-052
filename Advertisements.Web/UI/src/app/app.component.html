@@ -12,7 +12,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-        <a class="navbar-brand" href="#">Advertisements</a>
+        <a class="navbar-brand" [routerLink]="['/start']">Advertisements</a>
       </div>                                           
 
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -29,12 +29,13 @@
           </form>
 
             <li *isLoggedIn="!isLoggedIn" [routerLinkActive]="['active']"><a [routerLink]="['/login']">{{loginbuttontext}}</a></li>
-            <li  [routerLinkActive]="['active']"><a [routerLink]="['/register']">{{registerbuttontext}}</a></li>
+            <li *isLoggedIn="!isLoggedIn" [routerLinkActive]="['active']"><a [routerLink]="['/register']">{{registerbuttontext}}</a></li>
 
             <li *isLoggedIn="isLoggedIn" class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{loginbuttontext}}<span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li *admin="admin"><a href="#">Edit Categories</a></li>
+              <li *admin="admin"><a [routerLink]="['/category']">Edit Categories</a></li>
+              <li *admin="admin"><a [routerLink]="['/type']">Edit Types</a></li>
               <li><a [routerLink]="['/myAdv']">My Advertisements</a></li>
               <li role="separator" class="divider"></li>
               <li><a class="cursor_pointer" (click)='logout()' >Logout</a></li>

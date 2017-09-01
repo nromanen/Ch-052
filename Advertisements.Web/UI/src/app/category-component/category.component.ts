@@ -27,7 +27,7 @@ export class CategoryComponent implements OnInit {
     getCategories(): void {
         this.categoryService.getCategories()
             .then(categories =>
-            { this.categories = categories; console.log("Component", this.categories) });
+            { this.categories = categories;});
     }
 
     getCategory(id: number): void {
@@ -51,12 +51,11 @@ export class CategoryComponent implements OnInit {
 
     deleteClick(category): void {
         this.Category = category;
-        this.categoryService.deleteCategory(this.Category).then(category => { this.getCategories(); console.log(this.Category) }).catch(error => console.log(error));
+        this.categoryService.deleteCategory(this.Category).then(category => { this.getCategories(); }).catch(error => console.log(error));
         this.Category = new Category();
     }
 
     saveClick(): void {
-        console.log(this.Category);
 
         if (this.Category.Id == 0)
             this.categoryService.createCategory(this.Category).then(category => { this.getCategories() }).catch(error => console.log(error));

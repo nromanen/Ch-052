@@ -26,7 +26,6 @@ export class ComcomService {
 
     sendToken(token: Token) {
         this.token = token;
-        console.log(this.token);
     } 
 
     clearObservableToken() {

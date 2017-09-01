@@ -26,7 +26,7 @@ namespace Advertisements.BusinessLogic.Services
             {
                 var repo = uow.GetRepo<Feedback>();
 
-                if (!AlreadyCommented(item.UserId))
+                if (!AlreadyCommented(item.UserId, item.AdvertisementId))
                 {
                     repo.Create(feedback);
                     uow.BeginTransaction();
@@ -147,12 +147,12 @@ namespace Advertisements.BusinessLogic.Services
             }
         }
 
-        public bool AlreadyCommented(string id)
+        public bool AlreadyCommented(string id, int advId)
         {
             using (var uow = _uowfactory.CreateUnitOfWork())
             {
                 var repo = uow.GetRepo<Feedback>();
-                return repo.GetAll().Where(x => x.ApplicationUserId == id).ToList().Count != 0;
+                return repo.GetAll().Where(x => x.ApplicationUserId == id && x.AdvertisementId == advId).ToList().Count != 0;
             }
         }
 

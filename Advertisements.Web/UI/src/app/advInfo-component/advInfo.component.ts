@@ -18,6 +18,7 @@ export class AdvInfoComponent implements OnInit, OnDestroy {
   private id: number;
   private route$: Subscription;
   title: string = 'Info of advertisement: id =';
+  source: string;
 
   advertisement: Advertisement = new Advertisement();
 
@@ -35,7 +36,7 @@ export class AdvInfoComponent implements OnInit, OnDestroy {
     if (this.route$) this.route$.unsubscribe();
   }
   getAdvertisement(id): void {
-    this.infoAdvService.getAdvertisement(id).then(advertisement => { this.advertisement = advertisement;  });
+    this.infoAdvService.getAdvertisement(id).then(advertisement => { this.advertisement = advertisement; this.source = advertisement.Resources[0].Url; });
   }
 
 }

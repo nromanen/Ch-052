@@ -42,11 +42,11 @@ export class EditAdvComponent implements OnInit, OnDestroy {
   }
 
   getAdvertisement(id): void {
-    this.editAdvService.getAdvertisement(id).then(advertisement => { this.advertisement = advertisement; console.log(this.advertisement) });
+    this.editAdvService.getAdvertisement(id).then(advertisement => { this.advertisement = advertisement; });
   }
 
   onSubmit(advertisement): void {
-    this.editAdvService.editAdv(advertisement);
+    this.editAdvService.editAdv(advertisement).subscribe(r => this.router.navigate(['/myAdv']));
   }
   getCategories(): void {
     this.editAdvService.getCategory().then(category => this.categories = category.json() as Category[]);

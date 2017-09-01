@@ -27,7 +27,7 @@ export class CategoryService {
 
         return this.http.get(this.categoryUrl + "get", options).
             toPromise().
-            then(response => { response.json() as Category[]; console.log("Service", response.json() as Category[]); return response.json() as Category[]; }).
+            then(response => { response.json() as Category[]; return response.json() as Category[]; }).
             catch(this.handleError);
     }
 

@@ -30,5 +30,7 @@ export class StartComponent implements OnInit {
     this.getAdvertisements();
   }
 
-  
+  redirect(Id: number): void{
+    this.router.navigate(['/info', Id]);
+  }
 }

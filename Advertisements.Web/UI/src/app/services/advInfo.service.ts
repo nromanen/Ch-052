@@ -23,9 +23,8 @@ export class AdvInfoService {
         return this.http.get(getAdvEdit).toPromise().then(response => {
             this.advertisement = response.json() as Advertisement; 
 
-console.log('!!!!!!!!!!!!!!!!!!!!!!!!!',this.advertisement);
                 if (this.advertisement.Resources.length == 0)
-                    this.advertisement.Resources.push (new Resource(0, '../../../assets/images/noPhoto.png', 0 ));
+                    this.advertisement.Resources.push (new Resource(0,'../../../assets/images/noPhoto.png',0));
        
 
             return this.advertisement; }).catch(this.handleError);

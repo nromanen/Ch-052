@@ -23,7 +23,7 @@ export class TypeService {
 
         return this.http.get(this.typeUrl + "get", options).
             toPromise().
-            then(response => { response.json() as Type[]; console.log("Service", response.json() as Type[]); return response.json() as Type[]; }).
+            then(response => { response.json() as Type[]; return response.json() as Type[]; }).
             catch(this.handleError);
     }
 
@@ -47,7 +47,7 @@ export class TypeService {
 
         return this.http.delete(this.typeUrl + "delete/" + type.Id, options).
             toPromise().
-            then(response => { response.json() as Type[]; console.log("Service", response.json() as Type[]); return response.json() as Type[]; }).
+            then(response => { response.json() as Type[]; return response.json() as Type[]; }).
             catch(this.handleError);
 
     }
