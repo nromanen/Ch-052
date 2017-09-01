@@ -1,0 +1,17 @@
+  .type table {
+    width: 50%;
+    border: 1px solid green;
+    margin: auto;
+   }
+   .type td {
+    text-align: center;
+   }
+   .type th {
+    text-align: center;
+   }
+   .type tr {
+    background-color:#f5f5f5;
+  }
+  .type h1 {
+    text-align: center;
+  }

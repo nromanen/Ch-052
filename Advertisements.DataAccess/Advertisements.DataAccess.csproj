@@ -60,8 +60,13 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+<<<<<<< HEAD
     <Reference Include="System.Threading.Tasks.Extensions, Version=4.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Threading.Tasks.Extensions.4.3.0\lib\portable-net45+win8+wp8+wpa81\System.Threading.Tasks.Extensions.dll</HintPath>
+=======
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.1.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.4.0\lib\portable-net45+win8+wp8+wpa81\System.Threading.Tasks.Extensions.dll</HintPath>
+>>>>>>> 4e6b888bd9e10a264d0007078d4833eef042529d
     </Reference>
     <Reference Include="System.Web.Cors, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Cors.5.0.0\lib\net45\System.Web.Cors.dll</HintPath>
@@ -83,10 +88,16 @@
     <Compile Include="Entities\IEntity.cs" />
     <Compile Include="Entities\PasswordRecovery.cs" />
     <Compile Include="Entities\Resource.cs" />
+<<<<<<< HEAD
     <Compile Include="Migrations\201708111304180_Initial.cs" />
     <Compile Include="Migrations\201708111304180_Initial.Designer.cs">
       <DependentUpon>201708111304180_Initial.cs</DependentUpon>
     </Compile>
+=======
+    <Compile Include="Entities\Votes.cs" />
+    <Compile Include="Migrations\201708291037284_idealFirstMigration.cs" />
+    <Compile Include="Migrations\201708291037284_idealFirstMigration.Designer.cs" />
+>>>>>>> 4e6b888bd9e10a264d0007078d4833eef042529d
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Repositories\EFRepositoryBase.cs" />
     <Compile Include="Repositories\EFUnitOfWork.cs" />
@@ -105,9 +116,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <EmbeddedResource Include="Migrations\201708111304180_Initial.resx">
       <DependentUpon>201708111304180_Initial.cs</DependentUpon>
     </EmbeddedResource>
+=======
+    <EmbeddedResource Include="Migrations\201708291037284_idealFirstMigration.resx" />
+>>>>>>> 4e6b888bd9e10a264d0007078d4833eef042529d
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

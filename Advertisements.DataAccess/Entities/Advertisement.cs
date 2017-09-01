@@ -8,7 +8,11 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Advertisements.DataAccess.Entities
 {
+<<<<<<< HEAD
     public class Advertisement
+=======
+    public class Advertisement : IEntity
+>>>>>>> 4e6b888bd9e10a264d0007078d4833eef042529d
     {
         public int Id { get; set; }
 
@@ -16,8 +20,11 @@ namespace Advertisements.DataAccess.Entities
 
         public string Description { get; set; }
 
+<<<<<<< HEAD
         public string Myfield { get; set; }
 
+=======
+>>>>>>> 4e6b888bd9e10a264d0007078d4833eef042529d
         public int Price { get; set; }
 
         public virtual List<Resource> Resources { get; set; }

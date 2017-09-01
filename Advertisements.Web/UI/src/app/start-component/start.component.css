@@ -45,3 +45,61 @@
     margin-right: .8em;
     border-radius: 4px 0 0 4px;
   }
+<<<<<<< HEAD
+=======
+  .container{ 
+    width: 60vw;     
+    text-align: center;
+  }
+
+  .img-advert{
+    margin: 5px;
+    height: 10vw;       
+  }
+   .div-advertisement-image{             
+    border: 1px solid lightgray;
+    border-radius:  5px;         
+  } 
+                      
+  .tr-title{
+    font-size: 200%;
+    text-align: left;
+  }
+
+  .tr-description{
+    font-size: 120%;
+    font-style: italic;
+    text-align: left;
+  }
+
+  .td-adverttisement-texts{
+    position:relative;
+  }
+
+  .bottom-allignement{
+    vertical-align: bottom;
+  }
+
+  .price{
+    font-size: 150%;
+    position: absolute;
+   bottom:0;
+   right:15pt;
+  }
+
+  
+        /*My*/
+.container.adv-container {
+    text-align: left;
+}
+.container.adv-container .adv-header {
+    text-align: center;
+}
+  .title-header{
+    text-align: center;
+  }
+
+  table td[class*="col-"]{
+    position: relative;
+  }
+>>>>>>> 4e6b888bd9e10a264d0007078d4833eef042529d

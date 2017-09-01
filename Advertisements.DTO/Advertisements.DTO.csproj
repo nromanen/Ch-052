@@ -30,6 +30,21 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+<<<<<<< HEAD
+=======
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+>>>>>>> 4e6b888bd9e10a264d0007078d4833eef042529d
     <Reference Include="Microsoft.Owin, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.3.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
     </Reference>
@@ -53,6 +68,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <Compile Include="Models\CategoryDTO.cs" />
     <Compile Include="Models\FeedbackDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -60,5 +76,26 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+=======
+    <Compile Include="Models\AdvertisementDTO.cs" />
+    <Compile Include="Models\AspNetUsersDTO.cs" />
+    <Compile Include="Models\CategoryDTO.cs" />
+    <Compile Include="Models\FeedbackDTO.cs" />
+    <Compile Include="Models\PasswordRecoveryDTO.cs" />
+    <Compile Include="Models\ResourceDTO.cs" />
+    <Compile Include="Models\TypeDTO.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Advertisements.DataAccess\Advertisements.DataAccess.csproj">
+      <Project>{b552738c-2217-4dd4-a0a6-ca6941d7e483}</Project>
+      <Name>Advertisements.DataAccess</Name>
+    </ProjectReference>
+  </ItemGroup>
+>>>>>>> 4e6b888bd9e10a264d0007078d4833eef042529d
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

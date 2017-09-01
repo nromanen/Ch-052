@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,11 @@ using Microsoft.Owin;
 using Owin;
 using System.Web.Http;
 using Microsoft.Owin.Cors;
+=======
+﻿using System.Threading.Tasks; 
+using Microsoft.Owin;    
+using Owin;
+>>>>>>> 4e6b888bd9e10a264d0007078d4833eef042529d
 
 [assembly: OwinStartup(typeof(Advertisements.Web.Startup))]
 
@@ -15,6 +21,7 @@ namespace Advertisements.Web
     public partial class Startup
     {
         public void Configuration(IAppBuilder app)
+<<<<<<< HEAD
         {    
             var policy = new CorsPolicy()
             {
@@ -35,6 +42,10 @@ namespace Advertisements.Web
             //var config = new HttpConfiguration();
             //WebApiConfig.Register(config);
             //app.UseWebApi(config);
+=======
+        {
+            ConfigureAuth(app);
+>>>>>>> 4e6b888bd9e10a264d0007078d4833eef042529d
         }  
     }
 }

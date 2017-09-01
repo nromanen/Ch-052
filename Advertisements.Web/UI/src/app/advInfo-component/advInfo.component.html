@@ -1,0 +1,25 @@
+<div class="container adv-container">
+  <table class="table table-inverse table-bordered">
+    <tr>
+      <td class="col-sm-3" style="text-align:center">
+        <div class="div-advertisement-image">
+          <img class="img-advert" src="{{source}}" alt="Mountain View">
+        </div>
+      </td>
+      <td class="col-sm-9 td-adverttisement-texts">
+        <table>
+          <tr>
+            <td class="tr-title">{{advertisement.Title}}</td>
+          </tr>
+          <tr>
+            <td class="tr-description">{{advertisement.Description}}</td>
+          </tr>
+        </table>
+        <div>
+          <p class="price">Price: {{advertisement.Price}} ₴</p>
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
+<feedback-root></feedback-root>

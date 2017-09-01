@@ -45,6 +45,10 @@ namespace Advertisements.Web.Filters
         {
             CustomUserStore store = new CustomUserStore();
 
+<<<<<<< HEAD
+=======
+            //manager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
+>>>>>>> 4e6b888bd9e10a264d0007078d4833eef042529d
             var principal = actionContext.RequestContext.Principal;
             var user = await store.FindByIdAsync(principal.Identity.GetUserId());
             if (user == null)

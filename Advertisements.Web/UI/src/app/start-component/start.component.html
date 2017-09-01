@@ -1,5 +1,6 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div style="text-align:center">
+<<<<<<< HEAD
   <h1>
     Welcome to start!
   </h1>
@@ -15,3 +16,28 @@
   <button (click)="goRegister()">Register</button>
 </div>
 
+=======
+  <h1 class="title-header">
+    Recent Advertisements!
+  </h1>
+  <div class="container">
+    <table class="table table-inverse ">
+      <!-- *ngFor="let advertisement of advertisements" -->
+      <tr myHighlight *ngFor="let advertisement of advertisements td-adverttisement-texts" (click)="redirect(advertisement.Id)">
+        <td class="col-sm-3 columnmaxwidth">
+          <div class="div-advertisement-image">
+            <!-- todo wrtie before release correct src path -->
+            <img class="img-advert" src={{advertisement.Resources[0].Url}} alt="../../../assets/images/noPhoto">
+          </div>
+        </td>
+        <td class="col-sm-9">
+          <p class="tr-title">{{advertisement.Title}}</p>
+          <p class="tr-description">{{advertisement.Description}}</p>
+          <p class="price">Price: {{advertisement.Price}} ₴</p>
+        </td>
+    </table>
+  </div> 
+
+
+</div>
+>>>>>>> 4e6b888bd9e10a264d0007078d4833eef042529d

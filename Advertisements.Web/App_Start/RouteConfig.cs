@@ -13,9 +13,17 @@ namespace Advertisements.Web
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            // TODO: Remove when registration ready
+            //routes.MapRoute(
+            //    name: "Register",
+            //    url: "register",
+            //    defaults: new { controller = "Home", action = "Registrate", id = UrlParameter.Optional }
+            //);
+
+
             routes.MapRoute(
                 name: "Default",
-                url: "{controller}/{action}/{id}",
+                url: "{*url}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
             

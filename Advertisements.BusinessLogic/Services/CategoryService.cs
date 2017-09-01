@@ -16,7 +16,11 @@ namespace Advertisements.BusinessLogic.Services
             _uowfactory = uowfactory;
         }
 
+<<<<<<< HEAD
         public CategoryDTO Create(CategoryDTO item)
+=======
+        public void Create(CategoryDTO item)
+>>>>>>> 4e6b888bd9e10a264d0007078d4833eef042529d
         {
             Category category = CategoryMapper.CreateCategory().Map(item);
 
@@ -25,8 +29,12 @@ namespace Advertisements.BusinessLogic.Services
                 var repo = uow.GetRepo<Category>();
                 repo.Create(category);
                 uow.BeginTransaction();
+<<<<<<< HEAD
                 uow.Commit();
                 return CategoryMapper.CreateCategoryDTO().Map(category);
+=======
+                uow.Commit();                                 
+>>>>>>> 4e6b888bd9e10a264d0007078d4833eef042529d
             }
         }
 
@@ -62,9 +70,15 @@ namespace Advertisements.BusinessLogic.Services
             {
                 var repo = uow.GetRepo<Category>();
 
+<<<<<<< HEAD
                 categories = repo.GetAll();
             }
             //http://localhost:53929/api/Category/getcategories
+=======
+                categories = repo.GetAll(o => o.Advertisements);
+            }
+
+>>>>>>> 4e6b888bd9e10a264d0007078d4833eef042529d
             IEnumerable<CategoryDTO> dtos = CategoryMapper.CreateListCategoryDTO().Map(categories).ToList();
 
             return dtos;

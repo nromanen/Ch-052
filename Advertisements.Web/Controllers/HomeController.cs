@@ -23,15 +23,34 @@ using Advertisements.DataAccess.Entities;
 using Advertisements.DataAccess.Context;
 using System.Threading;
 using System.Linq;
+<<<<<<< HEAD
+=======
+using Advertisements.BusinessLogic.Services;
+using Advertisements.DTO.Models;
+using System.Drawing;
+using System.IO;
+
+>>>>>>> 4e6b888bd9e10a264d0007078d4833eef042529d
 namespace Advertisements.Web.Controllers
 {
     [RequireHttps]
     public class HomeController : Controller
     {
+<<<<<<< HEAD
+=======
+        IUserService<AspNetUsersDTO> service;
+
+        public HomeController(IUserService<AspNetUsersDTO> service)
+        {
+            this.service = service;
+        }
+
+>>>>>>> 4e6b888bd9e10a264d0007078d4833eef042529d
         public ActionResult Index()
         {
             ViewBag.Title = "Home Page";
 
+<<<<<<< HEAD
             if (HttpContext.User.IsInRole("Admin"))
             {
                 return RedirectToAction("Index", "AdminMvc");
@@ -44,10 +63,55 @@ namespace Advertisements.Web.Controllers
             ViewBag.token = token;
             ViewBag.eMail = eMail;
             return View();
+=======
+            return View();
+        }
+        public async Task<ActionResult> TakeConfirmEmail(string token, string Id)
+        {
+            var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            var result = await userManager.CustomCheckEmailTokenAsync(Id, token);
+            if (!result.Succeeded && result.Errors.ToArray().Length != 0) 
+            {
+                string error = "";
+                foreach (string msg in result.Errors)
+                    error += msg + " ";
+                return View(error);
+            }
+            string message = "You have succesfully confirmed your email";
+            return View((object)message);
+        }
+
+        public ActionResult RestorePassword()
+        {
+            return View();
+        }
+
+        public ActionResult ConfirmPasswordRestoring(string token,string email)
+        {
+            var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            var user = userManager.FindByEmail(email);
+            
+            if (user == null)
+            {
+                ViewBag.message = "Invalid url for password restoring";
+                return View((object)"0");
+            }
+            string tokenToCheck = user.EmailToken.Replace('+', ' ');
+            if (token != tokenToCheck)
+            {
+                ViewBag.message = "Invalid token!";
+                return View((object)"0");
+            }
+            return View((object)user.Id);
+>>>>>>> 4e6b888bd9e10a264d0007078d4833eef042529d
         }
 
         public ActionResult Registrate()
         {
+<<<<<<< HEAD
+=======
+            
+>>>>>>> 4e6b888bd9e10a264d0007078d4833eef042529d
             RegisterViewModel u = new RegisterViewModel();
             return View(u);
         }
@@ -74,5 +138,18 @@ namespace Advertisements.Web.Controllers
                 }
             }
         }
+<<<<<<< HEAD
+=======
+
+        public ActionResult GetImage()
+        {
+            string userId = User.Identity.GetUserId();
+            var manager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            ApplicationUser user = manager.FindById(userId);
+
+            return File(user.Avatar, "image/jpg");
+        }
+        
+>>>>>>> 4e6b888bd9e10a264d0007078d4833eef042529d
     }
 }

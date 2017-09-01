@@ -11,6 +11,14 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 using Advertisements.Web.Models;
 using Advertisements.DataAccess.Entities;
+<<<<<<< HEAD:Advertisements.Web/Providers/ApplicationOAuthProvider.cs
+=======
+using System.Threading;
+using System.Drawing;
+using Advertisements.Web.Csharp;
+using System.IO;
+using System.Web;
+>>>>>>> 4e6b888bd9e10a264d0007078d4833eef042529d:Advertisements.Web/Providers/ApplicationOAuthProvider.cs
 namespace Advertisements.Web.Providers
 {
     public class ApplicationOAuthProvider : OAuthAuthorizationServerProvider
@@ -31,10 +39,19 @@ namespace Advertisements.Web.Providers
         {
             var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
             CustomUserStore store = new CustomUserStore();
+<<<<<<< HEAD:Advertisements.Web/Providers/ApplicationOAuthProvider.cs
             ApplicationUser user = store.FindByEmailAndPass(context.UserName, context.Password);
             if (user == null)
             {
                 context.SetError("invalid_grant", "The user name or password is incorrect.");
+=======
+            ApplicationUser user = await store.FindByEmailAndPass(context.UserName, context.Password);
+
+            if (user == null)
+            {
+                context.SetError("invalid_grant", "305");
+                
+>>>>>>> 4e6b888bd9e10a264d0007078d4833eef042529d:Advertisements.Web/Providers/ApplicationOAuthProvider.cs
                 return;
             }            
 
@@ -47,7 +64,22 @@ namespace Advertisements.Web.Providers
             AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, properties);
             context.Validated(ticket);
             context.Request.Context.Authentication.SignIn(cookiesIdentity);
+<<<<<<< HEAD:Advertisements.Web/Providers/ApplicationOAuthProvider.cs
             context.Response.Cookies.Append(TokenName, context.Options.AccessTokenFormat.Protect(ticket));
+=======
+
+        }
+
+        private void ValidateUserImg(ApplicationUser user)
+        {
+            Image image = Csharp.ImageConverter.ImgFromBytes(user.Avatar);
+            if (image.Height > 64 || image.Width > 64)
+            {
+                image = Csharp.ImageConverter.SqueezeImg(image);
+                user.Avatar = Csharp.ImageConverter.BytesFromImg(image);
+            }
+                
+>>>>>>> 4e6b888bd9e10a264d0007078d4833eef042529d:Advertisements.Web/Providers/ApplicationOAuthProvider.cs
         }
 
         public override Task TokenEndpoint(OAuthTokenEndpointContext context)

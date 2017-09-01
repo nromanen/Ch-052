@@ -1,0 +1,42 @@
+<div class="type">
+    <h1>Types</h1>
+
+    <div class="row">
+
+        <div class="col-md-6">
+            <table class="table table-bordered table-hover table-striped" style="width:50%; margin: 10px auto">
+                <tr>
+                    <th>Name</th>
+                    <th>Actions</th>
+                </tr>
+
+                <tr *ngFor="let type of types" [class.selected]="Type === selectedType">
+                    <td>{{type.Name}}</td>
+                    <td>
+                        <div class="btn-group">
+                            <button (click)="updateClick(type)" id="updateBtn" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span></button>
+                            <button (click)="deleteClick(type)" id="deleteBtn" class="btn btn-primary"><span class="glyphicon glyphicon-trash"></span></button>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="col-md-6">
+            <section id="content" style="margin : 10px auto" ng-if="type">
+                <form action="">
+                    <h1>Type Form</h1>
+
+                    <div>
+                        <input [(ngModel)]="Type.Name" name="name" type="text" placeholder="type name" value="{{Type.Name}}" required="" id="typeName"
+                        />
+                    </div>
+
+                    <div>
+                        <input type="submit" value="Save" id="submitType" (click)="saveClick()" />
+                    </div>
+                </form>
+            </section>
+        </div>
+    </div>
+</div>

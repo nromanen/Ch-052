@@ -3,6 +3,10 @@ using System.Data;
 using System.Data.Entity;
 using Advertisements.DataAccess.Context;
 using Advertisements.DataAccess.Entities;
+<<<<<<< HEAD
+=======
+using System.Linq;
+>>>>>>> 4e6b888bd9e10a264d0007078d4833eef042529d
 
 namespace Advertisements.DataAccess.Repositories
 {
@@ -38,10 +42,22 @@ namespace Advertisements.DataAccess.Repositories
                 this.context.SaveChanges();
                 this.transaction.Commit();
             }
+<<<<<<< HEAD
             catch
             {
                 this.transaction.Rollback();
                 throw new Exception();
+=======
+            catch (System.Data.Entity.Infrastructure.DbUpdateConcurrencyException ex)
+            {
+                this.transaction.Rollback();
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                this.transaction.Rollback();
+               throw ex;
+>>>>>>> 4e6b888bd9e10a264d0007078d4833eef042529d
             }
         }
 

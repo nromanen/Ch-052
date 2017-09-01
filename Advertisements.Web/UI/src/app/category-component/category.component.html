@@ -1,0 +1,42 @@
+<div class="category">
+    <h1>Categories</h1>
+
+    <div class="row">
+
+        <div class="col-md-6">
+            <table class="table table-bordered table-hover table-striped" style="width:50%; margin: 10px auto">
+                <tr>
+                    <th>Name</th>
+                    <th>Actions</th>
+                </tr>
+
+                <tr *ngFor="let category of categories" [class.selected]="Category === selectedCategory">
+                    <td>{{category.Name}}</td>
+                    <td>
+                        <div class="btn-group">
+                            <button (click)="updateClick(category)" id="updateBtn" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span></button>
+                            <button (click)="deleteClick(category)" id="deleteBtn" class="btn btn-primary"><span class="glyphicon glyphicon-trash"></span></button>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="col-md-6">
+            <section id="content" style="margin : 10px auto" ng-if="category">
+                <form action="">
+                    <h1>Category Form</h1>
+
+                    <div>
+                        <input [(ngModel)]="Category.Name" name="name" type="text" placeholder="category name" value="{{Category.Name}}" required=""
+                            id="categoryName" />
+                    </div>
+
+                    <div>
+                        <input type="submit" value="Save" id="submitCategory" (click)="saveClick()" />
+                    </div>
+                </form>
+            </section>
+        </div>
+    </div>
+</div>
