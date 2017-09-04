@@ -39,7 +39,7 @@ export class FeedbackComponent implements OnInit {
 
    this.feedbacksService.getFeedbacks(id)
           .then(feedbacks =>
-          {this.feedbacks = feedbacks; console.log(feedbacks)});
+          {this.feedbacks = feedbacks});
 }
 
   ngOnInit(): void {  
