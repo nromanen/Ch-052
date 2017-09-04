@@ -20,6 +20,13 @@ export class FeedbackService {
         return this.http.get(feedbacksUrl).toPromise().then(response => response.json() as string[]).catch(this.handleError);
     }
 
+    alreadyCommented(id: number) {
+        return this.http.get("api/feedback/alreadyCommented/" + id)
+            .toPromise()
+            .then()
+            .catch();
+    }
+
     postFeedback(param: any): Promise<any> {
 
         return this.http
@@ -27,7 +34,7 @@ export class FeedbackService {
             .toPromise()
             .then()
             .catch();
-    } 
+    }
 
     updateFeedback(param: any): Promise<any> {
 
@@ -36,7 +43,7 @@ export class FeedbackService {
             .toPromise()
             .then()
             .catch();
-    } 
+    }
 
     private handleError(error: any): Promise<any> {
         console.error('An error occurred', error);
