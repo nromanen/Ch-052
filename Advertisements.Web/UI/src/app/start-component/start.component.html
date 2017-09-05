@@ -5,7 +5,7 @@
   </h1>
 <div class="container adv-container">
   <table class="table table-adv table-inverse table-bordered">
-    <tr myHighlight *ngFor="let advertisement of advertisements" [routerLink]="['/info', advertisement.id]">
+    <tr myHighlight *ngFor="let advertisement of advertisements" (click)="redirect(advertisement.Id)">
       <td class="col-sm-3" style="text-align:center">
         <div class="div-advertisement-image">
           <img class="img-advert" src="{{advertisement.Resources[0].Url}}">
