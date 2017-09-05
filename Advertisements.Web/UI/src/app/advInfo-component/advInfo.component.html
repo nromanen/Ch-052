@@ -1,5 +1,5 @@
 <div class="container adv-container">
-  <table class="table table-inverse table-bordered">
+  <table class="table table-adv table-inverse table-bordered">
     <tr>
       <td class="col-sm-3" style="text-align:center">
         <div class="div-advertisement-image">
@@ -12,12 +12,10 @@
             <td class="tr-title">{{advertisement.Title}}</td>
           </tr>
           <tr>
-            <td class="tr-description">{{advertisement.Description}}</td>
+            <td class="tr-description"><span class="adv-class">{{advertisement.Description}}</span></td>
           </tr>
+          <tr class="price"> Price: {{advertisement.Price}} ₴ </tr>
         </table>
-        <div>
-          <p class="price">Price: {{advertisement.Price}} ₴</p>
-        </div>
       </td>
     </tr>
   </table>

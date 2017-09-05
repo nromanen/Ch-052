@@ -13,39 +13,29 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class TypeService {
     constructor(private http: Http, private loginService: LoginService) { }
-    private typeUrl = "https://localhost:44384/api/type/";
+    private typeUrl = "/api/type/";
 
     getTypes(): Promise<Type[]> {
-        let headers = new Headers();
-        var token = localStorage.getItem("access_token");
-        headers.append("Authorization", `Bearer ${token}`);
-        let options = new RequestOptions({ headers: headers });
 
-        return this.http.get(this.typeUrl + "get", options).
+        return this.http.get(this.typeUrl + "get").
             toPromise().
             then(response => { response.json() as Type[]; return response.json() as Type[]; }).
             catch(this.handleError);
     }
 
     getType(id): Promise<Type> {
-        let headers = new Headers();
-        var token = localStorage.getItem("access_token");
-        headers.append("Authorization", `Bearer ${token}`);
-        let options = new RequestOptions({ headers: headers });
 
-        return this.http.get(this.typeUrl + "get/" + id, options).
+
+        return this.http.get(this.typeUrl + "get/" + id).
             toPromise().
             then(response => { response.json() as Type }).
             catch(this.handleError);
     }
 
     deleteType(type: Type): Promise<Type> {
-        let headers = new Headers();
-        var token = localStorage.getItem("access_token");
-        headers.append("Authorization", `Bearer ${token}`);
-        let options = new RequestOptions({ headers: headers });
 
-        return this.http.delete(this.typeUrl + "delete/" + type.Id, options).
+
+        return this.http.delete(this.typeUrl + "delete/" + type.Id).
             toPromise().
             then(response => { response.json() as Type[]; return response.json() as Type[]; }).
             catch(this.handleError);
@@ -53,24 +43,16 @@ export class TypeService {
     }
 
     createType(type: Type): Promise<Type[]> {
-        let headers = new Headers();
-        var token = localStorage.getItem("access_token");
-        headers.append("Authorization", `Bearer ${token}`);
-        let options = new RequestOptions({ headers: headers });
 
-        return this.http.post(this.typeUrl + "add", type, options).
+        return this.http.post(this.typeUrl + "add", type).
             toPromise().
             then(response => { response.json() as Type[] }).
             catch(this.handleError);
     }
 
     updateType(type: Type): Promise<Type[]> {
-        let headers = new Headers();
-        var token = localStorage.getItem("access_token");
-        headers.append("Authorization", `Bearer ${token}`);
-        let options = new RequestOptions({ headers: headers });
 
-        return this.http.put(this.typeUrl + "edit", type, options).
+        return this.http.put(this.typeUrl + "edit", type).
             toPromise().
             then(response => { response.json() as Type[] }).
             catch(this.handleError);

@@ -91,7 +91,7 @@ namespace Advertisements.Web.Controllers
                 throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
             }
 
-            string root = System.Web.HttpContext.Current.Server.MapPath("~/assets/uploads");
+            string root = HttpContext.Current.Server.MapPath("~/assets/uploads");
             var provider = new CustomMultipartFormDataStreamProvider(root);
 
             var task = await request.Content.ReadAsMultipartAsync(provider);
@@ -102,16 +102,30 @@ namespace Advertisements.Web.Controllers
             };
         }
 
-        
+        //[HttpPost]
+        //public ActionResult Index(HttpPostedFileBase file)
+        //{
+
+        //    if (file.ContentLength > 0)
+        //    {
+        //        var fileName = Path.GetFileName(file.FileName);
+        //        var path = Path.Combine(Server.MapPath("~/App_Data/uploads"), fileName);
+        //        file.SaveAs(path);
+        //    }
+
+        //    return RedirectToAction("Index");
+        //}
 
         public class CustomMultipartFormDataStreamProvider : MultipartFormDataStreamProvider
         {
             string imageName;      
             public CustomMultipartFormDataStreamProvider(string path) : base(path) { }
+            
 
             public override string GetLocalFileName(HttpContentHeaders headers)
             {
-                imageName = new Object().GetHashCode() +
+                var guid = Guid.NewGuid().ToString();
+                imageName = guid +
                             headers.ContentDisposition.FileName.Replace("\"", string.Empty);
                 return imageName;
             }

@@ -3,23 +3,27 @@
   <h1 class="title-header">
     Recent Advertisements!
   </h1>
-  <div class="container">
-    <table class="table table-inverse ">
-      <!-- *ngFor="let advertisement of advertisements" -->
-      <tr myHighlight *ngFor="let advertisement of advertisements td-adverttisement-texts" (click)="redirect(advertisement.Id)">
-        <td class="col-sm-3 columnmaxwidth">
-          <div class="div-advertisement-image">
-            <!-- todo wrtie before release correct src path -->
-            <img class="img-advert" src={{advertisement.Resources[0].Url}} alt="../../../assets/images/noPhoto">
-          </div>
-        </td>
-        <td class="col-sm-9">
-          <p class="tr-title">{{advertisement.Title}}</p>
-          <p class="tr-description">{{advertisement.Description}}</p>
-          <p class="price">Price: {{advertisement.Price}} ₴</p>
-        </td>
-    </table>
-  </div> 
-
+<div class="container adv-container">
+  <table class="table table-adv table-inverse table-bordered">
+    <tr myHighlight *ngFor="let advertisement of advertisements" [routerLink]="['/info', advertisement.id]">
+      <td class="col-sm-3" style="text-align:center">
+        <div class="div-advertisement-image">
+          <img class="img-advert" src="{{advertisement.Resources[0].Url}}">
+        </div>
+      </td>
+      <td class="col-sm-9 td-adverttisement-texts">
+        <table>
+          <tr>
+            <td class="tr-title">{{advertisement.Title}}</td>
+          </tr>
+          <tr>
+            <td class="tr-description"><span class="adv-class">{{advertisement.Description}}</span></td>
+          </tr>
+          <tr class="price"> Price: {{advertisement.Price}} ₴ </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</div>
 
 </div>

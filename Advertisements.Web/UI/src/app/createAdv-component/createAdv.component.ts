@@ -2,23 +2,29 @@ import { Component, OnInit, ElementRef, Input, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Http } from '@angular/http';
 import { Location } from '@angular/common';
-import { Advertisement } from '../models/advertisement';
-import { CreateAdvService } from '../services/createAdv.service';
 import { Subscription } from "rxjs/Subscription";
+
+import { TypeService } from '../services/type.service';
+import { CategoryService } from '../services/category.service';
+import { AdvertisementService } from '../services/advertisement.service';
+
+import { Advertisement } from '../models/advertisement';
+import { Resource } from "../models/resource";
 import { Category } from '../models/category';
 import { Type } from '../models/type';
-import { Resource } from "../models/resource";
 
 @Component({
   selector: 'createAdv',
   templateUrl: './createAdv.component.html',
   styleUrls: ['./createAdv.component.css'],
-  providers: [CreateAdvService]
+  providers: [AdvertisementService, CategoryService, TypeService]
 })
 
 export class CreateAdvComponent implements OnInit {
   constructor(private router: Router,
-    private createAdvService: CreateAdvService,
+    private advertisementService: AdvertisementService,
+    private typeService: TypeService,
+    private categoryService: CategoryService,
     private route: ActivatedRoute,
     private http: Http) { }
 
@@ -35,13 +41,13 @@ export class CreateAdvComponent implements OnInit {
   }
 
   onSubmit(advertisement): void {
-    this.createAdvService.createAdv(advertisement, this.resource).subscribe(r => this.router.navigate(['/start']));
+    this.advertisementService.createAdv(advertisement, this.resource).subscribe();
   }
   getCategories(): void {
-    this.createAdvService.getCategory().then(category => this.categories = category.json() as Category[]);
+    this.categoryService.getCategories().then(category => this.categories = category);
   }
   getTypes(): void {
-    this.createAdvService.getType().then(type => this.types = type.json() as Type[]);
+    this.typeService.getTypes().then(type => this.types = type);
   }
 
   multiple: boolean = false;
@@ -57,7 +63,7 @@ export class CreateAdvComponent implements OnInit {
       }
       this.http
         .post('/api/Advertisement/upload', formData).subscribe(r => this.resource.Url = r.text());
-        console.log(this.resource)
+      console.log(this.resource)
     }
   }
 }
