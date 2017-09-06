@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { NgSwitch } from '@angular/common';
-import { Advertisement } from '../models/advertisement';
+import { Router } from '@angular/router';
+
 import { AdvertisementService } from '../services/advertisement.service';
 import { LoginService } from '../services/login.service';
+
 import { Token } from '../models/token';
-import { Router } from '@angular/router';
+import { Advertisement } from '../models/advertisement';
 
 @Component({
   moduleId: module.id.toString(),
@@ -23,7 +25,7 @@ export class StartComponent implements OnInit {
   selectedAdvertisement:Advertisement;
 
   getAdvertisements():void {
-   this.advertisementService.getAdvertisements().then(result => {this.advertisements = result; });   
+   this.advertisementService.getAds().then(result => {this.advertisements = result; });   
 }
 
   ngOnInit(): void {  
