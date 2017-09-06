@@ -462,6 +462,13 @@ td.buttons{
     width: 90%;
 }
 
+td.TC{
+    font-size: 130%;
+    width: 30%;
+    margin: 3px;
+    text-align: left;
+    border-right: 1px solid #777;
+}
 
 table.table-adv{
     table-layout: fixed;

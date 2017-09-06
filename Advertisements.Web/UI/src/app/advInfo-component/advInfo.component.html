@@ -1,24 +1,29 @@
-<table class="table table-adv table-bordered">
-  <tr>
-    <table myHighlight class="table table-adv-inner">
-      <tr>
-        <td rowspan="4" class="img">
-          <img class="img-advert" src="{{advertisement.Resources[0].Url}}">
-        </td>
-        <td class="title">
-          {{advertisement.Title}}
-        </td>
-      </tr>
-      <tr>
-        <td class="description"> {{advertisement.Description}} </td>
-      </tr>
-      <tr>
-        <td> {{types[advertisement.TypeId].Name}} </td>
-      </tr>
-      <tr>
-        <td class="price"> Price: {{advertisement.Price}} ₴ </td>
-      </tr>
-    </table>
-  </tr>
-</table>
-<feedback-root></feedback-root>
+<div *ngIf="advertisement && types && categories">
+  <table class="table table-adv table-bordered">
+    <tr>
+      <table class="table table-adv-inner">
+        <tr>
+          <td rowspan="5" class="img">
+            <img class="img-advert" src="{{advertisement.Resources[0].Url}}">
+          </td>
+          <td class="title">
+            {{advertisement.Title}}
+          </td>
+        </tr>
+        <tr>
+          <td class="TC"> Type: {{types[advertisement.TypeId].Name}}</td>
+        </tr>
+        <tr>
+          <td class="TC"> Category: {{categories[advertisement.CategoryId].Name}} </td>
+        </tr>
+        <tr>
+          <td class="description"> {{advertisement.Description}} </td>
+        </tr>
+        <tr>
+          <td class="price"> Price: {{advertisement.Price}} ₴ </td>
+        </tr>
+      </table>
+    </tr>
+  </table>
+  <feedback-root></feedback-root>
+</div>

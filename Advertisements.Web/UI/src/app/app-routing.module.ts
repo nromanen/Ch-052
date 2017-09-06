@@ -21,7 +21,7 @@ const routes: Routes = [
   { path: 'login',  component: LoginComponent },
   { path: 'myAdv', component: LoggedUserAdsComponent },
   { path: 'feedback',  component: FeedbackComponent },
-  { path: 'info/:id', component: AdvInfoComponent },
+  { path: 'info/:id', component: AdvInfoComponent},
   { path: 'edit/:id', component: EditAdvComponent },
   { path: 'create', component: CreateAdvComponent },
   { path: 'register', component: RegistrationComponent},
