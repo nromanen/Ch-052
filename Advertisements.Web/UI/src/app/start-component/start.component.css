@@ -397,23 +397,55 @@ form:after {
 
 .img-advert {
     margin: 5px;
-    height: 10vw;       
+    width: 95%;
+    min-height: 10vw;
+    max-width: 15vw;
 }
 
 .div-advertisement-image {             
     border: 1px solid lightgray;
-    border-radius:  5px;         
+    border-radius:  5px;     
+    text-align: center;
+    width: 95%;
 } 
+
+td.img { 
+    width: 25%;
+    margin: 3px;
+    border: 1px solid #777;
+    text-align: center;
+}
                       
-.tr-title {
+td.title {
     font-size: 200%;
-    text-align: left;
+    text-align: center;
+    width: 65%;
+    margin: 3px;
 }
 
-.tr-description {
+td.description {
     font-size: 120%;
     font-style: italic;
     text-align: left;
+    display: block;
+    word-break: break-all;
+    overflow-wrap: break-word;
+    margin: 3px;
+}
+
+td.price {
+    font-size: 150%;
+    right:15pt;
+    text-align: right;
+    width: 65%;
+    margin: 3px;
+}
+
+td.buttons{
+    width: 10%;
+    margin: 3px;
+    text-align: center;
+    border: 1px solid #777;
 }
 
 .td-adverttisement-texts {
@@ -425,32 +457,31 @@ form:after {
     vertical-align: bottom;
 }
 
-tr.price {
-    font-size: 150%;
-    right:15pt;
-    text-align: right;
-}
-
 .container.adv-container {
     text-align: left;
-    width: 80%;
+    width: 90%;
 }
-.container.adv-container .adv-header {
-    text-align: center;
-}
-.title-header{
-    text-align: center;
-  }
 
-table td[class*="col-"]{
-    position: relative;
-  }
+
 table.table-adv{
-    table-layout: fixed
-  }
-span.adv-class{
-    display: block;
-    word-break: break-all;
-    overflow-wrap: break-word;
-    max-width: 80%;
+    table-layout: fixed;
+    width: 95%;
+    margin: 1px auto;
+}
+table.table-adv-inner{
+    table-layout: fixed;
+    min-height: 200px;
+    margin: 0px auto;
+    border: 1px solid #777 !important;
+}
+
+table.table-adv-inner td{
+    vertical-align: middle !important;
+}
+td, th {
+    border-top: 0px !important; 
+}
+.table{
+    padding: 8px;
+    line-height: 1.42857143;
 }

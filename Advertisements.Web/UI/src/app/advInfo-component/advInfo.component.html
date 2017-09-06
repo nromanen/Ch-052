@@ -1,23 +1,24 @@
-<div class="container adv-container">
-  <table class="table table-adv table-inverse table-bordered">
-    <tr>
-      <td class="col-sm-3" style="text-align:center">
-        <div class="div-advertisement-image">
-          <img class="img-advert" src="{{source}}" alt="Mountain View">
-        </div>
-      </td>
-      <td class="col-sm-9 td-adverttisement-texts">
-        <table>
-          <tr>
-            <td class="tr-title">{{advertisement.Title}}</td>
-          </tr>
-          <tr>
-            <td class="tr-description"><span class="adv-class">{{advertisement.Description}}</span></td>
-          </tr>
-          <tr class="price"> Price: {{advertisement.Price}} ₴ </tr>
-        </table>
-      </td>
-    </tr>
-  </table>
-</div>
+<table class="table table-adv table-bordered">
+  <tr>
+    <table myHighlight class="table table-adv-inner">
+      <tr>
+        <td rowspan="4" class="img">
+          <img class="img-advert" src="{{advertisement.Resources[0].Url}}">
+        </td>
+        <td class="title">
+          {{advertisement.Title}}
+        </td>
+      </tr>
+      <tr>
+        <td class="description"> {{advertisement.Description}} </td>
+      </tr>
+      <tr>
+        <td> {{types[advertisement.TypeId].Name}} </td>
+      </tr>
+      <tr>
+        <td class="price"> Price: {{advertisement.Price}} ₴ </td>
+      </tr>
+    </table>
+  </tr>
+</table>
 <feedback-root></feedback-root>

@@ -80,14 +80,7 @@ export class AdvertisementService {
     }
     editLoggedUserAdv(param: Advertisement): Observable<any> {
         let advEditUrl = 'api/Advertisement/edit/';
-        let authToken = localStorage.getItem("access_token");
-        let headers = new Headers();
-
-        headers.append('Authorization', `Bearer ${authToken}`);
-
-        let options = new RequestOptions({ headers: headers });
-
-        return this.http.put(advEditUrl, param, options).do(r => {
+        return this.http.put(advEditUrl, param).do(r => {
             if (r.status == 200 || r.status == 204)
                 this.router.navigate(['/start']);
         }).map(r => r).catch(this.handleError);
