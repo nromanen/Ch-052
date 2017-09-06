@@ -1,9 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
-import { Advertisement } from '../models/advertisement';
-import { EditAdvService } from '../services/editAdv.service';
 import { Subscription } from "rxjs/Subscription";
+
+import { AdvertisementService } from '../services/advertisement.service';
+import { TypeService } from '../services/type.service';
+import { CategoryService } from '../services/category.service';
+
+import { Advertisement } from '../models/advertisement';
 import { Category } from '../models/category';
 import { Type } from '../models/type';
 
@@ -11,11 +15,15 @@ import { Type } from '../models/type';
   selector: 'editAdv',
   templateUrl: './editAdv.component.html',
   styleUrls: ['./editAdv.component.css'],
-  providers: [EditAdvService]
+  providers: [AdvertisementService, CategoryService, TypeService]
 })
 
 export class EditAdvComponent implements OnInit, OnDestroy {
-  constructor(private router: Router, private editAdvService: EditAdvService, private route: ActivatedRoute) { }
+  constructor(private router: Router,
+    private advertisementService: AdvertisementService,
+    private route: ActivatedRoute,
+    private typeService: TypeService,
+    private categoryService: CategoryService) { }
 
   private id: number;
   private route$: Subscription;
@@ -42,16 +50,16 @@ export class EditAdvComponent implements OnInit, OnDestroy {
   }
 
   getAdvertisement(id): void {
-    this.editAdvService.getAdvertisement(id).then(advertisement => { this.advertisement = advertisement; });
+    this.advertisementService.getAdv(id).then(advertisement => { this.advertisement = advertisement; });
   }
 
   onSubmit(advertisement): void {
-    this.editAdvService.editAdv(advertisement).subscribe(r => this.router.navigate(['/myAdv']));
+    this.advertisementService.editLoggedUserAdv(advertisement).subscribe(r => this.router.navigate(['/myAdv']));
   }
   getCategories(): void {
-    this.editAdvService.getCategory().then(category => this.categories = category.json() as Category[]);
+    this.categoryService.getCategories().then(category => this.categories = category);
   }
   getTypes(): void {
-    this.editAdvService.getType().then(type => this.types = type.json() as Type[]);
+    this.typeService.getTypes().then(type => this.types = type);
   }
 }
