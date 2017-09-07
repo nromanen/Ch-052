@@ -50,7 +50,6 @@ export class AppComponent implements OnInit, OnDestroy {
       this.errorSubscription = this.comcomService.getNotification().subscribe(error =>       
         {
           this.errorNotification = error; 
-          console.log(this.errorNotification);
         });
 
   }
@@ -76,7 +75,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
       this.subscription = this.comcomService.getObservableToken().subscribe(token => {
           this.token = token;
-          console.log('inside app.component');
           if (token != null || token != undefined) {
           this.loginbuttontext = 'Welcome, ' + token.userName;
               this.isLoggedIn = true;

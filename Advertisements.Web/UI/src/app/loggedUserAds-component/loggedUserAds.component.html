@@ -1,8 +1,5 @@
-<!--The content below is only a placeholder and can be replaced.-->
 <div style="text-align:center">
-  <h1 class="title-header">
-    Recent Advertisements!
-  </h1>
+  <h3>{{title}}</h3>
 </div>
 <table class="table table-adv table-bordered">
   <tr *ngFor="let advertisement of advertisements">
@@ -14,6 +11,12 @@
         <td class="title"  (click)="redirect(advertisement.Id)">
           {{advertisement.Title}}
         </td>
+        <td rowspan="3" class="buttons">
+          <div class="btn-group-vertical">
+            <button type="button" class="btn btn-danger" (click)=deleteLoggedUserAds(advertisement)><span class="glyphicon glyphicon-trash"></span></button>
+            <button type="button" class="btn btn-success" [routerLink]="['/edit',advertisement.Id]"><span class="glyphicon glyphicon-pencil"></span></button>
+          </div>
+        </td>
       </tr>
       <tr>
         <td class="description"  (click)="redirect(advertisement.Id)"> {{advertisement.Description}} </td>
@@ -24,4 +27,3 @@
     </table>
   </tr>
 </table>
-

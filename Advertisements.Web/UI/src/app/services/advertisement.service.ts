@@ -11,33 +11,96 @@ import { Resource } from "../models/resource";
 
 import 'rxjs/add/operator/toPromise';
 import { RegisterViewModel } from "../models/register.view.model";
+import { Observable } from "rxjs/Observable";
+import { Router } from "@angular/router";
 
 @Injectable()
-export class AdvertisementService{
-constructor(private http: Http, private loginService: LoginService) { }
+export class AdvertisementService {
+    constructor(private http: Http, private loginService: LoginService, private router: Router) { }
 
-
-    private advertisementsLoginUrl = '/api/Advertisement/get';
     private advertisements: Advertisement[];
+    private advertisement: Advertisement;
 
-    getAdvertisements(): Promise<Advertisement[]> { 
+    getAds(): Promise<Advertisement[]> {
+        let advertisementsLoginUrl = '/api/Advertisement/get';
+        return this.http.get(advertisementsLoginUrl)
+            .toPromise()
+            .then(response => {
+                this.advertisements = response.json() as Advertisement[];
 
-        return this.http.get(this.advertisementsLoginUrl)
-                        .toPromise()
-                        .then(response => {
-                            this.advertisements = response.json() as Advertisement []; 
+                this.advertisements.forEach(element => {
+                    if (element.Resources[0].Url == null && element.Resources.length > 0)
+                        element.Resources[0].Url = "../../../assets/images/noPhoto.png"
+                    if (element.Resources.length == 0)
+                        element.Resources.push(new Resource(0, '../../../assets/images/noPhoto.png', 0));
+                });
 
-                            this.advertisements.forEach(element => {
-                                if (element.Resources.length == 0)
-                                    element.Resources.push (new Resource(0, '../../../assets/images/noPhoto.png', 0 ));
-                            });
+                return this.advertisements;
+            })
+            .catch(this.handleError);
+    }
 
-                            return this.advertisements; })
-                        .catch(this.handleError);
-    } 
+    getAdv(param: any): Promise<Advertisement> {
+        let getAdvEdit = 'api/Advertisement/get/' + param;
 
+        return this.http.get(getAdvEdit).toPromise().then(response => {
+            this.advertisement = response.json() as Advertisement;
+            if (this.advertisement.Resources[0].Url == null && this.advertisement.Resources.length > 0)
+                this.advertisement.Resources[0].Url = "../../../assets/images/noPhoto.png"
+            if (this.advertisement.Resources.length == 0)
+                this.advertisement.Resources.push(new Resource(0, '../../../assets/images/noPhoto.png', 0));
+
+
+            return this.advertisement;
+        }).catch(this.handleError);
+    }
+
+    getLoggedUserAds(): Promise<Advertisement[]> {
+        return this.http.get('api/Advertisement/get/current')
+            .toPromise()
+            .then(response => {
+                this.advertisements = response.json() as Advertisement[];
+
+                this.advertisements.forEach(element => {
+                    if (element.Resources[0].Url == null && element.Resources.length > 0)
+                        element.Resources[0].Url = "../../../assets/images/noPhoto.png"
+                    if (element.Resources.length == 0)
+                        element.Resources.push(new Resource(0, '../../../assets/images/noPhoto.png', 0));
+                });
+
+                return this.advertisements;
+            })
+            .catch(this.handleError);
+    }
+
+    deleteLoggedUserAds(param: any): Promise<any> {
+        return this.http.delete('api/Advertisement/delete/' + param.Id)
+            .toPromise()
+            .then()
+    }
+    editLoggedUserAdv(param: Advertisement): Observable<any> {
+        let advEditUrl = 'api/Advertisement/edit/';
+        return this.http.put(advEditUrl, param).do(r => {
+            if (r.status == 200 || r.status == 204)
+                this.router.navigate(['/start']);
+        }).map(r => r).catch(this.handleError);
+    }
+    createAdv(param: Advertisement, resource: Resource): Observable<any> {
+        param.Resources = [];
+        param.Resources.push(resource);
+        return this.http
+            .get('api/AspNetUsers/get/current')
+            .map(response => {
+                param.ApplicationUserId = response.json() as string;
+                this.http
+                    .post('api/advertisement/add', param).toPromise().then(r => {
+                        if (r.status == 200 || r.status == 204)
+                            this.router.navigate(['/start']);
+                    })
+            });
+    }
     private handleError(error: any): Promise<any> {
-        console.error('An error occurred', error); 
+        console.error('An error occurred', error);
         return Promise.reject(error.message || error);
-    }    
+    }
 }

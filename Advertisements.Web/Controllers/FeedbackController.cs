@@ -39,6 +39,16 @@ namespace Advertisements.Web.Controllers
 
         [AllowAnonymous]
         [HttpGet]
+        [Route("alreadyCommented/{id}")]
+        public bool AlreadyCommented(int id)
+        {
+            string UserId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+
+            return feedbackService.AlreadyCommented(UserId, id);
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
         [Route("get/{id}")]
         public FeedbackDTO Get(int id)
         {

@@ -1,19 +1,19 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
-import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
-import { NgModule }             from '@angular/core';
-import { Http, XHRBackend, RequestOptions} from '@angular/http';
+import { NgModule } from '@angular/core';
+import { Http, XHRBackend, RequestOptions } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login-component/login.component';
 import { StartComponent } from './start-component/start.component';
 import { FeedbackComponent } from './feedback-component/feedback.component';
-import { UsersAdvComponent } from './usersAdv-component/usersAdv.component';
+import { LoggedUserAdsComponent } from './loggedUserAds-component/loggedUserAds.component';
 import { EditAdvComponent } from './editAdv-component/editAdv.component';
 import { CreateAdvComponent } from './createAdv-component/createAdv.component';
 import { AdvInfoComponent } from './advInfo-component/advInfo.component';
-import { httpFactory} from "./http.factory";
+import { httpFactory } from "./http.factory";
 import { CategoryComponent } from './category-component/category.component';
 import { TypeComponent } from './type-component/type.component';
 
@@ -22,12 +22,8 @@ import { LoginService } from './services/login.service';
 import { FeedbackService } from './services/feedback.service';
 import { CategoryService } from './services/category.service';
 import { ComcomService } from './services/comcom.service';
-import { AdvertisementCurrentService } from './services/advertisementCurrent.service';
-import { EditAdvService } from './services/editAdv.service';
-import { CreateAdvService } from './services/createAdv.service';
-import { AdvInfoService } from './services/advInfo.service';
 import { RegistrationComponent } from './registration-component/registration.component';
-import { EqualValidator  } from "./directives/equalvalidator.directive";
+import { EqualValidator } from "./directives/equalvalidator.directive";
 import { RegistrationService } from './services/registration.service';
 import { TryRestorePasswordCompoent } from './tryrestorepassword-component/tryrestorepassword.component';
 import { RestorePasswordComponent } from "./restorepassword-component/restorepassword.component";
@@ -55,7 +51,7 @@ import {SearchComponent} from "./search-component/search.component"
     EditAdvComponent,
     CreateAdvComponent,
     AdvInfoComponent,
-    UsersAdvComponent,
+    LoggedUserAdsComponent,
     HighlightDirective,
     IsLoggedInDirective,
     AdminDirective,
@@ -67,14 +63,13 @@ import {SearchComponent} from "./search-component/search.component"
   imports: [
     BrowserModule,
     HttpModule,
-    AppRoutingModule, 
+    AppRoutingModule,
     FormsModule,
     ReactiveFormsModule
   ],
   providers: [
-    AdvertisementService, 
-    LoginService, 
-     
+    AdvertisementService,
+    LoginService,
     FeedbackService,
       ComcomService,
       AdvertisementCurrentService, 
@@ -89,11 +84,10 @@ import {SearchComponent} from "./search-component/search.component"
       ConfirmEmailService,
       SearchService,
     {
-            provide: Http,
-            useFactory: httpFactory,
-            deps: [XHRBackend, RequestOptions, ComcomService]
+      provide: Http,
+      useFactory: httpFactory,
+      deps: [XHRBackend, RequestOptions, ComcomService]
     }
-  
   ],
 
   bootstrap: [AppComponent]

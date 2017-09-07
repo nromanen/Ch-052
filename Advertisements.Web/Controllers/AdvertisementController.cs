@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;           
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Web.Http;
 using Advertisements.BusinessLogic.Services;
 using Advertisements.DTO.Models;
 using System.Threading;
+using System.Threading.Tasks;
+using System.Web;
 using Microsoft.AspNet.Identity;
 using System.Threading.Tasks;
 namespace Advertisements.Web.Controllers
@@ -60,6 +64,7 @@ namespace Advertisements.Web.Controllers
             service.Create(dto);
         }
 
+        
         [Authorize]
         [HttpPut]
         [Route("edit")]
@@ -83,6 +88,63 @@ namespace Advertisements.Web.Controllers
         {
             string userId = Thread.CurrentPrincipal.Identity.GetUserId();
             return userService.GetByUser(userId);
+        }
+
+        [Authorize]
+        [HttpPost]
+        [Route("upload")]
+        public async Task<HttpResponseMessage> Upload()
+        {
+            HttpRequestMessage request = this.Request;
+            if (!request.Content.IsMimeMultipartContent())
+            {
+                throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
+            }
+
+            string root = HttpContext.Current.Server.MapPath("~/assets/uploads");
+            var provider = new CustomMultipartFormDataStreamProvider(root);
+
+            var task = await request.Content.ReadAsMultipartAsync(provider);
+
+            return new HttpResponseMessage()
+            {
+                Content = new StringContent("../../../assets/uploads/" + task.GetLocalFileName())
+            };
+        }
+
+        //[HttpPost]
+        //public ActionResult Index(HttpPostedFileBase file)
+        //{
+
+        //    if (file.ContentLength > 0)
+        //    {
+        //        var fileName = Path.GetFileName(file.FileName);
+        //        var path = Path.Combine(Server.MapPath("~/App_Data/uploads"), fileName);
+        //        file.SaveAs(path);
+        //    }
+
+        //    return RedirectToAction("Index");
+        //}
+
+        public class CustomMultipartFormDataStreamProvider : MultipartFormDataStreamProvider
+        {
+            string imageName;      
+            public CustomMultipartFormDataStreamProvider(string path) : base(path) { }
+            
+
+            public override string GetLocalFileName(HttpContentHeaders headers)
+            {
+                var guid = Guid.NewGuid().ToString();
+                imageName = guid +
+                            headers.ContentDisposition.FileName.Replace("\"", string.Empty);
+                return imageName;
+            }
+
+            public string GetLocalFileName()
+            {
+                return imageName;
+            }
+
         }
     }
 }

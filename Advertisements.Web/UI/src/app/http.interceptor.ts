@@ -114,9 +114,11 @@ export class InterceptedHttp extends Http {
                             note.accessDenied = true;
                             this.comservice.setNotification(note);
                             break;
-                            default:
-                            note.errorMessage = error.json().Message;
-                            note.accessDenied = true;
+						default:
+							if (error.json() != "101" && error.json() != "201") {
+								note.errorMessage = error.json().Message;
+								note.accessDenied = true;
+							}
                             break;
                     }
                     this.comservice.setNotification(note);
