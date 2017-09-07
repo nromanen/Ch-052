@@ -1,0 +1,31 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center">
+    <h1 class="title-header">
+      Search results
+    </h1>
+    <div class="container">
+      <table class="table table-inverse ">
+        
+        <tr myHighlight *ngFor="let advertisement of Advertisements td-adverttisement-texts">
+          <td class="col-sm-3 columnmaxwidth">
+            <div class="div-advertisement-image">
+              <!-- todo wrtie before release correct src path -->
+              <img class="img-advert" src={{advertisement.Resources[0].Url}} alt="Mountain View">
+            </div>
+          </td>
+          <td class="col-sm-9">
+            <p class="tr-title">{{advertisement.Title}}</p>
+            <p class="tr-description">{{advertisement.Description}}</p>
+            <p class="price">Price: {{advertisement.Price}} ₴</p>
+          </td>
+        </tr>
+      </table>
+
+      <div *ngIf="Advertisements.length == 0">
+        <h2 class = "text-center">Nothing found</h2>
+      </div>
+
+    </div> 
+  
+  
+  </div>

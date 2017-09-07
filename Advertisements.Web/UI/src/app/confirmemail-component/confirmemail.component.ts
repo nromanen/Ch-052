@@ -34,6 +34,11 @@ export class ConfirmEmailComponent implements OnInit
             this.Token = params['token'];
             this.Email = params['email'];            
         });
-        this.MyService.SendRequest(this.Token,this.Email);
-    }     
+        this.MyService.SendRequest(this.Token,this.Email).subscribe((result)=>this.TakeResponse(result.toString()));
+    } 
+    private TakeResponse(response: string)
+    {
+        alert(response);
+        window.location.replace("/start");
+    }    
 }

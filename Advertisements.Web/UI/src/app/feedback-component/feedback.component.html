@@ -3,7 +3,7 @@
         <div class="col-md-12">
             <h2 class="page-header">Feedbacks</h2>
             <section class="comment-list">
-                <div class=" row" ng-if="newFeedback">
+                <div class=" row" ng-if="newFeedback" *ngIf="!alreadyCommented">
                     <div class="col-md-10 col-sm-10">
                         <textarea class="form-control" name="Comment" #Comment="ngModel" rows="5" minlength="1" id="comment" placeholder="Leave your comment" [(ngModel)]="newFeedback.Text" required></textarea>
                     </div>

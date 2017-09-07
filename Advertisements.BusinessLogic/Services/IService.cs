@@ -17,9 +17,15 @@ namespace Advertisements.BusinessLogic.Services
         IEnumerable<T> GetByUser(string userId);
     }
 
+    public interface IAdvertisementAwareService<T> : IService<T> where T : class
+    {
+        IEnumerable<T> Find(string keyword); 
+    }
+
     public interface IFeedbackAwareService<T> : IService<T> where T : class
     {
         IEnumerable<T> GetByAdvertisement(int advertisementId);
+        bool AlreadyCommented(string id, int advId);
     }
 
     public interface IUserService<T>   where T : class

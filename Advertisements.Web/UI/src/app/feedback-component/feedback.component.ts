@@ -26,11 +26,16 @@ export class FeedbackComponent implements OnInit {
   isButtonClicked : boolean;
   errorMessage : string;
   itemClicked : number;
+  alreadyCommented : boolean;
   
 
   getFeedbacks(id):void {
    this.accessDenied = false;
    this.isButtonClicked = false;
+
+   this.feedbacksService.alreadyCommented(this.id)
+       .then(res =>
+        {this.alreadyCommented = res.json()});
 
    this.feedbacksService.getFeedbacks(id)
           .then(feedbacks =>
