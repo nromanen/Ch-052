@@ -8,7 +8,7 @@ using Advertisements.BusinessLogic.Services;
 using Advertisements.DTO.Models;
 using System.Threading;
 using Microsoft.AspNet.Identity;
-
+using System.Threading.Tasks;
 namespace Advertisements.Web.Controllers
 {
 
@@ -19,11 +19,13 @@ namespace Advertisements.Web.Controllers
 
         IService<AdvertisementDTO> service;
         IUserAwareService<AdvertisementDTO> userService;
+        IAdvertisementAwareService<AdvertisementDTO> advertService;
 
-        public AdvertisementController(IService<AdvertisementDTO> s, IUserAwareService<AdvertisementDTO> us)
+        public AdvertisementController(IService<AdvertisementDTO> s, IUserAwareService<AdvertisementDTO> us, IAdvertisementAwareService<AdvertisementDTO> advs)
         {
             service = s;
             userService = us;
+            advertService = advs;
         }
 
         [AllowAnonymous]
@@ -40,6 +42,14 @@ namespace Advertisements.Web.Controllers
         public AdvertisementDTO Get(int id)
         {
             return service.Get(id);
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("find/{keyword}")]
+        public  IEnumerable<AdvertisementDTO> Find(string keyword)
+        {
+            return advertService.Find(keyword);
         }
 
         [Authorize]

@@ -39,6 +39,8 @@ import { IsLoggedInDirective } from './directives/isloggedin.directive';
 import { AdminDirective } from './directives/admin.directive';
 import { ConfirmEmailComponent } from "./confirmemail-component/confirmemail.component";
 import { ConfirmEmailService } from "./services/confirmemail.service";
+import {SearchService} from "./services/search.service"
+import {SearchComponent} from "./search-component/search.component"
 
 @NgModule({
   declarations: [
@@ -59,7 +61,8 @@ import { ConfirmEmailService } from "./services/confirmemail.service";
     AdminDirective,
     ConfirmEmailComponent,
     CategoryComponent,
-    TypeComponent
+    TypeComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
@@ -84,6 +87,7 @@ import { ConfirmEmailService } from "./services/confirmemail.service";
       TypeService,
       RestorePasswordService,
       ConfirmEmailService,
+      SearchService,
     {
             provide: Http,
             useFactory: httpFactory,

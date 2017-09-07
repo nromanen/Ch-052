@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace Advertisements.DataAccess.Repositories
 {
@@ -84,5 +85,48 @@ namespace Advertisements.DataAccess.Repositories
         //{
         //    return _context.Set<TEntity>().Where(filter).ToList();
         //}
+
+        public IEnumerable<Advertisement> Find(string keyword)
+        {
+            string lowerKeyWord = keyword.ToLower();
+            var isCategory = _context.Categories.Where((cat) => cat.Name.Equals(lowerKeyWord));
+            bool exists = false;
+
+            foreach (var category in isCategory)
+                exists = true;
+
+            if (exists)
+            {
+                return _context.Advertisements.Where(adv => adv.Category.Name.Equals(lowerKeyWord)).AsEnumerable();
+            }
+
+            string tempKeyWord = char.ToUpper(keyword[0]) + keyword.Substring(1);
+            //Types start from Uppercase letter
+            var isType = _context.Types.Where((type) => type.Name.Equals(tempKeyWord));
+            exists = false;
+            foreach (var advType in isType)
+                exists = true;
+
+            if (exists)
+            {
+                return _context.Advertisements.Where((adv) => adv.Type.Name.Equals(tempKeyWord)).AsEnumerable();
+            }
+
+            var advsByDescription = _context.Advertisements.Where(r => r.Description.Contains(keyword));
+            var advsByName = _context.Advertisements.Where((adv) => adv.Title.Contains(keyword));
+            List<Advertisement> advsResult = new List<Advertisement>();
+
+            foreach (var advert in advsByDescription)
+            {
+                advsResult.Add(advert);
+            }
+            foreach (var advert in advsByName)
+            {
+                if (!advsResult.Contains(advert))
+                    advsResult.Add(advert);
+            }
+
+            return advsResult;
+        }
     }
 }

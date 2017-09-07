@@ -109,7 +109,12 @@ export class InterceptedHttp extends Http {
                             note.accessDenied = true;
                             this.comservice.setNotification(note);
                         break;
-                        default:
+                        case "306":
+                            note.errorMessage = "This account is not active";
+                            note.accessDenied = true;
+                            this.comservice.setNotification(note);
+                            break;
+                            default:
                             note.errorMessage = error.json().Message;
                             note.accessDenied = true;
                             break;
@@ -117,5 +122,5 @@ export class InterceptedHttp extends Http {
                     this.comservice.setNotification(note);
                 }
     }
-
+    
 }

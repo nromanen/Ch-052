@@ -121,6 +121,7 @@ namespace Advertisements.Web.Controllers
             var manager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
             ApplicationUser user = manager.FindById(userId);
 
+
             return File(user.Avatar, "image/jpg");
         }
         
