@@ -17,5 +17,7 @@ namespace Advertisements.DataAccess.Repositories
         void Update(T item);
         void Delete(int id);
         void Delete(string id);
+        IEnumerable<Advertisement> Find(string keyword,
+            params Expression<Func<Advertisement, object>>[] includeExpressions);
     }
 }
