@@ -84,10 +84,6 @@
     <Compile Include="Entities\PasswordRecovery.cs" />
     <Compile Include="Entities\Resource.cs" />
     <Compile Include="Entities\Votes.cs" />
-    <Compile Include="Migrations\201709071538127_my_migrr.cs" />
-    <Compile Include="Migrations\201709071538127_my_migrr.Designer.cs">
-      <DependentUpon>201709071538127_my_migrr.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Repositories\EFRepositoryBase.cs" />
     <Compile Include="Repositories\EFUnitOfWork.cs" />
@@ -104,11 +100,6 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201709071538127_my_migrr.resx">
-      <DependentUpon>201709071538127_my_migrr.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
