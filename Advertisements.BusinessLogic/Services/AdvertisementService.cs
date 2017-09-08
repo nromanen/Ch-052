@@ -45,8 +45,8 @@ namespace Advertisements.BusinessLogic.Services
             {
                 var repo = uow.GetRepo<Advertisement>();
 
-                
-                advertisements = repo.Find(keyword);
+
+                advertisements = repo.Find(keyword, x => x.Resources/*, x => x.Type, x => x.Category*/);
                 dtos = AdvertisementMapper.CreateListAdvertisementDTO().Map(advertisements).ToList();
             }
 

@@ -12,7 +12,7 @@ import { Resource } from "../models/resource";
 
 export class SearchService
 {
-    private SearchAdvertisements: Advertisement[];
+    private advertisements: Advertisement[];
     private GetAdvertsUrl: string;
     public keyword: string;
     public constructor(private MyHttp: Http)
@@ -20,19 +20,23 @@ export class SearchService
         this.GetAdvertsUrl = "/api/Advertisement/find/";
     }
 
-    public Search(): Promise<Advertisement[]>
+    public Search(keyword: string): Promise<Advertisement[]>
     {
-         return this.MyHttp.get(this.GetAdvertsUrl + this.keyword).
-            toPromise().
-            then(response=>{
-                this.SearchAdvertisements = response.json() as Advertisement[];
-                this.SearchAdvertisements.forEach(element => {
-                    if (element.Resources.length == 0)
-                        element.Resources.push (new Resource(0, '../../../assets/images/noPhoto.png', 0 ));                 
-                });
-                return this.SearchAdvertisements;
-            }
-            ).catch(this.handleError);
+         return this.MyHttp.get(this.GetAdvertsUrl + keyword)
+         .toPromise()
+         .then(response => {
+             this.advertisements = response.json() as Advertisement[];
+
+             this.advertisements.forEach(element => {
+                 if (element.Resources[0].Url == null && element.Resources.length > 0)
+                     element.Resources[0].Url = "../../../assets/images/noPhoto.png"
+                 if (element.Resources.length == 0)
+                     element.Resources.push(new Resource(0, '../../../assets/images/noPhoto.png', 0));
+             });
+
+             return this.advertisements;
+         })
+         .catch(this.handleError);
          
     }
     

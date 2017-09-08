@@ -52,7 +52,7 @@ namespace Advertisements.Web.Controllers
         [HttpGet]
         [Route("find/{keyword}")]
         public  IEnumerable<AdvertisementDTO> Find(string keyword)
-        {
+        {   
             return advertService.Find(keyword);
         }
 

@@ -20,10 +20,10 @@
           </td>
         </tr>
         <tr>
-          <td class="TC" (click)="redirect(advertisement.Id)"> Type: {{types[advertisement.TypeId].Name}}</td>
+          <td class="TC" (click)="redirect(advertisement.Id)"> Type: {{types[advertisement.TypeId - 1].Name}}</td>
         </tr>
         <tr>
-          <td class="TC" (click)="redirect(advertisement.Id)"> Category: {{categories[advertisement.CategoryId].Name}} </td>
+          <td class="TC" (click)="redirect(advertisement.Id)"> Category: {{categories[advertisement.CategoryId -1].Name}} </td>
         </tr>
         <tr>
           <td class="description" (click)="redirect(advertisement.Id)"> {{advertisement.Description}} </td>
