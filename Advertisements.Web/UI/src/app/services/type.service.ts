@@ -15,11 +15,15 @@ export class TypeService {
     constructor(private http: Http, private loginService: LoginService) { }
     private typeUrl = "/api/type/";
 
+    types: Type[];
+    type: Type;
+
     getTypes(): Promise<Type[]> {
 
         return this.http.get(this.typeUrl + "get").
             toPromise().
-            then(response => { response.json() as Type[]; return response.json() as Type[]; }).
+            then(response => { this.types = response.json() as Type[];
+            return this.types }).
             catch(this.handleError);
     }
 

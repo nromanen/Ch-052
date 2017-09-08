@@ -1,27 +1,34 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1 class="title-header">
-    Recent Advertisements!
-  </h1>
+<div *ngIf="advertisements && types && categories">
+  <div style="text-align:center">
+    <h1 class="title-header">
+      Recent Advertisements!
+    </h1>
+  </div>
+  <table class="table table-adv table-bordered">
+    <tr *ngFor="let advertisement of advertisements">
+      <table myHighlight class="table table-adv-inner" (click)="redirect(advertisement.Id)">
+        <tr>
+          <td rowspan="5" class="img">
+            <img class="img-advert" src="{{advertisement.Resources[0].Url}}">
+          </td>
+          <td class="title">
+            {{advertisement.Title}}
+          </td>
+        </tr>
+        <tr>
+          <td class="TC"> Type: {{types[advertisement.TypeId - 1].Name}}</td>
+        </tr>
+        <tr>
+          <td class="TC"> Category: {{categories[advertisement.CategoryId - 1].Name}} </td>
+        </tr>
+        <tr>
+          <td class="description"> {{advertisement.Description}} </td>
+        </tr>
+        <tr>
+          <td class="price"> Price: {{advertisement.Price}} ₴ </td>
+        </tr>
+      </table>
+    </tr>
+  </table>
 </div>
-<table class="table table-adv table-bordered">
-  <tr *ngFor="let advertisement of advertisements">
-    <table myHighlight class="table table-adv-inner">
-      <tr>
-        <td rowspan="3" class="img"  (click)="redirect(advertisement.Id)">
-          <img class="img-advert" src="{{advertisement.Resources[0].Url}}">
-        </td>
-        <td class="title"  (click)="redirect(advertisement.Id)">
-          {{advertisement.Title}}
-        </td>
-      </tr>
-      <tr>
-        <td class="description"  (click)="redirect(advertisement.Id)"> {{advertisement.Description}} </td>
-      </tr>
-      <tr>
-        <td class="price"  (click)="redirect(advertisement.Id)"> Price: {{advertisement.Price}} ₴ </td>
-      </tr>
-    </table>
-  </tr>
-</table>
-

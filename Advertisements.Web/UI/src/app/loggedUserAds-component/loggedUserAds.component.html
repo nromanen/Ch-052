@@ -1,29 +1,37 @@
-<div style="text-align:center">
-  <h3>{{title}}</h3>
+<div *ngIf="advertisements && types && categories">
+  <div style="text-align:center">
+    <h3>{{title}}</h3>
+  </div>
+  <table class="table table-adv table-bordered">
+    <tr *ngFor="let advertisement of advertisements">
+      <table myHighlight class="table table-adv-inner">
+        <tr>
+          <td rowspan="5" class="img" (click)="redirect(advertisement.Id)">
+            <img class="img-advert" src="{{advertisement.Resources[0].Url}}">
+          </td>
+          <td class="title" (click)="redirect(advertisement.Id)">
+            {{advertisement.Title}}
+          </td>
+          <td rowspan="5" class="buttons">
+            <div class="btn-group-vertical">
+              <button type="button" class="btn btn-danger" (click)=deleteLoggedUserAds(advertisement)><span class="glyphicon glyphicon-trash"></span></button>
+              <button type="button" class="btn btn-success" [routerLink]="['/edit',advertisement.Id]"><span class="glyphicon glyphicon-pencil"></span></button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="TC" (click)="redirect(advertisement.Id)"> Type: {{types[advertisement.TypeId - 1].Name}}</td>
+        </tr>
+        <tr>
+          <td class="TC" (click)="redirect(advertisement.Id)"> Category: {{categories[advertisement.CategoryId -1].Name}} </td>
+        </tr>
+        <tr>
+          <td class="description" (click)="redirect(advertisement.Id)"> {{advertisement.Description}} </td>
+        </tr>
+        <tr>
+          <td class="price" (click)="redirect(advertisement.Id)"> Price: {{advertisement.Price}} ₴ </td>
+        </tr>
+      </table>
+    </tr>
+  </table>
 </div>
-<table class="table table-adv table-bordered">
-  <tr *ngFor="let advertisement of advertisements">
-    <table myHighlight class="table table-adv-inner">
-      <tr>
-        <td rowspan="3" class="img"  (click)="redirect(advertisement.Id)">
-          <img class="img-advert" src="{{advertisement.Resources[0].Url}}">
-        </td>
-        <td class="title"  (click)="redirect(advertisement.Id)">
-          {{advertisement.Title}}
-        </td>
-        <td rowspan="3" class="buttons">
-          <div class="btn-group-vertical">
-            <button type="button" class="btn btn-danger" (click)=deleteLoggedUserAds(advertisement)><span class="glyphicon glyphicon-trash"></span></button>
-            <button type="button" class="btn btn-success" [routerLink]="['/edit',advertisement.Id]"><span class="glyphicon glyphicon-pencil"></span></button>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td class="description"  (click)="redirect(advertisement.Id)"> {{advertisement.Description}} </td>
-      </tr>
-      <tr>
-        <td class="price"  (click)="redirect(advertisement.Id)"> Price: {{advertisement.Price}} ₴ </td>
-      </tr>
-    </table>
-  </tr>
-</table>

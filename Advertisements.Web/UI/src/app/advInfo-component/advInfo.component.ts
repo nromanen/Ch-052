@@ -5,6 +5,7 @@ import { Subscription } from "rxjs/Subscription";
 
 import { Advertisement } from '../models/advertisement';
 import { Type } from '../models/type';
+import { Category } from '../models/category';
 
 import { AdvertisementService } from '../services/advertisement.service';
 import { TypeService } from '../services/type.service';
@@ -22,13 +23,14 @@ export class AdvInfoComponent implements OnInit, OnDestroy {
     private advertisementService: AdvertisementService,
     private route: ActivatedRoute,
     private typeService: TypeService,
-    private categoryService: CategoryService, ) { }
+    private categoryService: CategoryService
+  ) { }
 
   private id: number;
   private route$: Subscription;
-  advertisement: Advertisement = new Advertisement();
+  advertisement: Advertisement;
   private types: Type[];
-  private categories: Type[];
+  private categories: Category[];
 
   ngOnInit() {
     this.route$ = this.route.params.subscribe(
@@ -36,15 +38,15 @@ export class AdvInfoComponent implements OnInit, OnDestroy {
         this.id = +params["id"];
       }
     );
-    this.getTypes()
+    this.getTypes();
     this.getCategories();
     this.getAdvertisement(this.id);
-
   }
 
   getTypes(): void {
     this.typeService.getTypes().then(type => this.types = type);
   }
+
   getCategories(): void {
     this.categoryService.getCategories().then(category => this.categories = category);
   }
@@ -53,7 +55,7 @@ export class AdvInfoComponent implements OnInit, OnDestroy {
     if (this.route$) this.route$.unsubscribe();
   }
   getAdvertisement(id): void {
-    this.advertisementService.getAdv(id).then(advertisement => { this.advertisement = advertisement });
+    this.advertisementService.getAdv(id).then(advertisement => { this.advertisement = advertisement;});
   }
 
 }

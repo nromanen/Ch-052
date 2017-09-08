@@ -40,8 +40,12 @@ namespace Advertisements.Web.Providers
 
             if (user == null)
             {
-                context.SetError("invalid_grant", "305");
-                
+                context.SetError("invalid_grant", "305");               
+                return;
+            }
+            if (!user.EmailConfirmed)
+            {
+                context.SetError("invalid_grant", "306");
                 return;
             }
 

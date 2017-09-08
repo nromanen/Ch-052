@@ -11,7 +11,7 @@ using Advertisements.DTO.Models;
 
 namespace Advertisements.BusinessLogic.Services
 {
-    public class AdvertisementService : IService<AdvertisementDTO>, IUserAwareService<AdvertisementDTO>
+    public class AdvertisementService : IService<AdvertisementDTO>, IUserAwareService<AdvertisementDTO>, IAdvertisementAwareService<AdvertisementDTO>
     {
         private readonly IUOWFactory _uowfactory;
 
@@ -33,6 +33,22 @@ namespace Advertisements.BusinessLogic.Services
             }
 
             IEnumerable<AdvertisementDTO> dtos = AdvertisementMapper.CreateListAdvertisementDTO().Map(advertisements).ToList();
+
+            return dtos;
+        }
+
+        public IEnumerable<AdvertisementDTO> Find(string keyword)
+        {
+            IEnumerable<Advertisement> advertisements;
+            IEnumerable<AdvertisementDTO> dtos;
+            using (var uow = _uowfactory.CreateUnitOfWork())
+            {
+                var repo = uow.GetRepo<Advertisement>();
+
+
+                advertisements = repo.Find(keyword, x => x.Resources/*, x => x.Type, x => x.Category*/);
+                dtos = AdvertisementMapper.CreateListAdvertisementDTO().Map(advertisements).ToList();
+            }
 
             return dtos;
         }

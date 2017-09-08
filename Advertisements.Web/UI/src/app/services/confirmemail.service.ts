@@ -23,19 +23,15 @@ export class ConfirmEmailService
         this.ConfirmEmailUrl = "/api/Account/ConfirmEmail"
     }
 
-    public SendRequest(token: string,email: string)
+    public SendRequest(token: string,email: string): Observable<Response>
     {
         let body = {Token:token, Email:email};
         let header = new Headers({'Content-Type': 'application/json'});
         let options = new RequestOptions({headers:header});
 
         return this.MyHttpClient.post(this.ConfirmEmailUrl,body,options)       
-        .subscribe(resp=> this.TakeResponse(resp.json()));
+        .map(resp=> resp.json());
     }
     
-    private TakeResponse(response: string)
-    {
-        alert(response);
-        window.location.replace("/start");
-    }
+    
 }

@@ -15,12 +15,16 @@ import { RegisterViewModel } from "../models/register.view.model";
 export class CategoryService {
     constructor(private http: Http, private loginService: LoginService) { }
 
+    categories: Category[];
+    category: Category;
+
     private categoryUrl = "api/category/";
 
     getCategories(): Promise<Category[]> {
         return this.http.get(this.categoryUrl + "get").
             toPromise().
-            then(response => { response.json() as Category[]; return response.json() as Category[]; }).
+            then(response => {this.categories = response.json() as Category[];
+            return this.categories}).
             catch(this.handleError);
     }
 
