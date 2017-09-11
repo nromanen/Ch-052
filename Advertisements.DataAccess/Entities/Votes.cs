@@ -8,6 +8,8 @@ namespace Advertisements.DataAccess.Entities
 {
     public class Votes : IEntity
     {
+        public bool IsDeleted { get; set; }
+
         [Key]
         public int Id { get; set; }
 

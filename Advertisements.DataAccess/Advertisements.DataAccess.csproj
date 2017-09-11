@@ -84,6 +84,10 @@
     <Compile Include="Entities\PasswordRecovery.cs" />
     <Compile Include="Entities\Resource.cs" />
     <Compile Include="Entities\Votes.cs" />
+    <Compile Include="Migrations\201709081418574_SoftDelete.cs" />
+    <Compile Include="Migrations\201709081418574_SoftDelete.Designer.cs">
+      <DependentUpon>201709081418574_SoftDelete.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Repositories\EFRepositoryBase.cs" />
     <Compile Include="Repositories\EFUnitOfWork.cs" />
@@ -100,6 +104,11 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201709081418574_SoftDelete.resx">
+      <DependentUpon>201709081418574_SoftDelete.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
