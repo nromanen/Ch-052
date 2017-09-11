@@ -54,6 +54,9 @@ export class AppComponent implements OnInit, OnDestroy {
 
   logout(): void {
       this.loginService.logout().subscribe();
+      this.comcomService.clearObservableRole();
+      this.comcomService.clearObservableToken();
+
   }
 
   ngOnInit(): void {

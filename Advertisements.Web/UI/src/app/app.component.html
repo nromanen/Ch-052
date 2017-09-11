@@ -38,7 +38,7 @@
               <li *admin="admin"><a [routerLink]="['/type']">Edit Types</a></li>
               <li><a [routerLink]="['/myAdv']">My Advertisements</a></li>
               <li role="separator" class="divider"></li>
-              <li><a class="cursor_pointer" (click)='logout()' >Logout</a></li>
+              <li><a class="cursor_pointer" [routerLink]="['/start']" (click)='logout()' >Logout</a></li>
             </ul>
           </li>
 
