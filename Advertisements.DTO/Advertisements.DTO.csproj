@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\AdvertisementDTO.cs" />
+    <Compile Include="Models\AdvertisementUsersDTO.cs" />
     <Compile Include="Models\AspNetUsersDTO.cs" />
     <Compile Include="Models\CategoryDTO.cs" />
     <Compile Include="Models\FeedbackDTO.cs" />

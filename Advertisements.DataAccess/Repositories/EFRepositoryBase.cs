@@ -80,10 +80,76 @@ namespace Advertisements.DataAccess.Repositories
             _context.Entry(item).State = System.Data.Entity.EntityState.Modified;
         }
 
+        public IEnumerable<Advertisement> Find(string keyword,
+            params Expression<Func<Advertisement, object>>[] includeExpressions)
+        {
+            string lowerKeyWord = keyword.ToLower();
+            var isCategory = _context.Categories.Where((cat) => cat.Name.Equals(lowerKeyWord));
+            bool exists = false;
+            int catId = -1;
+            foreach (var category in isCategory)
+            {
+                exists = true;
+                catId = category.Id;
+            }
+            if (exists)
+            {                
 
-        //public IEnumerable<TEntity> Where(Expression<Func<TEntity, bool>> filter)
+                var inc = includeExpressions
+               .Aggregate
+                (_context.Advertisements.Where((adv) => adv.CategoryId == catId),
+                (current, expression) => current.Include(expression));
+                
+                return inc;
+            }
+
+            string tempKeyWord = char.ToUpper(keyword[0]) + keyword.Substring(1);
+            //Types start from Uppercase letter
+            var isType = _context.Types.Where((type) => type.Name.Equals(tempKeyWord));
+            exists = false;
+            foreach (var advType in isType)
+                exists = true;
+
+            if (exists)
+            {
+                return includeExpressions
+               .Aggregate
+                (_context.Advertisements.Where((adv) => adv.Type.Name.Equals(tempKeyWord)),
+                (current, expression) => current.Include(expression));
+
+            }
+
+
+            var advsByDescription = includeExpressions
+               .Aggregate
+                (_context.Advertisements.Where((adv) => adv.Description.Contains(keyword)),
+                (current, expression) => current.Include(expression));
+
+            var advsByName = includeExpressions
+              .Aggregate
+               (_context.Advertisements.Where((adv) => adv.Title.Contains(keyword)),
+               (current, expression) => current.Include(expression));
+
+            List<Advertisement> advsResult = new List<Advertisement>();
+
+            foreach (var advert in advsByDescription)
+            {
+                advsResult.Add(advert);
+            }
+            foreach (var advert in advsByName)
+            {
+                if (!advsResult.Contains(advert))
+                    advsResult.Add(advert);
+            }
+
+            return advsResult;
+        }
+
+        //public IEnumerable<Advertisement> FindByUser(string id, params Expression<Func<Advertisement, object>>[] includeExpressions)
         //{
-        //    return _context.Set<TEntity>().Where(filter).ToList();
+        //    return includeExpressions.Aggregate(
+        //        _context.Advertisements.Where(advert => advert.ApplicationUserId == id),
+        //        (current, expression) => current.Include(expression));
         //}
 
         public IEnumerable<Advertisement> Find(string keyword,

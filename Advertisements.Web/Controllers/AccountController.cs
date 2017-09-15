@@ -376,6 +376,19 @@ namespace Advertisements.Web.Controllers
             };
         }
 
+        [System.Web.Http.Route("getavatar/{id}")]
+        [System.Web.Http.HttpGet]
+        public async Task<string> GetUserAvatar(string id)
+        {
+            var user = await UserManager.FindByIdAsync(id);
+
+            if (user == null)
+            {
+                return string.Empty;
+            }
+            return Convert.ToBase64String(user.Avatar);
+        }
+
         // POST api/Account/ChangePassword
         [System.Web.Http.Route("ChangePassword")]
         public async Task<IHttpActionResult> ChangePassword(ChangePasswordBindingModel model)
@@ -414,6 +427,8 @@ namespace Advertisements.Web.Controllers
 
             return Ok();
         }
+
+        
 
         // POST api/Account/AddExternalLogin
         [System.Web.Http.Route("AddExternalLogin")]

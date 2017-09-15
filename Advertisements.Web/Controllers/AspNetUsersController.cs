@@ -37,6 +37,14 @@ namespace Advertisements.Web.Controllers
         public AspNetUsersDTO Get(string id)
         {
             return service.Get(id);
+        }       
+
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("get")]
+        public IEnumerable<AspNetUsersDTO> Get()
+        {
+            return service.GetAll(); 
         }
     }
 }
