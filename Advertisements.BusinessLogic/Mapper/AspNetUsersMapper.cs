@@ -17,20 +17,8 @@ namespace Advertisements.BusinessLogic.Mapper
                 {
                     Id = source.Id,
                     Email = source.Email,
-                    EmailConfirmed = source.EmailConfirmed,
-                    IsActive = source.IsActive,
-                    PasswordHash = source.PasswordHash,
-                    SecurityStamp = source.SecurityStamp,
-                    PhoneNumber = source.PhoneNumber,
-                    PhoneNumberConfirmed = source.PhoneNumberConfirmed,
-                    TwoFactorEnabled = source.TwoFactorEnabled,
-                    LockoutEndDateUtc = source.LockoutEndDateUtc,
-                    LockoutEnabled = source.LockoutEnabled,
-                    AccessFailedCount = source.AccessFailedCount,
-                    UserName = source.UserName,
-                    Avatar = source.Avatar
+                    UserName = source.UserName
                 }));
-
             return mapper;
         }
 
@@ -49,17 +37,7 @@ namespace Advertisements.BusinessLogic.Mapper
                 {
                     Id = source.Id,
                     Email = source.Email,
-                    EmailConfirmed = source.EmailConfirmed,
-                    IsActive = source.IsActive,
-                    PasswordHash = source.PasswordHash,
-                    SecurityStamp = source.SecurityStamp,
-                    PhoneNumber = source.PhoneNumber,
-                    PhoneNumberConfirmed = source.PhoneNumberConfirmed,
-                    TwoFactorEnabled = source.TwoFactorEnabled,
-                    LockoutEnabled = source.LockoutEnabled,
-                    AccessFailedCount = source.AccessFailedCount,
-                    UserName = source.UserName,
-                    Avatar = source.Avatar
+                    UserName = source.UserName
                 }));
 
             return mapper;

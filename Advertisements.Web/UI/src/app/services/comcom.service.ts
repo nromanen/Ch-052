@@ -31,6 +31,10 @@ export class ComcomService {
     clearObservableToken() {
         this.comcomSubject.next();
     }
+    
+    clearObservableRole() {
+        this.afterLoginSubject.next();
+    }
 
     clearToken() {
         this.token = null;

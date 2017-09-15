@@ -56,6 +56,14 @@ namespace Advertisements.Web.Controllers
             return advertService.Find(keyword);
         }
 
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("findbyuser/{id}")]
+        public IEnumerable<AdvertisementDTO> FindByUser(string id)
+        {
+            return userService.GetByUser(id);
+        }
+
         [Authorize]
         [HttpPost]
         [Route("add")]
@@ -111,21 +119,7 @@ namespace Advertisements.Web.Controllers
                 Content = new StringContent("../../../assets/uploads/" + task.GetLocalFileName())
             };
         }
-
-        //[HttpPost]
-        //public ActionResult Index(HttpPostedFileBase file)
-        //{
-
-        //    if (file.ContentLength > 0)
-        //    {
-        //        var fileName = Path.GetFileName(file.FileName);
-        //        var path = Path.Combine(Server.MapPath("~/App_Data/uploads"), fileName);
-        //        file.SaveAs(path);
-        //    }
-
-        //    return RedirectToAction("Index");
-        //}
-
+      
         public class CustomMultipartFormDataStreamProvider : MultipartFormDataStreamProvider
         {
             string imageName;      

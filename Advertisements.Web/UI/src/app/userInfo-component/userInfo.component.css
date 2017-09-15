@@ -1,0 +1,171 @@
+
+
+
+.advertisement-class {
+    margin: 0 0 2em 0;
+    list-style-type: none;
+    padding: 0;
+    width: 15em;
+}
+
+.advertisement-class li {
+    cursor: pointer;
+    position: relative;
+    left: 0;
+    background-color: #EEE;
+    margin: .5em;
+    padding: .3em 0;
+    height: 1.6em;
+    border-radius: 4px;
+}
+
+.advertisement-class li.selected:hover {
+    background-color: #BBD8DC !important;
+    color: white;
+}
+
+.advertisement-class li:hover {
+    color: #607D8B;
+    background-color: #DDD;
+    left: .1em;
+}
+
+.advertisement-class .text {
+    position: relative;
+    top: -3px;
+}
+
+.advertisement-class .badge {
+    display: inline-block;
+    font-size: small;
+    color: white;
+    padding: 0.8em 0.7em 0 0.7em;
+    background-color: #607D8B;
+    line-height: 1em;
+    position: relative;
+    left: -1px;
+    top: -4px;
+    height: 1.8em;
+    margin-right: .8em;
+    border-radius: 4px 0 0 4px;
+}
+
+.img-advert {
+    margin: 5px;
+    width: 95%;
+    min-height: 10vw;
+    max-width: 15vw;
+}
+
+.div-advertisement-image {             
+    border: 1px solid lightgray;
+    border-radius:  5px;     
+    text-align: center;
+    width: 95%;
+} 
+
+td.img { 
+    width: 25%;
+    margin: 3px;
+    border: 1px solid #777;
+    text-align: center;
+}
+                      
+td.title {
+    font-size: 200%;
+    text-align: center;
+    width: 65%;
+    margin: 3px;
+}
+
+td.description {
+    font-size: 120%;
+    font-style: italic;
+    text-align: left;
+    display: block;
+    word-break: break-all;
+    overflow-wrap: break-word;
+    margin: 3px;
+}
+
+td.price {
+    font-size: 150%;
+    right:15pt;
+    text-align: right;
+    width: 65%;
+    margin: 3px;
+}
+td.userName
+{
+    font-size: 130%;
+    width: 30%;
+    margin: 3px;
+    text-align: left;
+    border-right: 1px solid #777;
+}
+
+td.buttons{
+    width: 10%;
+    margin: 3px;
+    text-align: center;
+    border: 1px solid #777;
+}
+
+.td-adverttisement-texts {
+    position:relative;
+    word-wrap:break-word;
+}
+
+.bottom-allignement {
+    vertical-align: bottom;
+}
+
+.container.adv-container {
+    text-align: left;
+    width: 90%;
+}
+
+td.TC{
+    font-size: 130%;
+    width: 30%;
+    margin: 3px;
+    text-align: left;
+    border-right: 1px solid #777;
+}
+
+table.table-adv{
+    table-layout: fixed;
+    width: 95%;
+    margin: 1px auto;
+}
+table.table-adv-inner{
+    table-layout: fixed;
+    min-height: 200px;
+    margin: 0px auto;
+    border: 1px solid #777 !important;
+}
+
+table.table-adv-inner td{
+    vertical-align: middle !important;
+}
+td, th {
+    border-top: 0px !important; 
+}
+.table{
+    padding: 8px;
+    line-height: 1.42857143;
+}
+
+.userAvatar
+{
+    max-width: 100%;
+    height: auto;
+}
+#advertisementsForm
+{
+    background: #C4BEBE
+}
+#advertisementsUserHeader
+{
+    padding-top: 10px;
+}

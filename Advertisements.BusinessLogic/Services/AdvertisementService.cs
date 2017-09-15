@@ -46,12 +46,12 @@ namespace Advertisements.BusinessLogic.Services
                 var repo = uow.GetRepo<Advertisement>();
 
 
-                advertisements = repo.Find(keyword, x => x.Resources/*, x => x.Type, x => x.Category*/);
+                advertisements = repo.Find(keyword, x => x.Resources);
                 dtos = AdvertisementMapper.CreateListAdvertisementDTO().Map(advertisements).ToList();
             }
 
             return dtos;
-        }
+        }        
 
         public AdvertisementDTO Get(int id)
         {
@@ -124,5 +124,7 @@ namespace Advertisements.BusinessLogic.Services
             IEnumerable<AdvertisementDTO> dtos = AdvertisementMapper.CreateListAdvertisementDTO().Map(Advertisement).ToList();
             return dtos;
         }
+
+        
     }
 }

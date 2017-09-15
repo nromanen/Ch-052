@@ -44,14 +44,7 @@ export class RegistrationComponent implements OnInit //implements OnInit
   }
 
 
-  //  public registerForm = this.formBuild.group({
-  //     firstName:["",Validators.required],
-  //     surname:["",Validators.required],
-  //     eMail:["",Validators.required],
-  //     password:["",Validators.required],
-  //     passwordRepeat:["",Validators.required]
-  //  });
-
+ 
   public OnSubmit(registerModel: UserRegisterModel, isValid: boolean): void {
     this.registerModel = new UserRegisterModel(registerModel.Name, registerModel.Surname,
       registerModel.Email, registerModel.Password, registerModel.ConfPassword);

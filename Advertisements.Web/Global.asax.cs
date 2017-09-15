@@ -10,7 +10,8 @@ using SimpleInjector.Lifestyles;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
-using System.Web.Routing;       
+using System.Web.Routing;
+using Advertisements.BusinessLogic.Services;
 namespace Advertisements.Web
 {
     public class WebApiApplication : System.Web.HttpApplication
@@ -39,6 +40,8 @@ namespace Advertisements.Web
             container.Register(typeof(IAdvertisementAwareService<AdvertisementDTO>), typeof(AdvertisementService));
             container.Register(typeof(IService<PasswordRecoveryDTO>), typeof(PasswordRecoveryService));
             container.Register(typeof(IService<ResourceDTO>), typeof(ResourceService));
+            container.Register(typeof(IUserService<AdvertisementUsersDTO>), typeof(AdvertisementUsersService));
+
 
             DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(container));
             GlobalConfiguration.Configuration.DependencyResolver = new SimpleInjectorWebApiDependencyResolver(container);

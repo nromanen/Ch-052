@@ -16,7 +16,6 @@ import { AdvInfoComponent } from './advInfo-component/advInfo.component';
 import { httpFactory } from "./http.factory";
 import { CategoryComponent } from './category-component/category.component';
 import { TypeComponent } from './type-component/type.component';
-
 import { AdvertisementService } from './services/advertisement.service';
 import { LoginService } from './services/login.service';
 import { FeedbackService } from './services/feedback.service';
@@ -37,6 +36,9 @@ import { ConfirmEmailComponent } from "./confirmemail-component/confirmemail.com
 import { ConfirmEmailService } from "./services/confirmemail.service";
 import {SearchService} from "./services/search.service"
 import {SearchComponent} from "./search-component/search.component"
+import { UsersService } from "./services/users.service";
+import { UserInfoComponent } from "./userInfo-component/userInfo.component";
+import { UserAvatarDirective } from "./directives/useravatar.directive";
 
 @NgModule({
   declarations: [
@@ -58,7 +60,9 @@ import {SearchComponent} from "./search-component/search.component"
     ConfirmEmailComponent,
     CategoryComponent,
     TypeComponent,
-    SearchComponent
+    SearchComponent,
+    UserInfoComponent,
+    UserAvatarDirective
   ],
   imports: [
     BrowserModule,
@@ -79,6 +83,7 @@ import {SearchComponent} from "./search-component/search.component"
       RestorePasswordService,
       ConfirmEmailService,
       SearchService,
+      UsersService,
     {
       provide: Http,
       useFactory: httpFactory,
