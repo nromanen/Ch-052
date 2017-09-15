@@ -36,6 +36,7 @@ const routes: Routes = [
   {path: 'confirmemail',component:ConfirmEmailComponent},
   {path: 'search',component:SearchComponent},
   {path: 'userinfo',component:UserInfoComponent}
+
 ];
 
 @NgModule({

@@ -40,6 +40,7 @@ import { UsersService } from "./services/users.service";
 import { UserInfoComponent } from "./userInfo-component/userInfo.component";
 import { UserAvatarDirective } from "./directives/useravatar.directive";
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -63,6 +64,7 @@ import { UserAvatarDirective } from "./directives/useravatar.directive";
     SearchComponent,
     UserInfoComponent,
     UserAvatarDirective
+
   ],
   imports: [
     BrowserModule,
@@ -84,6 +86,7 @@ import { UserAvatarDirective } from "./directives/useravatar.directive";
       ConfirmEmailService,
       SearchService,
       UsersService,
+
     {
       provide: Http,
       useFactory: httpFactory,
