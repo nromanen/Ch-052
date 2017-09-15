@@ -17,6 +17,8 @@ import {RestorePasswordComponent} from './restorepassword-component/restorepassw
 import {ConfirmEmailComponent} from './confirmemail-component/confirmemail.component'
 import {SearchService} from "./services/search.service"
 import {SearchComponent} from "./search-component/search.component"
+import { UserInfoComponent } from "./userInfo-component/userInfo.component";
+
 const routes: Routes = [
   { path: '', redirectTo: '/start', pathMatch: 'full' },
   { path: 'start', component: StartComponent },
@@ -32,7 +34,9 @@ const routes: Routes = [
   { path: 'category',  component: CategoryComponent },
   { path: 'type',  component: TypeComponent },
   {path: 'confirmemail',component:ConfirmEmailComponent},
-  {path: 'search',component:SearchComponent}
+  {path: 'search',component:SearchComponent},
+  {path: 'userinfo',component:UserInfoComponent}
+
 ];
 
 @NgModule({

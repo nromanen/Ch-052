@@ -1,5 +1,6 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div *ngIf="advertisements && types && categories">
+
+<div *ngIf="advertisements && types && categories && Users">
   <div style="text-align:center">
     <h1 class="title-header">
       Recent Advertisements!
@@ -9,7 +10,7 @@
     <tr *ngFor="let advertisement of advertisements">
       <table myHighlight class="table table-adv-inner" (click)="redirect(advertisement.Id)">
         <tr>
-          <td rowspan="5" class="img">
+          <td rowspan="6" class="img">
             <img class="img-advert" src="{{advertisement.Resources[0].Url}}">
           </td>
           <td class="title">
@@ -24,6 +25,14 @@
         </tr>
         <tr>
           <td class="description"> {{advertisement.Description}} </td>
+        </tr>
+        <tr>
+          <td class="userName"> 
+            <button (click) = 'redirectToUserInfo(advertisement.ApplicationUserId)' class="userInfoBtn">
+              <i class = "fa fa-user-circle-o" aria-hidden="true"></i>
+                Author: {{GetUserName(advertisement.ApplicationUserId)}}
+            </button>                   
+          </td>
         </tr>
         <tr>
           <td class="price"> Price: {{advertisement.Price}} ₴ </td>

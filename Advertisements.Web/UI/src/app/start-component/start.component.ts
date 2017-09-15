@@ -11,13 +11,14 @@ import { Token } from '../models/token';
 import { Advertisement } from '../models/advertisement';
 import { TypeService } from '../services/type.service';
 import { CategoryService } from '../services/category.service';
-
+import { UsersService } from "../services/users.service";
+import { AdvertisementsUserModel } from "../models/AdvertisementsUserModel";
 @Component({
   moduleId: module.id.toString(),
   selector: 'start-root',
   templateUrl: './start.component.html',
   styleUrls: ['./start.component.css'],
-  providers: [AdvertisementService, CategoryService, TypeService]
+  providers: [AdvertisementService, CategoryService, TypeService,UsersService]
 })
 export class StartComponent implements OnInit {
   token: Token;
@@ -26,7 +27,9 @@ export class StartComponent implements OnInit {
     private advertisementService: AdvertisementService,
     private loginService: LoginService,
     private typeService: TypeService,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+    private usersService: UsersService
+
   ) { }
   title: string = 'Advertisements';
 
@@ -34,10 +37,17 @@ export class StartComponent implements OnInit {
   advertisements: Advertisement[];
   selectedAdvertisement: Advertisement;
   private types: Type[];
-  private categories: Type[];
+  private categories: Category[];
+  private Users: AdvertisementsUserModel[];
+
 
   getAdvertisements(): void {
     this.advertisementService.getAds().then(result => { this.advertisements = result; });
+  }
+
+  getUsers():void
+  {
+    this.usersService.GetAdvertisementsUsers().then(users => this.Users = users);
   }
 
   getTypes(): void {
@@ -48,7 +58,17 @@ export class StartComponent implements OnInit {
     this.categoryService.getCategories().then(category => this.categories = category);
   }
 
+ public GetUserName(id:string):string
+ {
+    let user :AdvertisementsUserModel = this.Users.find(el => el.Id==id)
+    if (user !=null)
+      return user.UserName;
+    else
+      return "unknown";
+ } 
+
   ngOnInit(): void {
+    this.getUsers();
     this.getTypes();
     this.getCategories();
     this.getAdvertisements();
@@ -56,5 +76,10 @@ export class StartComponent implements OnInit {
 
   redirect(Id: number): void {
     this.router.navigate(['/info', Id]);
+  }
+
+  redirectToUserInfo(ApplicationUserId: string)
+  {
+    this.router.navigate(['/userinfo'], {queryParams: { id: ApplicationUserId }});  
   }
 }
