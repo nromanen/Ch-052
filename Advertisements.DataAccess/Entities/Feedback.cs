@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using System.Runtime.Serialization;
 using System.Collections.Generic;
 
 namespace Advertisements.DataAccess.Entities
@@ -9,6 +8,8 @@ namespace Advertisements.DataAccess.Entities
     public class Feedback : IEntity
     {
         public int Id { get; set; }
+
+        public bool IsDeleted { get; set; }
 
         public string Text { get; set; }
 

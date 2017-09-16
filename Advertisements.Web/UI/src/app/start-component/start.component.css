@@ -349,80 +349,13 @@ form:after {
 }
 
 
-
-
-
-
-  
         /*Custom*/
-
-.selected {
-    background-color: #CFD8DC !important;
-    color: white;
-}
-
-.advertisement-class {
-    margin: 0 0 2em 0;
-    list-style-type: none;
-    padding: 0;
-    width: 15em;
-}
-
-.advertisement-class li {
-    cursor: pointer;
-    position: relative;
-    left: 0;
-    background-color: #EEE;
-    margin: .5em;
-    padding: .3em 0;
-    height: 1.6em;
-    border-radius: 4px;
-}
-
-.advertisement-class li.selected:hover {
-    background-color: #BBD8DC !important;
-    color: white;
-}
-
-.advertisement-class li:hover {
-    color: #607D8B;
-    background-color: #DDD;
-    left: .1em;
-}
-
-.advertisement-class .text {
-    position: relative;
-    top: -3px;
-}
-
-.advertisement-class .badge {
-    display: inline-block;
-    font-size: small;
-    color: white;
-    padding: 0.8em 0.7em 0 0.7em;
-    background-color: #607D8B;
-    line-height: 1em;
-    position: relative;
-    left: -1px;
-    top: -4px;
-    height: 1.8em;
-    margin-right: .8em;
-    border-radius: 4px 0 0 4px;
-}
-
 .img-advert {
     margin: 5px;
     width: 95%;
     min-height: 10vw;
     max-width: 15vw;
 }
-
-.div-advertisement-image {             
-    border: 1px solid lightgray;
-    border-radius:  5px;     
-    text-align: center;
-    width: 95%;
-} 
 
 td.img { 
     width: 25%;
@@ -471,15 +404,6 @@ td.buttons{
     border: 1px solid #777;
 }
 
-.td-adverttisement-texts {
-    position:relative;
-    word-wrap:break-word;
-}
-
-.bottom-allignement {
-    vertical-align: bottom;
-}
-
 .container.adv-container {
     text-align: left;
     width: 90%;
@@ -498,6 +422,7 @@ table.table-adv{
     width: 95%;
     margin: 1px auto;
 }
+
 table.table-adv-inner{
     table-layout: fixed;
     min-height: 200px;
@@ -514,4 +439,49 @@ td, th {
 .table{
     padding: 8px;
     line-height: 1.42857143;
+}
+
+div.img { 
+    margin: 5px auto;
+    border: 1px solid #777;
+    text-align: center;
+}
+                      
+div.title {
+    font-size: 200%;
+    text-align: center;
+    margin: 3px;
+}
+
+div.description {
+    font-size: 120%;
+    font-style: italic;
+    text-align: left;
+    display: block;
+    word-break: break-all;
+    overflow-wrap: break-word;
+    margin: 3px;
+}
+
+div.price {
+    font-size: 150%;
+    right:15pt;
+    text-align: right;
+    margin: 3px;
+}
+
+div.buttons{
+    height: 100%;
+    margin: 5px auto;
+    text-align: center;
+    vertical-align: middle;
+}
+
+div.TC{
+    font-size: 130%;
+    margin: 3px;
+    text-align: left;
+}
+div.border{
+    border: 1px solid #777;
 }

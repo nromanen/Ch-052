@@ -27,14 +27,14 @@ namespace Advertisements.DataAccess.Repositories
         {
             var item = _context.Set<TEntity>().Find(id);
             if (item != null)
-                _context.Set<TEntity>().Remove(item);
+                item.IsDeleted = true;
         }
 
         public void Delete(string id)
         {
             var item = _context.Set<TEntity>().Find(id);
             if (item != null)
-                _context.Set<TEntity>().Remove(item);
+                item.IsDeleted = true;
         }
 
         public TEntity Get(int id)
@@ -49,14 +49,14 @@ namespace Advertisements.DataAccess.Repositories
 
         public IEnumerable<TEntity> GetAll()
         {
-            return _context.Set<TEntity>().ToList();
+            return _context.Set<TEntity>().Where(r => r.IsDeleted != true).ToList();
         }
 
         public IEnumerable<TEntity> GetAll(params Expression<Func<TEntity, object>>[] includeExpressions)
         {
             return includeExpressions
               .Aggregate<Expression<Func<TEntity, object>>, IQueryable<TEntity>>
-               (_context.Set<TEntity>(), (current, expression) => current.Include(expression)).ToList();
+               (_context.Set<TEntity>().Where(r => r.IsDeleted != true), (current, expression) => current.Include(expression)).ToList();
         }
 
         public TEntity Get(
@@ -67,7 +67,7 @@ namespace Advertisements.DataAccess.Repositories
             {
                 var set = includeExpressions
                   .Aggregate<Expression<Func<TEntity, object>>, IQueryable<TEntity>>
-                    (_context.Set<TEntity>(), (current, expression) => current.Include(expression));
+                    (_context.Set<TEntity>().Where(r => r.IsDeleted != true), (current, expression) => current.Include(expression));
 
                 return set.SingleOrDefault(s => s.Id == id);
             }

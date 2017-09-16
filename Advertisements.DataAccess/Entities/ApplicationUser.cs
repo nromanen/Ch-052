@@ -11,6 +11,7 @@ namespace Advertisements.DataAccess.Entities
 {
     public class ApplicationUser : IdentityUser,IEntity
     {
+        public bool IsDeleted { get; set; }
         public override string Email { get; set; }
         public bool IsActive { get; set; }
         public byte[] Avatar { get; set; }

@@ -34,4 +34,29 @@
       </table>
     </tr>
   </table>
+    <!-- <div class="container adv-container">
+      <div myHighlight class="row adv-row" *ngFor="let advertisement of advertisements">
+        <div class="border">
+          <div class="col-sm-2">
+            <div class="item">
+              <img class="img-advert" src="{{advertisement.Resources[0].Url}}">
+            </div>
+          </div>
+          <div class="col-sm-8">
+            <div class="title"> {{advertisement.Title}} </div>
+            <div class="TC">Type: {{types[advertisement.TypeId].Name}} </div>
+            <div class="TC">Category: {{categories[advertisement.CategoryId].Name}} </div>
+            <div class="description"> {{advertisement.Description}} </div>
+            <div class="price"> Price: {{advertisement.Price}} </div>
+          </div>
+          <div class="col-sm-1 buttons">
+            <div class="btn-group-vertical buttons-group">
+              <button type="button" class="btn btn-danger" (click)=deleteLoggedUserAds(advertisement)><span class="glyphicon glyphicon-trash"></span></button>
+              <button type="button" class="btn btn-success" [routerLink]="['/edit',advertisement.Id]"><span class="glyphicon glyphicon-pencil"></span></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
 </div>

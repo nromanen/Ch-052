@@ -6,6 +6,8 @@ namespace Advertisements.DataAccess.Entities
 {
     public class PasswordRecovery : IEntity
     {
+        public bool IsDeleted { get; set; }
+
         [Key, ForeignKey("ApplicationUser")]
         public string ApplicationUserId { get; set; }
 

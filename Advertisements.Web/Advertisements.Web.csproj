@@ -368,10 +368,13 @@
     <Content Include="UI\src\app\advInfo-component\advInfo.component.html" />
     <Content Include="UI\src\app\category-component\category.component.css" />
     <Content Include="UI\src\app\category-component\category.component.html" />
+    <Content Include="UI\src\app\confirmemail-component\confirmemail.component.html" />
     <Content Include="UI\src\app\createAdv-component\createAdv.component.css" />
     <Content Include="UI\src\app\createAdv-component\createAdv.component.html" />
     <Content Include="UI\src\app\editAdv-component\editAdv.component.css" />
     <Content Include="UI\src\app\editAdv-component\editAdv.component.html" />
+    <Content Include="UI\src\app\loggedUserAds-component\loggedUserAds.component.css" />
+    <Content Include="UI\src\app\loggedUserAds-component\loggedUserAds.component.html" />
     <Content Include="UI\src\app\registration-component\registration.component.css" />
     <Content Include="UI\src\app\registration-component\registration.component.html" />
     <Content Include="UI\src\app\restorepassword-component\restorepassword.component.css" />
@@ -421,8 +424,6 @@
     <Content Include="UI\src\app\login-component\login.component.html" />
     <Content Include="UI\src\app\start-component\start.component.css" />
     <Content Include="UI\src\app\start-component\start.component.html" />
-    <Content Include="UI\src\app\usersAdv-component\usersAdv.component.css" />
-    <Content Include="UI\src\app\usersAdv-component\usersAdv.component.html" />
     <Content Include="UI\src\favicon.ico" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -487,11 +488,9 @@
     <None Include="UI\src\app\models\register.view.model.ts" />
     <None Include="UI\src\app\models\token.ts" />
     <None Include="UI\src\app\services\advertisement.service.ts" />
-    <None Include="UI\src\app\services\advertisementCurrent.service.ts" />
     <None Include="UI\src\app\services\feedback.service.ts" />
     <None Include="UI\src\app\services\login.service.ts" />
     <None Include="UI\src\app\start-component\start.component.ts" />
-    <None Include="UI\src\app\usersAdv-component\usersAdv.component.ts" />
     <None Include="UI\src\environments\environment.prod.ts" />
     <None Include="UI\src\environments\environment.ts" />
     <None Include="UI\src\main.ts" />
@@ -507,18 +506,29 @@
   <ItemGroup>
     <TypeScriptCompile Include="UI\src\app\advInfo-component\advInfo.component.ts" />
     <TypeScriptCompile Include="UI\src\app\category-component\category.component.ts" />
+    <TypeScriptCompile Include="UI\src\app\confirmemail-component\confirmemail.component.ts" />
     <TypeScriptCompile Include="UI\src\app\createAdv-component\createAdv.component.ts" />
+    <TypeScriptCompile Include="UI\src\app\directives\admin.directive.ts" />
     <TypeScriptCompile Include="UI\src\app\directives\equalvalidator.directive.ts" />
+    <TypeScriptCompile Include="UI\src\app\directives\highlight.directive.ts" />
+    <TypeScriptCompile Include="UI\src\app\directives\isloggedin.directive.ts" />
     <TypeScriptCompile Include="UI\src\app\editAdv-component\editAdv.component.ts" />
     <TypeScriptCompile Include="UI\src\app\http.factory.ts" />
     <TypeScriptCompile Include="UI\src\app\http.interceptor.ts" />
+    <TypeScriptCompile Include="UI\src\app\loggedUserAds-component\loggedUserAds.component.ts" />
+    <TypeScriptCompile Include="UI\src\app\models\category.ts" />
+    <TypeScriptCompile Include="UI\src\app\models\notification.ts" />
+    <TypeScriptCompile Include="UI\src\app\models\resource.ts" />
     <TypeScriptCompile Include="UI\src\app\models\RestorePasswordViewModel.ts" />
     <TypeScriptCompile Include="UI\src\app\models\UserRegisterModel.ts" />
     <TypeScriptCompile Include="UI\src\app\registration-component\registration.component.ts" />
     <TypeScriptCompile Include="UI\src\app\restorepassword-component\restorepassword.component.ts" />
+    <TypeScriptCompile Include="UI\src\app\services\category.service.ts" />
     <TypeScriptCompile Include="UI\src\app\services\comcom.service.ts" />
+    <TypeScriptCompile Include="UI\src\app\services\confirmemail.service.ts" />
     <TypeScriptCompile Include="UI\src\app\services\registration.service.ts" />
     <TypeScriptCompile Include="UI\src\app\services\restorepassword.service.ts" />
+    <TypeScriptCompile Include="UI\src\app\services\type.service.ts" />
     <TypeScriptCompile Include="UI\src\app\tryrestorepassword-component\tryrestorepassword.component.ts" />
     <TypeScriptCompile Include="UI\src\app\type-component\type.component.ts" />
   </ItemGroup>

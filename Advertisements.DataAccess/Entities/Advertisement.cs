@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Advertisements.DataAccess.Entities
 {
     public class Advertisement : IEntity
     {
         public int Id { get; set; }
+
+        public bool IsDeleted { get; set; }
 
         public string Title { get; set; }
 
