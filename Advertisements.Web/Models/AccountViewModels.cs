@@ -49,6 +49,7 @@ namespace Advertisements.Web.Models
 
         public string Password { get; set; }
 
+        public string Avatar { get; set; }
     }
 
     public class RestorePasswordReqViewModel

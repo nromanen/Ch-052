@@ -35,7 +35,7 @@ namespace Advertisements.BusinessLogic.Services
             IEnumerable<AdvertisementDTO> dtos = AdvertisementMapper.CreateListAdvertisementDTO().Map(advertisements).ToList();
 
             return dtos;
-        }
+        }        
 
         public IEnumerable<AdvertisementDTO> Find(string keyword)
         {
@@ -46,7 +46,7 @@ namespace Advertisements.BusinessLogic.Services
                 var repo = uow.GetRepo<Advertisement>();
 
 
-                advertisements = repo.Find(keyword, x => x.Resources);               
+                advertisements = repo.Find(keyword, x => x.Resources);
                 dtos = AdvertisementMapper.CreateListAdvertisementDTO().Map(advertisements).ToList();
             }
 
@@ -119,7 +119,7 @@ namespace Advertisements.BusinessLogic.Services
             using (var uow = _uowfactory.CreateUnitOfWork())
             {
                 var repo = uow.GetRepo<Advertisement>();
-                Advertisement = repo.GetAll(o => o.Resources).Where(e => e.ApplicationUserId == id && e.IsDeleted != true);
+                Advertisement = repo.GetAll(o => o.Resources).Where(e => e.ApplicationUserId == id);
             }
             IEnumerable<AdvertisementDTO> dtos = AdvertisementMapper.CreateListAdvertisementDTO().Map(Advertisement).ToList();
             return dtos;
