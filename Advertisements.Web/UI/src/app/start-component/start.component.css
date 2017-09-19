@@ -424,17 +424,17 @@ form:after {
     width: 95%;
 } 
 
-td.img { 
-    width: 25%;
+td.img {
+    width: 50%;
     margin: 3px;
     border: 1px solid #777;
     text-align: center;
-}
+ }
                       
 td.title {
     font-size: 200%;
     text-align: center;
-    width: 65%;
+    width: 40%;
     margin: 3px;
 }
 
@@ -452,13 +452,13 @@ td.price {
     font-size: 150%;
     right:15pt;
     text-align: right;
-    width: 65%;
+    width: 40%;
     margin: 3px;
 }
 td.userName
 {
     font-size: 130%;
-    width: 30%;
+    width: 40%;
     margin: 3px;
     text-align: left;
     border-right: 1px solid #777;
@@ -487,7 +487,7 @@ td.buttons{
 
 td.TC{
     font-size: 130%;
-    width: 30%;
+    width: 40%;
     margin: 3px;
     text-align: left;
     border-right: 1px solid #777;
@@ -495,7 +495,7 @@ td.TC{
 
 table.table-adv{
     table-layout: fixed;
-    width: 95%;
+    width: 65%;
     margin: 1px auto;
 }
 table.table-adv-inner{
@@ -515,3 +515,8 @@ td, th {
     padding: 8px;
     line-height: 1.42857143;
 }
+
+img.img-size {
+    height: 500px;
+    
+    }

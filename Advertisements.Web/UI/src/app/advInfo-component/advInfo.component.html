@@ -4,7 +4,11 @@
       <table class="table table-adv-inner">
         <tr>
           <td rowspan="5" class="img">
-            <img class="img-advert" src="{{advertisement.Resources[0].Url}}">
+            <carousel>
+              <slide *ngFor="let item of advertisement.Resources; let i = index">
+                <img src="{{item.Url}}" alt="slide #{{i}}" class="img-size">
+              </slide>
+             </carousel>
           </td>
           <td class="title">
             {{advertisement.Title}}

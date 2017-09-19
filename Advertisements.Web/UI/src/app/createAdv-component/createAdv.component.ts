@@ -28,12 +28,12 @@ export class CreateAdvComponent implements OnInit {
     private route: ActivatedRoute,
     private http: Http) { }
 
-  resource: Resource = new Resource();
-  advertisement: Advertisement = new Advertisement();
-  categories: Category[];
-  types: Type[];
-  files: File[];
-  formData: FormData;
+    resource: Array<Resource> = new Array();
+    advertisement: Advertisement = new Advertisement();
+    categories: Category[];
+    types: Type[];
+    files: File[];
+    formData: FormData;
 
   ngOnInit() {
     this.getCategories();
@@ -50,9 +50,9 @@ export class CreateAdvComponent implements OnInit {
     this.typeService.getTypes().then(type => this.types = type);
   }
 
-  multiple: boolean = false;
+  multiple: boolean = true;
   @ViewChild('fileInput') inputEl: ElementRef;
-
+ 
   upload() {
     let inputEl: HTMLInputElement = this.inputEl.nativeElement;
     let fileCount: number = inputEl.files.length;
@@ -62,8 +62,18 @@ export class CreateAdvComponent implements OnInit {
         formData.append('file[]', inputEl.files.item(i));
       }
       this.http
-        .post('/api/Advertisement/upload', formData).subscribe(r => this.resource.Url = r.text());
-      console.log(this.resource)
+        .post('/api/Advertisement/upload', formData).subscribe(r => {
+          var str = r.text();
+          console.log("response string: " + str);
+          var res = str.split(" ");
+          for (let i = 0; i < res.length; i++) {
+            if (res[i] != "" || res[i] != " " || res[i] != null) {
+              console.log("substring" + res[i]);
+              this.resource.push(new Resource());
+              this.resource[this.resource.length-1].Url = res[i];
+            }
+          }
+        });
     }
   }
 }

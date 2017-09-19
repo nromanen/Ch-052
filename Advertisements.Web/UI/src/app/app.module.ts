@@ -39,6 +39,7 @@ import {SearchComponent} from "./search-component/search.component"
 import { UsersService } from "./services/users.service";
 import { UserInfoComponent } from "./userInfo-component/userInfo.component";
 import { UserAvatarDirective } from "./directives/useravatar.directive";
+import { CarouselModule } from 'ngx-bootstrap/carousel';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { UserAvatarDirective } from "./directives/useravatar.directive";
     HttpModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CarouselModule.forRoot()
   ],
   providers: [
     AdvertisementService,
