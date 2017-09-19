@@ -38,8 +38,8 @@ import {SearchService} from "./services/search.service"
 import {SearchComponent} from "./search-component/search.component"
 import { UsersService } from "./services/users.service";
 import { UserInfoComponent } from "./userInfo-component/userInfo.component";
-import { UserAvatarDirective } from "./directives/useravatar.directive";
 import { CarouselModule } from 'ngx-bootstrap/carousel';
+
 
 @NgModule({
   declarations: [
@@ -62,8 +62,8 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
     CategoryComponent,
     TypeComponent,
     SearchComponent,
-    UserInfoComponent,
-    UserAvatarDirective
+    UserInfoComponent
+    
   ],
   imports: [
     BrowserModule,

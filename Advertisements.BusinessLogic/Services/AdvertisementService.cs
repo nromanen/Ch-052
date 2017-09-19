@@ -35,7 +35,7 @@ namespace Advertisements.BusinessLogic.Services
             IEnumerable<AdvertisementDTO> dtos = AdvertisementMapper.CreateListAdvertisementDTO().Map(advertisements).ToList();
 
             return dtos;
-        }
+        }        
 
         public IEnumerable<AdvertisementDTO> Find(string keyword)
         {

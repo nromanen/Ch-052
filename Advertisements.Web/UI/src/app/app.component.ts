@@ -56,7 +56,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
   public GoSearch(model: SearchModel):void
   {
-     // window.location.replace('/search?keyword='+model.Key);
       
       this.router.navigate(['/search'], {queryParams: { keyword: model.Key }});  
           
