@@ -364,8 +364,15 @@ form:after {
     width: 95%;
 } 
 
-td.img {
+td.img-info {
     width: 50%;
+    margin: 3px;
+    border: 1px solid #777;
+    text-align: center;
+ }
+
+ td.img {
+    width: 30%;
     margin: 3px;
     border: 1px solid #777;
     text-align: center;
@@ -443,8 +450,12 @@ table.table-adv-inner td{
 td, th {
     border-top: 0px !important; 
 }
+
 .table {
     padding: 8px;
     line-height: 1.42857143;
 }
+
+img.img-size {
+    height: 500px;
 }

@@ -26,9 +26,14 @@ export class UserInfoComponent implements OnInit
     private categories: Type[];
     private AspNetUser: AspNetUserModel;
     private Advertisements: Advertisement[];
-    public constructor(private ActivRoute:ActivatedRoute, private UserService:UsersService,
-    private TService: TypeService, private CatService: CategoryService, 
-    private advService: AdvertisementService, private Sanitizer: DomSanitizer)
+    
+    public constructor(private ActivRoute:ActivatedRoute, 
+        private UserService:UsersService,
+        private TService: TypeService,
+        private CatService: CategoryService, 
+        private advService: AdvertisementService, 
+        private Sanitizer: DomSanitizer, 
+        private router: Router)
     {}
 
     ngOnInit()
@@ -72,4 +77,7 @@ export class UserInfoComponent implements OnInit
     {
         return this.Sanitizer.bypassSecurityTrustUrl(this.Avatar);
     }
+    redirect(Id: number): void {
+        this.router.navigate(['/info', Id]);
+      }
 }
