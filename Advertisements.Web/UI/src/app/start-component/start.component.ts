@@ -29,7 +29,6 @@ export class StartComponent implements OnInit {
     private typeService: TypeService,
     private categoryService: CategoryService,
     private usersService: UsersService
-
   ) { }
   title: string = 'Advertisements';
 
@@ -39,7 +38,6 @@ export class StartComponent implements OnInit {
   private types: Type[];
   private categories: Category[];
   private Users: AdvertisementsUserModel[];
-
 
   getAdvertisements(): void {
     this.advertisementService.getAds().then(result => { this.advertisements = result; });

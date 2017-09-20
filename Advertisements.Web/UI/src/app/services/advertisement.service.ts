@@ -40,26 +40,25 @@ export class AdvertisementService {
             .catch(this.handleError);
     }
 
-    getAdsByUser(id: string): Promise<Advertisement[]>
-    {
+    getAdsByUser(id: string): Promise<Advertisement[]> {
         let getAdvertsByUserUrl = "/api/Advertisement/findbyuser/";
 
-        return this.http.get(getAdvertsByUserUrl+id)
-        .toPromise()
-        .then(response =>{
-            this.advertisements = response.json() as Advertisement[];        
-            
-            this.advertisements.forEach(element => {
-                if (element.Resources[0].Url == null && element.Resources.length > 0)
-                    element.Resources[0].Url = "../../../assets/images/noPhoto.png"
-                if (element.Resources.length == 0)
-                    element.Resources.push(new Resource(0, '../../../assets/images/noPhoto.png', 0));
-            });
-            
-                    return this.advertisements;
+        return this.http.get(getAdvertsByUserUrl + id)
+            .toPromise()
+            .then(response => {
+                this.advertisements = response.json() as Advertisement[];
+
+                this.advertisements.forEach(element => {
+                    if (element.Resources[0].Url == null && element.Resources.length > 0)
+                        element.Resources[0].Url = "../../../assets/images/noPhoto.png"
+                    if (element.Resources.length == 0)
+                        element.Resources.push(new Resource(0, '../../../assets/images/noPhoto.png', 0));
+                });
+
+                return this.advertisements;
             })
             .catch(this.handleError);
-      
+
     }
 
     getAdv(param: any): Promise<Advertisement> {
@@ -107,9 +106,13 @@ export class AdvertisementService {
                 this.router.navigate(['/start']);
         }).map(r => r).catch(this.handleError);
     }
-    createAdv(param: Advertisement, resource: Resource): Observable<any> {
+    createAdv(param: Advertisement, resource: Resource[]): Observable<any> {
         param.Resources = [];
-        param.Resources.push(resource);
+
+        for (let i = 0; i < resource.length; i++) {
+            param.Resources.push(resource[i]);
+        }
+
         return this.http
             .get('api/AspNetUsers/get/current')
             .map(response => {

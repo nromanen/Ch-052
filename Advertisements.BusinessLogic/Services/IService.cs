@@ -20,7 +20,6 @@ namespace Advertisements.BusinessLogic.Services
     public interface IAdvertisementAwareService<T> : IService<T> where T : class
     {
         IEnumerable<T> Find(string keyword);
-
     }
 
     public interface IFeedbackAwareService<T> : IService<T> where T : class

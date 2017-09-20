@@ -92,7 +92,6 @@ namespace Advertisements.DataAccess.Repositories
                 exists = true;
                 catId = category.Id;
             }
-            //catId = 2;
             if (exists)
             {                
 
@@ -100,14 +99,8 @@ namespace Advertisements.DataAccess.Repositories
                .Aggregate
                 (_context.Advertisements.Where((adv) => adv.CategoryId == catId),
                 (current, expression) => current.Include(expression));
-
-                foreach (var a in inc)
-                {
-
-                }
+                
                 return inc;
-
-                //_context.Advertisements.Where(adv => adv.Category.Name.Equals(lowerKeyWord)).AsEnumerable();
             }
 
             string tempKeyWord = char.ToUpper(keyword[0]) + keyword.Substring(1);
@@ -124,7 +117,6 @@ namespace Advertisements.DataAccess.Repositories
                 (_context.Advertisements.Where((adv) => adv.Type.Name.Equals(tempKeyWord)),
                 (current, expression) => current.Include(expression));
 
-                //return _context.Advertisements.Where((adv) => adv.Type.Name.Equals(tempKeyWord)).AsEnumerable();
             }
 
 
@@ -133,14 +125,11 @@ namespace Advertisements.DataAccess.Repositories
                 (_context.Advertisements.Where((adv) => adv.Description.Contains(keyword)),
                 (current, expression) => current.Include(expression));
 
-            //var advsByDescription = _context.Advertisements.Where(r => r.Description.Contains(keyword));
-
             var advsByName = includeExpressions
               .Aggregate
                (_context.Advertisements.Where((adv) => adv.Title.Contains(keyword)),
                (current, expression) => current.Include(expression));
 
-            //var advsByName = _context.Advertisements.Where((adv) => adv.Title.Contains(keyword));
             List<Advertisement> advsResult = new List<Advertisement>();
 
             foreach (var advert in advsByDescription)
@@ -155,5 +144,10 @@ namespace Advertisements.DataAccess.Repositories
 
             return advsResult;
         }
+
+        //public IEnumerable<Advertisement> FindByUser(string id, params Expression<Func<Advertisement, object>>[] includeExpressions)
+        //{
+        //    return _context.Set<TEntity>().Where(filter).ToList();
+        //}
     }
 }

@@ -87,15 +87,29 @@ namespace Advertisements.Web.Controllers
         [System.Web.Http.Route("Register")]
         public async Task<IHttpActionResult> Register([FromBody]RegisterViewModel model)
         {
+          
+
             Directory.CreateDirectory(FolderPath + @"\assets\images\" + model.Email);
 
             var user = new ApplicationUser() { UserName = model.UserName };
             user.Email = model.Email;
 
-            string imgPath = HttpContext.Current.Server.MapPath("~/Content/Current_user_av.jpg");
-            Image img = Image.FromFile(imgPath);
-            img = Csharp.ImageConverter.SqueezeImg(img);
-            user.Avatar = Csharp.ImageConverter.BytesFromImg(img);
+            if (model.Avatar != null)
+            {
+                string imgBase64 = model.Avatar.Substring(model.Avatar.IndexOf(',') + 1);
+                byte[] imgBytes = Convert.FromBase64String(imgBase64);
+                var imgFromBytes = Csharp.ImageConverter.ImgFromBytes(imgBytes);
+                Csharp.ImageConverter.SqueezeImg(imgFromBytes);
+                user.Avatar = Csharp.ImageConverter.BytesFromImg(imgFromBytes);
+            }
+            else
+            {
+                string imgPath = HttpContext.Current.Server.MapPath("~/Content/Current_user_av.jpg");
+                Image img = Image.FromFile(imgPath);
+                img = Csharp.ImageConverter.SqueezeImg(img);
+                user.Avatar = Csharp.ImageConverter.BytesFromImg(img);
+            }
+          
             var result = await UserManager.CreateAsync(user, model.Password);
 
             if (result.Succeeded)

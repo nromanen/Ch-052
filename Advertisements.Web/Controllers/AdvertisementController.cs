@@ -104,42 +104,54 @@ namespace Advertisements.Web.Controllers
         [Route("upload")]
         public async Task<HttpResponseMessage> Upload()
         {
-            HttpRequestMessage request = this.Request;
-            if (!request.Content.IsMimeMultipartContent())
-            {
-                throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
-            }
-
             string root = HttpContext.Current.Server.MapPath("~/assets/uploads");
-            var provider = new CustomMultipartFormDataStreamProvider(root);
+            string guid, fileName, dest, newName;
+            HttpResponseMessage response = new HttpResponseMessage();
+            StringBuilder content = new StringBuilder();
 
-            var task = await request.Content.ReadAsMultipartAsync(provider);
-
-            return new HttpResponseMessage()
+            if (Request.Content.IsMimeMultipartContent())
             {
-                Content = new StringContent("../../../assets/uploads/" + task.GetLocalFileName())
-            };
-        }
-      
-        public class CustomMultipartFormDataStreamProvider : MultipartFormDataStreamProvider
-        {
-            string imageName;      
-            public CustomMultipartFormDataStreamProvider(string path) : base(path) { }
-            
+                var provider = new MultipartFormDataStreamProvider(root);
+                await Request.Content.ReadAsMultipartAsync(provider);
 
-            public override string GetLocalFileName(HttpContentHeaders headers)
-            {
-                var guid = Guid.NewGuid().ToString();
-                imageName = guid +
-                            headers.ContentDisposition.FileName.Replace("\"", string.Empty);
-                return imageName;
+                foreach (MultipartFileData fileData in provider.FileData)
+                {
+                    if (string.IsNullOrEmpty(fileData.Headers.ContentDisposition.FileName))
+                    {
+                        return Request.CreateResponse(HttpStatusCode.NotAcceptable, "This request is not properly formatted");
+                    }
+
+                    fileName = fileData.Headers.ContentDisposition.FileName;
+
+                    if (fileName.StartsWith("\"") && fileName.EndsWith("\""))
+                    {
+                        fileName = fileName.Trim('"');
+                    }
+                    if (fileName.Contains(@"/") || fileName.Contains(@"\"))
+                    {
+                        fileName = Path.GetFileName(fileName);
+                    }
+
+                    guid = Guid.NewGuid().ToString();
+                    newName = guid + "-" + fileName;
+                    dest = Path.Combine(root, newName);
+
+                    File.Move(fileData.LocalFileName, dest);
+                    content.Append("../../../assets/uploads/" + newName + " ");
+                }
+
+                return new HttpResponseMessage(HttpStatusCode.OK)
+                {
+                    Content = new StringContent(content.ToString().Remove(content.ToString().Length - 1))
+                };
             }
-
-            public string GetLocalFileName()
+            else
             {
-                return imageName;
+                return new HttpResponseMessage(HttpStatusCode.NotAcceptable)
+                {
+                    Content = new StringContent("This request is not properly formatted")
+                };
             }
-
         }
     }
 }

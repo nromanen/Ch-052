@@ -27,7 +27,7 @@
                         </h2>
                         <table class="table table-adv table-bordered">
         
-                            <tr *ngFor="let advertisement of Advertisements">
+                            <tr *ngFor="let advertisement of Advertisements" (click)="redirect(advertisement.Id)">
                                 <table myHighlight class="table table-adv-inner">
                                     <tr>
                                         <td rowspan="5" class="img">

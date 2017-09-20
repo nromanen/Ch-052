@@ -14,7 +14,7 @@
                         <div class="col-sm-12">
                             <div *ngIf="registrGroup.controls['Name'].hasError('required') && registrGroup.controls['Name'].touched" class="alert alert-danger">This field is required</div>
                             <div *ngIf="registrGroup.controls['Name'].hasError('minlength') && registrGroup.controls['Name'].touched" class="alert alert-danger">Name must contain at least 4 characters</div>
-                            <div *ngIf="registrGroup.controls['Name'].hasError('pattern') && registrGroup.controls['Name'].touched" class="alert alert-danger">First letter is uppercase and there should be no digits</div>                            
+                            <div *ngIf="registrGroup.controls['Name'].hasError('pattern') && registrGroup.controls['Name'].touched" class="alert alert-danger">First letter is uppercase and there should be no digits</div>
                         </div>
                     </div>
                 </div>
@@ -27,7 +27,7 @@
                         <div class="col-sm-12">
                             <div *ngIf="registrGroup.controls['Surname'].hasError('required') && registrGroup.controls['Surname'].touched" class="alert alert-danger">This field is required</div>
                             <div *ngIf="registrGroup.controls['Surname'].hasError('minlength') && registrGroup.controls['Surname'].touched" class="alert alert-danger">Surname must contain at least 3 characters</div>
-                            <div *ngIf="registrGroup.controls['Surname'].hasError('pattern') && registrGroup.controls['Surname'].touched" class="alert alert-danger">Surname must contain at least 3 characters</div>                            
+                            <div *ngIf="registrGroup.controls['Surname'].hasError('pattern') && registrGroup.controls['Surname'].touched" class="alert alert-danger">Surname must contain at least 3 characters</div>
                         </div>
                     </div>
                 </div>
@@ -66,6 +66,12 @@
                             <div *ngIf="registrGroup.controls['ConfirmPassword'].hasError('required') && registrGroup.controls['ConfirmPassword'].touched"
                                 class="alert alert-danger">This field is required</div>
                         </div>
+                    </div>
+                </div>
+                <div class="form-group required">
+                    <label for="avatar" class="col-sm-3 control-label">Upload your avatar</label>
+                    <div class="col-sm-9">
+                        <input type="file" accept="image/*" (change)="GetImg($event)" #fileInput/>
                     </div>
                 </div>
                 <div class="row">
