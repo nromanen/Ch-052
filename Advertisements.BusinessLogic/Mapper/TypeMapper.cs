@@ -16,7 +16,10 @@ namespace Advertisements.BusinessLogic.Mapper
         public static ObjectsMapper<TypeDTO, AdvertisementType> CreateType()
         {
             var mapper = ObjectMapperManager.DefaultInstance.GetMapper<TypeDTO, AdvertisementType>(new DefaultMapConfig().
-                ConvertUsing((TypeDTO source) => new AdvertisementType { Id = source.Id, Name = source.Name }));
+                ConvertUsing((TypeDTO source) => new AdvertisementType {
+                    Id = source.Id,
+                    Name = source.Name
+                }));
 
             return mapper;
         }
@@ -32,7 +35,10 @@ namespace Advertisements.BusinessLogic.Mapper
         public static ObjectsMapper<AdvertisementType, TypeDTO> CreateTypeDTO()
         {
             var mapper = ObjectMapperManager.DefaultInstance.GetMapper<AdvertisementType, TypeDTO>(new DefaultMapConfig().
-                ConvertUsing((AdvertisementType source) => new TypeDTO { Id = source.Id, Name = source.Name }));
+                ConvertUsing((AdvertisementType source) => new TypeDTO {
+                    Id = source.Id,
+                    Name = source.Name
+                }));
 
             return mapper;
         }

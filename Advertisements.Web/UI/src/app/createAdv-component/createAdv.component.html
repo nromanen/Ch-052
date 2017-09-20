@@ -22,7 +22,7 @@
             </div>
         </div>
         <label for="desc">Description</label>
-        <textarea class="form-control" name="Description" required maxlength="100" [(ngModel)]='advertisement.Description' rows=5
+        <textarea class="form-control" name="Description" required [(ngModel)]='advertisement.Description' rows=5
             id="desc" #Description="ngModel"></textarea>
         <div *ngIf="Description.invalid && (Description.dirty || Description.touched)" class="alert alert-danger">
             <div *ngIf="Description.errors.required">

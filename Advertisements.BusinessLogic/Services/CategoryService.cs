@@ -81,6 +81,18 @@ namespace Advertisements.BusinessLogic.Services
                 uow.Commit();
             }
         }
+
+        public bool IsValid(CategoryDTO item)
+        {
+            if (item.Name == null || item.Id != 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
     }
 }
 

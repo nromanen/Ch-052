@@ -13,7 +13,10 @@ namespace Advertisements.BusinessLogic.Mapper
         public static ObjectsMapper<CategoryDTO, Category> CreateCategory()
         {
             var mapper = ObjectMapperManager.DefaultInstance.GetMapper<CategoryDTO, Category>(new DefaultMapConfig().
-                ConvertUsing((CategoryDTO source) => new Category { Id = source.Id, Name = source.Name }));
+                ConvertUsing((CategoryDTO source) => new Category {
+                    Id = source.Id,
+                    Name = source.Name
+                }));
 
             return mapper;
         }
@@ -29,7 +32,10 @@ namespace Advertisements.BusinessLogic.Mapper
         public static ObjectsMapper<Category, CategoryDTO> CreateCategoryDTO()
         {
             var mapper = ObjectMapperManager.DefaultInstance.GetMapper<Category, CategoryDTO>(new DefaultMapConfig().
-                ConvertUsing((Category source) => new CategoryDTO { Id = source.Id, Name = source.Name }));
+                ConvertUsing((Category source) => new CategoryDTO {
+                    Id = source.Id,
+                    Name = source.Name
+                }));
 
             return mapper;
         }

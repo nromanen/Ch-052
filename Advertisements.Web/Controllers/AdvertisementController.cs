@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;           
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -12,7 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using Microsoft.AspNet.Identity;
-using System.Threading.Tasks;
+
 namespace Advertisements.Web.Controllers
 {
 
@@ -69,7 +67,10 @@ namespace Advertisements.Web.Controllers
         [Route("add")]
         public void Add(AdvertisementDTO dto)
         {
-            service.Create(dto);
+            if (service.IsValid(dto))
+            {
+                service.Create(dto);
+            }
         }
 
         

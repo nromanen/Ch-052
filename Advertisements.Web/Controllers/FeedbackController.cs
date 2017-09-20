@@ -1,12 +1,6 @@
 ﻿using Advertisements.BusinessLogic.Services;
-using Advertisements.DataAccess.Repositories;
-using Advertisements.DataAccess.Services;
 using Advertisements.DTO.Models;
-using SimpleInjector;
-using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
 using System.Web.Http;
 using Microsoft.AspNet.Identity;
 using System.Net;
@@ -68,15 +62,18 @@ namespace Advertisements.Web.Controllers
         [Route("add")]
         public void Add(FeedbackDTO dto)
         {
-            try
+            if (service.IsValid(dto))
             {
-                dto.UserId = System.Web.HttpContext.Current.User.Identity.GetUserId();
-                service.Create(dto);
-            }
-            catch (FeedbackService.PermissionDeniedException ex)
-            {
-                HttpResponseMessage response = Request.CreateResponse((HttpStatusCode)400, ex.StatusCode);
-                throw new HttpResponseException(response);
+                try
+                {
+                    dto.UserId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+                    service.Create(dto);
+                }
+                catch (FeedbackService.PermissionDeniedException ex)
+                {
+                    HttpResponseMessage response = Request.CreateResponse((HttpStatusCode)400, ex.StatusCode);
+                    throw new HttpResponseException(response);
+                }
             }
         }
 

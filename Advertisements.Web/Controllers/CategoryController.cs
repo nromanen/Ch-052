@@ -36,7 +36,10 @@ namespace Advertisements.Web.Controllers
         [Route("add")]
         public void Add(CategoryDTO dto)
         {
-           service.Create(dto);
+            if(service.IsValid(dto))
+            {
+                service.Create(dto);
+            }
         }
 
         [HttpPut]

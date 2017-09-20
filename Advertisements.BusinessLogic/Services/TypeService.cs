@@ -2,11 +2,8 @@
 using Advertisements.DataAccess.Entities;
 using Advertisements.DataAccess.Repositories;
 using Advertisements.DTO.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Advertisements.BusinessLogic.Services
 {
@@ -82,6 +79,17 @@ namespace Advertisements.BusinessLogic.Services
                 repo.Update(types);
                 uow.BeginTransaction();
                 uow.Commit();
+            }
+        }
+        public bool IsValid(TypeDTO item)
+        {
+            if(item.Name == null || item.Id != 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
             }
         }
     }

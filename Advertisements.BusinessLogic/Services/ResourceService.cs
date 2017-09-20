@@ -4,6 +4,7 @@ using Advertisements.DataAccess.Repositories;
 using Advertisements.DataAccess.Entities;
 using Advertisements.BusinessLogic.Mapper;
 using System.Collections.Generic;
+using System;
 
 namespace Advertisements.BusinessLogic.Services
 {
@@ -80,6 +81,10 @@ namespace Advertisements.BusinessLogic.Services
                 uow.BeginTransaction();
                 uow.Commit();
             }
+        }
+        public bool IsValid(ResourceDTO item)
+        {
+            throw new NotImplementedException();
         }
     }
 }

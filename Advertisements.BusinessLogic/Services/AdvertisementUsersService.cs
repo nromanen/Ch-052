@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Advertisements.DTO.Models;
+﻿using Advertisements.DTO.Models;
 using Advertisements.DataAccess.Repositories;
 using Advertisements.DataAccess.Entities;
 using Advertisements.BusinessLogic.Mapper;

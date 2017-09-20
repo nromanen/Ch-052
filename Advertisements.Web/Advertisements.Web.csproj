@@ -296,12 +296,9 @@
     <Compile Include="Controllers\AdminMvcController.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
-    <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\FeedbackController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\TypeController.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Csharp\ImageConverter.cs" />
     <Compile Include="Filters\MyApiCustomAuthFilter.cs" />
     <Compile Include="Filters\MyMvcCustomAuthFilter.cs" />

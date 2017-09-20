@@ -4,6 +4,7 @@ using Advertisements.DataAccess.Repositories;
 using Advertisements.DataAccess.Entities;
 using Advertisements.BusinessLogic.Mapper;
 using System.Collections.Generic;
+using System;
 
 namespace Advertisements.BusinessLogic.Services
 {
@@ -181,5 +182,17 @@ namespace Advertisements.BusinessLogic.Services
             }
         }
 
+        public bool IsValid(FeedbackDTO item)
+        {
+            if (item.AdvertisementId == 0 || item.AgreeCount != 0 || item.Avatar != null || item.CreationTime != null || item.DisagreeCount != 0
+                || item.Id != 0 || item.Text == null || item.UserId != null || item.Username != null || item.VotedUserId != null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
     }
 }
