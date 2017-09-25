@@ -10,6 +10,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using Microsoft.AspNet.Identity;
+using System.Text;
+using System.IO;
 
 namespace Advertisements.Web.Controllers
 {
@@ -18,15 +20,10 @@ namespace Advertisements.Web.Controllers
     public class AdvertisementController : ApiController
     {
 
+        IAdvertisementService<AdvertisementDTO> advertService;
 
-        IService<AdvertisementDTO> service;
-        IUserAwareService<AdvertisementDTO> userService;
-        IAdvertisementAwareService<AdvertisementDTO> advertService;
-
-        public AdvertisementController(IService<AdvertisementDTO> s, IUserAwareService<AdvertisementDTO> us, IAdvertisementAwareService<AdvertisementDTO> advs)
+        public AdvertisementController(IAdvertisementService<AdvertisementDTO> advs)
         {
-            service = s;
-            userService = us;
             advertService = advs;
         }
 
@@ -35,7 +32,7 @@ namespace Advertisements.Web.Controllers
         [Route("get")]
         public IEnumerable<AdvertisementDTO> Get()
         {
-            return service.GetAll();
+            return advertService.GetAll();
         }
 
         [AllowAnonymous]
@@ -43,7 +40,7 @@ namespace Advertisements.Web.Controllers
         [Route("get/{id}")]
         public AdvertisementDTO Get(int id)
         {
-            return service.Get(id);
+            return advertService.Get(id);
         }
 
         [AllowAnonymous]
@@ -59,7 +56,7 @@ namespace Advertisements.Web.Controllers
         [Route("findbyuser/{id}")]
         public IEnumerable<AdvertisementDTO> FindByUser(string id)
         {
-            return userService.GetByUser(id);
+            return advertService.GetByUser(id);
         }
 
         [Authorize]
@@ -67,9 +64,9 @@ namespace Advertisements.Web.Controllers
         [Route("add")]
         public void Add(AdvertisementDTO dto)
         {
-            if (service.IsValid(dto))
+            if (advertService.IsValid(dto))
             {
-                service.Create(dto);
+                advertService.Create(dto);
             }
         }
 
@@ -79,7 +76,7 @@ namespace Advertisements.Web.Controllers
         [Route("edit")]
         public void Update(AdvertisementDTO dto)
         {
-            service.Update(dto);
+            advertService.Update(dto);
         }
 
         [Authorize]
@@ -87,7 +84,7 @@ namespace Advertisements.Web.Controllers
         [Route("delete/{id}")]
         public void Delete(int id)
         {
-            service.Delete(id);
+            advertService.Delete(id);
         }
 
         [Authorize]
@@ -96,7 +93,7 @@ namespace Advertisements.Web.Controllers
         public IEnumerable<AdvertisementDTO> GetCurrentUsersAdv()
         {
             string userId = Thread.CurrentPrincipal.Identity.GetUserId();
-            return userService.GetByUser(userId);
+            return advertService.GetByUser(userId);
         }
 
         [Authorize]

@@ -14,11 +14,11 @@ import 'rxjs/add/operator/toPromise';
 import { RegisterViewModel } from "../models/register.view.model";
 import { Token } from "../models/token";
 
-import {ComcomService} from './comcom.service';
+import { ComcomService } from './comcom.service';
 
 @Injectable()
 export class LoginService {
-    constructor(private http: Http, private comcomService:ComcomService) { }
+    constructor(private http: Http, private comcomService: ComcomService) { }
     private advertisementsLoginUrl = '/Token';
     token: Token;
     status: number;
@@ -46,23 +46,22 @@ export class LoginService {
     }
 
     logout(): Observable<any> {
-        
+
         this.comcomService.clearObservableToken();
-        
-        
-        return this.http.post('/api/account/logout',null)
+
+
+        return this.http.post('/api/account/logout', null)
             .map(res => {
                 localStorage.clear();
             });
     }
 
-    getRole():Promise<string[]>{
+    getRole(): Promise<string[]> {
         return this.http.get('/api/account/roles').toPromise().then(res => {
-            
-            return <string[]> res.json(); 
+
+            return <string[]>res.json();
         }).catch(this.handleError);
     }
-
     isLoggedin(): void {
         // if (tokenNotExpired())
         //     return true;

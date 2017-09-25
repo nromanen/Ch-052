@@ -9,9 +9,9 @@ namespace Advertisements.Web.Controllers
     [RoutePrefix("api/type")]
     public class TypeController : ApiController
     {
-        IService<TypeDTO> service;
+        IItemService<TypeDTO> service;
 
-        public TypeController(IService<TypeDTO> s)
+        public TypeController(IItemService<TypeDTO> s)
         {
             service = s;
         }

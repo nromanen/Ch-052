@@ -75,7 +75,7 @@ namespace Advertisements.Web.Controllers
                 SmtpServer.Send(mail);
                 return true;
             }
-            catch(Exception exc)
+            catch(Exception)
             {
                 return false;
             }
@@ -743,6 +743,16 @@ namespace Advertisements.Web.Controllers
             }
             return Ok();
 
+        }
+
+        [System.Web.Http.Authorize]
+        [System.Web.Http.Route("user/role")]
+        [System.Web.Http.HttpGet]
+        public string GetRole()
+        {
+            string id = HttpContext.Current.User.Identity.GetUserId();
+            string role = this.UserManager.FindById(id).Roles.ToString();
+            return role;
         }
 
         #region Helpers

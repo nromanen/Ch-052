@@ -32,7 +32,7 @@ export class LoggedUserAdsComponent implements OnInit {
 
   getLoggedUserAds(): void {
     this.advertisementService.getLoggedUserAds().then(advertisements =>
-    { this.advertisements = advertisements;});
+    { this.advertisements = advertisements; });
   }
 
   ngOnInit(): void {
@@ -49,7 +49,6 @@ export class LoggedUserAdsComponent implements OnInit {
     this.categoryService.getCategories().then(category => this.categories = category);
   }
   deleteLoggedUserAds(feed: Advertisement): void {
-
     this.advertisementService
       .deleteLoggedUserAds(feed)
       .then(res => { this.getLoggedUserAds(); })

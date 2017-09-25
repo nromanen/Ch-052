@@ -23,7 +23,7 @@ export class TypeComponent implements OnInit {
 
     @Input() Type: Type = new Type();
 
-     getTypes(): void {
+    getTypes(): void {
         this.typeService.getTypes()
             .then(types =>
             { this.types = types; });
@@ -56,7 +56,7 @@ export class TypeComponent implements OnInit {
     }
 
     saveClick(): void {
-  
+
 
         if (this.Type.Id == 0)
             this.typeService.createType(this.Type).then(type => { this.getTypes() }).catch(error => console.log(error));

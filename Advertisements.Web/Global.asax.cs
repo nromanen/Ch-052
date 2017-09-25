@@ -1,5 +1,4 @@
 ﻿using Advertisements.BusinessLogic.Services;
-using Advertisements.DataAccess.Entities;
 using Advertisements.DataAccess.Repositories;
 using Advertisements.DataAccess.Services;
 using Advertisements.DTO.Models;
@@ -11,7 +10,6 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using Advertisements.BusinessLogic.Services;
 namespace Advertisements.Web
 {
     public class WebApiApplication : System.Web.HttpApplication
@@ -30,18 +28,14 @@ namespace Advertisements.Web
             container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
 
             container.Register<IUOWFactory, UOWFactory>(Lifestyle.Singleton);
-            container.Register(typeof(IService<CategoryDTO>), typeof(CategoryService));
-            container.Register(typeof(IService<FeedbackDTO>), typeof(FeedbackService));
-            container.Register(typeof(IFeedbackAwareService<FeedbackDTO>), typeof(FeedbackService));
-            container.Register(typeof(IUserService<AspNetUsersDTO>), typeof(AspNetUsersService));
-            container.Register(typeof(IService<AdvertisementDTO>), typeof(AdvertisementService));
-            container.Register(typeof(IService<TypeDTO>), typeof(TypeService));
-            container.Register(typeof(IUserAwareService<AdvertisementDTO>), typeof(AdvertisementService));
-            container.Register(typeof(IAdvertisementAwareService<AdvertisementDTO>), typeof(AdvertisementService));
-            container.Register(typeof(IService<PasswordRecoveryDTO>), typeof(PasswordRecoveryService));
-            container.Register(typeof(IService<ResourceDTO>), typeof(ResourceService));
+            container.Register(typeof(IItemService<CategoryDTO>), typeof(CategoryService));
+            container.Register(typeof(IItemService<PasswordRecoveryDTO>), typeof(PasswordRecoveryService));
+            container.Register(typeof(IItemService<ResourceDTO>), typeof(ResourceService));
+            container.Register(typeof(IItemService<TypeDTO>), typeof(TypeService));
             container.Register(typeof(IUserService<AdvertisementUsersDTO>), typeof(AdvertisementUsersService));
-
+            container.Register(typeof(IUserService<AspNetUsersDTO>), typeof(AspNetUsersService));
+            container.Register(typeof(IAdvertisementService<AdvertisementDTO>), typeof(AdvertisementService));
+            container.Register(typeof(IFeedbackService<FeedbackDTO>), typeof(FeedbackService));
 
             DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(container));
             GlobalConfiguration.Configuration.DependencyResolver = new SimpleInjectorWebApiDependencyResolver(container);

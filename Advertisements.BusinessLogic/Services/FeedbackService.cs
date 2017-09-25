@@ -8,7 +8,7 @@ using System;
 
 namespace Advertisements.BusinessLogic.Services
 {
-    public class FeedbackService : IService<FeedbackDTO>, IFeedbackAwareService<FeedbackDTO>
+    public class FeedbackService : IFeedbackService<FeedbackDTO>
     {
         private readonly IUOWFactory _uowfactory;
 

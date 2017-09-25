@@ -12,13 +12,11 @@ namespace Advertisements.Web.Controllers
     [RoutePrefix("api/Feedback")]
     public class FeedbackController : ApiController
     {
-        IService<FeedbackDTO> service;
         IUserService<AspNetUsersDTO> userService;
-        IFeedbackAwareService<FeedbackDTO> feedbackService;
+        IFeedbackService<FeedbackDTO> feedbackService;
 
-        public FeedbackController(IService<FeedbackDTO> s, IUserService<AspNetUsersDTO> us, IFeedbackAwareService<FeedbackDTO> fs)
+        public FeedbackController(IUserService<AspNetUsersDTO> us, IFeedbackService<FeedbackDTO> fs)
         {
-            service = s;
             userService = us;
             feedbackService = fs;
         }
@@ -28,7 +26,7 @@ namespace Advertisements.Web.Controllers
         [Route("get")]
         public IEnumerable<FeedbackDTO> Get()
         {
-            return service.GetAll();
+            return feedbackService.GetAll();
         }
 
         [AllowAnonymous]
@@ -46,7 +44,7 @@ namespace Advertisements.Web.Controllers
         [Route("get/{id}")]
         public FeedbackDTO Get(int id)
         {
-            return service.Get(id);
+            return feedbackService.Get(id);
         }
 
         [AllowAnonymous]
@@ -62,12 +60,12 @@ namespace Advertisements.Web.Controllers
         [Route("add")]
         public void Add(FeedbackDTO dto)
         {
-            if (service.IsValid(dto))
+            if (feedbackService.IsValid(dto))
             {
                 try
                 {
                     dto.UserId = System.Web.HttpContext.Current.User.Identity.GetUserId();
-                    service.Create(dto);
+                    feedbackService.Create(dto);
                 }
                 catch (FeedbackService.PermissionDeniedException ex)
                 {
@@ -85,7 +83,7 @@ namespace Advertisements.Web.Controllers
             try
             {
                 dto.VotedUserId = System.Web.HttpContext.Current.User.Identity.GetUserId();
-                    service.Update(dto);
+                feedbackService.Update(dto);
             }
             catch (FeedbackService.PermissionDeniedException ex)
             {
@@ -99,7 +97,7 @@ namespace Advertisements.Web.Controllers
         [Route("delete/{id}")]
         public void Delete(int id)
         {
-            service.Delete(id);
+            feedbackService.Delete(id);
         }
     }
 }

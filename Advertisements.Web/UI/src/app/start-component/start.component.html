@@ -26,11 +26,11 @@
           <td class="description"> {{advertisement.Description}} </td>
         </tr>
         <tr>
-          <td class="userName"> 
-            <button (click) = 'redirectToUserInfo(advertisement.ApplicationUserId)' class="userInfoBtn">
+          <td class="userName">
+            <button (click)='redirectToUserInfo(advertisement.ApplicationUserId)' class="userInfoBtn">
               <i class = "fa fa-user-circle-o" aria-hidden="true"></i>
                 Author: {{GetUserName(advertisement.ApplicationUserId)}}
-            </button>                   
+            </button>
           </td>
         </tr>
         <tr>

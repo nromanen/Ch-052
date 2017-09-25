@@ -13,44 +13,38 @@ import { AspNetUserModel } from "../models/AspNetUserModel";
 import { DomSanitizer } from "@angular/platform-browser";
 @Injectable()
 
-export class UsersService
-{
+export class UsersService {
     private GetUserAvatarUrl;
     private GetAdvertisementsUserUrl: string;
     private GetAspNetUserUrl: string;
     private MyHttp: Http;
-    
-    
-    public constructor(http: Http)
-    {
+
+
+    public constructor(http: Http) {
         this.GetUserAvatarUrl = "/api/Account/getavatar/";
         this.GetAdvertisementsUserUrl = "/api/AdvertisementUsers/get";
-        this.GetAspNetUserUrl = "/api/AspNetUsers/get/";      
+        this.GetAspNetUserUrl = "/api/AspNetUsers/get/";
         this.MyHttp = http;
     }
 
-    public GetAdvertisementsUsers():Promise<AdvertisementsUserModel[]>
-    {
+    public GetAdvertisementsUsers(): Promise<AdvertisementsUserModel[]> {
         return this.MyHttp.get(this.GetAdvertisementsUserUrl).toPromise().
-        then(result=> result.json() as AdvertisementsUserModel[]).catch(this.ShowError);
+            then(result => result.json() as AdvertisementsUserModel[]).catch(this.ShowError);
     }
 
-    public GetAspNetUser(id:string):Promise<AspNetUserModel>
-    {
-        return this.MyHttp.get(this.GetAspNetUserUrl+id).toPromise().
-        then(result => result.json() as AspNetUserModel).catch(this.ShowError);
+    public GetAspNetUser(id: string): Promise<AspNetUserModel> {
+        return this.MyHttp.get(this.GetAspNetUserUrl + id).toPromise().
+            then(result => result.json() as AspNetUserModel).catch(this.ShowError);
     }
 
-    public GetUserAvatar(id: string):Promise<string>
-    {
-        return this.MyHttp.get(this.GetUserAvatarUrl+id)
-        .toPromise()
-        .then(result => result.json() as string).catch(this.ShowError);
+    public GetUserAvatar(id: string): Promise<string> {
+        return this.MyHttp.get(this.GetUserAvatarUrl + id)
+            .toPromise()
+            .then(result => result.json() as string).catch(this.ShowError);
     }
 
 
-    private ShowError(error:void):Promise<any>
-    {
+    private ShowError(error: void): Promise<any> {
         console.error("An error occurred", error);
         return Promise.reject(error);
     }

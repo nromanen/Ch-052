@@ -8,7 +8,7 @@ using System;
 
 namespace Advertisements.BusinessLogic.Services
 {
-    public class PasswordRecoveryService : IService<PasswordRecoveryDTO>
+    public class PasswordRecoveryService : IItemService<PasswordRecoveryDTO>
     {
         private readonly IUOWFactory _uowfactory;
 

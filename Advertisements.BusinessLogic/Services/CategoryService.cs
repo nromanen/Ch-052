@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace Advertisements.BusinessLogic.Services
 {
-    public class CategoryService : IService<CategoryDTO>
+    public class CategoryService : IItemService<CategoryDTO>
     {
         private readonly IUOWFactory _uowfactory;
 

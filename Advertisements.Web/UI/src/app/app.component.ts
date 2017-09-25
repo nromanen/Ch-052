@@ -13,86 +13,95 @@ import { ReactiveFormsModule, FormBuilder, Validators, NgForm, FormGroup, FormCo
 import { SearchModel } from "./models/searchmodel";
 
 @Component({
-  moduleId: module.id.toString(),
-  selector: 'app-root',                       
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
-  providers: []
+    moduleId: module.id.toString(),
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.css'],
+    providers: []
 })
 export class AppComponent implements OnInit, OnDestroy {
- 
-  title: string = 'Advertisements';
-  loginbuttontext: string = 'Log In';
-  isLoggedIn:boolean;
-  admin:string = 'Admin';
-  registerbuttontext: string = 'Register';
 
-  token:Token;
-  subscription: Subscription;
-  errorSubscription: Subscription;
-  errorNotification : Notification = new Notification();
-  public searchGroup: FormGroup;
+    title: string = 'Advertisements';
+    loginbuttontext: string = 'Log In';
+    isLoggedIn: boolean;
+    registerbuttontext: string = 'Register';
+    isAdmin: boolean = false;
 
-  constructor(private router: Router, private loginService: LoginService, private comcomService: ComcomService) {
-    this.subscription = this.comcomService.getObservableToken().subscribe(token =>       
-      {
-        this.token = token; 
-        if (token != null || token != undefined) {
-          this.loginbuttontext = 'Welcome, ' + token.userName;
-              this.isLoggedIn = true;
-          }
-          else {
-          this.loginbuttontext = 'Log In';
-              this.isLoggedIn = false;
-          }
-      });
+    token: Token;
+    subscription: Subscription;
+    errorSubscription: Subscription;
+    errorNotification: Notification = new Notification();
+    public searchGroup: FormGroup;
 
-      this.errorSubscription = this.comcomService.getNotification().subscribe(error =>       
-        {
-          this.errorNotification = error; 
+    constructor(private router: Router, private loginService: LoginService, private comcomService: ComcomService) {
+        this.subscription = this.comcomService.getObservableToken().subscribe(token => {
+            this.token = token;
+            if (token != null || token != undefined) {
+                this.loginbuttontext = 'Welcome, ' + token.userName;
+                this.isLoggedIn = true;
+                this.loginService.getRole().then(roles => {
+                    roles.forEach(role => {
+                        if (role == "Admin")
+                            this.isAdmin = true;
+                    });
+                });
+            }
+            else {
+                this.loginbuttontext = 'Log In';
+                this.isLoggedIn = false;
+            }
         });
 
-  }
+        this.errorSubscription = this.comcomService.getNotification().subscribe(error => {
+            this.errorNotification = error;
+        });
 
-  public GoSearch(model: SearchModel):void
-  {
-      
-      this.router.navigate(['/search'], {queryParams: { keyword: model.Key }});  
-          
-  }
+    }
 
-  logout(): void {
-      this.loginService.logout().subscribe((result)=>window.location.replace("/start"));
+    public GoSearch(model: SearchModel): void {
 
-      this.comcomService.clearObservableRole();
-      this.comcomService.clearObservableToken();
-  }
+        this.router.navigate(['/search'], { queryParams: { keyword: model.Key } });
 
-  ngOnInit(): void {
+    }
 
-    this.searchGroup = new FormGroup({
-        Key: new FormControl()
-    });
+    logout(): void {
+        this.loginService.logout().subscribe((result) => this.router.navigate(['/start']));
 
-      this.comcomService.loadTokenFromStorage();
+        this.comcomService.clearObservableRole();
+        this.comcomService.clearObservableToken();
+    }
 
-      this.subscription = this.comcomService.getObservableToken().subscribe(token => {
-          this.token = token;
-          if (token != null || token != undefined) {
-          this.loginbuttontext = 'Welcome, ' + token.userName;
-              this.isLoggedIn = true;
-          }
-          else {
-          this.loginbuttontext = 'Log In';
-              this.isLoggedIn = false;
-          }
-      });
-  }
+    ngOnInit(): void {
 
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-    this.errorSubscription.unsubscribe();
-  }
+        this.searchGroup = new FormGroup({
+            Key: new FormControl()
+        });
+
+        this.comcomService.loadTokenFromStorage();
+
+        this.subscription = this.comcomService.getObservableToken().subscribe(token => {
+            this.token = token;
+            if (token != null || token != undefined) {
+                this.loginbuttontext = 'Welcome, ' + token.userName;
+                this.isLoggedIn = true;
+                this.loginService.getRole().then(roles => {
+                    roles.forEach(role => {
+                        if (role == "admin")
+                            this.isAdmin = true;
+                    });
+                });
+            }
+            else {
+                this.loginbuttontext = 'Log In';
+                this.isLoggedIn = false;
+            }
+        });
+    }
+
+    ngOnDestroy(): void {
+        this.subscription.unsubscribe();
+        this.errorSubscription.unsubscribe();
+    }
 
 
 }

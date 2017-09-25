@@ -34,8 +34,8 @@ import { IsLoggedInDirective } from './directives/isloggedin.directive';
 import { AdminDirective } from './directives/admin.directive';
 import { ConfirmEmailComponent } from "./confirmemail-component/confirmemail.component";
 import { ConfirmEmailService } from "./services/confirmemail.service";
-import {SearchService} from "./services/search.service"
-import {SearchComponent} from "./search-component/search.component"
+import { SearchService } from "./services/search.service"
+import { SearchComponent } from "./search-component/search.component"
 import { UsersService } from "./services/users.service";
 import { UserInfoComponent } from "./userInfo-component/userInfo.component";
 import { CarouselModule } from 'ngx-bootstrap/carousel';
@@ -63,7 +63,7 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
     TypeComponent,
     SearchComponent,
     UserInfoComponent
-    
+
   ],
   imports: [
     BrowserModule,
@@ -77,15 +77,15 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
     AdvertisementService,
     LoginService,
     FeedbackService,
-      ComcomService,
-      RegistrationService, 
-      TryRestorePasswordCompoent, 
-      CategoryService,
-      TypeService,
-      RestorePasswordService,
-      ConfirmEmailService,
-      SearchService,
-      UsersService,
+    ComcomService,
+    RegistrationService,
+    TryRestorePasswordCompoent,
+    CategoryService,
+    TypeService,
+    RestorePasswordService,
+    ConfirmEmailService,
+    SearchService,
+    UsersService,
     {
       provide: Http,
       useFactory: httpFactory,

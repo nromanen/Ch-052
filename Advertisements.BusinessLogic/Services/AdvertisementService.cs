@@ -7,7 +7,7 @@ using Advertisements.DTO.Models;
 
 namespace Advertisements.BusinessLogic.Services
 {
-    public class AdvertisementService : IService<AdvertisementDTO>, IUserAwareService<AdvertisementDTO>, IAdvertisementAwareService<AdvertisementDTO>
+    public class AdvertisementService : IAdvertisementService<AdvertisementDTO>
     {
         private readonly IUOWFactory _uowfactory;
         private const int TitleMinLenght = 3;

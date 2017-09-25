@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Advertisements.BusinessLogic.Services
 {
-    public class TypeService : IService<TypeDTO>
+    public class TypeService : IItemService<TypeDTO>
     {
         private readonly IUOWFactory _uowfactory;
 

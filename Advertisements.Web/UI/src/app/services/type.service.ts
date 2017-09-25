@@ -22,8 +22,10 @@ export class TypeService {
 
         return this.http.get(this.typeUrl + "get").
             toPromise().
-            then(response => { this.types = response.json() as Type[];
-            return this.types }).
+            then(response => {
+            this.types = response.json() as Type[];
+                return this.types
+            }).
             catch(this.handleError);
     }
 

@@ -6,9 +6,9 @@ import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
 
 export class IsLoggedInDirective {
 
-  constructor(private templateRef: TemplateRef<any>, private viewContainer: ViewContainerRef) {}
+  constructor(private templateRef: TemplateRef<any>, private viewContainer: ViewContainerRef) { }
 
-  @Input() set isLoggedIn(allow: boolean){
+  @Input() set isLoggedIn(allow: boolean) {
     if (allow) {
       this.viewContainer.createEmbeddedView(this.templateRef);
     } else {

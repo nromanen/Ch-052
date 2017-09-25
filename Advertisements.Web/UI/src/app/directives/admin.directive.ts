@@ -18,7 +18,7 @@ export class AdminDirective {
         this.adminChecker(roleOnTag);
     }
 
-    adminChecker(role:string):void{
+    adminChecker(role: string): void {
         if (role == localStorage.getItem('role')) {
             this.viewContainer.createEmbeddedView(this.templateRef);
         } else {

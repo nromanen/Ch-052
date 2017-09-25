@@ -8,7 +8,7 @@ using System;
 
 namespace Advertisements.BusinessLogic.Services
 {
-    public class ResourceService : IService<ResourceDTO>
+    public class ResourceService : IItemService<ResourceDTO>
     {
         private readonly IUOWFactory _uowfactory;
 

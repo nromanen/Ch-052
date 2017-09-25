@@ -13,43 +13,43 @@ import { Subscription } from "rxjs/Subscription";
   providers: [FeedbackService]
 })
 export class FeedbackComponent implements OnInit {
-  constructor(private router:Router, private feedbacksService: FeedbackService, private zone: NgZone, private route : ActivatedRoute) { }
+  constructor(private router: Router, private feedbacksService: FeedbackService, private zone: NgZone, private route: ActivatedRoute) { }
 
   private id: number;
-  title: string ='Feedbacks';
-  private route$ : Subscription; 
-  
-  
+  title: string = 'Feedbacks';
+  private route$: Subscription;
+
+
   feedbacks: String[];
   selectedFeedback: Feedback;
-  accessDenied : boolean;
-  isButtonClicked : boolean;
-  errorMessage : string;
-  itemClicked : number;
-  alreadyCommented : boolean;
-  
+  accessDenied: boolean;
+  isButtonClicked: boolean;
+  errorMessage: string;
+  itemClicked: number;
+  alreadyCommented: boolean;
 
-  getFeedbacks(id):void {
-   this.accessDenied = false;
-   this.isButtonClicked = false;
 
-   this.feedbacksService.alreadyCommented(this.id)
-       .then(res =>
-        {this.alreadyCommented = res.json()});
+  getFeedbacks(id): void {
+    this.accessDenied = false;
+    this.isButtonClicked = false;
 
-   this.feedbacksService.getFeedbacks(id)
-          .then(feedbacks =>
-          {this.feedbacks = feedbacks});
-}
+    this.feedbacksService.alreadyCommented(this.id)
+      .then(res =>
+      { this.alreadyCommented = res.json() });
 
-  ngOnInit(): void {  
+    this.feedbacksService.getFeedbacks(id)
+      .then(feedbacks =>
+      { this.feedbacks = feedbacks });
+  }
+
+  ngOnInit(): void {
     this.route$ = this.route.params.subscribe(
-     (params: Params) => {
-       this.id = +params["id"];
-       this.getFeedbacks(this.id);
-     }
-   );
-    
+      (params: Params) => {
+        this.id = +params["id"];
+        this.getFeedbacks(this.id);
+      }
+    );
+
   }
 
   @Input() newFeedback: Feedback = new Feedback;
@@ -61,22 +61,22 @@ export class FeedbackComponent implements OnInit {
     this.itemClicked = feed.Id;
 
     this.feedbacksService
-          .updateFeedback(feed)
-          .then(feedback => {this.getFeedbacks(this.id);})
-          .catch((res) => {this.showNotification(res.status, res._body) });
+      .updateFeedback(feed)
+      .then(feedback => { this.getFeedbacks(this.id); })
+      .catch((res) => { this.showNotification(res.status, res._body) });
 
   }
 
-    dislikeClick(feed: Feedback): void {
+  dislikeClick(feed: Feedback): void {
 
     feed.Agree = false;
     this.isButtonClicked = false;
     this.itemClicked = feed.Id;
 
     this.feedbacksService
-          .updateFeedback(feed)
-          .then(feedback => {this.getFeedbacks(this.id);})
-          .catch((res) => {this.showNotification(res.status, res._body) });
+      .updateFeedback(feed)
+      .then(feedback => { this.getFeedbacks(this.id); })
+      .catch((res) => { this.showNotification(res.status, res._body) });
 
   }
 
@@ -84,39 +84,36 @@ export class FeedbackComponent implements OnInit {
     this.newFeedback.AdvertisementId = this.id;
     this.isButtonClicked = true;
     this.feedbacksService
-          .postFeedback(this.newFeedback)
-          .then(feedback => {this.getFeedbacks(this.id); this.newFeedback.Text = '';})
-          .catch((res) => {this.showNotification(res.status, res._body) });
+      .postFeedback(this.newFeedback)
+      .then(feedback => { this.getFeedbacks(this.id); this.newFeedback.Text = ''; })
+      .catch((res) => { this.showNotification(res.status, res._body) });
 
   }
 
   ngOnDestroy() {
-   if (this.route$) this.route$.unsubscribe();
- }
+    if (this.route$) this.route$.unsubscribe();
+  }
 
-  showNotification(statusCode : string, response : string) : void {
+  showNotification(statusCode: string, response: string): void {
 
-      if (statusCode == "401")
-      {
-        this.accessDenied = true; 
-        this.errorMessage = "You need to authorize"; 
-      }  
+    if (statusCode == "401") {
+      this.accessDenied = true;
+      this.errorMessage = "You need to authorize";
+    }
 
-      if (statusCode == "400")
-      {
-        switch (response)
-        {
-          case "101": 
-            this.accessDenied = true;
-            this.errorMessage = "You already voted";
+    if (statusCode == "400") {
+      switch (response) {
+        case "101":
+          this.accessDenied = true;
+          this.errorMessage = "You already voted";
           break;
-          case "201": 
-            this.accessDenied = true;
-            this.errorMessage = "You already left a comment";
+        case "201":
+          this.accessDenied = true;
+          this.errorMessage = "You already left a comment";
           break;
-        } 
       }
- 
+    }
+
   }
 
 }

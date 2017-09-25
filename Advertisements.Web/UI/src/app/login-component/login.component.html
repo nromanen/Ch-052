@@ -1,16 +1,17 @@
-
-<section id = "content" style="margin : 50 0 0 0" ng-if="registerViewModel">
-    <form action="" >
+<section id="content" style="margin : 50 0 0 0" ng-if="registerViewModel">
+    <form action="">
         <h1>Login Form</h1>
         <div>
-            <input #email="ngModel" [(ngModel)] = "registerViewModel.Email" name="email"  type="email" placeholder="Email" required id="useremail" />
+            <input #email="ngModel" [(ngModel)]="registerViewModel.Email" name="email" type="email" placeholder="Email" required id="useremail"
+            />
         </div>
         <div>
-            <input #password="ngModel" [(ngModel)] = "registerViewModel.Password" name="password" type="password" placeholder="Password" required id="userpassword" />
+            <input #password="ngModel" [(ngModel)]="registerViewModel.Password" name="password" type="password" placeholder="Password"
+                required id="userpassword" />
         </div>
         <div>
-            <button [disabled]="email.invalid || password.invalid" type="submit" id="submitLogin" (click) = "goClick()">Log in</button>
-            <a [routerLink]="['/tryrestorepassword']" >Forgot password?</a>
+            <button [disabled]="email.invalid || password.invalid" type="submit" id="submitLogin" (click)="goClick()">Log in</button>
+            <a [routerLink]="['/tryrestorepassword']">Forgot password?</a>
             <a [routerLink]="['/register']">Register</a>
         </div>
     </form>

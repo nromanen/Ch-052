@@ -9,9 +9,9 @@ namespace Advertisements.Web.Controllers
     [RoutePrefix("api/category")]
     public class CategoryController : ApiController
     {
-        IService<CategoryDTO> service;
+        IItemService<CategoryDTO> service;
 
-        public CategoryController(IService<CategoryDTO>  s)
+        public CategoryController(IItemService<CategoryDTO>  s)
         {
             service = s;
         }

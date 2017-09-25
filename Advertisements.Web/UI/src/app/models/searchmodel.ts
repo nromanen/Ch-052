@@ -1,4 +1,3 @@
-export class SearchModel
-{
-    public Key:string;
+export class SearchModel {
+    public Key: string;
 }

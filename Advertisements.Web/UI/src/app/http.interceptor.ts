@@ -93,36 +93,33 @@ export class InterceptedHttp extends Http {
             this.comservice.setNotification(note);
         }
 
-            if (error.status === 403)
-                {
-                    note.errorMessage = "Access denied";
+        if (error.status === 403) {
+            note.errorMessage = "Access denied";
+            note.accessDenied = true;
+
+            this.comservice.setNotification(note);
+        }
+        if (error.status === 400) {
+            switch (error.json().error_description) {
+                case "305":
+                    note.errorMessage = "Email or password is incorrect";
                     note.accessDenied = true;
-        
                     this.comservice.setNotification(note);
-                }
-            if(error.status === 400)
-                {
-                    switch (error.json().error_description)
-                    {
-                        case "305":
-                            note.errorMessage = "Email or password is incorrect";
-                            note.accessDenied = true;
-                            this.comservice.setNotification(note);
-                        break;
-                        case "306":
-                            note.errorMessage = "This account is not active";
-                            note.accessDenied = true;
-                            this.comservice.setNotification(note);
-                            break;
-						default:
-							if (error.json() != "101" && error.json() != "201") {
-								note.errorMessage = error.json().Message;
-								note.accessDenied = true;
-							}
-                            break;
+                    break;
+                case "306":
+                    note.errorMessage = "This account is not active";
+                    note.accessDenied = true;
+                    this.comservice.setNotification(note);
+                    break;
+                default:
+                    if (error.json() != "101" && error.json() != "201") {
+                        note.errorMessage = error.json().Message;
+                        note.accessDenied = true;
                     }
-                    this.comservice.setNotification(note);
-                }
+                    break;
+            }
+            this.comservice.setNotification(note);
+        }
     }
-    
+
 }

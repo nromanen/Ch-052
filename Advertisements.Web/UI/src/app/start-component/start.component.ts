@@ -18,7 +18,7 @@ import { AdvertisementsUserModel } from "../models/AdvertisementsUserModel";
   selector: 'start-root',
   templateUrl: './start.component.html',
   styleUrls: ['./start.component.css'],
-  providers: [AdvertisementService, CategoryService, TypeService,UsersService]
+  providers: [AdvertisementService, CategoryService, TypeService, UsersService]
 })
 export class StartComponent implements OnInit {
   token: Token;
@@ -43,8 +43,7 @@ export class StartComponent implements OnInit {
     this.advertisementService.getAds().then(result => { this.advertisements = result; });
   }
 
-  getUsers():void
-  {
+  getUsers(): void {
     this.usersService.GetAdvertisementsUsers().then(users => this.Users = users);
   }
 
@@ -56,14 +55,13 @@ export class StartComponent implements OnInit {
     this.categoryService.getCategories().then(category => this.categories = category);
   }
 
- public GetUserName(id:string):string
- {
-    let user :AdvertisementsUserModel = this.Users.find(el => el.Id==id)
-    if (user !=null)
+  public GetUserName(id: string): string {
+    let user: AdvertisementsUserModel = this.Users.find(el => el.Id == id)
+    if (user != null)
       return user.UserName;
     else
       return "unknown";
- } 
+  }
 
   ngOnInit(): void {
     this.getUsers();
@@ -76,8 +74,7 @@ export class StartComponent implements OnInit {
     this.router.navigate(['/info', Id]);
   }
 
-  redirectToUserInfo(ApplicationUserId: string)
-  {
-    this.router.navigate(['/userinfo'], {queryParams: { id: ApplicationUserId }});  
+  redirectToUserInfo(ApplicationUserId: string) {
+    this.router.navigate(['/userinfo'], { queryParams: { id: ApplicationUserId } });
   }
 }

@@ -27,7 +27,7 @@ export class CategoryComponent implements OnInit {
     getCategories(): void {
         this.categoryService.getCategories()
             .then(categories =>
-            { this.categories = categories;});
+            { this.categories = categories; });
     }
 
     getCategory(id: number): void {

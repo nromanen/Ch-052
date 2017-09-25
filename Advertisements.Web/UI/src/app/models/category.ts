@@ -1,4 +1,4 @@
-export class Category{
-Id: number = 0;
-Name: string = "";
+export class Category {
+    Id: number = 0;
+    Name: string = "";
 }

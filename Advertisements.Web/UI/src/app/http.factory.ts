@@ -1,5 +1,5 @@
-import {XHRBackend, Http, RequestOptions} from "@angular/http";
-import {InterceptedHttp} from "./http.interceptor";
+import { XHRBackend, Http, RequestOptions } from "@angular/http";
+import { InterceptedHttp } from "./http.interceptor";
 import { ComcomService } from './services/comcom.service'
 
 

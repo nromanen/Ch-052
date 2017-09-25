@@ -1,5 +1,5 @@
-export class Notification{
-    errorMessage: string = "";
-    accessDenied: boolean;
-    timeOut: TimeRanges;
-  }
+export class Notification {
+  errorMessage: string = "";
+  accessDenied: boolean;
+  timeOut: TimeRanges;
+}

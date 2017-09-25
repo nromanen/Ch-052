@@ -1,32 +1,33 @@
-<div class="container">
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="well well-sm">
-                <div class="row" >
-                    
-                    <div class="col-sm-2 col-md-1">
-                        <img [src]='getPhotoUrl()' class="img-rounded userAvatar" />
-                    </div>
-                    <div class="col-sm-3 col-md-2">
-                        <h3>{{AspNetUser.UserName}}</h3>
+<div *ngIf="AspNetUser && Advertisements && categories && types">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="well well-sm">
+                    <div class="row">
+
+                        <div class="col-sm-2 col-md-1">
+                            <img [src]='getPhotoUrl()' class="img-rounded userAvatar" />
+                        </div>
+                        <div class="col-sm-3 col-md-2">
+                            <h3>{{AspNetUser.UserName}}</h3>
+
+
+                        </div>
+                        <div class="col-sm-6 col-md-5">
+                            <h3>
+                                <span> <i class="glyphicon glyphicon-envelope"></i> </span>
+                                <span>{{AspNetUser.Email}}</span>
+                            </h3>
+                        </div>
 
 
                     </div>
-                    <div class="col-sm-6 col-md-5">
-                        <h3>
-                            <span> <i class="glyphicon glyphicon-envelope"></i> </span>
-                            <span>{{AspNetUser.Email}}</span>
-                        </h3>
-                    </div>
-
-                
-            </div>
-                <div style="text-align:center" id="advertisementsForm">
+                    <div style="text-align:center" id="advertisementsForm">
                         <h2 id="advertisementsUserHeader">
                             {{AspNetUser.UserName}}`s advertisements
                         </h2>
                         <table class="table table-adv table-bordered">
-        
+
                             <tr *ngFor="let advertisement of Advertisements" (click)="redirect(advertisement.Id)">
                                 <table myHighlight class="table table-adv-inner">
                                     <tr>
@@ -52,12 +53,13 @@
                                 </table>
                             </tr>
                         </table>
-        
+
                     </div>
 
-            </div>
-            
-        </div>
+                </div>
 
+            </div>
+
+        </div>
     </div>
 </div>

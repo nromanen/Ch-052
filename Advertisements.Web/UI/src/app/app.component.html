@@ -13,32 +13,32 @@
         <span class="icon-bar"></span>
       </button>
         <a class="navbar-brand" [routerLink]="['/start']">Advertisements</a>
-      </div>                                           
+      </div>
 
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
           <li [routerLinkActive]="['active']"><a [routerLink]="['/start']">Main <span class="sr-only">(current)</span></a></li>
-          <li [routerLinkActive]="['active']"><a [routerLink]="['/create']">Add advertisement</a></li>
+          <li *ngIf="isLoggedIn" [routerLinkActive]="['active']"><a [routerLink]="['/create']">Add advertisement</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <form class="navbar-form navbar-left"  [formGroup]="searchGroup" novalidate (ngSubmit)="GoSearch(searchGroup.value)">
+          <form class="navbar-form navbar-left" [formGroup]="searchGroup" novalidate (ngSubmit)="GoSearch(searchGroup.value)">
             <div class="form-group">
-              <input type="text" class="form-control" formControlName="Key" placeholder="Search"  />
+              <input type="text" class="form-control" formControlName="Key" placeholder="Search" />
             </div>
-            <input class="btn btn-default" type="submit" value="Search"/>
-            
-          </form>
-            <li *ngIf="!isLoggedIn" [routerLinkActive]="['active']"><a [routerLink]="['/register']">{{registerbuttontext}}</a></li>
-            <li *isLoggedIn="!isLoggedIn" [routerLinkActive]="['active']"><a [routerLink]="['/login']">{{loginbuttontext}}</a></li>
+            <input class="btn btn-default" type="submit" value="Search" />
 
-            <li *isLoggedIn="isLoggedIn" class="dropdown">
+          </form>
+          <li *ngIf="!isLoggedIn" [routerLinkActive]="['active']"><a [routerLink]="['/register']">{{registerbuttontext}}</a></li>
+          <li *isLoggedIn="!isLoggedIn" [routerLinkActive]="['active']"><a [routerLink]="['/login']">{{loginbuttontext}}</a></li>
+
+          <li *isLoggedIn="isLoggedIn" class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{loginbuttontext}}<span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li *admin="admin"><a [routerLink]="['/category']">Edit Categories</a></li>
-              <li *admin="admin"><a [routerLink]="['/type']">Edit Types</a></li>
+              <li *ngIf="isAdmin"><a [routerLink]="['/category']">Edit Categories</a></li>
+              <li *ngIf="isAdmin"><a [routerLink]="['/type']">Edit Types</a></li>
               <li><a [routerLink]="['/myAdv']">My Advertisements</a></li>
               <li role="separator" class="divider"></li>
-              <li><a class="cursor_pointer" [routerLink]="['/start']" (click)='logout()' >Logout</a></li>
+              <li><a class="cursor_pointer" (click)='logout()'>Logout</a></li>
             </ul>
           </li>
 
@@ -47,6 +47,6 @@
     </div>
   </nav>
   <div class="alert alert-danger alert-dismissable text-center" *ngIf="errorNotification != undefined && errorNotification.accessDenied">{{errorNotification.errorMessage}}
-  <a class="close" (click)="errorNotification = null" data-dismiss="alert" aria-label="close">&times;</a></div>
+    <a class="close" (click)="errorNotification = null" data-dismiss="alert" aria-label="close">&times;</a></div>
   <router-outlet></router-outlet>
-</div>              
+</div>
