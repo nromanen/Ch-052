@@ -70,5 +70,11 @@ namespace Advertisements.Web.Models
         public string EmailToken;
         public string NewPassword;
     }
+
+    public class PaginationModel
+    {
+        public int PageSize;
+        public int Page;
+    }
     
 }

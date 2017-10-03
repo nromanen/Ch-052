@@ -1,19 +1,21 @@
 ﻿using Advertisements.BusinessLogic.Services;
+using Advertisements.DataAccess.Entities;
 using Advertisements.DTO.Models;
 using System.Collections.Generic;
 using System.Web.Http;
-
+using Advertisements.BusinessLogic.Mapper;
 namespace Advertisements.Web.Controllers
 {
     [Authorize(Roles = "Admin")]
     [RoutePrefix("api/type")]
     public class TypeController : ApiController
     {
-        IService<TypeDTO> service;
+        IMyService<AdvertisementType,TypeDTO> service;
 
-        public TypeController(IService<TypeDTO> s)
+        public TypeController(IMyService<AdvertisementType, TypeDTO> s)
         {
             service = s;
+            service._mapper = new MyTypeMapper();
         }
 
         [AllowAnonymous]

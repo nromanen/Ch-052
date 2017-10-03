@@ -11,7 +11,7 @@ using Advertisements.DTO.Models;
 
 namespace Advertisements.BusinessLogic.Services
 {
-    public class AdvertisementService : IService<AdvertisementDTO>, IUserAwareService<AdvertisementDTO>, IAdvertisementAwareService<AdvertisementDTO>
+    public class AdvertisementService : IUserAwareService<AdvertisementDTO>, IAdvertisementAwareService<AdvertisementDTO>
     {
         private readonly IUOWFactory _uowfactory;
 
@@ -125,6 +125,28 @@ namespace Advertisements.BusinessLogic.Services
             return dtos;
         }
 
-        
+        public IEnumerable<AdvertisementDTO> Get(int page, int pageSize)
+        {
+            IEnumerable<Advertisement> advertisements;
+            IEnumerable<AdvertisementDTO> advertisementDTOs;
+            using (var uow = _uowfactory.CreateUnitOfWork())
+            {
+                var repository = uow.GetRepo<Advertisement>();
+                advertisements = repository.GetAdvertisements(page, pageSize, (adv => adv.Resources));
+                advertisementDTOs = AdvertisementMapper.CreateListAdvertisementDTO().Map(advertisements).ToList();
+            }
+            return advertisementDTOs;
+        }
+
+        public int GetCount()
+        {
+            int count = 0;
+            using (var uow = _uowfactory.CreateUnitOfWork())
+            {
+                var repository = uow.GetRepo<Advertisement>();
+                count = repository.GetCount();
+            }
+            return count;
+        }
     }
 }

@@ -19,5 +19,8 @@ namespace Advertisements.DataAccess.Repositories
         void Delete(string id);
         IEnumerable<Advertisement> Find(string keyword,
             params Expression<Func<Advertisement, object>>[] includeExpressions);
+        IEnumerable<Advertisement> GetAdvertisements(int page, int pageSize,
+            params Expression<Func<Advertisement, object>>[] includeExpressions);
+        int GetCount();
     }
 }

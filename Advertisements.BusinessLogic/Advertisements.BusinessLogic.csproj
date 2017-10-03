@@ -91,6 +91,15 @@
     <Compile Include="Mapper\AspNetUsersMapper.cs" />
     <Compile Include="Mapper\CategoryMapper.cs" />
     <Compile Include="Mapper\FeedbackMapper.cs" />
+    <Compile Include="Mapper\IMappingProvider.cs" />
+    <Compile Include="Mapper\MyAdvertisementMapper.cs" />
+    <Compile Include="Mapper\MyAdvertisementUserMapper.cs" />
+    <Compile Include="Mapper\MyAspNetUserMapper.cs" />
+    <Compile Include="Mapper\MyBaseMapper.cs" />
+    <Compile Include="Mapper\MyCategoryMapper.cs" />
+    <Compile Include="Mapper\MyFeedBackMapper.cs" />
+    <Compile Include="Mapper\MyResourceMapper.cs" />
+    <Compile Include="Mapper\MyTypeMapper.cs" />
     <Compile Include="Mapper\TypeMapper.cs" />
     <Compile Include="Mapper\PasswordRecoveryMapper.cs" />
     <Compile Include="Mapper\ResourceMapper.cs" />
@@ -98,12 +107,9 @@
     <Compile Include="Services\AdvertisementService.cs" />
     <Compile Include="Services\AdvertisementUsersService.cs" />
     <Compile Include="Services\AspNetUsersService.cs" />
-    <Compile Include="Services\CategoryService.cs" />
     <Compile Include="Services\FeedbackService.cs" />
     <Compile Include="Services\IService.cs" />
-    <Compile Include="Services\PasswordRecoveryService.cs" />
-    <Compile Include="Services\ResourceService.cs" />
-    <Compile Include="Services\TypeService.cs" />
+    <Compile Include="Services\MyService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Advertisements.DataAccess\Advertisements.DataAccess.csproj">

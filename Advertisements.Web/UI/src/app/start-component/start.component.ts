@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges, Input } from '@angular/core';
 import { NgSwitch } from '@angular/common';
 import { Router } from '@angular/router';
 
@@ -6,6 +6,7 @@ import { AdvertisementService } from '../services/advertisement.service';
 import { LoginService } from '../services/login.service';
 import { Type } from '../models/type';
 import { Category } from '../models/category';
+import { Observable } from "rxjs/Observable";
 
 import { Token } from '../models/token';
 import { Advertisement } from '../models/advertisement';
@@ -13,6 +14,9 @@ import { TypeService } from '../services/type.service';
 import { CategoryService } from '../services/category.service';
 import { UsersService } from "../services/users.service";
 import { AdvertisementsUserModel } from "../models/AdvertisementsUserModel";
+import * as _ from 'underscore';
+import { PagerService } from "../services/pager.service";
+
 @Component({
   moduleId: module.id.toString(),
   selector: 'start-root',
@@ -20,7 +24,7 @@ import { AdvertisementsUserModel } from "../models/AdvertisementsUserModel";
   styleUrls: ['./start.component.css'],
   providers: [AdvertisementService, CategoryService, TypeService,UsersService]
 })
-export class StartComponent implements OnInit {
+export class StartComponent implements OnInit{
   token: Token;
 
   constructor(private router: Router,
@@ -28,7 +32,8 @@ export class StartComponent implements OnInit {
     private loginService: LoginService,
     private typeService: TypeService,
     private categoryService: CategoryService,
-    private usersService: UsersService
+    private usersService: UsersService,
+    private pagerService: PagerService
   ) { }
   title: string = 'Advertisements';
 
@@ -38,9 +43,37 @@ export class StartComponent implements OnInit {
   private types: Type[];
   private categories: Category[];
   private Users: AdvertisementsUserModel[];
+  private AllAdvsCount: number;
+
+  pager: any = {};
+
+  public setPage(page: number) {
+    if (page < 1 || page > this.pager.totalPages) {
+        return;
+    }
+
+    this.pager = this.pagerService.getPager(this.AllAdvsCount, page, 2);
+    
+    this.getAdvertisements();
+}
+
+  ngOnInit(): void {
+    this.getAdvertisementsCount();
+    //this.setPage(1);
+    this.getUsers();
+    this.getTypes();
+    this.getCategories();    
+  }
+ 
+  getAdvertisementsCount():void
+  {
+    this.advertisementService.getAdsCount().then(result =>{
+      this.AllAdvsCount = result;
+      this.setPage(1);});
+  }
 
   getAdvertisements(): void {
-    this.advertisementService.getAds().then(result => { this.advertisements = result; });
+    this.advertisementService.getAds(this.pager.pageSize,this.pager.currentPage).then(result => { this.advertisements = result; });
   }
 
   getUsers():void
@@ -65,12 +98,7 @@ export class StartComponent implements OnInit {
       return "unknown";
  } 
 
-  ngOnInit(): void {
-    this.getUsers();
-    this.getTypes();
-    this.getCategories();
-    this.getAdvertisements();
-  }
+  
 
   redirect(Id: number): void {
     this.router.navigate(['/info', Id]);
@@ -80,4 +108,6 @@ export class StartComponent implements OnInit {
   {
     this.router.navigate(['/userinfo'], {queryParams: { id: ApplicationUserId }});  
   }
+
+
 }

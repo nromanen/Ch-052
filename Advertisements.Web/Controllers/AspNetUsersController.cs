@@ -10,17 +10,18 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
-
+using Advertisements.BusinessLogic.Mapper;
+using Advertisements.DataAccess.Entities;
 namespace Advertisements.Web.Controllers
 {
     [RoutePrefix("api/AspNetUsers")]
     public class AspNetUsersController : ApiController
     {
-        IUserService<AspNetUsersDTO> service;
-        
-        public AspNetUsersController(IUserService<AspNetUsersDTO> s)
+        IMyService<ApplicationUser, AspNetUsersDTO> service;
+        public AspNetUsersController(IMyService<ApplicationUser, AspNetUsersDTO> s)
         {
             service = s;
+            service._mapper = new MyAspNetUserMapper();
         }
 
         [Authorize]

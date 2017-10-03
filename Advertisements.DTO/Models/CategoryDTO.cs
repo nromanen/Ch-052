@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Advertisements.BusinessLogic.Mapper;
+using System.ComponentModel.DataAnnotations;
 
 namespace Advertisements.DTO.Models
 {
-    public class CategoryDTO
+    public class CategoryDTO: IDTO
     {
         public int Id { get; set; }
 

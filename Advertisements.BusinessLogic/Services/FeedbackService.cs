@@ -4,10 +4,11 @@ using Advertisements.DataAccess.Repositories;
 using Advertisements.DataAccess.Entities;
 using Advertisements.BusinessLogic.Mapper;
 using System.Collections.Generic;
+using System;
 
 namespace Advertisements.BusinessLogic.Services
 {
-    public class FeedbackService : IService<FeedbackDTO>, IFeedbackAwareService<FeedbackDTO>
+    public class FeedbackService :IFeedbackAwareService<FeedbackDTO>
     {
         private readonly IUOWFactory _uowfactory;
 
@@ -16,28 +17,6 @@ namespace Advertisements.BusinessLogic.Services
             _uowfactory = uowfactory;
         }
 
-        public void Create(FeedbackDTO item)
-        {
-
-            Feedback feedback = FeedbackMapper.CreateFeedback().Map(item);
-            feedback.CreationTime = System.DateTime.Now;
-
-            using (var uow = _uowfactory.CreateUnitOfWork())
-            {
-                var repo = uow.GetRepo<Feedback>();
-
-                if (!AlreadyCommented(item.UserId, item.AdvertisementId))
-                {
-                    repo.Create(feedback);
-                    uow.BeginTransaction();
-                    uow.Commit();
-                }
-                else
-                {
-                    throw new PermissionDeniedException(201);
-                }
-            }
-        }
 
         public void Delete(int id)
         {
@@ -168,6 +147,17 @@ namespace Advertisements.BusinessLogic.Services
             }
 
             return feedbackToUpdate;
+        }
+
+        public int GetCount()
+        {
+            int count = 0;
+            using (var uow = this._uowfactory.CreateUnitOfWork())
+            {
+                var repository = uow.GetRepo<Feedback>();
+                count = repository.GetCount();
+            }
+            return count;
         }
 
         public class PermissionDeniedException : System.Exception
