@@ -11,6 +11,8 @@ using System.Web.Http;
 using Microsoft.AspNet.Identity;
 using System.Net;
 using System.Net.Http;
+using Advertisements.DataAccess.Entities;
+using Advertisements.BusinessLogic.Mapper;
 
 namespace Advertisements.Web.Controllers
 {
@@ -18,13 +20,14 @@ namespace Advertisements.Web.Controllers
     [RoutePrefix("api/Feedback")]
     public class FeedbackController : ApiController
     {
-        IService<FeedbackDTO> service;
+        IService<Feedback,FeedbackDTO> service;
         IUserService<AspNetUsersDTO> userService;
         IFeedbackAwareService<FeedbackDTO> feedbackService;
 
-        public FeedbackController(IService<FeedbackDTO> s, IUserService<AspNetUsersDTO> us, IFeedbackAwareService<FeedbackDTO> fs)
+        public FeedbackController(IService<Feedback, FeedbackDTO> s, IUserService<AspNetUsersDTO> us, IFeedbackAwareService<FeedbackDTO> fs)
         {
             service = s;
+            service._mapper = new FeedBackMapper();
             userService = us;
             feedbackService = fs;
         }
@@ -71,6 +74,8 @@ namespace Advertisements.Web.Controllers
             try
             {
                 dto.UserId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+                dto.CreationTime = DateTime.Now;
+                dto.Username = System.Web.HttpContext.Current.User.Identity.GetUserName();
                 service.Create(dto);
             }
             catch (FeedbackService.PermissionDeniedException ex)

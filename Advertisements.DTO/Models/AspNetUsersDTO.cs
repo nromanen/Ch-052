@@ -1,9 +1,10 @@
+using Advertisements.BusinessLogic.Mapper;
 using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace Advertisements.DTO.Models
 {
-    public class AspNetUsersDTO
+    public class AspNetUsersDTO:IDTO
     {
         public string Id { get; set; }
 

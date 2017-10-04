@@ -97,7 +97,7 @@ namespace Advertisements.DataAccess.Repositories
 
                 var inc = includeExpressions
                .Aggregate
-                (_context.Advertisements.Where((adv) => adv.CategoryId == catId),
+                (_context.Advertisements.Where((adv) => adv.CategoryId == catId && !adv.IsDeleted),
                 (current, expression) => current.Include(expression));
                 
                 return inc;
@@ -114,7 +114,7 @@ namespace Advertisements.DataAccess.Repositories
             {
                 return includeExpressions
                .Aggregate
-                (_context.Advertisements.Where((adv) => adv.Type.Name.Equals(tempKeyWord)),
+                (_context.Advertisements.Where((adv) => adv.Type.Name.Equals(tempKeyWord) && !adv.IsDeleted),
                 (current, expression) => current.Include(expression));
 
             }
@@ -122,12 +122,12 @@ namespace Advertisements.DataAccess.Repositories
 
             var advsByDescription = includeExpressions
                .Aggregate
-                (_context.Advertisements.Where((adv) => adv.Description.Contains(keyword)),
+                (_context.Advertisements.Where((adv) => adv.Description.Contains(keyword) && !adv.IsDeleted),
                 (current, expression) => current.Include(expression));
 
             var advsByName = includeExpressions
               .Aggregate
-               (_context.Advertisements.Where((adv) => adv.Title.Contains(keyword)),
+               (_context.Advertisements.Where((adv) => adv.Title.Contains(keyword) && !adv.IsDeleted),
                (current, expression) => current.Include(expression));
 
             List<Advertisement> advsResult = new List<Advertisement>();
@@ -145,9 +145,15 @@ namespace Advertisements.DataAccess.Repositories
             return advsResult;
         }
 
-        //public IEnumerable<Advertisement> FindByUser(string id, params Expression<Func<Advertisement, object>>[] includeExpressions)
-        //{
-        //    return _context.Set<TEntity>().Where(filter).ToList();
-        //}
+        public IEnumerable<Advertisement> GetAdvertisements(int page, int pageSize, params Expression<Func<Advertisement, object>>[] includeExpressions)
+        {
+            return includeExpressions.Aggregate(_context.Advertisements.Where((adv) => !adv.IsDeleted), (currrent, expression) => currrent.Include(expression)).OrderBy(adv => adv.Id)
+                .Skip(pageSize * (page - 1)).Take(pageSize);
+        }
+
+        public int GetCount()
+        {
+            return this._context.Set<TEntity>().Count();
+        }
     }
 }

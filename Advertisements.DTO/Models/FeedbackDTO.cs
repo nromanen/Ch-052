@@ -4,10 +4,11 @@ using Advertisements.DTO.Models;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Advertisements.DataAccess.Entities;
+using Advertisements.BusinessLogic.Mapper;
 
 namespace Advertisements.DTO.Models
 {
-    public class FeedbackDTO
+    public class FeedbackDTO: IDTO
     {
         public int Id { get; set; }
 

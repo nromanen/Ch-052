@@ -14,6 +14,9 @@ using System.Web;
 using Microsoft.AspNet.Identity;
 using System.Threading.Tasks;
 using System.Text;
+using Advertisements.Web.Models;
+using Advertisements.DataAccess.Entities;
+using Advertisements.BusinessLogic.Mapper;
 
 namespace Advertisements.Web.Controllers
 {
@@ -21,25 +24,53 @@ namespace Advertisements.Web.Controllers
     [RoutePrefix("api/Advertisement")]
     public class AdvertisementController : ApiController
     {
-
-
-        IService<AdvertisementDTO> service;
         IUserAwareService<AdvertisementDTO> userService;
         IAdvertisementAwareService<AdvertisementDTO> advertService;
-
-        public AdvertisementController(IService<AdvertisementDTO> s, IUserAwareService<AdvertisementDTO> us, IAdvertisementAwareService<AdvertisementDTO> advs)
+        IService<Advertisement, AdvertisementDTO> service;
+        public AdvertisementController(IUserAwareService<AdvertisementDTO> us, 
+            IAdvertisementAwareService<AdvertisementDTO> advs, IService<Advertisement, AdvertisementDTO> myServ)
         {
-            service = s;
             userService = us;
             advertService = advs;
+            service = myServ;
+            service._mapper = new AdvertisementMapper();
+        }      
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model">PageSize and Page</param>
+        /// <returns></returns>
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("takepage")]
+        public IEnumerable<AdvertisementDTO> TakePage(PaginationModel model)
+        {
+            return advertService.Get(model.Page, model.PageSize);
         }
 
         [AllowAnonymous]
         [HttpGet]
-        [Route("get")]
-        public IEnumerable<AdvertisementDTO> Get()
+        [Route("getmyadv/{id}")]
+        public AdvertisementDTO GetMyAdvertisement(int id)
         {
-            return service.GetAll();
+            return this.service.Get(id) as AdvertisementDTO;
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("getmyadvs")]
+        public IEnumerable<IDTO> GetMyAdvertisements()
+        {
+            return this.service.GetAll(adv => adv.Resources);          
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("getadvcount")]
+        public int GetAdvertisementsCount()
+        {
+            return advertService.GetCount();
         }
 
         [AllowAnonymous]
@@ -47,7 +78,7 @@ namespace Advertisements.Web.Controllers
         [Route("get/{id}")]
         public AdvertisementDTO Get(int id)
         {
-            return service.Get(id);
+            return service.Get(id,adv=>adv.Resources);
         }
 
         [AllowAnonymous]
@@ -57,6 +88,8 @@ namespace Advertisements.Web.Controllers
         {   
             return advertService.Find(keyword);
         }
+
+
 
         [AllowAnonymous]
         [HttpGet]

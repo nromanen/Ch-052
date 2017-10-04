@@ -1,70 +1,46 @@
-﻿using System.Text;
-using Advertisements.DataAccess.Entities;
-using Advertisements.DTO.Models;
-using EmitMapper;
-using EmitMapper.MappingConfiguration;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.AspNet.Identity.EntityFramework;
-
+using System.Text;
+using System.Threading.Tasks;
+using Advertisements.DataAccess.Entities;
+using Advertisements.DTO.Models;
 namespace Advertisements.BusinessLogic.Mapper
 {
-    public static class FeedbackMapper
+    public class FeedBackMapper : BaseMapper
     {
-        public static ObjectsMapper<FeedbackDTO, Feedback> CreateFeedback()
+        protected override IDTO GetDTO(IEntity input)
         {
-            var mapper = ObjectMapperManager.DefaultInstance.GetMapper<FeedbackDTO, Feedback>(new DefaultMapConfig().
-                ConvertUsing((FeedbackDTO source) => new Feedback
-                {
-                    Id = source.Id,
-                    Text = source.Text,
-                    AgreeCount = source.AgreeCount,
-                    DisagreeCount = source.DisagreeCount,
-                    AdvertisementId = source.AdvertisementId,
-                    ApplicationUserId = source.UserId,
-                    CreationTime = source.CreationTime
+            var entity = input as Feedback;
 
-                }));
-
-            return mapper;
+            return new FeedbackDTO
+            {
+                Username = entity.ApplicationUser.UserName,
+                Id = entity.Id,
+                Text = entity.Text,
+                AgreeCount = entity.AgreeCount,
+                DisagreeCount = entity.DisagreeCount,
+                CreationTime = entity.CreationTime,
+                AdvertisementId = entity.AdvertisementId,
+                UserId = entity.ApplicationUserId,
+                RowVersion = entity.RowVersion.Select(x => (int)x).ToArray()
+            };
         }
 
-        public static ObjectsMapper<IEnumerable<FeedbackDTO>, IEnumerable<Feedback>> CreateListFeedback()
+        protected override IEntity GetEntity(IDTO dto)
         {
-            var mapper = ObjectMapperManager.DefaultInstance.GetMapper<IEnumerable<FeedbackDTO>, IEnumerable<Feedback>>(new DefaultMapConfig().
-                ConvertUsing<IEnumerable<FeedbackDTO>, IEnumerable<Feedback>>(a => a.Select(CreateFeedback().Map)));
+            var feedbackDTO = dto as FeedbackDTO;
 
-            return mapper;
+            return new Feedback
+            {
+                Id = feedbackDTO.Id,
+                Text = feedbackDTO.Text,
+                AgreeCount = feedbackDTO.AgreeCount,
+                DisagreeCount = feedbackDTO.DisagreeCount,
+                AdvertisementId = feedbackDTO.AdvertisementId,
+                CreationTime = feedbackDTO.CreationTime,
+                ApplicationUserId = feedbackDTO.UserId
+            };
         }
-
-        public static ObjectsMapper<Feedback, FeedbackDTO> CreateFeedbackDTO()
-        {
-            var mapper = ObjectMapperManager.DefaultInstance.GetMapper<Feedback, FeedbackDTO>(new DefaultMapConfig().
-                ConvertUsing((Feedback source) => new FeedbackDTO
-                {
-                    Id = source.Id,
-                    Text = source.Text,
-                    AgreeCount = source.AgreeCount,
-                    DisagreeCount = source.DisagreeCount,
-                    CreationTime = source.CreationTime,
-                    AdvertisementId = source.AdvertisementId,
-                    UserId = source.ApplicationUserId,
-                    Username = source.ApplicationUser.UserName,
-                    RowVersion = source.RowVersion.Select(x => (int)x).ToArray(),
-                    //Avatar = System.Convert.ToBase64String(source.ApplicationUser.Avatar)
-                }));
-
-            return mapper;
-        }
-
-        public static ObjectsMapper<IEnumerable<Feedback>, IEnumerable<FeedbackDTO>> CreateListFeedbackDTO()
-        {
-            var mapper = ObjectMapperManager.DefaultInstance.GetMapper<IEnumerable<Feedback>, IEnumerable<FeedbackDTO> >(new DefaultMapConfig().
-                ConvertUsing<IEnumerable<Feedback>, IEnumerable<FeedbackDTO>>(a => a.Select(CreateFeedbackDTO().Map)));
-
-            return mapper;
-        }
-
     }
 }

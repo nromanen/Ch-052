@@ -4,51 +4,22 @@ using Advertisements.DataAccess.Repositories;
 using Advertisements.DataAccess.Entities;
 using Advertisements.BusinessLogic.Mapper;
 using System.Collections.Generic;
+using System;
 
 namespace Advertisements.BusinessLogic.Services
 {
-    public class FeedbackService : IService<FeedbackDTO>, IFeedbackAwareService<FeedbackDTO>
+    public class FeedbackService :IFeedbackAwareService<FeedbackDTO>
     {
         private readonly IUOWFactory _uowfactory;
-
+        private readonly BaseMapper _mapper;
         public FeedbackService(IUOWFactory uowfactory)
         {
             _uowfactory = uowfactory;
+            _mapper = new FeedBackMapper();
         }
 
-        public void Create(FeedbackDTO item)
-        {
 
-            Feedback feedback = FeedbackMapper.CreateFeedback().Map(item);
-            feedback.CreationTime = System.DateTime.Now;
-
-            using (var uow = _uowfactory.CreateUnitOfWork())
-            {
-                var repo = uow.GetRepo<Feedback>();
-
-                if (!AlreadyCommented(item.UserId, item.AdvertisementId))
-                {
-                    repo.Create(feedback);
-                    uow.BeginTransaction();
-                    uow.Commit();
-                }
-                else
-                {
-                    throw new PermissionDeniedException(201);
-                }
-            }
-        }
-
-        public void Delete(int id)
-        {
-            using (var uow = _uowfactory.CreateUnitOfWork())
-            {
-                var repo = uow.GetRepo<Feedback>();
-                repo.Delete(id);
-                uow.BeginTransaction();
-                uow.Commit();
-            }
-        }
+      
 
         public FeedbackDTO Get(int id)
         {
@@ -59,23 +30,8 @@ namespace Advertisements.BusinessLogic.Services
                 var repo = uow.GetRepo<Feedback>();
                 feedback = repo.Get(id, o => o.Advertisement, o => o.ApplicationUser, o => o.Votes);
             }
-            FeedbackDTO dto = FeedbackMapper.CreateFeedbackDTO().Map(feedback);
+            FeedbackDTO dto = _mapper.Map(feedback) as FeedbackDTO;
             return dto;
-        }
-
-        public IEnumerable<FeedbackDTO> GetAll()
-        {
-            IEnumerable<Feedback> feedbacks;
-
-            using (var uow = _uowfactory.CreateUnitOfWork())
-            {
-                var repo = uow.GetRepo<Feedback>();
-
-                feedbacks = repo.GetAll(o => o.Advertisement, o => o.ApplicationUser, o => o.Votes);
-            }
-            IEnumerable<FeedbackDTO> dtos = FeedbackMapper.CreateListFeedbackDTO().Map(feedbacks).ToList().Reverse<FeedbackDTO>();
-
-            return dtos;
         }
 
         public IEnumerable<FeedbackDTO> GetByAdvertisement(int advertisementId)
@@ -88,14 +44,24 @@ namespace Advertisements.BusinessLogic.Services
 
                 feedbacks = repo.GetAll(o => o.Advertisement, o => o.ApplicationUser, o => o.Votes).Where(x => x.AdvertisementId == advertisementId);
             }
-            IEnumerable<FeedbackDTO> dtos = FeedbackMapper.CreateListFeedbackDTO().Map(feedbacks).ToList().Reverse<FeedbackDTO>();
 
-            return dtos;
+            return this.UnboxFeedbacks(_mapper.MapCollection(feedbacks));
+        }
+
+        private IEnumerable<FeedbackDTO> UnboxFeedbacks(IEnumerable<IDTO> dtos)
+        {
+            List<FeedbackDTO> resultFeedbacks = new List<FeedbackDTO>();
+
+            foreach (var element in dtos)
+            {
+                resultFeedbacks.Add(element as FeedbackDTO);
+            }
+            return resultFeedbacks;
         }
 
         public void Update(FeedbackDTO item)
         {
-            Feedback feedback = FeedbackMapper.CreateFeedback().Map(item);
+            Feedback feedback = _mapper.Map(item) as Feedback;
             feedback.RowVersion = item.RowVersion.Select(x => (byte)x).ToArray();
 
             using (var uow = _uowfactory.CreateUnitOfWork())
@@ -168,6 +134,17 @@ namespace Advertisements.BusinessLogic.Services
             }
 
             return feedbackToUpdate;
+        }
+
+        public int GetCount()
+        {
+            int count = 0;
+            using (var uow = this._uowfactory.CreateUnitOfWork())
+            {
+                var repository = uow.GetRepo<Feedback>();
+                count = repository.GetCount();
+            }
+            return count;
         }
 
         public class PermissionDeniedException : System.Exception

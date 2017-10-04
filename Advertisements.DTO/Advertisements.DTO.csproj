@@ -70,6 +70,7 @@
     <Compile Include="Models\AspNetUsersDTO.cs" />
     <Compile Include="Models\CategoryDTO.cs" />
     <Compile Include="Models\FeedbackDTO.cs" />
+    <Compile Include="Models\IDTO.cs" />
     <Compile Include="Models\PasswordRecoveryDTO.cs" />
     <Compile Include="Models\ResourceDTO.cs" />
     <Compile Include="Models\TypeDTO.cs" />

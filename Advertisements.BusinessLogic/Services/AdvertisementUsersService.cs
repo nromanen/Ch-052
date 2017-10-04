@@ -11,10 +11,11 @@ namespace Advertisements.BusinessLogic.Services
     public class AdvertisementUsersService : IUserService<AdvertisementUsersDTO>
     {
         private readonly IUOWFactory _ouwfactory;
-
+        private readonly BaseMapper _mapper;
         public AdvertisementUsersService(IUOWFactory factory)
         {
             this._ouwfactory = factory;
+            this._mapper = new AdvertisementUserMapper();
         }
 
         public void Create(AdvertisementUsersDTO item)
@@ -36,7 +37,7 @@ namespace Advertisements.BusinessLogic.Services
                 var repo = uow.GetRepo<ApplicationUser>();
                 user = repo.Get(id);
             }
-            return AdvertisementUsersMapper.GetAdvertisementUsersDTO().Map(user);
+            return _mapper.Map(user) as AdvertisementUsersDTO;
         }
 
         public IEnumerable<AdvertisementUsersDTO> GetAll()
@@ -48,12 +49,22 @@ namespace Advertisements.BusinessLogic.Services
                 var repo = uow.GetRepo<ApplicationUser>();
                 users = repo.GetAll();
             }
-            return AdvertisementUsersMapper.CreateListAdvertisementusersDTO().Map(users);
+            return this.UnboxAdvUsers(_mapper.MapCollection(users));
         }
 
         public void Update(AdvertisementUsersDTO item)
         {
             throw new NotImplementedException();
+        }
+        private IEnumerable<AdvertisementUsersDTO> UnboxAdvUsers(IEnumerable<IDTO> dtos)
+        {
+            List<AdvertisementUsersDTO> advUsersResult = new List<AdvertisementUsersDTO>();
+
+            foreach (var element in dtos)
+            {
+                advUsersResult.Add(element as AdvertisementUsersDTO);
+            }
+            return advUsersResult;
         }
     }
 }

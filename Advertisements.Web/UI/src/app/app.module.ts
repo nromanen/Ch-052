@@ -39,7 +39,7 @@ import {SearchComponent} from "./search-component/search.component"
 import { UsersService } from "./services/users.service";
 import { UserInfoComponent } from "./userInfo-component/userInfo.component";
 import { CarouselModule } from 'ngx-bootstrap/carousel';
-
+import { PagerService } from "./services/pager.service";
 
 @NgModule({
   declarations: [
@@ -86,6 +86,7 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
       ConfirmEmailService,
       SearchService,
       UsersService,
+      PagerService,
     {
       provide: Http,
       useFactory: httpFactory,

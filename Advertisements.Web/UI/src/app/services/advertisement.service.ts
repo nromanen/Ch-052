@@ -21,9 +21,19 @@ export class AdvertisementService {
     private advertisements: Advertisement[];
     private advertisement: Advertisement;
 
-    getAds(): Promise<Advertisement[]> {
-        let advertisementsLoginUrl = '/api/Advertisement/get';
-        return this.http.get(advertisementsLoginUrl)
+    getAds(pageSize: number, page: number): Promise<Advertisement[]> {
+        console.log(page + " " + pageSize);
+        let advertisementsLoginUrl = '/api/Advertisement/takepage';
+        let body = {
+            PageSize: pageSize,
+            Page: page
+        }
+        
+        let header = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: header });        
+        
+
+        return this.http.post(advertisementsLoginUrl,body,options)
             .toPromise()
             .then(response => {
                 this.advertisements = response.json() as Advertisement[];
@@ -38,6 +48,20 @@ export class AdvertisementService {
                 return this.advertisements;
             })
             .catch(this.handleError);
+    }
+
+    getAdsCount(): Promise<number>
+    {
+        let url: string = "/api/Advertisement/getadvcount";
+        let count: number = 0;
+        return this.http.get(url)
+        .toPromise()
+        .then(response =>{
+            count = response.json() as number;
+
+            return count;
+        })
+        .catch(this.handleError);
     }
 
     getAdsByUser(id: string): Promise<Advertisement[]> {
@@ -118,7 +142,7 @@ export class AdvertisementService {
             .map(response => {
                 param.ApplicationUserId = response.json() as string;
                 this.http
-                    .post('api/advertisement/add', param).toPromise().then(r => {
+                    .post('api/Advertisement/add', param).toPromise().then(r => {
                         if (r.status == 200 || r.status == 204)
                             this.router.navigate(['/start']);
                     })

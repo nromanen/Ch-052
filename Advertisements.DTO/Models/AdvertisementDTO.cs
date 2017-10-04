@@ -5,10 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Advertisements.DataAccess.Entities;
+using Advertisements.BusinessLogic.Mapper;
 
 namespace Advertisements.DTO.Models
 {
-    public class AdvertisementDTO
+    public class AdvertisementDTO: IDTO
     {
         public int Id { get; set; }
 
