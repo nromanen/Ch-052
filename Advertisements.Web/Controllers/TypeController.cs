@@ -10,12 +10,12 @@ namespace Advertisements.Web.Controllers
     [RoutePrefix("api/type")]
     public class TypeController : ApiController
     {
-        IMyService<AdvertisementType,TypeDTO> service;
+        IService<AdvertisementType,TypeDTO> service;
 
-        public TypeController(IMyService<AdvertisementType, TypeDTO> s)
+        public TypeController(IService<AdvertisementType, TypeDTO> s)
         {
             service = s;
-            service._mapper = new MyTypeMapper();
+            service._mapper = new TypeMapper();
         }
 
         [AllowAnonymous]

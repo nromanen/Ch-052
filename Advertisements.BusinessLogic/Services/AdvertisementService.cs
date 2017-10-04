@@ -14,28 +14,12 @@ namespace Advertisements.BusinessLogic.Services
     public class AdvertisementService : IUserAwareService<AdvertisementDTO>, IAdvertisementAwareService<AdvertisementDTO>
     {
         private readonly IUOWFactory _uowfactory;
-
+        private readonly BaseMapper _mapper;
         public AdvertisementService(IUOWFactory uowfactory)
         {
             _uowfactory = uowfactory;
-        }
-
-        public IEnumerable<AdvertisementDTO> GetAll()
-        {
-            IEnumerable<Advertisement> advertisements;
-
-            using (var uow = _uowfactory.CreateUnitOfWork())
-            {
-                var repo = uow.GetRepo<Advertisement>();
-
-
-                advertisements = repo.GetAll(x => x.Resources);
-            }
-
-            IEnumerable<AdvertisementDTO> dtos = AdvertisementMapper.CreateListAdvertisementDTO().Map(advertisements).ToList();
-
-            return dtos;
-        }        
+            _mapper = new AdvertisementMapper();
+        }     
 
         public IEnumerable<AdvertisementDTO> Find(string keyword)
         {
@@ -47,81 +31,20 @@ namespace Advertisements.BusinessLogic.Services
 
 
                 advertisements = repo.Find(keyword, x => x.Resources);
-                dtos = AdvertisementMapper.CreateListAdvertisementDTO().Map(advertisements).ToList();
+                dtos = this.UnboxAdvertisements(_mapper.MapCollection(advertisements));
             }
-
             return dtos;
         }        
-
-        public AdvertisementDTO Get(int id)
-        {
-            Advertisement advertisement;
-
-            using (var uow = _uowfactory.CreateUnitOfWork())
-            {
-                var repo = uow.GetRepo<Advertisement>();
-
-                advertisement = repo.Get(id, o => o.Resources);
-            }
-
-            AdvertisementDTO dto = AdvertisementMapper.CreateAdvertisementDTO().Map(advertisement);
-
-            return dto;
-        }
-
-        public void Create(AdvertisementDTO item)
-        {
-            Advertisement advertisement;
-
-            using (var uow = _uowfactory.CreateUnitOfWork())
-            {
-                var repo = uow.GetRepo<Advertisement>();
-
-                advertisement = AdvertisementMapper.CreateAdvertisement().Map(item);
-
-                repo.Create(advertisement);
-                uow.BeginTransaction();
-                uow.Commit();
-            }
-        }
-
-        public void Update(AdvertisementDTO item)
-        {
-            Advertisement advertisement;
-
-            using (var uow = _uowfactory.CreateUnitOfWork())
-            {
-                var repo = uow.GetRepo<Advertisement>();
-
-                advertisement = AdvertisementMapper.CreateAdvertisement().Map(item);
-
-                repo.Update(advertisement);
-                uow.BeginTransaction();
-                uow.Commit();
-            }
-        }
-
-        public void Delete(int id)
-        {
-            using (var uow = _uowfactory.CreateUnitOfWork())
-            {
-                var repo = uow.GetRepo<Advertisement>();
-
-                repo.Delete(id);
-                uow.BeginTransaction();
-                uow.Commit();
-            }
-        }
         public IEnumerable<AdvertisementDTO> GetByUser(string id)
         {
-            IEnumerable<Advertisement> Advertisement;
-
+            IEnumerable<Advertisement> advertisements;
+            IEnumerable<AdvertisementDTO> dtos;
             using (var uow = _uowfactory.CreateUnitOfWork())
             {
                 var repo = uow.GetRepo<Advertisement>();
-                Advertisement = repo.GetAll(o => o.Resources).Where(e => e.ApplicationUserId == id);
+                advertisements = repo.GetAll(o => o.Resources).Where(e => e.ApplicationUserId == id);
             }
-            IEnumerable<AdvertisementDTO> dtos = AdvertisementMapper.CreateListAdvertisementDTO().Map(Advertisement).ToList();
+            dtos = this.UnboxAdvertisements(_mapper.MapCollection(advertisements)); 
             return dtos;
         }
 
@@ -133,7 +56,7 @@ namespace Advertisements.BusinessLogic.Services
             {
                 var repository = uow.GetRepo<Advertisement>();
                 advertisements = repository.GetAdvertisements(page, pageSize, (adv => adv.Resources));
-                advertisementDTOs = AdvertisementMapper.CreateListAdvertisementDTO().Map(advertisements).ToList();
+                advertisementDTOs = this.UnboxAdvertisements(_mapper.MapCollection(advertisements));
             }
             return advertisementDTOs;
         }
@@ -147,6 +70,15 @@ namespace Advertisements.BusinessLogic.Services
                 count = repository.GetCount();
             }
             return count;
+        }
+        private IEnumerable<AdvertisementDTO> UnboxAdvertisements(IEnumerable<IDTO> dtos)
+        {
+            List<AdvertisementDTO> resultDTOS = new List<AdvertisementDTO>();
+            foreach (var element in dtos)
+            {
+                resultDTOS.Add(element as AdvertisementDTO);
+            }
+            return resultDTOS;
         }
     }
 }

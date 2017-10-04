@@ -26,11 +26,11 @@
           <td class="description"> {{advertisement.Description}} </td>
         </tr>
         <tr>
-          <td class="userName"> 
-            <button (click) = 'redirectToUserInfo(advertisement.ApplicationUserId)' class="userInfoBtn">
+          <td class="userName">
+            <button (click)='redirectToUserInfo(advertisement.ApplicationUserId)' class="userInfoBtn">
               <i class = "fa fa-user-circle-o" aria-hidden="true"></i>
                 Author: {{GetUserName(advertisement.ApplicationUserId)}}
-            </button>                   
+            </button>
           </td>
         </tr>
         <tr>
@@ -40,21 +40,35 @@
     </tr>
   </table>
   <!-- pager -->
-  <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
-    <li [ngClass]="{disabled:pager.currentPage === 1}">
+  <div class="row">
+    <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+      <li [ngClass]="{disabled:pager.currentPage === 1}">
         <a (click)="setPage(1)">First</a>
-    </li>
-    <li [ngClass]="{disabled:pager.currentPage === 1}">
+      </li>
+      <li [ngClass]="{disabled:pager.currentPage === 1}">
         <a (click)="setPage(pager.currentPage - 1)">Previous</a>
-    </li>
-    <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+      </li>
+      <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
         <a (click)="setPage(page)">{{page}}</a>
-    </li>
-    <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+      </li>
+      <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
         <a (click)="setPage(pager.currentPage + 1)">Next</a>
-    </li>
-    <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+      </li>
+      <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
         <a (click)="setPage(pager.totalPages)">Last</a>
-    </li>
-</ul>
+      </li>
+    </ul>
+    <div class="dropdown">
+      <button class="btn dropdown-toggle" type="button" data-toggle="dropdown">
+      Items per page: {{CurrentPageSize}}
+      <span class="caret"></span>
+    </button>
+      <ul class="dropdown-menu">
+        <li *ngFor="let pSize of PageSizes" value={{pSize}}>
+          <a (click)="SetSize(pSize)">{{pSize}}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
 </div>

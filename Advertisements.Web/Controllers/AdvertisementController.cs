@@ -26,14 +26,14 @@ namespace Advertisements.Web.Controllers
     {
         IUserAwareService<AdvertisementDTO> userService;
         IAdvertisementAwareService<AdvertisementDTO> advertService;
-        IMyService<Advertisement, AdvertisementDTO> service;
+        IService<Advertisement, AdvertisementDTO> service;
         public AdvertisementController(IUserAwareService<AdvertisementDTO> us, 
-            IAdvertisementAwareService<AdvertisementDTO> advs, IMyService<Advertisement, AdvertisementDTO> myServ)
+            IAdvertisementAwareService<AdvertisementDTO> advs, IService<Advertisement, AdvertisementDTO> myServ)
         {
             userService = us;
             advertService = advs;
             service = myServ;
-            service._mapper = new MyAdvertisementMapper();
+            service._mapper = new AdvertisementMapper();
         }      
 
         /// <summary>

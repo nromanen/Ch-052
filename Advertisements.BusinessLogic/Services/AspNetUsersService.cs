@@ -10,10 +10,11 @@ namespace Advertisements.BusinessLogic.Services
     public class AspNetUsersService : IUserService<AspNetUsersDTO>
     {
         private readonly IUOWFactory _uowfactory;
-
+        private readonly BaseMapper _mapper;
         public AspNetUsersService(IUOWFactory uowfactory)
         {
             _uowfactory = uowfactory;
+            _mapper = new AspNetUserMapper();
         }
 
         public void Create(AspNetUsersDTO item)
@@ -24,7 +25,7 @@ namespace Advertisements.BusinessLogic.Services
             {
                 var repo = uow.GetRepo<ApplicationUser>();
 
-                ApplicationUser = AspNetUsersMapper.CreateAspNetUsers().Map(item);
+                ApplicationUser = _mapper.Map(item) as ApplicationUser;
 
                 repo.Create(ApplicationUser);
             }
@@ -50,28 +51,30 @@ namespace Advertisements.BusinessLogic.Services
                 var repo = uow.GetRepo<ApplicationUser>();
                 ApplicationUser = repo.Get(id);
             }
-            AspNetUsersDTO dto = AspNetUsersMapper.CreateAspNetUsersDTO().Map(ApplicationUser);
-            return dto;
+            return _mapper.Map(ApplicationUser) as AspNetUsersDTO;
         }
 
         public IEnumerable<AspNetUsersDTO> GetAll()
         {
-            IEnumerable<ApplicationUser> categories;
-
+            IEnumerable<ApplicationUser> appUsers;
+            List<AspNetUsersDTO> usersDtos = new List<AspNetUsersDTO>();
             using (var uow = _uowfactory.CreateUnitOfWork())
             {
                 var repo = uow.GetRepo<ApplicationUser>();
 
-                categories = repo.GetAll();
+                appUsers = repo.GetAll();
             }
-            IEnumerable<AspNetUsersDTO> dtos = AspNetUsersMapper.CreateListAspNetUsersDTO().Map(categories).ToList();
+            foreach (var element in appUsers)
+            {
+                usersDtos.Add(_mapper.Map(element) as AspNetUsersDTO);
+            }
 
-            return dtos;
+            return usersDtos;
         }
 
         public void Update(AspNetUsersDTO item)
         {
-            ApplicationUser ApplicationUser = AspNetUsersMapper.CreateAspNetUsers().Map(item);
+            ApplicationUser ApplicationUser = _mapper.Map(item) as ApplicationUser;
 
             using (var uow = _uowfactory.CreateUnitOfWork())
             {

@@ -5,63 +5,57 @@ using System.Text;
 using System.Threading.Tasks;
 using Advertisements.DataAccess.Entities;
 using Advertisements.DTO.Models;
-using EmitMapper;
-using EmitMapper.MappingConfiguration;
 
 namespace Advertisements.BusinessLogic.Mapper
 {
-    public class AdvertisementMapper
+    public class AdvertisementMapper : BaseMapper
     {
-        public static ObjectsMapper<AdvertisementDTO, Advertisement> CreateAdvertisement()
+        private BaseMapper _resourceMapper = new ResourceMapper();
+        protected override IDTO GetDTO(IEntity input)
         {
-            var mapper = ObjectMapperManager.DefaultInstance.GetMapper<AdvertisementDTO, Advertisement>(new DefaultMapConfig().
-                ConvertUsing((AdvertisementDTO source) => new Advertisement
-                {
-                    Id = source.Id,
-                    Title = source.Title,
-                    Description = source.Description,
-                    Price = source.Price,
-                    Resources = ResourceMapper.CreateListResource().Map(source.Resources ?? new List<ResourceDTO>()).ToList(),
-                    ApplicationUserId = source.ApplicationUserId,
-                    TypeId = source.TypeId,
-                    CategoryId = source.CategoryId
-                }));
-
-            return mapper;
+            var entity = input as Advertisement;
+            var resources = _resourceMapper.MapCollection(entity.Resources);
+            List<ResourceDTO> temp = new List<ResourceDTO>();
+            foreach (var element in resources)
+            {
+                temp.Add(element as ResourceDTO);
+            }
+            return new AdvertisementDTO
+            {
+                ApplicationUserId = entity.ApplicationUserId,
+                Id = entity.Id,
+                CategoryId = entity.CategoryId,
+                Description = entity.Description,
+                Price = entity.Price,
+                Resources = temp,
+                Title = entity.Title,
+                TypeId = entity.TypeId
+            };
         }
 
-        public static ObjectsMapper<IEnumerable<AdvertisementDTO>, IEnumerable<Advertisement>> CreateListAdvertisement()
+        protected override IEntity GetEntity(IDTO input)
         {
-            var mapper = ObjectMapperManager.DefaultInstance.GetMapper<IEnumerable<AdvertisementDTO>, IEnumerable<Advertisement>>(new DefaultMapConfig().
-                ConvertUsing<IEnumerable<AdvertisementDTO>, IEnumerable<Advertisement>>(a => a.Select(CreateAdvertisement().Map)));
-
-            return mapper;
-        }
-
-        public static ObjectsMapper<Advertisement, AdvertisementDTO> CreateAdvertisementDTO()
-        {
-            var mapper = ObjectMapperManager.DefaultInstance.GetMapper<Advertisement, AdvertisementDTO>(new DefaultMapConfig().
-                ConvertUsing((Advertisement source) => new AdvertisementDTO
-                {
-                    Id = source.Id,
-                    Title = source.Title,
-                    Description = source.Description,
-                    Price = source.Price,
-                    Resources = ResourceMapper.CreateListResourceDTO().Map(source.Resources ?? new List<Resource>()).ToList(),
-                    ApplicationUserId = source.ApplicationUserId,
-                    TypeId = source.TypeId,
-                    CategoryId = source.CategoryId
-                }));
-
-            return mapper;
-        }
-
-        public static ObjectsMapper<IEnumerable<Advertisement>, IEnumerable<AdvertisementDTO>> CreateListAdvertisementDTO()
-        {
-            var mapper = ObjectMapperManager.DefaultInstance.GetMapper<IEnumerable<Advertisement>, IEnumerable<AdvertisementDTO>>(new DefaultMapConfig().
-                ConvertUsing<IEnumerable<Advertisement>, IEnumerable<AdvertisementDTO>>(a => a.Select(CreateAdvertisementDTO().Map)));
-
-            return mapper;
+            var dto = input as AdvertisementDTO;
+            var resources = _resourceMapper.MapCollection(dto.Resources);
+            List<Resource> resultResources = new List<Resource>();
+            foreach (var element in resources)
+            {
+                var res = element as Resource;
+                res.AdvertisementId = dto.Id;
+                resultResources.Add(res);
+            }           
+            return new Advertisement
+            {
+                ApplicationUserId = dto.ApplicationUserId,
+                Id = dto.Id,
+                CategoryId = dto.CategoryId,
+                Description = dto.Description,
+                Price = dto.Price,
+                Resources = resultResources,
+                Title = dto.Title,
+                TypeId = dto.TypeId
+                
+            };
         }
     }
 }

@@ -10,12 +10,12 @@ namespace Advertisements.Web.Controllers
     [RoutePrefix("api/category")]
     public class CategoryController : ApiController
     {
-        IMyService<Category,CategoryDTO> service;
+        IService<Category,CategoryDTO> service;
 
-        public CategoryController(IMyService<Category, CategoryDTO> s)
+        public CategoryController(IService<Category, CategoryDTO> s)
         {
             service = s;
-            service._mapper = new MyCategoryMapper();
+            service._mapper = new CategoryMapper();
         }
 
         [AllowAnonymous]

@@ -7,22 +7,30 @@ using Advertisements.DataAccess.Entities;
 using Advertisements.DTO.Models;
 namespace Advertisements.BusinessLogic.Mapper
 {
-    public class MyAdvertisementUserMapper : MyBaseMapper
+    public class AspNetUserMapper : BaseMapper
     {
         protected override IDTO GetDTO(IEntity input)
         {
             var entity = input as ApplicationUser;
 
-            return new AdvertisementUsersDTO
+            return new AspNetUsersDTO
             {
                 Id = entity.Id,
+                Email = entity.Email,
                 UserName = entity.UserName
             };
         }
 
         protected override IEntity GetEntity(IDTO dto)
         {
-            throw new NotImplementedException();
+            var aspNetUserDTO = dto as AspNetUsersDTO;
+
+            return new ApplicationUser
+            {
+                Id = aspNetUserDTO.Id,
+                Email = aspNetUserDTO.Email,
+                UserName = aspNetUserDTO.UserName
+            };
         }
     }
 }

@@ -13,7 +13,7 @@ using System.Linq.Expressions;
 namespace Advertisements.BusinessLogic.Services
 {    
 
-    public interface IMyService<TSource, TTarget> where TSource:class where TTarget: class
+    public interface IService<TSource, TTarget> where TSource:class where TTarget: class
     { 
         IEnumerable<TTarget> GetAll(params Expression<Func<TSource, object>>[] includeExpressions);
         TTarget Get(int id, params Expression<Func<TSource, object>>[] includeExpressions);
@@ -22,7 +22,7 @@ namespace Advertisements.BusinessLogic.Services
         void Update(TTarget item);
         void Delete(int id);
         void Delete(string id);
-        MyBaseMapper _mapper { get; set; }
+        BaseMapper _mapper { get; set; }
     }
 
     public interface IUserAwareService<T> where T : class

@@ -5,43 +5,33 @@ using System.Text;
 using System.Threading.Tasks;
 using Advertisements.DataAccess.Entities;
 using Advertisements.DTO.Models;
-using EmitMapper;
-using EmitMapper.MappingConfiguration;
-
 namespace Advertisements.BusinessLogic.Mapper
 {
-    public class ResourceMapper
+    public class ResourceMapper : BaseMapper
     {
-        public static ObjectsMapper<ResourceDTO, Resource> CreateResource()
+        protected override IDTO GetDTO(IEntity input)
         {
-            var mapper = ObjectMapperManager.DefaultInstance.GetMapper<ResourceDTO, Resource>(new DefaultMapConfig().
-                ConvertUsing((ResourceDTO source) => new Resource { Id = source.Id, Url = source.Url, AdvertisementId = source.AdvertisementId}));
+            var entity = input as Resource;
 
-            return mapper;
+            return new ResourceDTO
+            {
+                Id = entity.Id,
+                AdvertisementId = entity.AdvertisementId,
+                Url = entity.Url
+            };
         }
 
-        public static ObjectsMapper<IEnumerable<ResourceDTO>, IEnumerable<Resource>> CreateListResource()
+        protected override IEntity GetEntity(IDTO input)
         {
-            var mapper = ObjectMapperManager.DefaultInstance.GetMapper<IEnumerable<ResourceDTO>, IEnumerable<Resource>>(new DefaultMapConfig().
-                ConvertUsing<IEnumerable<ResourceDTO>, IEnumerable<Resource>>(a => a.Select(CreateResource().Map)));
+            var dto = input as ResourceDTO;
 
-            return mapper;
-        }
-
-        public static ObjectsMapper<Resource, ResourceDTO> CreateResourceDTO()
-        {
-            var mapper = ObjectMapperManager.DefaultInstance.GetMapper<Resource, ResourceDTO>(new DefaultMapConfig().
-                ConvertUsing((Resource source) => new ResourceDTO { Id = source.Id, Url = source.Url, AdvertisementId = source.AdvertisementId }));
-
-            return mapper;
-        }
-
-        public static ObjectsMapper<IEnumerable<Resource>, IEnumerable<ResourceDTO>> CreateListResourceDTO()
-        {
-            var mapper = ObjectMapperManager.DefaultInstance.GetMapper<IEnumerable<Resource>, IEnumerable<ResourceDTO>>(new DefaultMapConfig().
-                ConvertUsing<IEnumerable<Resource>, IEnumerable<ResourceDTO>>(a => a.Select(CreateResourceDTO().Map)));
-
-            return mapper;
+            return new Resource
+            {
+                Id = dto.Id,
+                AdvertisementId = dto.AdvertisementId,
+                Url = dto.Url,
+                IsDeleted = false
+            };
         }
     }
 }

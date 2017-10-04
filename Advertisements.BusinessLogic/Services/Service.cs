@@ -12,10 +12,10 @@ using System.Linq.Expressions;
 
 namespace Advertisements.BusinessLogic.Services
 {
-    public class MyService<TSource,TTarget>: IMyService<TSource, TTarget> where TSource: class,IEntity where TTarget: class, IDTO
+    public class MyService<TSource,TTarget>: IService<TSource, TTarget> where TSource: class,IEntity where TTarget: class, IDTO
     {
         private IUOWFactory _factory;
-        public MyBaseMapper _mapper { get; set; }
+        public BaseMapper _mapper { get; set; }
         public MyService(IUOWFactory factory)
         {
             _factory = factory;
@@ -67,7 +67,7 @@ namespace Advertisements.BusinessLogic.Services
             }
         }
 
-        TTarget IMyService<TSource, TTarget>.Get(int id, params Expression<Func<TSource, object>>[] includeExpressions)
+        TTarget IService<TSource, TTarget>.Get(int id, params Expression<Func<TSource, object>>[] includeExpressions)
         {
             using (var uow = _factory.CreateUnitOfWork())
             {
@@ -77,7 +77,7 @@ namespace Advertisements.BusinessLogic.Services
             }
         }
 
-        TTarget IMyService<TSource, TTarget>.Get(string id, params Expression<Func<TSource, object>>[] includeExpressions)
+        TTarget IService<TSource, TTarget>.Get(string id, params Expression<Func<TSource, object>>[] includeExpressions)
         {
             using (var uow = _factory.CreateUnitOfWork())
             {
@@ -87,7 +87,7 @@ namespace Advertisements.BusinessLogic.Services
             }
         }
 
-        IEnumerable<TTarget> IMyService<TSource, TTarget>.GetAll(params Expression<Func<TSource, object>>[] includeExpressions)
+        IEnumerable<TTarget> IService<TSource, TTarget>.GetAll(params Expression<Func<TSource, object>>[] includeExpressions)
         {
             using (var uow = _factory.CreateUnitOfWork())
             {

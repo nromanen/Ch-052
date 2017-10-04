@@ -1,45 +1,35 @@
-﻿using Advertisements.DataAccess.Entities;
-using Advertisements.DTO.Models;
-using EmitMapper;
-using EmitMapper.MappingConfiguration;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using System.Text;
+using System.Threading.Tasks;
+using Advertisements.DataAccess.Entities;
+using Advertisements.DTO.Models;
 namespace Advertisements.BusinessLogic.Mapper
 {
-    public static class CategoryMapper
+    public class CategoryMapper : BaseMapper
     {
-
-        public static ObjectsMapper<CategoryDTO, Category> CreateCategory()
+        protected override IDTO GetDTO(IEntity input)
         {
-            var mapper = ObjectMapperManager.DefaultInstance.GetMapper<CategoryDTO, Category>(new DefaultMapConfig().
-                ConvertUsing((CategoryDTO source) => new Category { Id = source.Id, Name = source.Name }));
+            var entity = input as Category;
 
-            return mapper;
+            return new CategoryDTO
+            {
+                Id = entity.Id,
+                Name = entity.Name
+            };
         }
 
-        public static ObjectsMapper<IEnumerable<CategoryDTO>, IEnumerable<Category>> CreateListCategory()
+        protected override IEntity GetEntity(IDTO dto)
         {
-            var mapper = ObjectMapperManager.DefaultInstance.GetMapper<IEnumerable<CategoryDTO>, IEnumerable<Category>>(new DefaultMapConfig().
-                ConvertUsing<IEnumerable<CategoryDTO>, IEnumerable<Category>>(a=>a.Select(CreateCategory().Map)));
+            var categoryDTO = dto as CategoryDTO;
 
-            return mapper;
-        }
-
-        public static ObjectsMapper<Category, CategoryDTO> CreateCategoryDTO()
-        {
-            var mapper = ObjectMapperManager.DefaultInstance.GetMapper<Category, CategoryDTO>(new DefaultMapConfig().
-                ConvertUsing((Category source) => new CategoryDTO { Id = source.Id, Name = source.Name }));
-
-            return mapper;
-        }
-
-        public static ObjectsMapper<IEnumerable<Category>, IEnumerable<CategoryDTO>> CreateListCategoryDTO()
-        {
-            var mapper = ObjectMapperManager.DefaultInstance.GetMapper<IEnumerable<Category>, IEnumerable<CategoryDTO>>(new DefaultMapConfig().
-                ConvertUsing<IEnumerable<Category>, IEnumerable<CategoryDTO>>(a=>a.Select(CreateCategoryDTO().Map)));
-
-            return mapper;
+            return new Category
+            {
+                Id = categoryDTO.Id,
+                Name = categoryDTO.Name,
+                IsDeleted = false
+            };
         }
     }
 }

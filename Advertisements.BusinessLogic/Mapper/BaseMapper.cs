@@ -7,7 +7,7 @@ using Advertisements.DataAccess.Entities;
 using Advertisements.DTO.Models;
 namespace Advertisements.BusinessLogic.Mapper
 {
-    public abstract class MyBaseMapper : IMappingProvider
+    public abstract class BaseMapper : IMappingProvider
     {
         public IEntity Map(IDTO input)
         {

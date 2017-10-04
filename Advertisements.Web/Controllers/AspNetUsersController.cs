@@ -17,11 +17,11 @@ namespace Advertisements.Web.Controllers
     [RoutePrefix("api/AspNetUsers")]
     public class AspNetUsersController : ApiController
     {
-        IMyService<ApplicationUser, AspNetUsersDTO> service;
-        public AspNetUsersController(IMyService<ApplicationUser, AspNetUsersDTO> s)
+        IService<ApplicationUser, AspNetUsersDTO> service;
+        public AspNetUsersController(IService<ApplicationUser, AspNetUsersDTO> s)
         {
             service = s;
-            service._mapper = new MyAspNetUserMapper();
+            service._mapper = new AspNetUserMapper();
         }
 
         [Authorize]

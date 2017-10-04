@@ -34,7 +34,9 @@ export class StartComponent implements OnInit{
     private categoryService: CategoryService,
     private usersService: UsersService,
     private pagerService: PagerService
-  ) { }
+  ) { 
+    this.CurrentPageSize = 2;    
+  }
   title: string = 'Advertisements';
 
   private isDataLoaded: boolean = false;
@@ -44,7 +46,8 @@ export class StartComponent implements OnInit{
   private categories: Category[];
   private Users: AdvertisementsUserModel[];
   private AllAdvsCount: number;
-
+  private PageSizes: number[];
+  private CurrentPageSize: number;
   pager: any = {};
 
   public setPage(page: number) {
@@ -52,12 +55,13 @@ export class StartComponent implements OnInit{
         return;
     }
 
-    this.pager = this.pagerService.getPager(this.AllAdvsCount, page, 2);
+    this.pager = this.pagerService.getPager(this.AllAdvsCount, page, this.CurrentPageSize);
     
     this.getAdvertisements();
 }
 
   ngOnInit(): void {
+    this.PageSizes = [2, 3, 5, 10];
     this.getAdvertisementsCount();
     //this.setPage(1);
     this.getUsers();
@@ -97,6 +101,14 @@ export class StartComponent implements OnInit{
     else
       return "unknown";
  } 
+
+ private SetSize(size: number): void
+ {
+   if(size == this.CurrentPageSize)
+    return;
+  this.CurrentPageSize = size;
+  this.setPage(this.pager.currentPage);
+ }
 
   
 

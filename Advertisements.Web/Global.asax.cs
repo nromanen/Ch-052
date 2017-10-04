@@ -36,13 +36,13 @@ namespace Advertisements.Web
             container.Register(typeof(IAdvertisementAwareService<AdvertisementDTO>), typeof(AdvertisementService));
             container.Register(typeof(IUserService<AdvertisementUsersDTO>), typeof(AdvertisementUsersService));
 
-            container.Register(typeof(IMyService<Advertisement, AdvertisementDTO>), typeof(MyService<Advertisement, AdvertisementDTO>));
-            container.Register(typeof(IMyService<Resource, ResourceDTO>), typeof(MyService<Resource, ResourceDTO>));
-            container.Register(typeof(IMyService<ApplicationUser, AdvertisementUsersDTO>), typeof(MyService<ApplicationUser, AdvertisementUsersDTO>));
-            container.Register(typeof(IMyService<Category, CategoryDTO>), typeof(MyService<Category, CategoryDTO>));
-            container.Register(typeof(IMyService<AdvertisementType, TypeDTO>), typeof(MyService<AdvertisementType, TypeDTO>));
-            container.Register(typeof(IMyService<Feedback, FeedbackDTO>), typeof(MyService<Feedback, FeedbackDTO>));
-            container.Register(typeof(IMyService<ApplicationUser, AspNetUsersDTO>), typeof(MyService<ApplicationUser, AspNetUsersDTO>));
+            container.Register(typeof(IService<Advertisement, AdvertisementDTO>), typeof(MyService<Advertisement, AdvertisementDTO>));
+            container.Register(typeof(IService<Resource, ResourceDTO>), typeof(MyService<Resource, ResourceDTO>));
+            container.Register(typeof(IService<ApplicationUser, AdvertisementUsersDTO>), typeof(MyService<ApplicationUser, AdvertisementUsersDTO>));
+            container.Register(typeof(IService<Category, CategoryDTO>), typeof(MyService<Category, CategoryDTO>));
+            container.Register(typeof(IService<AdvertisementType, TypeDTO>), typeof(MyService<AdvertisementType, TypeDTO>));
+            container.Register(typeof(IService<Feedback, FeedbackDTO>), typeof(MyService<Feedback, FeedbackDTO>));
+            container.Register(typeof(IService<ApplicationUser, AspNetUsersDTO>), typeof(MyService<ApplicationUser, AspNetUsersDTO>));
 
             DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(container));
             GlobalConfiguration.Configuration.DependencyResolver = new SimpleInjectorWebApiDependencyResolver(container);

@@ -20,14 +20,14 @@ namespace Advertisements.Web.Controllers
     [RoutePrefix("api/Feedback")]
     public class FeedbackController : ApiController
     {
-        IMyService<Feedback,FeedbackDTO> service;
+        IService<Feedback,FeedbackDTO> service;
         IUserService<AspNetUsersDTO> userService;
         IFeedbackAwareService<FeedbackDTO> feedbackService;
 
-        public FeedbackController(IMyService<Feedback, FeedbackDTO> s, IUserService<AspNetUsersDTO> us, IFeedbackAwareService<FeedbackDTO> fs)
+        public FeedbackController(IService<Feedback, FeedbackDTO> s, IUserService<AspNetUsersDTO> us, IFeedbackAwareService<FeedbackDTO> fs)
         {
             service = s;
-            service._mapper = new MyFeedBackMapper();
+            service._mapper = new FeedBackMapper();
             userService = us;
             feedbackService = fs;
         }
